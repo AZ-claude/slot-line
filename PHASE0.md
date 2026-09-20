@@ -78,6 +78,24 @@ Windows版LINEへの専用アカウントのログインは完了し、通常の
 
 Windows内部DBの標準SQLite直読みによる取得は不成立だった。ただし、Windows GUI/UI Automationの実機確認とAndroid側の取得可能性比較が未完了なので、`Android = 操作` / `Windows = 取得・保存` または `Android = 操作＋取得` / `Windows = 制御＋保存` のどちらもまだ採用しない。
 
+## UI Automation / Accessibility PoC
+
+ユーザーの要求に従い、既存Task Schedulerタスクを変更せず、現在ログイン中の対話ユーザーでのみ動く一時タスクを作成してUIAを実行した。試験後に一時タスクとスクリプトは削除した。
+
+### Windows版LINE
+
+- LINEの単一プロセスを対象に、UIAのルートウィンドウ `AllInOneWindow` を取得できた。
+- 友だち一覧状態の1回の取得で56要素を列挙できた。
+- `LcText`、`LcImage`、`LcListView`、`LcButton`等の構造要素は見える。
+- 同じ取得で、要素の `Name`、`ValuePattern`、`TextPattern`、`LegacyIAccessiblePattern` は本文を返さなかった。
+- この試験時点ではAのトーク本文画面ではなく友だち一覧状態だったため、Aトークを開いた状態での再試験が必要。現時点でWindows UIA本文取得をPASSにはしない。
+
+### Android側
+
+- トーク一覧の `uiautomator dump` では、A「エムアンドエム溝口」とB「PIA町田」のテキスト要素および表示領域を取得できた。
+- A本文のUI階層取得を行う時点では端末が自動ロックされ、dumpはAndroid Systemのロック画面になった。A本文のUI階層取得は未確認。
+- OCRは使用していない。
+
 ## Windows側の準備調査
 
 2026-09-20に既存SSH設定から読み取り中心で確認した。
