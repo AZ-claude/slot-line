@@ -2,7 +2,7 @@
 
 ## この記録について
 
-- 実施日: 2026-09-20 (Asia/Tokyo)
+- 実施日: 2026-09-20〜2026-09-21 (Asia/Tokyo)
 - 対象: 専用LINEアカウント、専用Android、Windows常時運用PC
 - 目的: Windows版LINEとAndroidの同一アカウント運用、ADB操作、A/B同期、RAW取得方式を実機で確認する
 - 方針: 実機で確認できない項目をPASSにしない。認証の自動突破は行わない。
@@ -18,9 +18,9 @@ Windows側では既存のTask Schedulerや起動設定を変更していない�
 
 ## 現時点の結論
 
-Phase 0 のうち、WindowsへのSSH接続、Windows側ツールの存在、ADBによるAndroid接続、画面ON、LINEパッケージ起動までは確認できた。
+Phase 0 のうち、WindowsへのSSH接続、Windows側ツールの存在、ADBによるAndroid接続、画面ON、LINEパッケージ起動、専用アカウントのWindows版LINEログイン、Aトークの両端末表示まで確認できた。
 
-Windows版LINEへの専用アカウントのログインは完了し、通常のトーク一覧が表示できることをユーザー確認済みである。Android側ではユーザーがA/Bの登録まで完了しているが、A/Bの同一トーク・メッセージ同期、ログイン耐性、RAW取得方式はまだ未確認である。
+Aの23:00本文については、Android `uiautomator` から本文・時刻・メッセージ行の構造データを取得できた。一方、Windows UI AutomationではAトークの構造要素は列挙できたが、本文・送信元・時刻の値は取得できなかった。Bのリッチメニュー操作、画像メッセージの機械取得、Windows再起動・プロセス再起動後のログイン耐性はまだ未確認である。
 
 `DESIGN.md` は `origin/main` から取得し、614行を全文確認済み。以後は同設計のPhase 0/Phase 1の境界と、YAGNI方針を正とする。
 
@@ -29,7 +29,7 @@ Windows版LINEへの専用アカウントのログインは完了し、通常の
 | 項目 | 結果 | 根拠・備考 |
 | --- | --- | --- |
 | `DESIGN.md` 全文確認 | 確認済み | `origin/main` の `04086c4` にある614行を確認した。 |
-| Windows版LINEのインストール | 部分確認 | `winget list --name LINE` でMicrosoft Store版 `8.3.0.3189` を確認。実GUI起動は未確認。 |
+| Windows版LINEのインストール | 確認済み | `winget list --name LINE` でMicrosoft Store版 `8.3.0.3189` を確認し、ログイン済みの `LINE.exe` 稼働も確認。 |
 | Chrome版ではなくデスクトップ版 | 確認済み | WindowsのLINEデスクトップアプリ登録とMicrosoft Store ID `XPFCC4CD725961` を確認。 |
 | 専用LINEアカウントのPCログイン | 確認済み | ユーザーがログインを完了し、Windows版LINEの通常トーク一覧を確認。LINEプロセスも稼働中。 |
 | 自動ログイン設定 | 未確認 | Windows版LINEのログイン画面を確認していない。 |
@@ -39,12 +39,12 @@ Windows版LINEへの専用アカウントのログインは完了し、通常の
 | Android版LINEのメイン端末利用 | 部分確認 | ユーザーがA/Bを登録済み。ADB確認時は端末がロック画面で、トーク一覧・ログイン状態を画面確認できていない。 |
 | USB debugging / ADB | 確認済み（現時点） | WindowsのADB 37.0.1でSO-41Bが状態 `device` として認識されている。再接続・再起動耐性は未確認。 |
 | 画面ON・LINE起動の安全なADB操作 | 確認済み（現時点） | `KEYCODE_WAKEUP` と `monkey -p jp.naver.line.android 1` を実行し、`mWakefulness=Awake` とLINE前面Activityを確認。 |
-| A: 通常配信のAndroid/Windows同期 | 未確認 | テキスト、画像、受信時刻、送信元を比較していない。 |
-| B: リッチメニューの表示と操作 | 未確認 | Android側でトークとリッチメニューを開いていない。 |
+| A: 通常配信のAndroid/Windows同期 | 部分確認 | Aトークは両端末で開ける。Androidでは本文・時刻・送信元を取得できたが、Windows UIAでは値を取得できず、4項目の完全照合は未確認。 |
+| B: リッチメニューの表示と操作 | 部分確認 | Android側でBトークとリッチメニュー表示は確認したが、対象ボタンはまだ押していない。 |
 | B: 操作結果のWindows同期 | 未確認 | 操作・同期試験を行っていない。 |
-| Windows側RAW取得 | 未確認 | 実機で機械取得の再現性を試していない。 |
-| Android側RAW取得 | 未確認 | ADB/UI階層/画面キャプチャによる取得を試していない。 |
-| RAW取得方式 | 未決定 | 実機比較が完了するまで採用しない。 |
+| Windows側RAW取得 | 未合格 | AトークのUIA構造は取得できるが、本文・送信元・時刻・画像ファイル対応が値として露出しない。内部DBのSQLite直読みにも失敗。 |
+| Android側RAW取得 | Aのテキストについて確認済み | `uiautomator dump` から本文、`23:00`、メッセージ行境界を取得。画像添付の元ファイル取得は未確認。 |
+| RAW取得方式 | 暫定候補 | A本文の実機根拠では `Android = 操作＋取得`、`Windows = 制御＋保存` を最小候補とする。Bの操作返信と画像取得を確認するまで全体の最終確定はしない。 |
 
 ## 追加実機調査: ログイン後
 
@@ -59,12 +59,12 @@ Windows版LINEへの専用アカウントのログインは完了し、通常の
 - `Cache` 配下には拡張子のないハッシュ名ファイルが多数ある。画像・本文・送信元・受信時刻との対応付けはまだ確認できず、キャッシュ直読みによるRAW方式は採用していない。
 - GUIの画面要素はSSHセッションから安定して取得できていない。Windowsの対話デスクトップ上でのGUI/UI Automation確認が必要である。
 
-### Android側
+### Android側（初回状態確認）
 
 - ユーザーが登録した対象はA（エムアンドエム溝口）とB（PIA町田）の2件だけである。
 - A/Bのトーク一覧・配信内容を確認する時点で、端末はロック画面だった。ロック解除は自動化せず、ユーザー操作に任せる。
 - ADBで画面起動とLINE起動は再度成立したが、ロック画面のためメッセージ内容・送信元・時刻・リッチメニューは未確認である。
-- Aの通常配信がAndroid/Windows双方に届いたことは未確認。Bの手動リッチメニュー操作と返信同期も未確認。
+- 初回のロック状態では、Aの通常配信がAndroid/Windows双方に届いたことは未確認。Bの手動リッチメニュー操作と返信同期も未確認。
 
 その後、ユーザーがAndroidをロック解除してLINEのトーク一覧を表示した状態で、UI階層からA/Bの表示領域を特定して読み取り確認した。
 
@@ -74,27 +74,37 @@ Windows版LINEへの専用アカウントのログインは完了し、通常の
 - Bのトークは表示確認のために開いたが、リッチメニューのボタンは押していない。Bの操作要求結果は未確認のままである。
 - Windows側で同じメッセージの本文・画像・時刻・送信元を画面または取得データとして照合する作業は未完了である。
 
-### RAW方式の暫定判定
+### RAW方式の暫定判定（A本文試験前）
 
-Windows内部DBの標準SQLite直読みによる取得は不成立だった。ただし、Windows GUI/UI Automationの実機確認とAndroid側の取得可能性比較が未完了なので、`Android = 操作` / `Windows = 取得・保存` または `Android = 操作＋取得` / `Windows = 制御＋保存` のどちらもまだ採用しない。
+Windows内部DBの標準SQLite直読みによる取得は不成立だった。A本文のUI Automation確認とAndroid側の取得可能性比較前だったため、この時点では `Android = 操作` / `Windows = 取得・保存` または `Android = 操作＋取得` / `Windows = 制御＋保存` のどちらも採用しなかった。その後のA本文試験の判定は下記に記録する。
 
 ## UI Automation / Accessibility PoC
 
 ユーザーの要求に従い、既存Task Schedulerタスクを変更せず、現在ログイン中の対話ユーザーでのみ動く一時タスクを作成してUIAを実行した。試験後に一時タスクとスクリプトは削除した。
 
-### Windows版LINE
+### Windows版LINE（Aトークを開いた状態）
 
-- LINEの単一プロセスを対象に、UIAのルートウィンドウ `AllInOneWindow` を取得できた。
-- 友だち一覧状態の1回の取得で56要素を列挙できた。
-- `LcText`、`LcImage`、`LcListView`、`LcButton`等の構造要素は見える。
-- 同じ取得で、要素の `Name`、`ValuePattern`、`TextPattern`、`LegacyIAccessiblePattern` は本文を返さなかった。
-- この試験時点ではAのトーク本文画面ではなく友だち一覧状態だったため、Aトークを開いた状態での再試験が必要。現時点でWindows UIA本文取得をPASSにはしない。
+- 現在ログイン中の対話セッションでだけ動く一時Task Schedulerタスクを作成し、LINEのUIAルート `AllInOneWindow` 以下84要素を列挙できた。既存タスクは変更せず、試験後に一時タスクとスクリプトを削除した。
+- `AllInOneChatPanel`、`ChatMessagePanel`、`ChatMessageView`、`LcText`、`LcImage` など、トーク本文・画像に相当し得る構造クラスは見える。
+- しかし、列挙したAトークの要素では、ルートのウィンドウ名 `LINE` 以外の `Name`、`ValuePattern`、`TextPattern` の値が空だった。Aの本文、`23:00`、送信元名は取得できなかった。
+- `LcImage` も構造要素として1件見えたが、受信画像のファイルパス・メッセージ対応・画像データは取得できなかった。
+- よって、Windows UI AutomationによるA本文の構造取得は未合格。GUI座標、手動コピー、OCRによる代替は採用しない。
 
-### Android側
+### Android側（Aトークを開いた状態）
 
-- トーク一覧の `uiautomator dump` では、A「エムアンドエム溝口」とB「PIA町田」のテキスト要素および表示領域を取得できた。
-- A本文のUI階層取得を行う時点では端末が自動ロックされ、dumpはAndroid Systemのロック画面になった。A本文のUI階層取得は未確認。
-- OCRは使用していない。
+- 一時的に `stay_on_while_plugged_in` を元の `0` から `2` に変更して試験し、終了後に `0` へ復元した。画面タップや送信操作は行っていない。
+- `uiautomator dump` はLINEのAトーク画面を取得し、76ノードを返した。OCR・スクリーンショット読取りは使用していない。
+- `android.widget.TextView` / `jp.naver.line.android:id/chat_ui_message_text` に、Aの実際の23:00メッセージ本文が複数行テキストとして露出した。親の `chat_ui_row_text_message` にも同じ本文が `content-desc` として露出した。
+- `android.widget.TextView` / `jp.naver.line.android:id/chat_ui_row_timestamp` から `23:00` を取得できた。
+- `chat_ui_row_text_message` の1つの親行（bounds `[81,233][910,532]`）と、その子の本文ノード（bounds `[81,244][910,517]`）が得られ、メッセージ単位の境界を特定できた。送信元はヘッダー `jp.naver.line.android:id/header_title` の `エムアンドエム溝口` として取得できた。
+- 今回のAメッセージはテキスト配信で、同じメッセージ行内に画像添付ノードはなかった。見えた `chat_ui_row_thumbnail` は公式アカウントのプロフィール画像であり、本文メッセージの添付画像との対応はこのA実験では判定できない。Bの画像メッセージは、A試験完了までは操作しない方針のため未確認。
+- よって、Android `uiautomator` によるAの本文・時刻・メッセージ境界の構造取得は確認済み。画像の元ファイル取得と画像メッセージへの対応は未確認。
+
+### A本文試験時点のRAW方式判定
+
+- Windowsは内部 `.edb` を標準SQLiteとして読めず、UIAでも本文値を取得できなかったため、Windowsを本文RAW取得係にする根拠は得られなかった。
+- AndroidはA本文・時刻・行境界を `uiautomator` から取得できたため、現段階の最小候補は `Android = 操作＋取得`、`Windows = 制御＋保存` とする。
+- これはAのテキストに対する暫定候補であり、Bの手動操作・ADB単発操作、B返信の同期、画像メッセージの元データ取得を確認するまで、Phase 0全体のRAW方式を最終確定しない。
 
 ## Windows側の準備調査
 
@@ -224,7 +234,7 @@ adb shell monkey -p <確認済みのLINEパッケージ名> 1
 
 Windows方式が上記を満たさない場合の候補構成は `Android = 操作＋取得`、`Windows = 制御＋保存` とする。
 
-今回の実機ログイン・同期・取得試験未実施状態では、どちらの方式も合格していないため、採用方式は未決定である。
+A本文の試験ではAndroid側のテキスト取得が確認済み、Windows側は未合格となった。Bの操作返信と画像メッセージの元データ取得が未確認のため、Phase 0全体の採用方式はまだ最終確定しない。
 
 ## ログイン耐性と検知の最小確認
 
