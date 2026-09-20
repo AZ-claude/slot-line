@@ -1,11 +1,14 @@
 # slot-line
 
-開発用リポジトリです。
+`slot-line` は、これから開発を始めるプロジェクトです。
 
-## 開発環境
+現在はリポジトリと開発の土台のみを用意しています。仕様・技術スタック・セットアップ手順は、開発の進行に合わせてこのREADMEに追記します。
 
-TODO: 使用する技術スタックとセットアップ手順を追記します。
+## Status
 
-## 開発
+🚧 Initial setup — development has not started yet.
 
-TODO: 開発・テスト・ビルドの手順を追記します。
+## Repository
+
+- Default branch: `main`
+- Issueや設計、使い方は今後ここに整理します
