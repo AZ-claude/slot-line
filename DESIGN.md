@@ -258,9 +258,10 @@ PoC段階では過剰実装しない。
 実機確認後の例:
 
 ```text
-store_a
+m_and_m_mizoguchi
   type: passive
   action: none
+  source: android_uiautomator
 
 pia_machida
   type: text_trigger
@@ -284,52 +285,47 @@ store_c
 
 ### 8.1 RAWに保存するもの
 
-最低限:
-
-- store_id
-- source
-- captured_at
-- received_at（取得可能なら）
-- trigger
-- original text
-- original image
-- message/order identifier
-- acquisition status
-- error details
-- collector version
-
-例:
-
-```json
-{
-  "store_id": "pia_machida",
-  "source": "official_line",
-  "captured_at": "2026-09-20T21:05:32+09:00",
-  "trigger": "text_trigger",
-  "text": "LINEで受信した元テキスト",
-  "images": [
-    "raw/2026-09-20/pia_machida/001.jpg"
-  ],
-  "status": "success"
-}
-```
-
-### 8.2 保存構造例
+WindowsをRAWの正本とし、Android通常ストレージは一時領域とする。保存単位は次の4ファイル/ディレクトリに固定する。
 
 ```text
 data/
   raw/
-    2026-09-20/
-      pia_machida/
+    YYYY-MM-DD/
+      <store_id>/
+        manifest.json
         messages.json
-        001.jpg
-        002.jpg
-      store_a/
-        messages.json
-        001.jpg
+        images/
+        ui/
 ```
 
-保存形式は実装時に変更可能だが、RAWを後から再解析できることを優先する。
+`manifest.json`は実行レコードの配列で、各レコードに最低限次を持つ。
+
+- `store_id`
+- `source`
+- `adapter_type`
+- `run_id`
+- `started_at`
+- `finished_at`
+- `trigger`
+- `status`
+- `errors`
+
+`messages.json`は同一店舗・同一日で重複排除したメッセージ配列とする。各メッセージに最低限次を持つ。
+
+- `message_type`
+- `line_display_time`
+- `observed_at`
+- `text`
+- `content_desc`
+- `image_filename`
+- `byte_size`
+- `sha256`
+
+`images/`にはLINE標準保存後に`adb pull`した原画像を保存する。`ui/`には取得を裏付ける最終`uiautomator` dumpを実行単位で保存し、常時大量保存はしない。
+
+### 8.2 保存構造例
+
+Windows側の`manifest.json`、`messages.json`、`images/`、`ui/`を正本とする。Windowsへのpull、byte size/SHA-256確認、manifest保存がすべて成功した後だけ、Android側の一時画像を削除する。削除失敗は取得失敗にせず、`errors`へ`cleanup_warning`として記録する。
 
 ---
 
@@ -420,9 +416,11 @@ PIA町田
 ```text
 受信
 ↓
-新着検出
+Android UI階層から既存メッセージ取得
 ↓
-RAW保存
+adb pull（画像がある場合）
+↓
+Windows canonical RAW保存
 ↓
 重複チェック
 ↓
@@ -455,15 +453,7 @@ RAW保存
 
 日次処理は再実行可能にする。
 
-同じ配信を二重保存しないため、以下の組み合わせから一意キーを作る想定。
-
-- store_id
-- message timestamp
-- normalized text hash
-- image hash
-- acquisition date
-
-完全なmessage IDが取得できる場合はそれを優先する。
+同じ画像のSHA-256が既存`images/`にある場合は新しいファイルを作らず、既存相対パスを再利用する。メッセージは画像SHA-256、またはmessage type・LINE表示時刻・text/content-descから作る安定キーで`messages.json`へupsertする。`manifest.json`も`run_id`単位でupsertし、同一実行の再試行で既存RAWを壊さない。ファイル書き込みは一時ファイルからatomic replaceする。
 
 ---
 
@@ -476,6 +466,11 @@ RAW保存
 - success
 - no_message
 - trigger_failed
+- android_unreachable
+- extraction_failed
+- image_save_failed
+- pull_failed
+- cleanup_warning
 - line_not_ready
 - android_unreachable
 - extraction_failed

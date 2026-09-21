@@ -686,3 +686,16 @@ Windows RAW保存
 Android本体再起動後は`lockscreen.disabled=0`、`password_quality=null`だった。PIN・パターン・パスワードは検出されていないが、キーガード表示と入力制限が残ったため、セキュア認証の有無を推測して自動解除しなかった。ユーザーが通常解除した後、送信なしでLINEを起動し、URL target/prefill確認まで成立した。
 
 この試験の結論は、通常操作と物理USB再接続は無人復旧できるが、Windows再起動は今回の実機状態ではユーザーによるWindows再起動が必要となり、Android本体再起動はキーガード解除に人間介入が必要となった。3試験すべての完全無人復旧PASSとはしない。
+
+## Windows canonical RAW schema実装（2026-09-22）
+
+取得方式の追加探索は行わず、既存の`Android取得 → adb pull → Windows保存`をWindows側の正本保存方式としてコード化した。
+
+- `scripts/raw_storage.py`を追加し、`data/raw/YYYY-MM-DD/<store_id>/`配下の`manifest.json`、`messages.json`、`images/`、`ui/`を管理する。
+- PIA町田`text_trigger`を新schemaへ移行した。manifestは`run_id`単位でupsertし、messagesは安定キーでupsertする。
+- 画像はWindows側でbyte size/SHA-256を計算し、同一SHA-256なら既存画像を再利用する。
+- UI dumpは`ui/<run_id>_reply.xml`等として保存する。
+- Windows保存、ハッシュ確認、manifest保存が完了した後だけAndroid一時画像を削除し、削除失敗は`cleanup_warning`として残す。
+- A「エムアンドエム溝口」向けに、送信を行わず既存受信メッセージを取得する`passive` adapterを追加した。
+
+ローカルの構文検証と一時ディレクトリによる画像SHA-256重複排除、messages upsert、manifest run_id upsertの検証はPASS。さらにWindows実機の一時配置でAを送信なしで1回実行し、`status=success`、メッセージ1件、UI dump保存、画像0件を確認した。実機のA表示は`rich_card`、LINE表示時刻`20:31`だった。実装後のPIA町田trigger liveはまだ再実行していないため、A/Bが新schemaで安定保存できたとはまだ判定しない。Task Scheduler本番登録、OCR、AI解析、slot連携、多店舗化は行っていない。

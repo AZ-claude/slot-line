@@ -16,7 +16,6 @@ is used.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import os
 import re
@@ -31,6 +30,8 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import quote
 from xml.etree import ElementTree
+
+from raw_storage import RawStorageError, RawStore
 
 
 STORE_ID = "pia_machida"
@@ -413,71 +414,14 @@ def save_image_from_line(ctx: AndroidContext, image_row: dict[str, Any], before_
     return new_files[-1]
 
 
-def sha256_and_size(path: Path) -> tuple[str, int]:
-    digest = hashlib.sha256()
-    size = 0
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-            size += len(chunk)
-    return digest.hexdigest(), size
-
-
-def next_response_name(raw_dir: Path) -> str:
-    number = 1
-    while (raw_dir / f"response_{number:03d}.jpg").exists():
-        number += 1
-    return f"response_{number:03d}.jpg"
-
-
-def load_manifest(path: Path) -> list[dict[str, Any]]:
-    if not path.exists():
-        return []
-    try:
-        loaded = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return []
-    if isinstance(loaded, list):
-        return [item for item in loaded if isinstance(item, dict)]
-    if isinstance(loaded, dict):
-        return [loaded]
-    return []
-
-
-def write_manifest(path: Path, records: list[dict[str, Any]]) -> None:
-    temp_path = path.with_name(f".{path.name}.{os.getpid()}.tmp")
-    temp_path.write_text(json.dumps(records, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    os.replace(temp_path, path)
-
-
-def persist_manifest(raw_dir: Path, record: dict[str, Any]) -> None:
-    raw_dir.mkdir(parents=True, exist_ok=True)
-    manifest_path = raw_dir / "manifest.json"
-    records = load_manifest(manifest_path)
-    records.append(record)
-    write_manifest(manifest_path, records)
-
-
-def pull_and_deduplicate(ctx: AndroidContext, android_path: str, raw_dir: Path, run_id: str) -> tuple[str, int, str, bool]:
-    raw_dir.mkdir(parents=True, exist_ok=True)
-    stage = raw_dir / f".response_{run_id}.jpg"
+def pull_image_to_stage(ctx: AndroidContext, android_path: str, raw_store: RawStore, run_id: str) -> Path:
+    stage = raw_store.stage_path(run_id, android_path)
     pulled = adb_run(ctx, ["pull", android_path, str(stage)], timeout=90, check=False)
     if pulled.returncode != 0 or not stage.exists():
-        try:
-            stage.unlink()
-        except FileNotFoundError:
-            pass
+        raw_store.cleanup_stage(stage)
         detail = (pulled.stderr or pulled.stdout).strip().replace("\r", " ").replace("\n", " ")
         raise PhaseError("pull_failed", detail[:300] or "adb_pull_failed")
-    digest, size = sha256_and_size(stage)
-    for existing in sorted(raw_dir.glob("response_*.jpg")):
-        existing_digest, _ = sha256_and_size(existing)
-        if existing_digest == digest:
-            stage.unlink()
-            return existing.name, size, digest, True
-    filename = next_response_name(raw_dir)
-    os.replace(stage, raw_dir / filename)
-    return filename, size, digest, False
+    return stage
 
 
 def ps_quote(value: str) -> str:
@@ -600,27 +544,30 @@ def restore_android(ctx: AndroidContext) -> None:
         adb_run(ctx, ["shell", "settings", "put", "global", STAY_ON_KEY, ctx.original_stay_on], timeout=15, check=False)
 
 
-def build_record() -> dict[str, Any]:
-    return {
-        "store_id": STORE_ID,
-        "source": SOURCE,
-        "adapter_type": ADAPTER_TYPE,
-        "trigger_text": TRIGGER_TEXT,
-        "trigger_mode": None,
-        "line_id": PIA_LINE_ID,
-        "triggered_at": None,
-        "received_at": None,
-        "image_filename": None,
-        "byte_size": None,
-        "sha256": None,
-        "acquisition_status": "trigger_failed",
-        "error": None,
-        "message_times": [],
-        "message_types": [],
-        "message_boundaries": [],
-        "structure_filename": None,
-        "deduplicated": False,
-    }
+def rows_to_messages(rows: list[dict[str, Any]], observed_at: str) -> list[dict[str, Any]]:
+    return [
+        {
+            "message_type": row.get("kind"),
+            "line_display_time": row.get("timestamp"),
+            "observed_at": observed_at,
+            "text": row.get("text") or [],
+            "content_desc": row.get("content_desc") or [],
+            "image_filename": None,
+            "byte_size": None,
+            "sha256": None,
+            "bounds": row.get("bounds"),
+            "image_bounds": row.get("image_bounds"),
+        }
+        for row in rows
+    ]
+
+
+def delete_android_image(ctx: AndroidContext, android_path: str) -> str | None:
+    result = adb_run(ctx, ["shell", "rm", "-f", android_path], timeout=30, check=False)
+    if result.returncode != 0:
+        detail = (result.stderr or result.stdout).strip().replace("\r", " ").replace("\n", " ")
+        return detail[:300] or "android_image_cleanup_failed"
+    return None
 
 
 def parse_args() -> argparse.Namespace:
@@ -639,12 +586,25 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     repo_root = args.repo_root.resolve()
-    raw_dir = repo_root / "data" / "raw" / datetime.now().strftime("%Y-%m-%d") / STORE_ID
+    raw_store = RawStore(repo_root, datetime.now().strftime("%Y-%m-%d"), STORE_ID, SOURCE, ADAPTER_TYPE)
+    raw_store.initialize()
     run_id = datetime.now().strftime("%H%M%S") + "-" + uuid.uuid4().hex[:8]
-    record = build_record()
+    started_at = utc_now()
+    record = raw_store.new_manifest_record(
+        run_id,
+        started_at,
+        {
+            "type": ADAPTER_TYPE,
+            "text": TRIGGER_TEXT,
+            "mode": args.trigger_mode,
+            "line_id": PIA_LINE_ID,
+        },
+    )
+    record["line_id"] = PIA_LINE_ID
     record["trigger_mode"] = args.trigger_mode
     android: AndroidContext | None = None
-    structure_path = raw_dir / "reply_uiautomator.xml"
+    android_image_path: str | None = None
+    storage_finalized = False
     try:
         android = discover_android()
         original = adb_run(android, ["shell", "settings", "get", "global", STAY_ON_KEY], timeout=15).stdout.strip()
@@ -671,38 +631,57 @@ def main() -> int:
         # Wait for the next rich-card + image message boundary exposed by
         # Android UIAutomator.
         new_rows, reply_raw = wait_for_reply(android, baseline, args.response_timeout)
-        raw_dir.mkdir(parents=True, exist_ok=True)
-        structure_path.write_bytes(reply_raw)
-        record["structure_filename"] = structure_path.name
-        record["received_at"] = utc_now()
-        record["message_times"] = [row.get("timestamp") for row in new_rows if row.get("timestamp")]
-        record["message_types"] = [row.get("kind") for row in new_rows]
-        record["message_boundaries"] = [row.get("bounds") for row in new_rows]
+        received_at = utc_now()
+        ui_filename = raw_store.save_ui_dump(reply_raw, run_id, "reply")
+        record["ui_filenames"] = [ui_filename]
+        record["received_at"] = received_at
 
         image_row = next((row for row in reversed(new_rows) if row.get("kind") == "image"), None)
         if image_row is None:
             raise PhaseError("extraction_failed", "reply_image_message_boundary_not_found")
         before_files = list_android_line_files(android)
-        android_path = save_image_from_line(android, image_row, before_files)
-        filename, size, digest, deduplicated = pull_and_deduplicate(android, android_path, raw_dir, run_id)
-        record["image_filename"] = filename
-        record["byte_size"] = size
-        record["sha256"] = digest
-        record["deduplicated"] = deduplicated
-        record["acquisition_status"] = "success"
+        android_image_path = save_image_from_line(android, image_row, before_files)
+        stage = pull_image_to_stage(android, android_image_path, raw_store, run_id)
+        image_info = raw_store.import_image(stage, android_image_path)
+        messages = rows_to_messages(new_rows, received_at)
+        image_message = next(message for message in messages if message["message_type"] == "image")
+        image_message.update(
+            {
+                "image_filename": image_info["image_filename"],
+                "byte_size": image_info["byte_size"],
+                "sha256": image_info["sha256"],
+            }
+        )
+        raw_store.merge_messages(messages)
+        record["image_count"] = 1
+        record["deduplicated_images"] = int(image_info["deduplicated"])
+        record["status"] = "success"
+        record["finished_at"] = utc_now()
+        raw_store.persist_manifest(record)
+        storage_finalized = True
+
+        cleanup_error = delete_android_image(android, android_image_path)
+        if cleanup_error:
+            record["errors"].append({"code": "cleanup_warning", "detail": cleanup_error})
+            raw_store.persist_manifest(record)
     except PhaseError as exc:
-        record["acquisition_status"] = exc.code
-        record["error"] = {"code": exc.code, "detail": exc.detail}
+        record["status"] = exc.code
+        record["errors"].append({"code": exc.code, "detail": exc.detail})
+    except RawStorageError as exc:
+        record["status"] = "extraction_failed"
+        record["errors"].append({"code": "raw_storage_failed", "detail": str(exc)})
     except Exception as exc:  # Keep the required status vocabulary for operators.
-        record["acquisition_status"] = "extraction_failed"
-        record["error"] = {"code": "extraction_failed", "detail": f"unexpected:{type(exc).__name__}:{exc}"}
+        record["status"] = "extraction_failed"
+        record["errors"].append({"code": "extraction_failed", "detail": f"unexpected:{type(exc).__name__}:{exc}"})
     finally:
         if android is not None:
             restore_android(android)
-        persist_manifest(raw_dir, record)
+        if not storage_finalized:
+            record["finished_at"] = utc_now()
+            raw_store.persist_manifest(record)
 
     print(json.dumps(record, ensure_ascii=False, indent=2))
-    return 0 if record["acquisition_status"] == "success" else 1
+    return 0 if record["status"] == "success" else 1
 
 
 if __name__ == "__main__":
