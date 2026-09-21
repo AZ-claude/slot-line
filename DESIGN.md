@@ -144,29 +144,34 @@ RAW保存
 
 対象は1アカウントのみ。
 
-例: リッチメニューの「毎日21時更新 最新情報」などを押すと情報が返る店舗。
+例: 指定文字列「最新情報」を送ると情報が返る店舗。リッチメニューに同じ文字列のボタンがある場合でも、まず文字列送信との等価性を確認する。
 
 #### 想定フロー
 
 ```text
 指定時刻
   ↓
-WindowsからAndroid操作
+Windows版LINEからtext_trigger送信
   ↓
-LINE起動
+公式LINE返信
   ↓
-対象トークを開く
+Android側でADB/UI Automatorにより返信検知
   ↓
-対象ボタンを押す
+本文・画像をRAW保存
   ↓
-返答を待つ
-  ↓
-返ってきた本文・画像をRAW保存
+画像はLINE標準保存 → adb pull → Windows保存
 ```
 
-最初は座標タップ等の最小構成で良い。
+リッチメニュー操作と文字列送信が等価でない店舗だけ、`android_ui_trigger` を採用する。座標タップは通常方式にしない。
 
-安定性が不足する場合のみ、UI Automator / Appium / Accessibility等へ段階的に移行する。
+PIA町田の実機確認後の暫定構成は次のとおり。
+
+```text
+Windows = text_trigger送信 + 制御 + RAW保存
+Android = 返信の構造取得 + LINE画像保存
+```
+
+Windows UI Automationは入力操作には使うが、返信本文の取得元とはしない。返信の構造取得と画像取得はAndroid側を正とする。
 
 ---
 
@@ -174,25 +179,21 @@ LINE起動
 
 ### 6.1 PoC
 
-まずはADBによるシンプルな操作を試す。
+まずはADBによる画面ON・LINE起動・返信検知を試す。店舗トリガーはWindows版LINEのtext_triggerを第一候補とする。
 
 想定:
 
 ```text
 画面ON
 ↓
-ロック解除（必要なら）
-↓
 LINE起動
 ↓
-対象トークへ移動
+返信到着をuiautomatorで検知
 ↓
-最新情報ボタンをタップ
-↓
-一定時間待機
-↓
-終了
+対象メッセージを構造取得
 ```
+
+通常運用でユーザーにロック解除・LINE起動・対象トーク表示・ボタン押下・文字入力を依頼しない。初回認証、OSのセキュアロック、RSA再認証、LINE再認証だけは人間操作の例外とする。
 
 ### 6.2 本運用時の改善候補
 
@@ -222,7 +223,15 @@ PoC段階では過剰実装しない。
 
 差分は店舗Adapterに閉じ込め、後段は共通処理にする。
 
-例:
+当面のAdapter分類は次の3種類に限定する。
+
+- `passive`: 操作不要で自動配信される。
+- `text_trigger`: 指定文字列を送信すると返信される。Windows版LINEからの送信を第一候補とする。
+- `android_ui_trigger`: テキスト送信等で代替できず、Android UI操作が本当に必要な場合だけ使う。
+
+新規店舗では、まずリッチメニュー操作と特定文字列送信が等価かを実機で確認する。等価なら `text_trigger` を採用し、`android_ui_trigger` や座標依存のリッチメニュー操作は採用しない。
+
+実機確認後の例:
 
 ```text
 store_a
@@ -230,20 +239,17 @@ store_a
   action: none
 
 pia_machida
-  type: rich_menu
-  run_after: "21:00"
-  action: tap_latest_info
+  type: text_trigger
+  action: send_text
+  text: "最新情報"
+  trigger_source: windows_line
+  reply_source: android_uiautomator
+  image_source: android_line_download
 
 store_c
-  type: keyword
-  action: send_text
-  text: "本日の情報"
-
-store_d
-  type: multi_step
-  action:
-    - tap_menu
-    - tap_submenu
+  type: android_ui_trigger
+  action: tap_menu
+  reason: text_trigger_not_equivalent
 ```
 
 将来パターンが増えても、Collectorや公開用変換ロジックへ店舗固有処理を混ぜない。
@@ -275,7 +281,7 @@ store_d
   "store_id": "pia_machida",
   "source": "official_line",
   "captured_at": "2026-09-20T21:05:32+09:00",
-  "trigger": "rich_menu",
+  "trigger": "text_trigger",
   "text": "LINEで受信した元テキスト",
   "images": [
     "raw/2026-09-20/pia_machida/001.jpg"
@@ -533,30 +539,25 @@ YAGNIのため、以下は初期対象外。
 
 ```text
 Phase 0
-専用LINE + Android + Windows版LINEを準備
+専用LINE + Android + Windows版LINEを準備し、実機で取得経路を確認
 
 Phase 1
-通常配信型1件のRAW取得
+単一アカウント・単一トークの最小E2E
+Windows text_trigger送信 → Android UI階層取得 → LINE標準画像保存 → adb pull → Windows RAW保存
 
 Phase 2
-Android ADB接続・手動コマンド操作確認
+text_triggerで代替できない店舗だけ、android_ui_triggerを追加
 
 Phase 3
-操作要求型1件の自動タップ
-
-Phase 4
-応答のRAW取得
-
-Phase 5
 共通RAW schemaへ統合
 
-Phase 6
+Phase 4
 再実行・重複防止・ログ
 
-Phase 7
+Phase 5
 RAW → 公開用JSON変換
 
-Phase 8
+Phase 6
 1週間連続E2E
 ```
 

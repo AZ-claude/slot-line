@@ -22,7 +22,7 @@ Phase 0 のうち、WindowsへのSSH接続、Windows側ツールの存在、ADB�
 
 Aの23:00本文については、Android `uiautomator` から本文・時刻・メッセージ行の構造データを取得できた。一方、Windows UI AutomationではAトークの構造要素は列挙できたが、本文・送信元・時刻の値は取得できなかった。Bは応答可能時間帯に再試験し、リッチメニュー押下と手入力 `最新情報` の返信構造・画像ハッシュが一致した。リッチメニュー個別要素は未露出だが、返信取得の観点ではリッチメニュー操作を廃止し、テキスト送信を第一候補にできる。
 
-Phase 0のデータ取得経路は実機で成立したため、Phase 0はデータ経路について完了扱いとする。ただし、応答可能時間帯の境界は未特定で、日本語テキストのADB自動入力も未成立である。無人本番運用・定期実行まで完了とはせず、時間条件の最小試験計画と入力手段を残課題として記録する。
+Phase 0のデータ取得経路は実機で成立したため、Phase 0はデータ経路について完了扱いとする。さらにPhase 1のPIA町田 `text_trigger` E2E（Windows送信→Android取得→画像保存→Windows RAW保存）を1回確認した。ただし、応答可能時間帯の境界は未特定であり、無人本番運用・定期実行まで完了とはしない。
 
 `DESIGN.md` は `origin/main` から取得し、614行を全文確認済み。以後は同設計のPhase 0/Phase 1の境界と、YAGNI方針を正とする。
 
@@ -46,8 +46,9 @@ Phase 0のデータ取得経路は実機で成立したため、Phase 0はデー
 | B: 操作結果のWindows同期 | 未確認 | 今回はAndroid側の返信比較に限定し、Windows UIAからの返信本文取得は行っていない。 |
 | Windows側RAW取得 | 未合格 | AトークのUIA構造は取得できるが、本文・送信元・時刻・画像ファイル対応が値として露出しない。内部DBのSQLite直読みにも失敗。 |
 | Android側RAW取得 | 確認済み | A本文に加え、B返信の画像をLINE標準ダウンロードで `/sdcard/Pictures/LINE` に保存し、Windowsへ `adb pull`。Android/WindowsのSHA-256一致を確認。 |
-| RAW取得方式 | 実機決定 | `Android = 操作＋取得`、`Windows = 制御＋保存`。ただし時間条件の境界と日本語テキスト自動入力は別の残課題。 |
-| Phase 0完了判定 | 完了扱い（データ経路） | A本文、B返信構造、画像RAWのWindows保存経路、PIA町田のリッチメニュー廃止候補を実機確認。時間帯境界・日本語自動入力・本番定期実行はPhase 0後の残課題。 |
+| RAW取得方式 | 実機決定 | `Android = 操作＋取得`、`Windows = 制御＋保存`。時間条件の境界とWindows送信経路の本番耐性は別の残課題。Android日本語入力は不要。 |
+| Phase 0完了判定 | 完了扱い（データ経路） | A本文、B返信構造、画像RAWのWindows保存経路、PIA町田のリッチメニュー廃止候補を実機確認。時間帯境界・Windows送信の本番耐性・定期実行はPhase 0後の残課題。 |
+| Phase 1 PIA町田E2E | 1回成立 | Windows UIA入力欄へ正しい `最新情報` を設定してEnter、Androidで12:28返信を構造取得、画像保存、Windows `adb pull`、SHA-256一致まで確認。 |
 
 ## 追加実機調査: ログイン後
 
@@ -164,14 +165,63 @@ Windows内部DBの標準SQLite直読みによる取得は不成立だった。A�
 #### PIA町田Adapterの最小候補
 
 - `最新情報` はリッチメニュー個別要素として露出せず、座標指定に依存する。一方、文字送信で同じ返信が得られたため、PIA町田Adapterではリッチメニュー座標タップを廃止候補とし、テキスト送信を第一候補とする。
-- `Android = 操作＋取得` として、Android上で `テキスト送信 → 返信のuiautomator取得 → 画像の標準ダウンロード → adb pull` まで同一端末中心に完結する方式を採用候補とする。Windows UIA本文取得が未合格であるため、Windowsだけで完結とは判定しない。
-- ADBの `input text "最新情報"` は日本語入力で `NullPointerException` となり未成立だった。今回の文字送信はユーザー手入力で成立したため、日本語入力の機械化は次の最小実装課題として残す。代替IME・貼り付け経路・本番タスク化はまだ実装しない。
+- PIA町田ではAndroidから日本語を入力せず、Windows版LINEから `最新情報` を送信する。Androidは返信の `uiautomator` 取得、LINE標準画像保存、`adb pull` を担当する。
+- Androidの `adb shell input text "最新情報"` は日本語入力で `NullPointerException` となったが、PIA町田の本番候補では不要と判断した。この問題は追跡しない。
 
 ### B再試験時点の判定
 
 - A本文の構造取得、B返信の構造取得、受信画像のAndroid通常ストレージ保存、Windowsへの `adb pull`、画像ハッシュ一致まで実機で成立した。
 - Bのリッチメニュー操作は、個別UI要素を取得できず座標依存だが、文字送信と同じ返信を返すため、収集経路としては不要と判断する。
-- RAW取得方式は `Android = 操作＋取得`、`Windows = 制御＋保存` に正式決定する。時間条件の境界と日本語テキスト自動入力は、Phase 0後の最小残課題として記録する。
+- RAW取得方式は `Android = 操作＋取得`、`Windows = 制御＋保存` に正式決定する。時間条件の境界とWindows送信経路の本番耐性は、Phase 0後の最小残課題として記録する。Android日本語入力問題は追わない。
+
+## Phase 0 / Phase 1運用方針の更新
+
+今回の実機結果に基づき、`DESIGN.md` の店舗Adapter分類と初期実装順を更新した。
+
+### Adapter分類
+
+- `passive`: 操作不要で通常配信を受ける。A「エムアンドエム溝口」をこの分類の確認対象とする。
+- `text_trigger`: 指定文字列を送信すると返信される。B「PIA町田」は `text_trigger`、文字列は `最新情報` とする。
+- `android_ui_trigger`: テキスト送信等で代替できない場合だけ採用する。現在、PIA町田には採用しない。
+
+新規店舗は、リッチメニュー操作と特定文字列送信の等価性を最初に確認し、等価なら座標依存のリッチメニュー操作を追加しない。
+
+### Phase 1のPIA町田最小E2E
+
+```text
+Windows版LINE
+  ↓ text_trigger: 「最新情報」をUIA ValuePatternで設定してEnter
+公式LINE返信
+  ↓ Android uiautomatorで検知・構造取得
+LINE標準ダウンロード
+  ↓ Android通常ストレージ
+adb pull
+  ↓
+Windows RAW保存
+```
+
+- Windows UIAは本文取得には使わず、入力欄へのプログラム送信だけに使う。Windows UIAから返信本文を取得できるとは判定しない。
+- Androidの日本語入力は不要であり、PIA町田のためにADB日本語入力問題を解決しない。
+- 今回の1回E2Eでは、Windows UIAの `AutoSuggestTextArea` にUnicodeコードポイントから構成した `最新情報` を設定し、Enterを送信した。Androidで12:28の返信を検知し、画像を `/sdcard/Pictures/LINE/1789961449058.jpg` へ保存、Windowsへpullした。
+- Windows保存先は `C:\Users\Public\slot-line-phase1-pia-text-trigger-raw.jpg`、サイズは `378170` bytes、Android側とSHA-256一致を確認した。
+- 最初の一時スクリプトはWindows PowerShellのソース文字コードにより文字化け送信になったため、正しいE2Eとは扱わない。ASCIIのコードポイント構成へ修正後、正しいコードポイント `U+6700 U+65B0 U+60C5 U+5831` を確認して再実行した。
+
+### Phase 1の範囲外
+
+- Androidリッチメニュー座標タップの本番化
+- Androidからの日本語入力方式の開発
+- OCR、AI解析、多店舗対応、Task Scheduler本番化
+- Windows UIAによる返信本文取得の再調査
+
+### Phase 1 PIA町田 Windows送信E2E実機結果
+
+- Windows版LINEの `AutoSuggestTextArea` をUI Automationで特定し、`ValuePattern` により入力欄へ設定できることを確認した。
+- 最初の一時スクリプトはWindows PowerShellのソース文字コード解釈により文字化けした文字列を送信した。これは失敗試験として記録し、E2E成功には含めない。
+- 修正版では日本語をソースへ直接書かず、ASCIIのUnicodeコードポイントから `U+6700 U+65B0 U+60C5 U+5831`（`最新情報`）を構成した。設定後のUIA `ValuePattern` readbackが一致し、Enterを送信した。人間操作、手動コピー、手動ペーストは行っていない。
+- Windows UIAは送信後のトーク本文を読み取れないため、送信済み本文の画面値をWindows側で再取得することは未成立。送信成功は、直前のUIA readbackとAndroid側の返信到着で確認した。
+- Android側では `PIA町田` の12:28返信を検知した。返信はリッチカード1件と画像1件で、画像は `jp.naver.line.android:id/chat_ui_row_image`、`content-desc="添付写真"`、メッセージ境界は `chat_ui_row_image_balloon_root`、時刻は `chat_ui_row_timestamp` の `12:28` だった。
+- 画像をLINE標準ダウンロードでAndroidの `/sdcard/Pictures/LINE/1789961449058.jpg` に保存し、Windowsの `C:\Users\Public\slot-line-phase1-pia-text-trigger-raw.jpg` へ `adb pull` した。サイズは `378170` bytes、Android/WindowsのSHA-256は `884D76B3B0AC86A511FC707F700C9E15C1A754307D2C708E25A735BDC3C304B2` で一致した。
+- 実行後はAndroidの一時スリープ抑制を元の `0` に戻し、一時Task Schedulerタスク・スクリプト・UIダンプを削除した。既存タスクは変更していない。
 
 ## Windows側の準備調査
 
@@ -260,7 +310,7 @@ adb shell monkey -p <確認済みのLINEパッケージ名> 1
 専用LINEアカウントへ、次の2件だけを人間が登録する。
 
 - A: 操作なしで通常配信が届く公式アカウント1件
-- B: 「最新情報」等のリッチメニュー操作で返信が届く公式アカウント1件
+- B: 指定文字列 `最新情報` の送信で返信が届く公式アカウント1件
 
 ### A: 通常配信
 
@@ -270,13 +320,30 @@ adb shell monkey -p <確認済みのLINEパッケージ名> 1
 4. 同じメッセージが、テキスト・画像・受信時刻・送信元の4項目で確認できるか記録する。
 5. LINEプロセス再起動後にも同じトークを開き、同じ結果になるか確認する。
 
-### B: リッチメニュー
+### B: text_trigger
 
-1. AndroidでBのトークを開く。
-2. リッチメニューが表示されることを確認する。
-3. まず手動で1回だけ対象領域を押し、返信メッセージを確認する。
-4. 座標が画面サイズ・表示状態に依存することを記録する。ADBでの1回の座標操作は、表示状態を人間が確認した後に限る。
-5. 返信メッセージがWindows版LINEにも同期するか、Aと同じ4項目で確認する。
+1. Windows版LINEでB「PIA町田」のトークを開く。
+2. UI Automationの入力欄へ指定文字列 `最新情報` をプログラム設定し、Enterで送信する。人間による入力・コピー・ペーストは使わない。
+3. AndroidはADBで画面ON・LINE起動・対象トーク表示を行い、`uiautomator dump` で返信の到着を検知する。
+4. 返信の本文・リッチカード・画像・時刻・メッセージ境界をAndroid UI階層から取得する。
+5. 画像がある場合はLINE標準ダウンロード、Android通常ストレージ特定、`adb pull`、Windows RAW保存までを行う。
+
+### B: android_ui_trigger（例外）
+
+text_triggerと等価でない場合だけ採用する。PIA町田では実機比較により等価だったため、この手順は適用しない。
+
+## 通常試験・運用時のAndroid操作規則
+
+通常の試験・運用では、ユーザーにAndroidのロック解除、LINE起動、対象トーク表示、リッチメニュー押下、文字入力を依頼しない。まずWindowsからADB/UIAutomatorで自動実行する。
+
+ユーザー操作を依頼してよいのは、次の場合だけとする。
+
+- LINE初回認証
+- Android再起動後にOSのセキュアロック解除が技術的に不可避な場合
+- USBデバッグのRSA再認証
+- LINE強制ログアウト後の再認証
+
+自動化方法が未実装であることだけを理由に、通常操作を人間へ戻さない。
 
 ## RAW取得方式の判定基準
 
@@ -301,7 +368,7 @@ adb shell monkey -p <確認済みのLINEパッケージ名> 1
 
 Windows方式が上記を満たさない場合の候補構成は `Android = 操作＋取得`、`Windows = 制御＋保存` とする。
 
-A本文のテキスト取得、B返信の構造取得、画像の通常ストレージ保存、Windowsへの `adb pull` は実機で確認済みである。Windows UIAは未合格のため、方式は `Android = 操作＋取得`、`Windows = 制御＋保存` に正式決定した。応答可能時間帯の境界と日本語テキスト自動入力は、無人本番化前の残課題である。
+A本文のテキスト取得、B返信の構造取得、画像の通常ストレージ保存、Windowsへの `adb pull` は実機で確認済みである。Windows UIAは本文取得では未合格だが、入力操作PoCは成立したため、方式は `Android = 操作＋取得`、`Windows = 制御＋保存` に正式決定した。応答可能時間帯の境界とWindows送信経路の本番耐性は、無人本番化前の残課題である。Android日本語入力はPIA町田の方式に含めない。
 
 ## ログイン耐性と検知の最小確認
 
@@ -323,15 +390,14 @@ A本文のテキスト取得、B返信の構造取得、画像の通常ストレ
 - 専用LINEアカウントの準備とA/B公式アカウントの友だち追加
 - Windows版LINEの初回ログイン、QR、生体認証、パスワード、認証番号の処理
 - AndroidのUSBデバッグとRSA許可
-- リッチメニューが表示されることの初回確認
-- 自動操作前の対象トーク・座標の確認
 - ログアウト・認証要求が発生した場合の再認証
 
 ### 実機成立後に自動化を検討
 
 - Windows起動後のLINEプロセス確認とログイン画面検知
 - ADBの接続状態確認、画面ON、LINE起動
-- 人間が確認済みの対象領域への単発操作
+- Windows版LINEへのプログラム送信とAndroid側の返信検知
+- LINE標準画像保存、`adb pull`、Windows RAW保存
 - 合格したRAW方式による小規模な保存と実行ログ
 - ログアウト検知時の通知
 
@@ -339,10 +405,11 @@ A本文のテキスト取得、B返信の構造取得、画像の通常ストレ
 
 実機で上記確認が完了した後に、`DESIGN.md` のPhase 1要件に沿って次のうち必要な最小部分だけを実装する。
 
-1. 選択したRAW取得方式の単一アカウント・単一トーク向け取得器
-2. ADB接続確認、画面ON、LINE起動の単純コマンド
-3. RAWファイルと実行ログのローカル保存
-4. ログアウト検知時の通知
+1. Windows `text_trigger` とAndroid返信取得を単一アカウント・単一トーク向けに固定する
+2. ADB接続確認、画面ON、LINE起動、対象トーク表示の単純コマンド
+3. LINE標準画像保存、RAWファイル、実行ログのローカル保存
+4. `android_ui_trigger` はtext_triggerで代替できない店舗だけ追加する
+5. ログアウト検知時の通知
 
 多店舗対応、OCR、AI画像解析、slot本体連携、Web公開、高度なAdapter、Appium等の大型フレームワーク、完璧な監視基盤はPhase 0の対象外とする。
 
