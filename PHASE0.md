@@ -24,6 +24,8 @@ Aの23:00本文については、Android `uiautomator` から本文・時刻・�
 
 Phase 0のデータ取得経路は実機で成立したため、Phase 0はデータ経路について完了扱いとする。さらにPhase 1のPIA町田 `text_trigger` E2E（Windows送信→Android取得→画像保存→Windows RAW保存）を1回確認した。ただし、応答可能時間帯の境界は未特定であり、無人本番運用・定期実行まで完了とはしない。
 
+追加のWindows-only取得調査（`linedesktopnvda`、`AppData\\Local\\LINE`、既存OSSを対象）でも、Windowsだけで返信本文・時刻・送信元・画像・RAW manifestまで完結する経路は成立しなかった。このため、PC-only PASSにはせず、`Android = trigger＋取得`、`Windows = 制御＋保存` を現行の正式構成として維持する。
+
 `DESIGN.md` は `origin/main` から取得し、614行を全文確認済み。以後は同設計のPhase 0/Phase 1の境界と、YAGNI方針を正とする。
 
 ## 確認結果
@@ -475,3 +477,100 @@ A本文のテキスト取得、B返信の構造取得、画像の通常ストレ
 - [LINEヘルプ: サブ端末でLINEのログイン／ログアウトに問題が発生している](https://help.line.me/line/?contentId=50001462&lang=ja)
 - [Android Developers: Run apps on a hardware device](https://developer.android.com/studio/run/device)
 - [Android Developers: Android Debug Bridge (adb)](https://developer.android.com/tools/adb)
+
+## Windows-only取得方式の追加調査（2026-09-21、1回限定）
+
+### 判定
+
+PCだけで次の全てを人間操作なしに完結する方式は、今回の実機・コード調査では成立しなかった。
+
+```text
+Windows = 送信 + 返信取得 + 画像取得 + RAW保存
+```
+
+したがって、Windows-only PASSにはしない。現在の正式構成は引き続き次とする。
+
+```text
+Windows = 制御 + 保存
+Android = trigger + 返信構造取得 + 画像取得
+```
+
+既存のAndroid方式と `scripts/run_pia_machida.py` は削除・縮小していない。今回の調査では新しい取得方式の実装やTask Scheduler登録も行っていない。
+
+### `keyang556/linedesktopnvda` のコード調査
+
+調査対象は、2026-09-19時点のupstreamコミット `d23d5a5922b766051a51af51a97fd91acc9b2349` である。
+
+#### OCRなしで成立している部分
+
+- LINEの「儲存聊天（チャット保存）」を起点に、Windowsの一時ファイルへチャット書き出しを保存する。
+- 保存ダイアログはWin32 APIで検出し、ファイル名を `SendMessageW`、保存ボタンを `BM_CLICK` で操作する。
+- 書き出されたUTF-8テキストを `_chatParser.py` が解析する。
+- パーサは日付、`HH:MM`、送信者名、本文、複数行継続を構造化する。該当コードは `_DATE_RE`、`_MSG_RE`、`parseChatFile()` で、出力要素は `type/name/content/time` である。
+
+この部分だけなら、本文・時刻・送信者をテキストとして取得できる可能性はある。ただし、LINE標準のチャット書き出しを対象トークから開始する必要があり、画像バイナリや画像メッセージの境界を同じ構造として返す実装ではない。
+
+#### OCRに依存する部分
+
+- 「儲存聊天」メニューの発見・行位置・クリック対象は `chatMoreOptions.py` が画面領域を `ocrGetText()` に渡して作る。
+- 画像メッセージの右クリックメニューと「另存新檔」「新增至相簿」等の画像操作候補は `messageContextMenu.py` がOCRで識別する。
+- 背景キャッシュは、書き出し済みテキストを保持する一方、現在フォーカス中の吹き出しとの照合にOCR文字列を使う。`_chatCache.py` の説明にも `OCR'd text` と明記されている。
+- UIAの `CurrentName`、`ValueValue`、`LegacyIAccessible`、子要素を試す実装はあるが、値が取れない場合はDisplay Model/OCRへfallbackする構成である。これは安定したメッセージAPIではない。
+
+結論として、同アドオンは「標準チャット書き出しのテキスト解析」というOCRなしの部品を持つが、画像を含むメッセージ単位の機械取得器ではない。Message ReaderをそのままRAW Collectorとして採用できない。
+
+#### 画像メッセージ
+
+同アドオンは画像用メニューが存在することで画像らしさを判定し、ユーザー向けの「Save As」操作を補助する。しかし、画像の元ファイル、送信元、時刻、メッセージ境界を1つの構造レコードとして返す処理はない。AI画像説明機能は外部API送信を含むため、今回のRAW方式候補から除外した。
+
+### Windows実機の `AppData\\Local\\LINE` 調査
+
+調査対象のLINEプロセスはWindows版 `26.4.2.3957`。既存プロセスを停止せず、既存Task Schedulerも変更せずに、ファイル一覧・サイズ・先頭バイトなどの読み取りだけを行った。
+
+追加確認時点でAndroidはADB状態 `device`。ユーザー希望により、USB接続中に画面をスリープさせない `stay_on_while_plugged_in=2` を維持している。今回のWindows-only調査ではこの設定を変更していない。
+
+- `Data\\db` には `qw...edb`、`album_...edb`、`chatStats_...edb`、`keep_...edb` と主データのWAL/SHMが存在した。
+- `.edb` の先頭はSQLiteの `SQLite format 3` ではなく、今回の実機では標準Python `sqlite3` の読み取り専用接続も `file is not a database` で失敗した。
+- `Data` 配下に通常の `.db`、`.sqlite`、`.sqlite3` のメッセージDBは見つからなかった。
+- `Cache` は416ファイル、合計約9.57MB。拡張子なしが383、`.eimg` が13、`.qmlc` が20だった。
+- 最近更新された拡張子なしファイルの先頭にはJPEG（`FF D8 FF E0 ... JFIF`）およびPNG（`89 50 4E 47 ...`）のシグネチャが実際にあった。したがってキャッシュに画像バイトが置かれること自体は確認できる。
+- しかし、ファイル名はハッシュ風で、今回の読み取り範囲ではPIA町田の返信、本文、送信元、時刻、メッセージ行との対応を機械的に確認できなかった。`.eimg` は一般画像の先頭シグネチャではなく、形式・対応付けも未確認である。
+
+既知のforensics研究では、LINE Windowsの`.edb`が暗号化DBであること、画像キャッシュに暗号化と実行時キーが関係することが報告されている。ただし、バージョン差の影響が大きく、キー抽出・メモリ解析・プロセス内部への介入は今回の安全範囲外である。認証情報の抜き出し、コードインジェクション、root相当の手法は実施していない。
+
+### 既存OSS・ツールの比較
+
+| 候補 | 実装方式 | 今回の採否 |
+| --- | --- | --- |
+| `keyang556/linedesktopnvda` | LINE標準チャット書き出し＋UTF-8パーサ。メニュー・画像判定・吹き出し照合にOCR | 本文の参考にはなるが、画像付き無人RAW Collectorとしては不採用 |
+| `dtwang/line-desktop-mcp` | MIT。WindowsはAutoHotkeyの座標クリックとCtrl+A/Cのクリップボード取得。履歴応答はテキストのみで、画像取得実装はない | 送信・テキスト補助の参考に留め、不採用。人間の選択操作を自動化しただけで、構造取得・画像RAWの合格条件を満たさない |
+| `curzer1995-777/line-local-mcp-user-key` | MIT。ユーザー提供キーで暗号化DBを読むmacOS専用の読み取りMCP。添付ファイルはダウンロードしない | Windows対象外。キー取得・抽出を行わない方針とも合わないため不採用 |
+| LINE Data Master等の製品 | WindowsローカルDB読取を謳うが、OSSではなく今回の再現可能なコード検証対象にできない | 製品導入を前提にしないため不採用 |
+
+外部送信の有無については、`linedesktopnvda`の通常のMessage Reader経路と`line-desktop-mcp`の標準stdio経路はローカルGUI操作・ローカル出力の実装だが、後者のHTTPモードはネットワーク公開設定を持ち、既知の認証リスクもある。いずれも本プロジェクトへ導入していない。AI画像説明や外部APIはRAW取得に使わない。
+
+### PC-only合格条件との照合
+
+| 条件 | 結果 | 根拠 |
+| --- | --- | --- |
+| PIA町田へ `最新情報` を送る | 既存のWindows UIA送信PoCは成立 | これは現在表示中トーク依存の既存fallbackであり、取得方式の合格を意味しない |
+| 返信を検知する | 未成立 | Windows側で対象返信を構造検知する経路は未確認 |
+| 本文・時刻・送信元を構造取得する | 未合格 | 実機UIAは要素構造のみで値が空。Message Readerの書き出しテキストは画像境界を含まない |
+| 画像メッセージと対応付ける | 未成立 | Cacheの画像バイトとメッセージメタデータを対応付ける根拠がない |
+| 元画像または同等品質を保存する | 部分確認のみ | CacheにJPEG/PNGシグネチャはあるが、対象返信との対応・安定取得を確認していない |
+| RAW manifestを生成する | 未成立 | Windows-onlyの構造取得に基づくmanifestは生成していない |
+
+1回限定の追加調査として、ここでWindows内部形式のreverse engineeringを打ち切る。GUIスクリーンショット＋OCR、現在開いているトークへの盲目的な送信、内部DBの鍵探索はPC-only PASSの代替にしない。
+
+### 正式方針と次の最小実装
+
+PC-onlyは不合格。既存のAndroid方式を正式な実運用候補として維持する。
+
+```text
+PIA町田 text_trigger
+  Windows: ADB制御、必要な送信制御、RAW保存
+  Android: 対象trigger、返信のuiautomator構造取得、LINE標準画像保存
+  Windows: adb pull、SHA-256/byte size、manifest保存
+```
+
+Android側のURL trigger実装とWindows UIA送信fallbackは残す。今回の結果を受けて、次の最小実装はWindows-only探索ではなく、既存Android経路の対象確認・ログイン状態検知・失敗状態の維持改善とする。Task Scheduler本番化、多店舗化、OCR、AI解析、slot連携はこの記録の範囲外であり、まだ開始しない。

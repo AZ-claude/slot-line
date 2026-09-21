@@ -169,15 +169,17 @@ oaMessage URL方式が実機で完全E2E成立しない場合は、Windows版LIN
 
 リッチメニュー操作と文字列送信が等価でない店舗だけ、`android_ui_trigger` を採用する。座標タップは通常方式にしない。
 
-PIA町田の実機確認後の暫定構成は次のとおり。oaMessage URL方式の対象選択・プリフィル・送信までは成立したが、応答可能時間外のため返信を含む完全E2Eは未PASSであり、正式採用は保留している。
+PIA町田の実機確認後の現行構成は次のとおり。oaMessage URL方式の対象選択・プリフィル・送信までは成立したが、応答可能時間外のため返信を含む完全E2Eは未PASSである。Windows-only取得方式の追加調査でも、Windows側で返信本文・時刻・送信元・画像境界・元画像を安定して対応付ける経路は成立しなかった。したがって、URLはAndroid側triggerを起動する制御候補として扱い、Windows-only取得方式は採用しない。
 
 ```text
-Windows = URL制御 + RAW保存（候補）
-Android = 対象選択 + trigger送信 + 返信構造取得 + LINE画像保存（候補）
-fallback: Windows UIA text_trigger送信
+Windows = ADB制御 + RAW保存
+Android = 対象選択 + trigger送信 + 返信構造取得 + LINE画像保存
+fallback: Windows UIA text_trigger送信（対象確認が別途成立する場合のみ）
 ```
 
 Windows UI Automationは入力操作には使うが、返信本文の取得元とはしない。返信の構造取得と画像取得はAndroid側を正とする。
+
+Windows-only取得の調査は1回で打ち切る。`linedesktopnvda` の標準チャット書き出しは本文・時刻・送信者の参考になるが、画像メッセージのバイナリと境界を同じ構造で返さない。`Data\\db\\*.edb` は標準SQLiteとして読めず、`Cache` の画像らしいファイルもメッセージメタデータとの対応が未成立である。よって、本設計ではWindows内部DBの復号、プロセス内部介入、OCRによる取得を前提にしない。
 
 ---
 
