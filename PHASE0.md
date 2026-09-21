@@ -617,4 +617,58 @@ Windows = 制御 + 保存
 Android = trigger + 返信構造取得 + LINE標準画像保存
 ```
 
-`scripts/run_pia_machida.py`、Android URL trigger、Android UIAutomator取得、LINE標準画像保存、`adb pull`はfallbackとして維持する。`DESIGN.md`の`text_trigger`優先、`android_ui_trigger`は代替不能時のみ、Windows UIAは送信補助であり返信本文の取得元にしない、という方針との矛盾はない。今回はPC-only方式の合格根拠が得られなかったため、設計変更は行わない。
+`scripts/run_pia_machida.py`、Android URL trigger、Android UIAutomator取得、LINE標準画像保存、`adb pull`は実運用候補として維持する。Windows UIA送信は対象確認済みの場合だけdebug/fallbackとし、返信本文の取得元にはしない。今回はPC-only方式の合格根拠が得られなかったため、設計変更は行わない。
+
+## Android専用収集端末の無人運用確認（2026-09-21）
+
+Windows-only方式の探索はコミット`b170762`で終了し、以後はAndroidをWindowsから制御する方式だけを対象にした。Windows版LINEの内部DB・Cache・UIA本文取得の再調査は行っていない。
+
+### 変更前の設定読み取り
+
+設定変更前に、Windowsの既存SSH設定・既存ホスト経由で運用機から実機を読み取った。
+
+| 項目 | 実機結果 | 判定 |
+| --- | --- | --- |
+| Android | Sony SO-41B / Android 13 | 確認済み |
+| 画面ロック | `lockscreen.disabled=0`、`password_quality=null`、Device Policy `passwordQuality=0x0`。PIN・パターン・パスワードは検出されなかった | 読み取り確認。再起動後の認証要否は未確認 |
+| USB debugging | `adb_enabled=1`、USB構成`mtp,adb` | 確認済み |
+| ADB RSA | 現在の`adb devices`が`device`状態。`unauthorized`ではない | 現在の認証は確認済み。物理再接続後の永続性は未確認 |
+| `stay_on_while_plugged_in` | `2` | 確認済み。変更なし |
+| LINEバッテリー制限 | LINEがDoze whitelistに存在し、明示的なバックグラウンド拒否は検出されなかった | 読み取り確認。設定変更なし |
+| ADB/LINE | LINEプロセス稼働、最終状態はADB`device` | 確認済み |
+
+`lockscreen.disabled=0`はキーガード機能が無効ではないことを示すため、PIN等が検出されないことだけから「本体再起動後も無人復旧できる」とは判定しない。本体再起動、ロック設定変更、RSA再認証は行っていない。
+
+### 送信なしの復旧PoC
+
+| 試験 | 実機結果 | 判定 |
+| --- | --- | --- |
+| ADBサーバー停止→起動 | `adb kill-server` / `start-server`後、再認証プロンプトなしで`device`へ復帰 | PASS（論理再接続） |
+| LINE強制終了→ADB起動 | `am force-stop jp.naver.line.android`後、`monkey -p jp.naver.line.android 1`で`MainActivity`前面、ADB`device` | PASS |
+| 画面OFF→ADB復帰 | `Asleep`→`Awake`を確認。セキュア資格情報なしの通常スワイプ式キーガードを標準ADBジェスチャーで閉じ、LINEをADB起動して`MainActivity`前面・`mInputRestricted=false` | PASS（今回の端末状態に限る） |
+
+画面OFF試験では人間操作、パスワード入力、ロック突破、スクリーンショット、OCRを使っていない。最終状態は`stay_on_while_plugged_in=2`、ADB`device`、LINE`MainActivity`前面だった。物理USB抜き差し、Android本体再起動、再起動後のセキュアロック解除要否は未確認であり、PASSにしていない。
+
+### 現行の無人運用方針
+
+```text
+Windowsジョブ開始
+  ↓
+ADB接続・Android状態確認
+  ↓
+LINE起動・対象公式アカウント確認
+  ↓
+Android LINE URLで「最新情報」をtrigger
+  ↓
+Android uiautomatorで返信を構造取得
+  ↓
+LINE標準操作で画像保存
+  ↓
+adb pull
+  ↓
+Windows RAW保存
+```
+
+通常日はAndroidに触れない。人間介入は、LINE初回認証、Android再起動後にセキュアロック解除が必要な場合、RSA再認証、LINE強制ログアウト後の再認証に限定する。ADBやUIAutomatorが失敗した場合は人間操作へフォールバックせず、失敗状態を記録して終了する。Windows版LINEは本番ランタイムから外し、対象確認済みのWindows UIA送信はdebug/fallbackとしてのみ残す。
+
+今回の確認では画面ロック方式・セキュリティ設定・既存Task Schedulerを変更していない。本体再起動後の完全無人復旧を確認するには、セキュアロック方針をユーザーが決めた後に、別試験として実施する。

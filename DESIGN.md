@@ -54,9 +54,9 @@ RAWは解析・再検証用の非公開ソースとして扱う。
 
 専用Android端末をLINE収集用として利用する。
 
-主な役割は、PC版LINEに同期された返信の構造取得と、LINE標準操作による画像保存である。文字列送信で代替できない場合だけ、リッチメニュー等のUI操作を行う。
+主な役割は、WindowsからADBで起動・対象指定されたLINE上でのtrigger送信、返信の構造取得、LINE標準操作による画像保存である。PIA町田ではリッチメニューではなく、AndroidのLINE URL schemeによる`text_trigger`を使う。文字列送信で代替できない場合だけ、リッチメニュー等のUI操作を行う。
 
-将来的にはADB等からWindows側で制御する。
+通常運用ではユーザーがAndroidを操作しない。ADB接続、LINE起動、対象確認、trigger、返信取得、画像保存をWindowsから制御する。
 
 ### 3.3 Windows
 
@@ -64,13 +64,13 @@ RAWは解析・再検証用の非公開ソースとして扱う。
 
 想定役割:
 
-- LINEデスクトップ版
-- Android制御・返信取得
+- ADBによるAndroid制御とtrigger実行
+- `adb pull`、RAW保存、取得ログ保存
 - 日次タスク実行
-- RAW保存
-- 取得ログ保存
 - 後段の解析・正規化
 - エラー検知
+
+Windows版LINEデスクトップは通常運用のランタイム依存にしない。必要な場合だけ、対象確認済みの送信debug/fallbackとして使う。
 
 Macは開発用とし、実運用・E2EはWindowsで確認する。
 
@@ -87,8 +87,8 @@ Macは開発用とし、実運用・E2EはWindowsで確認する。
                    │                       │
              通常配信型               操作要求型
                    │                       │
-                   │                 Windows text_trigger送信
-                   │                 （文字列で代替できない場合のみ
+                   │                 Android LINE URL text_trigger
+                   │                 （代替できない場合のみ
                    │                  Android UI trigger）
                    │                       │
                    └───────────┬───────────┘
@@ -169,10 +169,10 @@ oaMessage URL方式が実機で完全E2E成立しない場合は、Windows版LIN
 
 リッチメニュー操作と文字列送信が等価でない店舗だけ、`android_ui_trigger` を採用する。座標タップは通常方式にしない。
 
-PIA町田の実機確認後の現行構成は次のとおり。oaMessage URL方式の対象選択・プリフィル・送信までは成立したが、応答可能時間外のため返信を含む完全E2Eは未PASSである。Windows-only取得方式の追加調査でも、Windows側で返信本文・時刻・送信元・画像境界・元画像を安定して対応付ける経路は成立しなかった。したがって、URLはAndroid側triggerを起動する制御候補として扱い、Windows-only取得方式は採用しない。
+PIA町田の実機確認では、Windows UIA送信による返信の構造取得、画像保存、`adb pull`、RAW manifest生成までの最小E2Eを1回成立させた。また、oaMessage URL方式では対象選択・プリフィル・送信までを実機確認した。URL方式の返信を含む完全E2Eはこの更新では再試験していない。Windows-only取得方式の追加調査でも、Windows側で返信本文・時刻・送信元・画像境界・元画像を安定して対応付ける経路は成立しなかった。したがって、Windows版LINEは本番ランタイムから外し、Android URL方式を本番候補の第一候補とする。
 
 ```text
-Windows = ADB制御 + RAW保存
+Windows = ADB制御 + pull + RAW保存
 Android = 対象選択 + trigger送信 + 返信構造取得 + LINE画像保存
 fallback: Windows UIA text_trigger送信（対象確認が別途成立する場合のみ）
 ```
@@ -187,7 +187,7 @@ Windows-only取得の調査は1回で打ち切る。`linedesktopnvda` の標準�
 
 ### 6.1 PoC
 
-まずはADBによる画面ON・LINE起動・返信検知を試す。店舗トリガーはWindows版LINEのtext_triggerを第一候補とする。
+まずはADBによる端末確認、画面ON、LINE起動、返信検知を試す。店舗トリガーはAndroidのLINE URL schemeによる`text_trigger`を第一候補とし、Windows版LINEは本番経路に含めない。
 
 想定:
 
@@ -203,7 +203,20 @@ LINE起動
 
 通常運用でユーザーにロック解除・LINE起動・対象トーク表示・ボタン押下・文字入力を依頼しない。初回認証、OSのセキュアロック、RSA再認証、LINE再認証だけは人間操作の例外とする。
 
-### 6.2 本運用時の改善候補
+### 6.2 無人復旧の実機確認（2026-09-21）
+
+設定変更なしで、Windowsから次を確認した。
+
+- ADBサーバーの停止・起動後、RSA再認証なしで`device`へ復帰した（論理再接続）。
+- LINEを`force-stop`してADBから起動し、`MainActivity`前面・ADB`device`を確認した。
+- 画面OFF後、ADBのWAKEUPで`Asleep`から`Awake`へ戻した。
+- 復帰時の通常スワイプ式キーガードをADBの標準ジェスチャーで閉じ、LINEを再起動して前面へ戻した。読み取り上はPIN・パターン・パスワードが設定されていないため、セキュア認証の突破は行っていない。
+
+未確認のためPASSにしないものは、Android本体再起動後の認証要否、物理USB抜き差し後のADB自動復帰、物理再接続後のRSA永続性である。本体再起動、画面ロック方式変更、既存タスク変更は行っていない。`stay_on_while_plugged_in=2`は変更せず、LINEはDoze whitelistに存在した。
+
+通常運用は「Windowsジョブ開始 → ADB確認 → LINE起動 → Android URL trigger → Android構造取得・画像保存 → `adb pull` → Windows RAW保存」とする。セキュアロックが有効な端末では、再起動後の解除が必要になった時点だけ人間介入とし、ロック突破は行わない。
+
+### 6.3 本運用時の改善候補
 
 座標固定は以下で壊れる可能性がある。
 
@@ -234,7 +247,7 @@ PoC段階では過剰実装しない。
 当面のAdapter分類は次の3種類に限定する。
 
 - `passive`: 操作不要で自動配信される。
-- `text_trigger`: 指定文字列を送信すると返信される。Windows版LINEからの送信を第一候補とする。
+- `text_trigger`: 指定文字列を送信すると返信される。AndroidのLINE URL schemeからの送信を第一候補とし、Windows版LINE UIA送信はdebug/fallbackに限定する。
 - `android_ui_trigger`: テキスト送信等で代替できず、Android UI操作が本当に必要な場合だけ使う。
 
 新規店舗では、まずリッチメニュー操作と特定文字列送信が等価かを実機で確認する。等価なら `text_trigger` を採用し、`android_ui_trigger` や座標依存のリッチメニュー操作は採用しない。
@@ -250,7 +263,7 @@ pia_machida
   type: text_trigger
   action: send_text
   text: "最新情報"
-  trigger_source: windows_line
+  trigger_source: android_line_url
   reply_source: android_uiautomator
   image_source: android_line_download
 
@@ -502,6 +515,8 @@ RAW保存
 - 前日未取得分を検知できる
 - 同一日の再実行で重複しない
 
+Windows版LINEのログイン状態は本番経路の前提にしない。Android本体の再起動耐性は別管理とし、セキュアロック解除が必要になる可能性を人間介入条件として扱う。2026-09-21時点ではWindows再起動、Android本体再起動、物理USB再接続は未確認である。
+
 ---
 
 ## 17. PoCの合格条件
@@ -551,7 +566,7 @@ Phase 0
 
 Phase 1
 単一アカウント・単一トークの最小E2E
-Windows text_trigger送信 → Android UI階層取得 → LINE標準画像保存 → adb pull → Windows RAW保存
+Windows ADB制御 → Android LINE URL text_trigger → Android UI階層取得 → LINE標準画像保存 → adb pull → Windows RAW保存
 
 Phase 2
 text_triggerで代替できない店舗だけ、android_ui_triggerを追加
@@ -614,7 +629,10 @@ slot-lineは「LINE収集・変換」に責務を限定し、slot本体の表示
 - 専用サブLINEを使用する。
 - メインLINEは収集用途に使わない。
 - Windows常時運用PCを中心にする。
-- Androidは返信の構造取得とLINE標準画像保存に使う。リッチメニュー等のUI操作は、text_triggerで代替できない場合だけ使う。
+- Windows版LINEは本番ランタイム依存にしない。WindowsはADB制御・`adb pull`・RAW保存を担う。
+- Androidは対象指定、trigger、返信の構造取得、LINE標準画像保存を担う。リッチメニュー等のUI操作は、text_triggerで代替できない場合だけ使う。
+- PIA町田はAndroid LINE URLの`text_trigger`を第一候補とし、Windows UIA送信は対象確認済みの場合だけdebug/fallbackにする。
+- 通常日はAndroidを人間が操作しない。初回認証、セキュアロック解除、RSA再認証、LINE再認証だけを例外的な人間作業とする。
 - 最初は通常配信型1件 + 操作要求型1件だけ。
 - 店舗差分はAdapterとして隔離する。
 - RAWを先に保存し、後から公開用データへ変換する。
