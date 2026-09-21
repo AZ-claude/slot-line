@@ -672,3 +672,17 @@ Windows RAW保存
 通常日はAndroidに触れない。人間介入は、LINE初回認証、Android再起動後にセキュアロック解除が必要な場合、RSA再認証、LINE強制ログアウト後の再認証に限定する。ADBやUIAutomatorが失敗した場合は人間操作へフォールバックせず、失敗状態を記録して終了する。Windows版LINEは本番ランタイムから外し、対象確認済みのWindows UIA送信はdebug/fallbackとしてのみ残す。
 
 今回の確認では画面ロック方式・セキュリティ設定・既存Task Schedulerを変更していない。本体再起動後の完全無人復旧を確認するには、セキュアロック方針をユーザーが決めた後に、別試験として実施する。
+
+## 再起動・再接続耐性の実機確認（2026-09-21）
+
+この試験ではPIA町田へ新しいメッセージを送信していない。復旧確認は、ADB接続、LINE起動、oaMessage URL起動、ヘッダーと入力欄のUI階層確認までとし、送信ボタンは押していない。
+
+| 試験 | ADB復帰 / RSA | LINE起動 | PIA町田・`最新情報` | 人間操作 | 判定 |
+| --- | --- | --- | --- | --- | --- |
+| 物理USB抜き差し | `device`へ復帰。RSA再認証なし | 成立 | ヘッダー`PIA町田`、入力欄`最新情報`を完全一致確認 | ケーブル抜き差しのみ。画面操作なし | PASS。機械確認は9.1秒、物理抜き差し時間は未計測 |
+| Windows再起動 | 自動再起動後はSSH・pingが復帰せず、ユーザーがWindowsを再起動。再起動後はADB`device`、RSA再認証なし | 成立 | ユーザー再起動後にヘッダーとプリフィルを完全一致確認 | Windows再起動に人間介入あり | **human_intervention_required**。ユーザー再起動後の確認処理は20.5秒 |
+| Android本体再起動 | 約98秒後に`device`へ復帰。`unauthorized`ではない | 未実施 | 未確認 | `NotificationShade`、`mInputRestricted=true`のため自動解除せず停止 | **human_intervention_required** |
+
+Android本体再起動後は`lockscreen.disabled=0`、`password_quality=null`だった。PIN・パターン・パスワードは検出されていないが、キーガード表示と入力制限が残ったため、セキュア認証の有無を推測して自動解除しなかった。ユーザーによる通常のロック解除後にのみ、送信なしのLINE起動・URL target/prefill確認を再開する。
+
+この試験の結論は、通常操作と物理USB再接続は無人復旧できるが、Windows再起動は今回の実機状態ではユーザーによる再起動が必要となり、Android本体再起動はキーガード解除待ちである。3試験すべての完全無人復旧PASSとはしない。
