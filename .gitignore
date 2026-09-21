@@ -27,3 +27,8 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
+
+# Phase 1 RAW binary/evidence artifacts stay on the operation machine.
+scripts/__pycache__/
+data/raw/**/response_*.jpg
+data/raw/**/reply_uiautomator.xml

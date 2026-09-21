@@ -203,7 +203,7 @@ Windows RAW保存
 - Windows UIAは本文取得には使わず、入力欄へのプログラム送信だけに使う。Windows UIAから返信本文を取得できるとは判定しない。
 - Androidの日本語入力は不要であり、PIA町田のためにADB日本語入力問題を解決しない。
 - 今回の1回E2Eでは、Windows UIAの `AutoSuggestTextArea` にUnicodeコードポイントから構成した `最新情報` を設定し、Enterを送信した。Androidで12:28の返信を検知し、画像を `/sdcard/Pictures/LINE/1789961449058.jpg` へ保存、Windowsへpullした。
-- Windows保存先は `C:\Users\Public\slot-line-phase1-pia-text-trigger-raw.jpg`、サイズは `378170` bytes、Android側とSHA-256一致を確認した。
+- この手動構成の保存先は `C:\Users\Public\slot-line-phase1-pia-text-trigger-raw.jpg`、サイズは `378170` bytes、Android側とSHA-256一致を確認した。これは方式確認用の一時保存であり、本実装の保存先にはしない。
 - 最初の一時スクリプトはWindows PowerShellのソース文字コードにより文字化け送信になったため、正しいE2Eとは扱わない。ASCIIのコードポイント構成へ修正後、正しいコードポイント `U+6700 U+65B0 U+60C5 U+5831` を確認して再実行した。
 
 ### Phase 1の範囲外
@@ -222,6 +222,40 @@ Windows RAW保存
 - Android側では `PIA町田` の12:28返信を検知した。返信はリッチカード1件と画像1件で、画像は `jp.naver.line.android:id/chat_ui_row_image`、`content-desc="添付写真"`、メッセージ境界は `chat_ui_row_image_balloon_root`、時刻は `chat_ui_row_timestamp` の `12:28` だった。
 - 画像をLINE標準ダウンロードでAndroidの `/sdcard/Pictures/LINE/1789961449058.jpg` に保存し、Windowsの `C:\Users\Public\slot-line-phase1-pia-text-trigger-raw.jpg` へ `adb pull` した。サイズは `378170` bytes、Android/WindowsのSHA-256は `884D76B3B0AC86A511FC707F700C9E15C1A754307D2C708E25A735BDC3C304B2` で一致した。
 - 実行後はAndroidの一時スリープ抑制を元の `0` に戻し、一時Task Schedulerタスク・スクリプト・UIダンプを削除した。既存タスクは変更していない。
+
+### Phase 1最小実装の固定とLive E2E
+
+実機で成功した方式だけを `scripts/run_pia_machida.py` に固定した。対象はPIA町田1店舗のみで、リッチメニュー操作・Android日本語入力・Windows本文取得は実装していない。
+
+```text
+Android baseline取得
+  ↓
+Windows UIA ValuePatternで「最新情報」を設定してEnter
+  ↓
+Android LINE起動・PIA町田トーク表示
+  ↓
+uiautomatorで新しいrich_card + image行を検知
+  ↓
+LINE標準ダウンロード → /sdcard/Pictures/LINE
+  ↓
+adb pull → data/raw/YYYY-MM-DD/pia_machida/
+```
+
+2026-09-21、Windows運用機で実装後のLive E2Eを人間操作なしで1回実行し、`success` になった。
+
+- Windows UIAの一時対話タスクは、ASCIIのUnicodeコードポイントから `最新情報` を構成し、`ValuePattern` readback一致後にEnter送信した。
+- Androidでは12:44の返信をrich card 1件 + image 1件として取得し、メッセージ境界は `[0,155][720,806]` と `[0,822][720,1347]` だった。
+- LINE標準ダウンロード後にAndroidの `/sdcard/Pictures/LINE` で新規ファイルを特定し、Windowsへ `adb pull` した。
+- リポジトリ設計のRAWは `data/raw/2026-09-21/pia_machida/response_001.jpg`、378170 bytes、SHA-256 `884d76b3b0ac86a511fc707f700c9e15c1a754307d2c708e25a735bdc3c304b2` として保存した。`manifest.json` には必須項目、返信時刻、メッセージ種別・境界、構造ダンプ名を記録している。
+- 同じ実装の最初の試行はADB出力をWindows既定CP932で読み取ったため `extraction_failed` になった。ADB subprocessのUTF-8置換読み取りへ修正後の1回だけをLive E2E成功とする。失敗記録も同日の `manifest.json` に残している。
+- 再実行重複防止は、pull後のSHA-256を同日 `response_*.jpg` と比較し、一致時は新しい画像ファイルを増やさない。
+- 実行後の一時Task Schedulerタスクは0件、Androidの `stay_on_while_plugged_in` は元の `0` に復元され、既存タスクは変更していない。
+
+### Phase 1の判定
+
+PIA町田について、`Windows = text_trigger送信 + Android制御 + RAW保存`、`Android = 返信構造取得 + LINE標準画像保存` の最小E2Eを1回再現できたため、Phase 1のPIA町田部分をPASSとする。ただし、Windows版LINEのPIA町田トークをUIAだけで選択・本人確認する処理は今回の成功手順に含めていないため、運用機では対象トークを表示した対話セッションを前提とする。対象トークを確認できないまま別トークへ送信しない追加ガードは、次の最小改善候補とする。
+
+次に進める作業は、応答可能時間帯の最小試験計画と、LINE再起動・Windows再起動後のログイン状態／ログアウト検知の確認である。多店舗化、Task Scheduler本番登録、OCR、AI解析、slot連携はまだ行わない。
 
 ## Windows側の準備調査
 

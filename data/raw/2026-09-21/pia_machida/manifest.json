@@ -1,0 +1,50 @@
+[
+  {
+    "store_id": "pia_machida",
+    "source": "official_line",
+    "adapter_type": "text_trigger",
+    "trigger_text": "最新情報",
+    "triggered_at": null,
+    "received_at": null,
+    "image_filename": null,
+    "byte_size": null,
+    "sha256": null,
+    "acquisition_status": "extraction_failed",
+    "error": {
+      "code": "extraction_failed",
+      "detail": "unexpected:AttributeError:'NoneType' object has no attribute 'encode'"
+    },
+    "message_times": [],
+    "message_types": [],
+    "message_boundaries": [],
+    "structure_filename": null,
+    "deduplicated": false
+  },
+  {
+    "store_id": "pia_machida",
+    "source": "official_line",
+    "adapter_type": "text_trigger",
+    "trigger_text": "最新情報",
+    "triggered_at": "2026-09-21T03:44:52.9895140+00:00",
+    "received_at": "2026-09-21T03:45:00.056409+00:00",
+    "image_filename": "response_001.jpg",
+    "byte_size": 378170,
+    "sha256": "884d76b3b0ac86a511fc707f700c9e15c1a754307d2c708e25a735bdc3c304b2",
+    "acquisition_status": "success",
+    "error": null,
+    "message_times": [
+      "12:44",
+      "12:44"
+    ],
+    "message_types": [
+      "rich_card",
+      "image"
+    ],
+    "message_boundaries": [
+      "[0,155][720,806]",
+      "[0,822][720,1347]"
+    ],
+    "structure_filename": "reply_uiautomator.xml",
+    "deduplicated": false
+  }
+]
