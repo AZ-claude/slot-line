@@ -37,11 +37,11 @@ Phase 0のデータ取得経路は実機で成立したため、Phase 0はデー
 | Chrome版ではなくデスクトップ版 | 確認済み | WindowsのLINEデスクトップアプリ登録とMicrosoft Store ID `XPFCC4CD725961` を確認。 |
 | 専用LINEアカウントのPCログイン | 確認済み | ユーザーがログインを完了し、Windows版LINEの通常トーク一覧を確認。LINEプロセスも稼働中。 |
 | 自動ログイン設定 | 未確認 | Windows版LINEのログイン画面を確認していない。 |
-| Windows再起動後の復帰 | 未確認 | 再起動試験を行っていない。 |
-| LINEプロセス再起動後の復帰 | 未確認 | プロセス試験を行っていない。 |
+| Windows再起動後の復帰 | human_intervention_required | 自動再起動後はWindowsが復帰せず、ユーザー再起動後にADB・URL target/prefillを確認。 |
+| LINEプロセス再起動後の復帰 | 確認済み | `force-stop`後にADBからLINEを起動し、`MainActivity`前面を確認。 |
 | ログアウト状態の検知 | 未確認 | 状態表示・プロセス・通知の観測方法を試していない。 |
 | Android版LINEのメイン端末利用 | 部分確認 | ユーザーがA/Bを登録済み。ADB確認時は端末がロック画面で、トーク一覧・ログイン状態を画面確認できていない。 |
-| USB debugging / ADB | 確認済み（現時点） | WindowsのADB 37.0.1でSO-41Bが状態 `device` として認識されている。再接続・再起動耐性は未確認。 |
+| USB debugging / ADB | 確認済み | WindowsのADB 37.0.1でSO-41Bが状態 `device` として認識され、物理USB再接続・Windows再起動後・Android再起動後もRSA再認証なしで復帰した。 |
 | 画面ON・LINE起動の安全なADB操作 | 確認済み（現時点） | `KEYCODE_WAKEUP` と `monkey -p jp.naver.line.android 1` を実行し、`mWakefulness=Awake` とLINE前面Activityを確認。 |
 | A: 通常配信のAndroid/Windows同期 | 部分確認 | Aトークは両端末で開ける。Androidでは本文・時刻・送信元を取得できたが、Windows UIAでは値を取得できず、4項目の完全照合は未確認。 |
 | B: リッチメニューの表示と操作 | 確認済み（個別要素は未露出） | 応答可能時間帯に手動押下で返信を取得。個別の `最新情報` 要素は露出せず、UI指定ではなく座標候補のみ。テキスト送信と等価だったため、リッチメニュー操作は廃止候補。 |
@@ -630,9 +630,9 @@ Windows-only方式の探索はコミット`b170762`で終了し、以後はAndro
 | 項目 | 実機結果 | 判定 |
 | --- | --- | --- |
 | Android | Sony SO-41B / Android 13 | 確認済み |
-| 画面ロック | `lockscreen.disabled=0`、`password_quality=null`、Device Policy `passwordQuality=0x0`。PIN・パターン・パスワードは検出されなかった | 読み取り確認。再起動後の認証要否は未確認 |
+| 画面ロック | `lockscreen.disabled=0`、`password_quality=null`、Device Policy `passwordQuality=0x0`。PIN・パターン・パスワードは検出されなかった。Android再起動後はキーガード表示を観測し、ユーザーが通常解除した | セキュア資格情報なしの読み取り確認。再起動後の無人解除は未成立 |
 | USB debugging | `adb_enabled=1`、USB構成`mtp,adb` | 確認済み |
-| ADB RSA | 現在の`adb devices`が`device`状態。`unauthorized`ではない | 現在の認証は確認済み。物理再接続後の永続性は未確認 |
+| ADB RSA | 現在および物理USB再接続・Windows再起動・Android再起動後の`adb devices`が`device`状態。`unauthorized`ではない | 各試験でRSA再認証なし |
 | `stay_on_while_plugged_in` | `2` | 確認済み。変更なし |
 | LINEバッテリー制限 | LINEがDoze whitelistに存在し、明示的なバックグラウンド拒否は検出されなかった | 読み取り確認。設定変更なし |
 | ADB/LINE | LINEプロセス稼働、最終状態はADB`device` | 確認済み |
@@ -647,7 +647,7 @@ Windows-only方式の探索はコミット`b170762`で終了し、以後はAndro
 | LINE強制終了→ADB起動 | `am force-stop jp.naver.line.android`後、`monkey -p jp.naver.line.android 1`で`MainActivity`前面、ADB`device` | PASS |
 | 画面OFF→ADB復帰 | `Asleep`→`Awake`を確認。セキュア資格情報なしの通常スワイプ式キーガードを標準ADBジェスチャーで閉じ、LINEをADB起動して`MainActivity`前面・`mInputRestricted=false` | PASS（今回の端末状態に限る） |
 
-画面OFF試験では人間操作、パスワード入力、ロック突破、スクリーンショット、OCRを使っていない。最終状態は`stay_on_while_plugged_in=2`、ADB`device`、LINE`MainActivity`前面だった。物理USB抜き差し、Android本体再起動、再起動後のセキュアロック解除要否は未確認であり、PASSにしていない。
+画面OFF試験では人間操作、パスワード入力、ロック突破、スクリーンショット、OCRを使っていない。最終状態は`stay_on_while_plugged_in=2`、ADB`device`、LINE`MainActivity`前面だった。物理USB抜き差しは後続試験でPASSとなった。Android本体再起動後のキーガード解除は人間介入となったため、完全無人復旧はPASSにしていない。
 
 ### 現行の無人運用方針
 
@@ -671,7 +671,7 @@ Windows RAW保存
 
 通常日はAndroidに触れない。人間介入は、LINE初回認証、Android再起動後にセキュアロック解除が必要な場合、RSA再認証、LINE強制ログアウト後の再認証に限定する。ADBやUIAutomatorが失敗した場合は人間操作へフォールバックせず、失敗状態を記録して終了する。Windows版LINEは本番ランタイムから外し、対象確認済みのWindows UIA送信はdebug/fallbackとしてのみ残す。
 
-今回の確認では画面ロック方式・セキュリティ設定・既存Task Schedulerを変更していない。本体再起動後の完全無人復旧を確認するには、セキュアロック方針をユーザーが決めた後に、別試験として実施する。
+今回の確認では画面ロック方式・セキュリティ設定・既存Task Schedulerを変更していない。本体再起動後はユーザー解除後にURL target/prefillまで確認できたが、解除前の完全無人復旧は成立しなかった。
 
 ## 再起動・再接続耐性の実機確認（2026-09-21）
 
@@ -681,8 +681,8 @@ Windows RAW保存
 | --- | --- | --- | --- | --- | --- |
 | 物理USB抜き差し | `device`へ復帰。RSA再認証なし | 成立 | ヘッダー`PIA町田`、入力欄`最新情報`を完全一致確認 | ケーブル抜き差しのみ。画面操作なし | PASS。機械確認は9.1秒、物理抜き差し時間は未計測 |
 | Windows再起動 | 自動再起動後はSSH・pingが復帰せず、ユーザーがWindowsを再起動。再起動後はADB`device`、RSA再認証なし | 成立 | ユーザー再起動後にヘッダーとプリフィルを完全一致確認 | Windows再起動に人間介入あり | **human_intervention_required**。ユーザー再起動後の確認処理は20.5秒 |
-| Android本体再起動 | 約98秒後に`device`へ復帰。`unauthorized`ではない | 未実施 | 未確認 | `NotificationShade`、`mInputRestricted=true`のため自動解除せず停止 | **human_intervention_required** |
+| Android本体再起動 | 約98秒後に`device`へ復帰。`unauthorized`ではない | ユーザー解除後に成立 | ユーザー解除後にヘッダーとプリフィルを完全一致確認 | `NotificationShade`、`mInputRestricted=true`を観測。自動解除せず、ユーザーが通常解除 | **human_intervention_required** |
 
-Android本体再起動後は`lockscreen.disabled=0`、`password_quality=null`だった。PIN・パターン・パスワードは検出されていないが、キーガード表示と入力制限が残ったため、セキュア認証の有無を推測して自動解除しなかった。ユーザーによる通常のロック解除後にのみ、送信なしのLINE起動・URL target/prefill確認を再開する。
+Android本体再起動後は`lockscreen.disabled=0`、`password_quality=null`だった。PIN・パターン・パスワードは検出されていないが、キーガード表示と入力制限が残ったため、セキュア認証の有無を推測して自動解除しなかった。ユーザーが通常解除した後、送信なしでLINEを起動し、URL target/prefill確認まで成立した。
 
-この試験の結論は、通常操作と物理USB再接続は無人復旧できるが、Windows再起動は今回の実機状態ではユーザーによる再起動が必要となり、Android本体再起動はキーガード解除待ちである。3試験すべての完全無人復旧PASSとはしない。
+この試験の結論は、通常操作と物理USB再接続は無人復旧できるが、Windows再起動は今回の実機状態ではユーザーによるWindows再起動が必要となり、Android本体再起動はキーガード解除に人間介入が必要となった。3試験すべての完全無人復旧PASSとはしない。

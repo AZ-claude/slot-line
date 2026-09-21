@@ -211,8 +211,11 @@ LINE起動
 - LINEを`force-stop`してADBから起動し、`MainActivity`前面・ADB`device`を確認した。
 - 画面OFF後、ADBのWAKEUPで`Asleep`から`Awake`へ戻した。
 - 復帰時の通常スワイプ式キーガードをADBの標準ジェスチャーで閉じ、LINEを再起動して前面へ戻した。読み取り上はPIN・パターン・パスワードが設定されていないため、セキュア認証の突破は行っていない。
+- 物理USB抜き差し後、RSA再認証なしで`device`へ復帰し、LINE URLの対象・プリフィルを確認した。
+- Windows再起動後は、ユーザーによるWindows再起動後にADB・LINE URLの対象・プリフィルを確認した。Windows自動再起動だけでの復帰は成立しなかった。
+- Android本体再起動後は約98秒でADBへ復帰したが、キーガード解除にユーザー操作が必要だった。解除後はLINE URLの対象・プリフィルを確認した。
 
-未確認のためPASSにしないものは、Android本体再起動後の認証要否、物理USB抜き差し後のADB自動復帰、物理再接続後のRSA永続性である。本体再起動、画面ロック方式変更、既存タスク変更は行っていない。`stay_on_while_plugged_in=2`は変更せず、LINEはDoze whitelistに存在した。
+Windows再起動とAndroid本体再起動は完全無人復旧に未成立である。本体再起動後のキーガード解除、画面ロック方式変更、既存タスク変更は行っていない。`stay_on_while_plugged_in=2`は変更せず、LINEはDoze whitelistに存在した。
 
 通常運用は「Windowsジョブ開始 → ADB確認 → LINE起動 → Android URL trigger → Android構造取得・画像保存 → `adb pull` → Windows RAW保存」とする。セキュアロックが有効な端末では、再起動後の解除が必要になった時点だけ人間介入とし、ロック突破は行わない。
 
@@ -515,7 +518,7 @@ RAW保存
 - 前日未取得分を検知できる
 - 同一日の再実行で重複しない
 
-Windows版LINEのログイン状態は本番経路の前提にしない。Android本体の再起動耐性は別管理とし、セキュアロック解除が必要になる可能性を人間介入条件として扱う。2026-09-21時点ではWindows再起動、Android本体再起動、物理USB再接続は未確認である。
+Windows版LINEのログイン状態は本番経路の前提にしない。物理USB再接続は実機PASSとした。Windows再起動は今回ユーザーによる再起動後に復帰確認、Android本体再起動はキーガード解除後に復帰確認となったため、いずれも完全無人復旧のPASSとはしない。
 
 ---
 
