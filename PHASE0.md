@@ -257,6 +257,28 @@ PIA町田について、`Windows = text_trigger送信 + Android制御 + RAW保�
 
 次に進める作業は、応答可能時間帯の最小試験計画と、LINE再起動・Windows再起動後のログイン状態／ログアウト検知の確認である。多店舗化、Task Scheduler本番登録、OCR、AI解析、slot連携はまだ行わない。
 
+### Android LINE URL scheme PoC
+
+LINE Developers公式仕様にある次のURL形式を対象に、PIA町田で検証した。
+
+```text
+https://line.me/R/oaMessage/{Percent-encoded LINE ID}/?{Percent-encoded text}
+```
+
+公式仕様では、Android/iOSで公式アカウントのトークを開き、指定テキストを入力欄へ設定できる。Windows版LINEはこのURL schemeの対象外である。PIA町田の公開されている公式LINE追加リンクから、LINE ID候補 `@030pwlwx` を確認し、UTF-8 percent-encodeした実行URLを組み立てた。
+
+2026-09-21の実機PoCでは、Windows運用機からADBでURLを起動し、次を実機確認できた。
+
+- UI階層のヘッダーが `PIA町田` と完全一致した。
+- `jp.naver.line.android:id/chat_ui_message_edit` の値が `最新情報` と完全一致した。
+- `jp.naver.line.android:id/chat_ui_send_button_image` のcontent-descが `送信` で、UIAutomatorのboundsから送信できた。
+- Windows版LINEの現在表示トークには依存しなかった。Androidはホーム画面からURLだけで対象トークへ遷移した。
+- Android日本語IME、OCR、固定座標による店舗探索は使用していない。
+
+ただし、20:35（Asia/Tokyo）に送信した1回は、90秒以内に返信がなく `response_timeout` となった。送信後のAndroid UIには20:35の `最新情報` 送信行だけが増え、対象トーク誤認による送信ではないことは確認できた。これはURL方式の対象選択・プリフィル・送信のPASSであり、応答を含む完全E2EのPASSではない。PIA町田の応答可能時間帯で追加送信するまで、本番方式を `Windows = 制御＋保存` / `Android = trigger＋取得` に正式変更しない。
+
+URL方式の最初の試行はURL解決直後の一時的なUIAutomator空ルートで送信前に終了した。実装はこの状態を再試行し、対象・プリフィルを確認できない場合は送信しないfail closedとした。実行記録は同日の `data/raw/2026-09-21/pia_machida/manifest.json` に残している。
+
 ## Windows側の準備調査
 
 2026-09-20に既存SSH設定から読み取り中心で確認した。

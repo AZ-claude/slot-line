@@ -10,13 +10,15 @@
 
 ## Phase 1 runner
 
-Windows運用機の対話セッションでLINEデスクトップ版のPIA町田トークを表示した状態で、リポジトリルートから次を1回実行します。
+Windows運用機で、リポジトリルートから次を1回実行します。標準のtrigger方式はAndroidのLINE URL schemeです。
 
 ```powershell
 python scripts\run_pia_machida.py
 ```
 
-処理は、Windows UI Automationで `最新情報` をUnicode設定して送信し、AndroidをADBで起動・対象トークへ移動し、`uiautomator` でリッチカードと画像返信を検知します。その後、LINE標準のダウンロード操作、`adb pull`、SHA-256/byte size記録までを行います。
+処理は、WindowsからADBで `https://line.me/R/oaMessage/%40030pwlwx/?%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1` をAndroidへ開き、UI階層で `PIA町田` と入力欄の `最新情報` を完全一致確認してから送信します。対象確認できない場合は送信せず終了します。返信は `uiautomator` で検知し、LINE標準のダウンロード操作、`adb pull`、SHA-256/byte size記録までを行います。
+
+旧方式のWindows UI Automation送信は、明示的に `--trigger-mode windows-uia` を指定した場合だけfallbackとして使用します。現在開いているWindowsトークへの盲目的送信は本番方式ではありません。
 
 RAWは `data/raw/YYYY-MM-DD/pia_machida/` に保存されます。`manifest.json` は成功・失敗を実行単位で追記し、同一SHA-256の画像は再保存しません。実行時に作るTask Schedulerタスクは一時的な対話セッション用で、終了時に削除します。
 

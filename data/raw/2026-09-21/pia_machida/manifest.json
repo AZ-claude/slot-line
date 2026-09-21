@@ -46,5 +46,51 @@
     ],
     "structure_filename": "reply_uiautomator.xml",
     "deduplicated": false
+  },
+  {
+    "store_id": "pia_machida",
+    "source": "official_line",
+    "adapter_type": "text_trigger",
+    "trigger_text": "最新情報",
+    "trigger_mode": "url",
+    "line_id": "@030pwlwx",
+    "triggered_at": null,
+    "received_at": null,
+    "image_filename": null,
+    "byte_size": null,
+    "sha256": null,
+    "acquisition_status": "extraction_failed",
+    "error": {
+      "code": "extraction_failed",
+      "detail": "uiautomator_dump_empty"
+    },
+    "message_times": [],
+    "message_types": [],
+    "message_boundaries": [],
+    "structure_filename": null,
+    "deduplicated": false
+  },
+  {
+    "store_id": "pia_machida",
+    "source": "official_line",
+    "adapter_type": "text_trigger",
+    "trigger_text": "最新情報",
+    "trigger_mode": "url",
+    "line_id": "@030pwlwx",
+    "triggered_at": "2026-09-21T11:35:52.382805+00:00",
+    "received_at": null,
+    "image_filename": null,
+    "byte_size": null,
+    "sha256": null,
+    "acquisition_status": "response_timeout",
+    "error": {
+      "code": "response_timeout",
+      "detail": "no_new_pia_reply_within_90s"
+    },
+    "message_times": [],
+    "message_types": [],
+    "message_boundaries": [],
+    "structure_filename": null,
+    "deduplicated": false
   }
 ]

@@ -29,6 +29,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote
 from xml.etree import ElementTree
 
 
@@ -36,6 +37,7 @@ STORE_ID = "pia_machida"
 SOURCE = "official_line"
 ADAPTER_TYPE = "text_trigger"
 TRIGGER_TEXT = "".join(chr(codepoint) for codepoint in (0x6700, 0x65B0, 0x60C5, 0x5831))
+PIA_LINE_ID = "@030pwlwx"
 LINE_PACKAGE = "jp.naver.line.android"
 ANDROID_IMAGE_DIR = "/sdcard/Pictures/LINE"
 STAY_ON_KEY = "stay_on_while_plugged_in"
@@ -216,6 +218,67 @@ def open_line_and_pia_chat(ctx: AndroidContext) -> ElementTree.Element:
         if is_pia_chat(root):
             return root
     raise PhaseError("android_unreachable", "pia_chat_not_visible_in_android_ui")
+
+
+def pia_oa_message_url() -> str:
+    encoded_id = quote(PIA_LINE_ID, safe="")
+    encoded_text = quote(TRIGGER_TEXT, safe="")
+    return f"https://line.me/R/oaMessage/{encoded_id}/?{encoded_text}"
+
+
+def is_prefilled_pia_chat(root: ElementTree.Element) -> bool:
+    if not is_pia_chat(root):
+        return False
+    input_node = find_node(root, lambda node: resource_id(node) == "jp.naver.line.android:id/chat_ui_message_edit")
+    return input_node is not None and node_attr(input_node, "text") == TRIGGER_TEXT
+
+
+def open_pia_via_url(ctx: AndroidContext) -> ElementTree.Element:
+    url = pia_oa_message_url()
+    adb_run(ctx, ["shell", "input", "keyevent", "KEYCODE_WAKEUP"], timeout=15)
+    adb_run(
+        ctx,
+        ["shell", "am", "start", "-a", "android.intent.action.VIEW", "-d", url],
+        timeout=30,
+    )
+    time.sleep(0.8)
+    deadline = time.monotonic() + 15
+    last_error = "url_target_or_prefill_not_verified"
+    while time.monotonic() < deadline:
+        try:
+            root, _ = dump_ui(ctx, "url")
+        except PhaseError as exc:
+            # LINE can briefly expose an empty UiAutomation root while the
+            # URL resolver hands control to the LINE chat activity.  Retry
+            # that transient state, but never send until verification passes.
+            if exc.code != "extraction_failed":
+                raise
+            last_error = exc.detail
+            time.sleep(0.8)
+            continue
+        if is_system_ui(root):
+            raise PhaseError("android_unreachable", "android_secure_lock_or_system_ui")
+        if is_prefilled_pia_chat(root):
+            return root
+        time.sleep(0.8)
+    raise PhaseError("trigger_failed", last_error)
+
+
+def send_prefilled_trigger_android(ctx: AndroidContext) -> str:
+    root, _ = dump_ui(ctx, "prefilled")
+    if not is_prefilled_pia_chat(root):
+        raise PhaseError("trigger_failed", "pia_target_or_prefill_changed_before_send")
+    send_button = find_node(
+        root,
+        lambda node: resource_id(node) == "jp.naver.line.android:id/chat_ui_send_button_image"
+        and node_attr(node, "clickable").lower() == "true"
+        and node_attr(node, "enabled").lower() == "true"
+        and node_attr(node, "content-desc") not in {"", "ボイスメッセージ"},
+    )
+    if send_button is None:
+        raise PhaseError("trigger_failed", "uiautomator_send_button_not_verified")
+    tap_node(ctx, send_button)
+    return utc_now()
 
 
 def focus_latest_message(ctx: AndroidContext, root: ElementTree.Element) -> ElementTree.Element:
@@ -543,6 +606,8 @@ def build_record() -> dict[str, Any]:
         "source": SOURCE,
         "adapter_type": ADAPTER_TYPE,
         "trigger_text": TRIGGER_TEXT,
+        "trigger_mode": None,
+        "line_id": PIA_LINE_ID,
         "triggered_at": None,
         "received_at": None,
         "image_filename": None,
@@ -562,6 +627,12 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run the single-store PIA Machida text-trigger E2E.")
     parser.add_argument("--repo-root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--response-timeout", type=float, default=90.0)
+    parser.add_argument(
+        "--trigger-mode",
+        choices=("url", "windows-uia"),
+        default="url",
+        help="Preferred Android oaMessage URL trigger; windows-uia is the verified fallback only.",
+    )
     return parser.parse_args()
 
 
@@ -571,6 +642,7 @@ def main() -> int:
     raw_dir = repo_root / "data" / "raw" / datetime.now().strftime("%Y-%m-%d") / STORE_ID
     run_id = datetime.now().strftime("%H%M%S") + "-" + uuid.uuid4().hex[:8]
     record = build_record()
+    record["trigger_mode"] = args.trigger_mode
     android: AndroidContext | None = None
     structure_path = raw_dir / "reply_uiautomator.xml"
     try:
@@ -578,16 +650,22 @@ def main() -> int:
         original = adb_run(android, ["shell", "settings", "get", "global", STAY_ON_KEY], timeout=15).stdout.strip()
         android.original_stay_on = original if original.isdigit() else "0"
         adb_run(android, ["shell", "settings", "put", "global", STAY_ON_KEY, "2"], timeout=15)
-        root = open_line_and_pia_chat(android)
-        root = focus_latest_message(android, root)
-        baseline = extract_message_rows(root)
-
-        # Establish the Android baseline before sending.  This avoids missing
-        # a fast reply while LINE is being launched or scrolled.
-        # Windows LINE must expose the verified AutoSuggestTextArea in the
-        # logged-on interactive session.  No message body is copied/read from
-        # Windows; Android is the source of truth for the reply.
-        _, triggered_at = send_trigger_on_windows()
+        if args.trigger_mode == "url":
+            # The URL opens the target chat and prefills the text.  The exact
+            # target title and exact input value are checked immediately before
+            # the send-button tap; otherwise the run fails closed.
+            root = open_pia_via_url(android)
+            root = focus_latest_message(android, root)
+            baseline = extract_message_rows(root)
+            triggered_at = send_prefilled_trigger_android(android)
+        else:
+            root = open_line_and_pia_chat(android)
+            root = focus_latest_message(android, root)
+            baseline = extract_message_rows(root)
+            # Windows LINE must expose the verified AutoSuggestTextArea in the
+            # logged-on interactive session.  No message body is copied/read
+            # from Windows; Android is the source of truth for the reply.
+            _, triggered_at = send_trigger_on_windows()
         record["triggered_at"] = triggered_at
 
         # Wait for the next rich-card + image message boundary exposed by
