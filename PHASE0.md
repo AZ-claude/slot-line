@@ -698,4 +698,26 @@ Android本体再起動後は`lockscreen.disabled=0`、`password_quality=null`だ
 - Windows保存、ハッシュ確認、manifest保存が完了した後だけAndroid一時画像を削除し、削除失敗は`cleanup_warning`として残す。
 - A「エムアンドエム溝口」向けに、送信を行わず既存受信メッセージを取得する`passive` adapterを追加した。
 
-ローカルの構文検証と一時ディレクトリによる画像SHA-256重複排除、messages upsert、manifest run_id upsertの検証はPASS。さらにWindows実機の一時配置でAを送信なしで1回実行し、`status=success`、メッセージ1件、UI dump保存、画像0件を確認した。実機のA表示は`rich_card`、LINE表示時刻`20:31`だった。実装後のPIA町田trigger liveはまだ再実行していないため、A/Bが新schemaで安定保存できたとはまだ判定しない。Task Scheduler本番登録、OCR、AI解析、slot連携、多店舗化は行っていない。
+ローカルの構文検証と一時ディレクトリによる画像SHA-256重複排除、messages upsert、manifest run_id upsertの検証はPASS。さらにWindows実機の一時配置でAを送信なしで1回実行し、`status=success`、メッセージ1件、UI dump保存、画像0件を確認した。実機のA表示は`rich_card`、LINE表示時刻`20:31`だった。実装後のPIA町田trigger liveは、後述のとおりURL対象確認と送信は成立したが、返信待機が`response_timeout`となったため、新schemaの成功LiveおよびA/B共通schemaのPASSとは判定しない。Task Scheduler本番登録、OCR、AI解析、slot連携、多店舗化は行っていない。
+
+### 画像message occurrence key修正（2026-09-22）
+
+画像ファイルの重複排除とメッセージ発生回の重複判定を分離した。`images/`は同一SHA-256のバイナリを1ファイルへ再利用する一方、`messages.json`の画像message keyには`message_type`、`line_display_time`、`sha256`を含める。同じ画像が異なる時刻に配信された場合は、同一画像ファイルを参照する別message recordとして保持する。
+
+ユニットテスト3件、全スクリプトの構文確認、差分検査はPASS。修正はcommit `60a7b59`としてGitHubへpush済み。
+
+### PIA町田新schema Live試験（2026-09-22）
+
+返信可能とユーザー確認を受け、PIA町田へ新規送信を1回だけ実行した。追加送信は行っていない。
+
+| 項目 | 実機結果 | 判定 |
+| --- | --- | --- |
+| Windows/ADB | SSH復帰後、Android `HQ615G150D` は`adb devices`で`device` | PASS |
+| URL target/prefill | Android LINE URLで`PIA町田`と入力欄`最新情報`を確認してから送信 | PASS |
+| trigger | `run_id=154452-a8326c61`、送信時刻は15:45 JST | PASS |
+| reply detection / rich_card / image | 90秒待機しても新しい返信なし | **response_timeout** |
+| LINE標準保存 / adb pull / Windows `images/` | 返信画像がないため未実行 | 未確認 |
+| `messages.json` / `manifest.json` | manifestは失敗runを保存、messagesは空。status=`response_timeout` | 確認済み・Live失敗 |
+| Android一時画像cleanup | 送信前後の画像一覧は同じ5件で、新規画像なし。対象画像のcleanupは対象なし | 未適用 |
+
+今回の失敗runを同じmanifest/messagesへ再適用しても、manifest 1件・messages 0件のままであることを確認した。これは失敗runの保存冪等性の確認であり、成功画像を含む完全E2Eの冪等性確認ではない。返信待機の実機結果が失敗だったため、PIA町田の新schema Live、A/B共通RAW schemaのPhase 1 PASS、SHA-256/byte size、画像cleanupは未成立とする。PIA町田への再送信は行わない。
