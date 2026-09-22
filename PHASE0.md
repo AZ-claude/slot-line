@@ -785,7 +785,7 @@ Task Scheduler本番登録、多店舗化、OCR、AI解析、slot連携はまだ
 
 ## PIA text_trigger送信側冪等性とdaily runner再実行確認（2026-09-23）
 
-PIAの送信前に当日`manifest.json`を確認するguardを追加した。正常な`text_trigger` runが存在する場合は送信せず`skipped_already_successful`、`response_timeout`等の失敗runだけの場合は自動再送せず、そのまま失敗状態を返す。`--force-trigger`を明示した場合だけguardを解除できる。M&M passiveにはguardを適用しない。
+PIAの送信前に当日`manifest.json`を確認するguardを修正した。正常な`text_trigger` runが存在する場合は送信せず`skipped_already_successful`、通常triggerが実際に送信済み（`triggered_at`あり）だが`response_timeout`等で成功していない場合は`skipped_already_attempted`として前回run情報を記録し、自動再送しない。`existing_reply`診断はtrigger試行に数えず、`trigger_failed`等で送信前に失敗して`triggered_at`がない場合は通常再実行を妨げない。`--force-trigger`を明示した場合だけguardを解除できる。`skipped_already_attempted`は取得成功へ変換せず、daily summaryのoverallは`partial_failure`を維持する。M&M passiveにはguardを適用しない。
 
 実機返信を新たに発生させないため、Windows上に当日PIA成功fixtureを置き、同じdaily runnerを2回実行した。
 
@@ -795,3 +795,16 @@ PIAの送信前に当日`manifest.json`を確認するguardを追加した。正
 | 2回目 | `success`、message 1、stored total 2 | `skipped_already_successful` | `success` | なし |
 
 両回ともADB healthは`success`、Task Schedulerは未変更。Windows manifestはPIAについて`success` 1件と`skipped_already_successful` 2件を保持し、skip recordの`triggered_at`はnullだった。送信側guardとdaily summaryのskip非失敗扱いを確認した。
+
+## PIA trigger guard再確認（2026-09-23）
+
+前節の成功fixtureだけでは、`response_timeout`後の再送禁止を直接検証できないため、実LINE送信を行わず、manifest fixture/unit testでguardを再確認した。判定対象は日付ディレクトリ内の通常`text_trigger` recordとし、`triggered_at`の有無で実際の送信試行を判定する。
+
+| fixture | 通常再実行 | `--force-trigger` | 結果 |
+| --- | --- | --- | --- |
+| 当日`success` + `triggered_at` | `skipped_already_successful`、送信なし | 再送可 | PASS |
+| 当日`response_timeout` + `triggered_at` | `skipped_already_attempted`、送信なし | 再送可 | PASS |
+| 当日`trigger_failed` + `triggered_at=null` | 再試行可 | 再試行可 | PASS |
+| `existing_reply` diagnosticのみ | 再試行可 | 再試行可 | PASS |
+
+`skipped_already_attempted`には`previous_run_id`、`previous_status`、`previous_triggered_at`を記録する。daily summaryではこの状態を成功扱いにせず、他Adapterが成功していても`partial_failure`を維持する。Mac上のunit test 11件（4つの必須guard fixtureを含む）とcompile checkはPASSした。今回、実LINEへの追加送信とTask Scheduler変更は行っていない。

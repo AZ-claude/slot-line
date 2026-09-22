@@ -3,7 +3,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.raw_storage import RawStore
+from scripts.raw_storage import RawStore, evaluate_trigger_guard
+from scripts.run_daily import determine_overall_status
 
 
 class RawStoreTest(unittest.TestCase):
@@ -45,19 +46,101 @@ class RawStoreTest(unittest.TestCase):
             self.assertEqual(len(manifest), 1)
             self.assertEqual(manifest[0]["status"], "success")
 
-    def test_successful_trigger_guard_ignores_failures(self) -> None:
+    def _trigger_record(
+        self,
+        store: RawStore,
+        run_id: str,
+        status: str,
+        triggered_at: str | None,
+        trigger_type: str = "text_trigger",
+    ) -> dict:
+        record = store.new_manifest_record(run_id, "started", {"type": trigger_type})
+        record["status"] = status
+        record["triggered_at"] = triggered_at
+        store.persist_manifest(record)
+        return record
+
+    def test_trigger_guard_skips_when_same_day_success_exists(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             store = RawStore(Path(temporary), "2026-09-23", "pia_machida", "official_line", "text_trigger")
             store.initialize()
-            failed = store.new_manifest_record("failed", "started", {"type": "text_trigger"})
-            failed["status"] = "response_timeout"
-            store.persist_manifest(failed)
-            self.assertFalse(store.has_successful_trigger("text_trigger", "text_trigger"))
+            self._trigger_record(store, "success", "success", "2026-09-23T01:00:00+00:00")
 
-            successful = store.new_manifest_record("success", "started", {"type": "text_trigger"})
-            successful["status"] = "success"
-            store.persist_manifest(successful)
-            self.assertTrue(store.has_successful_trigger("text_trigger", "text_trigger"))
+            decision = evaluate_trigger_guard(
+                store.load_manifest_records(), "text_trigger", "text_trigger"
+            )
+            self.assertIsNotNone(decision)
+            self.assertEqual(decision["status"], "skipped_already_successful")
+            self.assertEqual(decision["previous_run_id"], "success")
+
+    def test_trigger_guard_skips_after_timeout_with_triggered_at(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            store = RawStore(Path(temporary), "2026-09-23", "pia_machida", "official_line", "text_trigger")
+            store.initialize()
+            self._trigger_record(store, "timeout", "response_timeout", "2026-09-23T02:00:00+00:00")
+
+            decision = evaluate_trigger_guard(
+                store.load_manifest_records(), "text_trigger", "text_trigger"
+            )
+            self.assertIsNotNone(decision)
+            self.assertEqual(decision["status"], "skipped_already_attempted")
+            self.assertEqual(decision["previous_run_id"], "timeout")
+            self.assertEqual(decision["previous_status"], "response_timeout")
+            self.assertEqual(decision["previous_triggered_at"], "2026-09-23T02:00:00+00:00")
+
+    def test_trigger_guard_allows_retry_after_pre_send_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            store = RawStore(Path(temporary), "2026-09-23", "pia_machida", "official_line", "text_trigger")
+            store.initialize()
+            self._trigger_record(store, "failed-before-send", "trigger_failed", None)
+
+            self.assertIsNone(
+                evaluate_trigger_guard(store.load_manifest_records(), "text_trigger", "text_trigger")
+            )
+
+    def test_trigger_guard_force_allows_resend_after_attempt(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            store = RawStore(Path(temporary), "2026-09-23", "pia_machida", "official_line", "text_trigger")
+            store.initialize()
+            self._trigger_record(store, "timeout", "response_timeout", "2026-09-23T03:00:00+00:00")
+
+            self.assertIsNone(
+                evaluate_trigger_guard(
+                    store.load_manifest_records(), "text_trigger", "text_trigger", force=True
+                )
+            )
+
+    def test_existing_reply_diagnostic_does_not_count_as_trigger_attempt(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            store = RawStore(Path(temporary), "2026-09-23", "pia_machida", "official_line", "text_trigger")
+            store.initialize()
+            self._trigger_record(store, "diagnostic", "success", "2026-09-23T04:00:00+00:00", "existing_reply")
+
+            self.assertIsNone(
+                evaluate_trigger_guard(store.load_manifest_records(), "text_trigger", "text_trigger")
+            )
+
+    def test_daily_summary_keeps_attempted_skip_as_partial_failure(self) -> None:
+        self.assertEqual(
+            determine_overall_status(
+                "success",
+                [
+                    {"status": "success"},
+                    {"status": "skipped_already_attempted"},
+                ],
+            ),
+            "partial_failure",
+        )
+        self.assertEqual(
+            determine_overall_status(
+                "success",
+                [
+                    {"status": "success"},
+                    {"status": "skipped_already_successful"},
+                ],
+            ),
+            "success",
+        )
 
     def test_ui_artifact_is_saved_under_ui_directory(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

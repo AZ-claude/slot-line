@@ -128,15 +128,6 @@ class RawStore:
     def load_messages(self) -> list[dict[str, Any]]:
         return _load_json_list(self.messages_path)
 
-    def has_successful_trigger(self, adapter_type: str, trigger_type: str) -> bool:
-        return any(
-            record.get("status") == "success"
-            and record.get("adapter_type") == adapter_type
-            and isinstance(record.get("trigger"), dict)
-            and record["trigger"].get("type") == trigger_type
-            for record in self.load_manifest_records()
-        )
-
     def save_ui_artifact(self, raw: bytes, run_id: str, label: str, suffix: str) -> str:
         if not raw:
             raise RawStorageError("ui_artifact_empty")
@@ -210,3 +201,54 @@ class RawStore:
             path.unlink()
         except FileNotFoundError:
             pass
+
+
+def evaluate_trigger_guard(
+    records: Iterable[dict[str, Any]],
+    adapter_type: str,
+    trigger_type: str,
+    *,
+    force: bool = False,
+) -> dict[str, Any] | None:
+    """Return a same-day trigger skip decision, or ``None`` when sending is allowed.
+
+    ``records`` is scoped to one date/store directory, so the date boundary is
+    represented by the caller's RawStore.  A normal trigger attempt is any
+    matching record with a non-empty ``triggered_at``.  This intentionally
+    treats response timeouts and later extraction failures as attempts, while
+    ignoring diagnostics such as ``existing_reply`` and failures that happened
+    before the trigger was sent.
+    """
+    if force:
+        return None
+
+    matching = [
+        record
+        for record in records
+        if record.get("adapter_type") == adapter_type
+        and isinstance(record.get("trigger"), dict)
+        and record["trigger"].get("type") == trigger_type
+    ]
+    successful = [record for record in matching if record.get("status") == "success"]
+    if successful:
+        previous = successful[-1]
+        return {
+            "status": "skipped_already_successful",
+            "skip_reason": "successful_text_trigger_exists_today",
+            "previous_run_id": previous.get("run_id"),
+            "previous_status": previous.get("status"),
+            "previous_triggered_at": previous.get("triggered_at"),
+        }
+
+    attempted = [record for record in matching if record.get("triggered_at")]
+    if attempted:
+        previous = attempted[-1]
+        return {
+            "status": "skipped_already_attempted",
+            "skip_reason": "text_trigger_already_attempted_today",
+            "previous_run_id": previous.get("run_id"),
+            "previous_status": previous.get("status"),
+            "previous_triggered_at": previous.get("triggered_at"),
+        }
+
+    return None

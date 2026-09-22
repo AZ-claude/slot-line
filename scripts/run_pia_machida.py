@@ -31,7 +31,7 @@ from typing import Any
 from urllib.parse import quote
 from xml.etree import ElementTree
 
-from raw_storage import RawStorageError, RawStore
+from raw_storage import RawStorageError, RawStore, evaluate_trigger_guard
 
 
 STORE_ID = "pia_machida"
@@ -628,7 +628,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--force-trigger",
         action="store_true",
-        help="Explicitly allow a new trigger even when today's successful trigger already exists.",
+        help="Explicitly allow a new trigger even when today's trigger was already attempted.",
     )
     return parser.parse_args()
 
@@ -652,13 +652,16 @@ def main() -> int:
     )
     record["line_id"] = PIA_LINE_ID
     record["trigger_mode"] = "existing_reply" if args.existing_reply else args.trigger_mode
-    if (
-        not args.existing_reply
-        and not args.force_trigger
-        and raw_store.has_successful_trigger(ADAPTER_TYPE, ADAPTER_TYPE)
-    ):
-        record["status"] = "skipped_already_successful"
-        record["skip_reason"] = "successful_text_trigger_exists_today"
+    guard_decision = None
+    if not args.existing_reply:
+        guard_decision = evaluate_trigger_guard(
+            raw_store.load_manifest_records(),
+            ADAPTER_TYPE,
+            ADAPTER_TYPE,
+            force=args.force_trigger,
+        )
+    if guard_decision is not None:
+        record.update(guard_decision)
         record["stored_message_count_total"] = len(raw_store.load_messages())
         record["finished_at"] = utc_now()
         raw_store.persist_manifest(record)

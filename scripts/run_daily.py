@@ -134,7 +134,7 @@ def run_adapter(repo_root: Path, adapter: dict[str, str], timeout: float, force_
     errors, warnings = split_warnings(record.get("errors", []))
     if result.returncode != 0 and not errors:
         errors.append({"code": record.get("status", "adapter_failed"), "detail": adapter["script"]})
-    return {
+    summary = {
         "store_id": record.get("store_id", adapter["store_id"]),
         "adapter_type": record.get("adapter_type", adapter["adapter_type"]),
         "status": record.get("status", "extraction_failed"),
@@ -146,6 +146,20 @@ def run_adapter(repo_root: Path, adapter: dict[str, str], timeout: float, force_
         "raw_path": str(repo_root / "data" / "raw" / datetime.now().strftime("%Y-%m-%d") / adapter["store_id"]),
         "run_id": record.get("run_id"),
     }
+    for field in ("skip_reason", "previous_run_id", "previous_status", "previous_triggered_at"):
+        if field in record:
+            summary[field] = record[field]
+    return summary
+
+
+def determine_overall_status(health_status: str, adapters: list[dict[str, Any]]) -> str:
+    """Keep an attempted-but-skipped trigger visible as a partial failure."""
+    success_like = {"success", "skipped_already_successful"}
+    if health_status == "success" and all(item["status"] in success_like for item in adapters):
+        return "success"
+    if any(item["status"] in success_like or item["status"] == "skipped_already_attempted" for item in adapters):
+        return "partial_failure"
+    return "failure"
 
 
 def main() -> int:
@@ -155,18 +169,14 @@ def main() -> int:
     parser.add_argument(
         "--force-trigger",
         action="store_true",
-        help="Explicitly allow a new PIA text trigger when today's successful run exists.",
+        help="Explicitly allow a new PIA text trigger when today's trigger was already attempted.",
     )
     args = parser.parse_args()
     repo_root = args.repo_root.resolve()
     started_at = utc_now()
     health = check_adb_health()
     adapters = [run_adapter(repo_root, adapter, args.adapter_timeout, args.force_trigger) for adapter in ADAPTERS]
-    accepted = {"success", "skipped_already_successful"}
-    accepted_runs = [item for item in adapters if item["status"] in accepted]
-    overall_status = "success" if health["status"] == "success" and len(accepted_runs) == len(adapters) else (
-        "partial_failure" if accepted_runs else "failure"
-    )
+    overall_status = determine_overall_status(health["status"], adapters)
     summary = {
         "started_at": started_at,
         "finished_at": utc_now(),

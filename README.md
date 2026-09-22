@@ -24,7 +24,7 @@ python scripts\run_daily.py
 
 summaryにはADB health、各`store_id`のstatus、今回runの`message_count`、保存総数`stored_message_count_total`、`image_count`、errors/warnings、`raw_path`を出力します。
 
-PIA町田は当日すでに正常な`text_trigger` runがある場合、再送せず`skipped_already_successful`になります。`response_timeout`等の失敗だけでは自動再送しません。明示的に再送する場合だけ次を指定します。
+PIA町田は当日すでに正常な`text_trigger` runがある場合、再送せず`skipped_already_successful`になります。当日に送信済みで`triggered_at`があるものの成功していない場合も再送せず、前回情報付きの`skipped_already_attempted`になります。送信前に失敗して`triggered_at`がない場合は通常再実行を妨げません。`skipped_already_attempted`は取得成功に変換せず、daily summaryは`partial_failure`を維持します。明示的に再送する場合だけ次を指定します。
 
 ```powershell
 python scripts\run_daily.py --force-trigger
