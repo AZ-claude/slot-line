@@ -107,6 +107,7 @@ class RawStore:
             "messages_filename": "messages.json",
             "ui_filenames": [],
             "message_count": 0,
+            "stored_message_count_total": 0,
             "image_count": 0,
             "deduplicated_images": 0,
         }

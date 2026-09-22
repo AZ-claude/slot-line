@@ -53,6 +53,24 @@ class RawStoreTest(unittest.TestCase):
             self.assertEqual(relative, "ui/run-1_reply_screen.png")
             self.assertEqual((store.root / relative).read_bytes(), b"PNG")
 
+    def test_run_message_count_is_separate_from_stored_total(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            store = RawStore(Path(temporary), "2026-09-22", "test_store", "official_line", "passive")
+            store.initialize()
+            existing = {"message_type": "text", "line_display_time": "10:00", "text": ["old"]}
+            current = {"message_type": "text", "line_display_time": "11:00", "text": ["new"]}
+            store.merge_messages([existing])
+            current_messages = [current]
+            stored_messages = store.merge_messages(current_messages)
+
+            record = store.new_manifest_record("run-counts", "started", {"type": "passive"})
+            record["message_count"] = len(current_messages)
+            record["stored_message_count_total"] = len(stored_messages)
+            store.persist_manifest(record)
+            saved = json.loads(store.manifest_path.read_text(encoding="utf-8"))[0]
+            self.assertEqual(saved["message_count"], 1)
+            self.assertEqual(saved["stored_message_count_total"], 2)
+
     def test_same_image_at_different_times_is_two_message_occurrences(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             store = RawStore(Path(temporary), "2026-09-22", "test_store", "official_line", "text_trigger")

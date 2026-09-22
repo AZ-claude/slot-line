@@ -714,7 +714,8 @@ def main() -> int:
                 except PhaseError as exc:
                     record["errors"].append({"code": "screenshot_warning", "detail": exc.detail})
         merged_messages = raw_store.merge_messages(messages)
-        record["message_count"] = len(merged_messages)
+        record["message_count"] = len(messages)
+        record["stored_message_count_total"] = len(merged_messages)
         record["status"] = "success"
         record["finished_at"] = utc_now()
         raw_store.persist_manifest(record)

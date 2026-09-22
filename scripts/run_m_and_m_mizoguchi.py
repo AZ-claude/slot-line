@@ -190,8 +190,13 @@ def extract_message_rows(root: ElementTree.Element) -> list[dict[str, Any]]:
                 "timestamp": text_or_desc(timestamp) if timestamp is not None else None,
                 "bounds": row.attrib.get("bounds"),
                 "image_bounds": image_node.attrib.get("bounds") if image_node is not None else None,
-                "text": [node.attrib["text"] for node in descendants if node.attrib.get("text")],
+                "text": [
+                    node.attrib["text"]
+                    for node in descendants
+                    if node is not timestamp and node.attrib.get("text")
+                ],
                 "content_desc": [node.attrib["content-desc"] for node in descendants if node.attrib.get("content-desc")],
+                "resource_ids": sorted({value for value in ids if value}),
             }
         )
     return rows
@@ -260,10 +265,12 @@ def main() -> int:
         messages = [
             {
                 "message_type": row["kind"],
+                "incoming": True,
                 "line_display_time": row.get("timestamp"),
                 "observed_at": observed_at,
                 "text": row.get("text") or [],
                 "content_desc": row.get("content_desc") or [],
+                "resource_ids": row.get("resource_ids") or [],
                 "image_filename": None,
                 "byte_size": None,
                 "sha256": None,
@@ -293,8 +300,9 @@ def main() -> int:
             deduplicated_count += int(image_info["deduplicated"])
             adb_run(adb, serial, ["shell", "input", "keyevent", "KEYCODE_BACK"], timeout=15, check=False)
             time.sleep(0.5)
-        store.merge_messages(messages)
+        merged_messages = store.merge_messages(messages)
         record["message_count"] = len(messages)
+        record["stored_message_count_total"] = len(merged_messages)
         record["image_count"] = image_count
         record["deduplicated_images"] = deduplicated_count
         record["status"] = "success"
