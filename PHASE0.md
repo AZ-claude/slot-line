@@ -782,3 +782,16 @@ rendered screenshotにはrich-cardの視覚情報が残るが、独立した画�
 ADB healthは`success`、全体summaryは`partial_failure`だった。片方のAdapterが失敗してももう片方を停止せず実行できた。PIAへのtriggerはこの手動daily runner内で1回だけ実行し、追加送信・連打は行っていない。`message_count`は今回runの件数、`stored_message_count_total`はcanonical `messages.json`のmerge後総件数として、両Adapterで同じ意味に揃えた。
 
 Task Scheduler本番登録、多店舗化、OCR、AI解析、slot連携はまだ行っていない。
+
+## PIA text_trigger送信側冪等性とdaily runner再実行確認（2026-09-23）
+
+PIAの送信前に当日`manifest.json`を確認するguardを追加した。正常な`text_trigger` runが存在する場合は送信せず`skipped_already_successful`、`response_timeout`等の失敗runだけの場合は自動再送せず、そのまま失敗状態を返す。`--force-trigger`を明示した場合だけguardを解除できる。M&M passiveにはguardを適用しない。
+
+実機返信を新たに発生させないため、Windows上に当日PIA成功fixtureを置き、同じdaily runnerを2回実行した。
+
+| 実行 | M&M passive | PIA text_trigger | 全体 | 新規PIA送信 |
+| --- | --- | --- | --- | --- |
+| 1回目 | `success`、message 1、stored total 1 | `skipped_already_successful` | `success` | なし |
+| 2回目 | `success`、message 1、stored total 2 | `skipped_already_successful` | `success` | なし |
+
+両回ともADB healthは`success`、Task Schedulerは未変更。Windows manifestはPIAについて`success` 1件と`skipped_already_successful` 2件を保持し、skip recordの`triggered_at`はnullだった。送信側guardとdaily summaryのskip非失敗扱いを確認した。

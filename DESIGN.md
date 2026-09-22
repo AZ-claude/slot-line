@@ -76,6 +76,8 @@ Macは開発用とし、実運用・E2EはWindowsで確認する。
 
 Phase 1では`passive`（エムアンドエム溝口）と`text_trigger`（PIA町田）の2 Adapterを採用する。`scripts/run_daily.py`は両Adapterを手動で順番に実行し、ADB health、店舗ごとのstatus、今回runのmessage/image件数、保存総件数、errors/warnings、RAW pathをsummaryとして出力する。片方のAdapterが失敗しても、もう片方は実行する。Task Schedulerへの登録は別フェーズとし、このrunner自体はスケジュール登録を行わない。
 
+PIAの`text_trigger`は送信側も冪等にする。当日manifestに正常な`text_trigger` runが存在する場合は送信せず、`skipped_already_successful`を返す。`response_timeout`等の失敗runだけでは自動リトライしない。再送は`--force-trigger`を明示した場合だけ許可する。M&Mの`passive`にはこのguardを適用しない。
+
 ---
 
 ## 4. 全体アーキテクチャ

@@ -24,6 +24,12 @@ python scripts\run_daily.py
 
 summaryにはADB health、各`store_id`のstatus、今回runの`message_count`、保存総数`stored_message_count_total`、`image_count`、errors/warnings、`raw_path`を出力します。
 
+PIA町田は当日すでに正常な`text_trigger` runがある場合、再送せず`skipped_already_successful`になります。`response_timeout`等の失敗だけでは自動再送しません。明示的に再送する場合だけ次を指定します。
+
+```powershell
+python scripts\run_daily.py --force-trigger
+```
+
 処理は、WindowsからADBで `https://line.me/R/oaMessage/%40030pwlwx/?%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1` をAndroidへ開き、UI階層で `PIA町田` と入力欄の `最新情報` を完全一致確認してから送信します。対象確認できない場合は送信せず終了します。返信は `uiautomator` で検知し、LINE標準のダウンロード操作、`adb pull`、SHA-256/byte size記録までを行います。
 
 旧方式のWindows UI Automation送信は、明示的に `--trigger-mode windows-uia` を指定した場合だけdebug/fallbackとして使用します。現在開いているWindowsトークへの盲目的送信は本番方式ではありません。
