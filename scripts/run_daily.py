@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -38,6 +39,29 @@ LINE_PACKAGE = "jp.naver.line.android"
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+def append_daily_log(repo_root: Path, summary: dict[str, Any], process_exit_code: int) -> Path:
+    """Append one complete JSON summary line to the date-partitioned run log."""
+    log_dir = repo_root / "data" / "logs"
+    log_dir.mkdir(parents=True, exist_ok=True)
+    log_path = log_dir / f"run_daily_{datetime.now().strftime('%Y-%m-%d')}.log"
+    entry = dict(summary)
+    entry["process_exit_code"] = process_exit_code
+    entry["log_path"] = str(log_path)
+    payload = json.dumps(entry, ensure_ascii=False, separators=(",", ":")) + "\n"
+
+    descriptor = os.open(log_path, os.O_WRONLY | os.O_CREAT | os.O_APPEND, 0o644)
+    try:
+        with os.fdopen(descriptor, "a", encoding="utf-8", newline="") as handle:
+            handle.write(payload)
+            handle.flush()
+            os.fsync(handle.fileno())
+    except Exception:
+        # fdopen owns the descriptor after entering the context; this branch
+        # only converts the failure to the caller's existing logging error path.
+        raise
+    return log_path
 
 
 def check_adb_health() -> dict[str, Any]:
@@ -296,8 +320,14 @@ def main() -> int:
         "adapters": adapters,
         "task_scheduler_changed": False,
     }
+    exit_code = 0 if overall_status == "success" else 1
+    try:
+        append_daily_log(repo_root, summary, exit_code)
+    except OSError as exc:
+        summary["log_error"] = {"code": "daily_log_write_failed", "detail": str(exc)}
+        exit_code = 1
     print(json.dumps(summary, ensure_ascii=False, indent=2))
-    return 0 if overall_status == "success" else 1
+    return exit_code
 
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 from scripts.raw_storage import RawStore, evaluate_trigger_guard
-from scripts.run_daily import determine_overall_status
+from scripts.run_daily import append_daily_log, determine_overall_status
 
 
 class RawStoreTest(unittest.TestCase):
@@ -141,6 +141,35 @@ class RawStoreTest(unittest.TestCase):
             ),
             "success",
         )
+
+    def test_daily_log_appends_complete_summary_with_exit_code(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            summary = {
+                "started_at": "2026-09-23T00:00:00+00:00",
+                "finished_at": "2026-09-23T00:01:00+00:00",
+                "status": "partial_failure",
+                "adb_health": {"status": "success"},
+                "adapters": [
+                    {
+                        "store_id": "pia_machida",
+                        "status": "response_timeout",
+                        "message_count": 0,
+                        "stored_message_count_total": 0,
+                        "image_count": 0,
+                        "errors": [{"code": "response_timeout"}],
+                        "warnings": [],
+                        "run_id": "run-1",
+                        "raw_path": "data/raw/2026-09-23/pia_machida",
+                    }
+                ],
+            }
+            log_path = append_daily_log(Path(temporary), summary, 1)
+            append_daily_log(Path(temporary), summary, 1)
+
+            lines = log_path.read_text(encoding="utf-8").splitlines()
+            self.assertEqual(len(lines), 2)
+            self.assertEqual(json.loads(lines[0])["process_exit_code"], 1)
+            self.assertEqual(json.loads(lines[0])["adapters"][0]["run_id"], "run-1")
 
     def test_ui_artifact_is_saved_under_ui_directory(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
