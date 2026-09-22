@@ -74,7 +74,7 @@ Windows版LINEデスクトップは通常運用のランタイム依存にしな
 
 Macは開発用とし、実運用・E2EはWindowsで確認する。
 
-Phase 1では`passive`（エムアンドエム溝口）と`text_trigger`（PIA町田）の2 Adapterを採用する。`scripts/run_daily.py`は両Adapterを手動で順番に実行し、ADB health、店舗ごとのstatus、今回runのmessage/image件数、保存総件数、errors/warnings、RAW pathをsummaryとして出力する。片方のAdapterが失敗しても、もう片方は実行する。`--dry-run`はAdapterとLINE triggerを実行せず、Scheduler実行環境だけを検証する。Task Schedulerへの本番登録は別フェーズとし、このrunner自体はスケジュール登録を行わない。
+Phase 1では`passive`（エムアンドエム溝口）と`text_trigger`（PIA町田）の2 Adapterを採用する。`scripts/run_daily.py`は両Adapterを手動で順番に実行し、ADB health、店舗ごとのstatus、今回runのmessage/image件数、保存総数、errors/warnings、RAW pathをsummaryとして出力する。片方のAdapterが失敗しても、もう片方は実行する。通常runのsummaryは`data/logs/run_daily_YYYY-MM-DD.log`へ追記する。`--dry-run`はAdapterとLINE triggerを実行せず、Scheduler実行環境だけを検証する。Task Schedulerの登録・変更はrunner自身では行わず、運用側で明示的に管理する。
 
 PIAの`text_trigger`は送信側も冪等にする。当日manifestに正常な`text_trigger` runが存在する場合は送信せず、`skipped_already_successful`を返す。当日に通常triggerが実際に送信されており`triggered_at`があるが成功していない場合も送信せず、前回run情報を付けた`skipped_already_attempted`を返す。`existing_reply`診断や、送信前に失敗して`triggered_at`がない`trigger_failed`はtrigger試行に数えない。通常再実行での自動再送は行わず、再送は`--force-trigger`を明示した場合だけ許可する。`skipped_already_attempted`は取得成功へ変換せず、daily summaryでは`partial_failure`を維持する。M&Mの`passive`にはこのguardを適用しない。
 
@@ -636,7 +636,7 @@ slot-lineは「LINE収集・変換」に責務を限定し、slot本体の表示
 - Windows版LINEは本番ランタイム依存にしない。WindowsはADB制御・`adb pull`・RAW保存を担う。
 - Androidは対象指定、trigger、返信の構造取得、LINE標準画像保存を担う。リッチメニュー等のUI操作は、text_triggerで代替できない場合だけ使う。
 - PIA町田はAndroid LINE URLの`text_trigger`を第一候補とし、Windows UIA送信は対象確認済みの場合だけdebug/fallbackにする。
-- Task Scheduler本番候補は毎日21:05、15分timeout、重複起動`IgnoreNew`、スリープ中は起床させずmissed startも自動追実行しない。これは定義案であり、まだ登録していない。
+- Task Scheduler本番定義は毎日21:05、15分timeout、重複起動`IgnoreNew`、スリープ中は起床させずmissed startも自動追実行しない。`SlotLineDaily`として登録済みだが、初回scheduled runは未実行である。
 - 通常日はAndroidを人間が操作しない。初回認証、セキュアロック解除、RSA再認証、LINE再認証だけを例外的な人間作業とする。
 - 最初は通常配信型1件 + 操作要求型1件だけ。
 - 店舗差分はAdapterとして隔離する。

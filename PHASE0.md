@@ -851,3 +851,24 @@ Windows再起動、サービス再起動、電源設定変更、既存Task Sched
 - ログ: `<REPO_ROOT>\\data\\logs\\run_daily_YYYY-MM-DD.log` と `.err.log`
 
 今回のWindows再起動試験は他のTask Scheduler運用への影響を避けるため保留とする。サービス再起動、電源設定変更、既存Task Scheduler変更も行っていない。
+
+## SlotLineDaily本番登録（2026-09-23）
+
+通常runの最終summaryを`data/logs/run_daily_YYYY-MM-DD.log`へ1実行1 JSON行で追記する実装を追加した。同日複数回でも上書きせず、`started_at`、`finished_at`、overall status、ADB health、各Adapterのstatus/counts/errors/warnings、`run_id`、`raw_path`、前回trigger情報、`process_exit_code`を残す。stdoutの既存JSON出力は維持する。ログ追記テストを含むunit test 12件とcompile checkはPASSした。
+
+初回scheduled runの前に、Windows上の新規運用repo `C:\Users\Public\slot-line`へ現行4スクリプトを配置し、同じPython 3.12.8・ログオンユーザー・ADB contextでdry-runを再確認した。その後、既存Task Schedulerへ触れず、新規タスク`\\SlotLineDaily`を1件だけ登録した。
+
+| 項目 | 読み戻し結果 |
+| --- | --- |
+| task名 | `SlotLineDaily` |
+| 実行ユーザー | `Eita Ideguchi` / `InteractiveToken`（scheduled dry-runと同じcontext） |
+| 次回実行 | `2026-09-23 21:05 +09:00`、毎日 |
+| action | `C:\\Users\\Eita Ideguchi\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\Public\\slot-line\\scripts\\run_daily.py --repo-root C:\\Users\\Public\\slot-line` |
+| working directory | `C:\\Users\\Public\\slot-line` |
+| timeout | `PT15M` |
+| multiple instances | `IgnoreNew`（読み戻しenum値 `2`） |
+| wake | `false` |
+| missed start | `StartWhenAvailable=false`、自動追実行なし |
+| 初回実行状態 | 手動実行なし。`LastTaskResult=267011`、`NumberOfMissedRuns=0` |
+
+登録直後に本番taskを手動実行していない。PIAには追加送信していない。既存の`SlotDiscordBackup`、`SlotDiscordBot`、`SlotFxtwitterSyncV1`その他のTask Scheduler、Windows再起動、サービス、電源設定は変更していない。Windows再起動試験は引き続き保留とする。初回実行後はTask SchedulerのLast Run/LastTaskResult、daily log、A/B manifest/messages、PIAの`triggered_at`、RAW、ADB状態を確認する。
