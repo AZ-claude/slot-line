@@ -625,6 +625,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Import the currently visible PIA reply without sending a trigger; diagnostic only.",
     )
+    parser.add_argument(
+        "--force-trigger",
+        action="store_true",
+        help="Explicitly allow a new trigger even when today's successful trigger already exists.",
+    )
     return parser.parse_args()
 
 
@@ -647,6 +652,18 @@ def main() -> int:
     )
     record["line_id"] = PIA_LINE_ID
     record["trigger_mode"] = "existing_reply" if args.existing_reply else args.trigger_mode
+    if (
+        not args.existing_reply
+        and not args.force_trigger
+        and raw_store.has_successful_trigger(ADAPTER_TYPE, ADAPTER_TYPE)
+    ):
+        record["status"] = "skipped_already_successful"
+        record["skip_reason"] = "successful_text_trigger_exists_today"
+        record["stored_message_count_total"] = len(raw_store.load_messages())
+        record["finished_at"] = utc_now()
+        raw_store.persist_manifest(record)
+        print(json.dumps(record, ensure_ascii=False, indent=2))
+        return 0
     android: AndroidContext | None = None
     android_image_path: str | None = None
     storage_finalized = False

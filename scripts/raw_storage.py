@@ -122,6 +122,21 @@ class RawStore:
             records.append(record)
         _atomic_write_json(self.manifest_path, records)
 
+    def load_manifest_records(self) -> list[dict[str, Any]]:
+        return _load_json_list(self.manifest_path)
+
+    def load_messages(self) -> list[dict[str, Any]]:
+        return _load_json_list(self.messages_path)
+
+    def has_successful_trigger(self, adapter_type: str, trigger_type: str) -> bool:
+        return any(
+            record.get("status") == "success"
+            and record.get("adapter_type") == adapter_type
+            and isinstance(record.get("trigger"), dict)
+            and record["trigger"].get("type") == trigger_type
+            for record in self.load_manifest_records()
+        )
+
     def save_ui_artifact(self, raw: bytes, run_id: str, label: str, suffix: str) -> str:
         if not raw:
             raise RawStorageError("ui_artifact_empty")

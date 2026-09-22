@@ -45,6 +45,20 @@ class RawStoreTest(unittest.TestCase):
             self.assertEqual(len(manifest), 1)
             self.assertEqual(manifest[0]["status"], "success")
 
+    def test_successful_trigger_guard_ignores_failures(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            store = RawStore(Path(temporary), "2026-09-23", "pia_machida", "official_line", "text_trigger")
+            store.initialize()
+            failed = store.new_manifest_record("failed", "started", {"type": "text_trigger"})
+            failed["status"] = "response_timeout"
+            store.persist_manifest(failed)
+            self.assertFalse(store.has_successful_trigger("text_trigger", "text_trigger"))
+
+            successful = store.new_manifest_record("success", "started", {"type": "text_trigger"})
+            successful["status"] = "success"
+            store.persist_manifest(successful)
+            self.assertTrue(store.has_successful_trigger("text_trigger", "text_trigger"))
+
     def test_ui_artifact_is_saved_under_ui_directory(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             store = RawStore(Path(temporary), "2026-09-22", "test_store", "official_line", "passive")

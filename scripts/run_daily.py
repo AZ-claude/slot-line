@@ -88,11 +88,13 @@ def split_warnings(errors: Any) -> tuple[list[Any], list[Any]]:
     return errors_out, warnings_out
 
 
-def run_adapter(repo_root: Path, adapter: dict[str, str], timeout: float) -> dict[str, Any]:
+def run_adapter(repo_root: Path, adapter: dict[str, str], timeout: float, force_trigger: bool) -> dict[str, Any]:
     script = repo_root / "scripts" / adapter["script"]
     if not script.exists():
         script = Path(__file__).resolve().parent / adapter["script"]
     command = [sys.executable, str(script), "--repo-root", str(repo_root)]
+    if force_trigger and adapter["store_id"] == "pia_machida":
+        command.append("--force-trigger")
     try:
         result = subprocess.run(
             command,
@@ -150,14 +152,20 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Run both fixed Phase 1 LINE adapters once.")
     parser.add_argument("--repo-root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--adapter-timeout", type=float, default=180.0)
+    parser.add_argument(
+        "--force-trigger",
+        action="store_true",
+        help="Explicitly allow a new PIA text trigger when today's successful run exists.",
+    )
     args = parser.parse_args()
     repo_root = args.repo_root.resolve()
     started_at = utc_now()
     health = check_adb_health()
-    adapters = [run_adapter(repo_root, adapter, args.adapter_timeout) for adapter in ADAPTERS]
-    successful = [item for item in adapters if item["status"] == "success"]
-    overall_status = "success" if health["status"] == "success" and len(successful) == len(adapters) else (
-        "partial_failure" if successful else "failure"
+    adapters = [run_adapter(repo_root, adapter, args.adapter_timeout, args.force_trigger) for adapter in ADAPTERS]
+    accepted = {"success", "skipped_already_successful"}
+    accepted_runs = [item for item in adapters if item["status"] in accepted]
+    overall_status = "success" if health["status"] == "success" and len(accepted_runs) == len(adapters) else (
+        "partial_failure" if accepted_runs else "failure"
     )
     summary = {
         "started_at": started_at,
