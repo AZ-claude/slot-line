@@ -348,7 +348,11 @@ def extract_message_rows(root: ElementTree.Element) -> list[dict[str, Any]]:
             (node for node in descendants if resource_id(node) == "jp.naver.line.android:id/chat_ui_row_timestamp"),
             None,
         )
-        text_values = [node_attr(node, "text") for node in descendants if node_attr(node, "text")]
+        text_values = [
+            node_attr(node, "text")
+            for node in descendants
+            if node is not timestamp_node and node_attr(node, "text")
+        ]
         desc_values = [node_attr(node, "content-desc") for node in descendants if node_attr(node, "content-desc")]
         message = {
             "kind": kind,

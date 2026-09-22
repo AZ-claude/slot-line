@@ -761,3 +761,5 @@ Android本体再起動後は`lockscreen.disabled=0`、`password_quality=null`だ
 | 画像処理 | 独立`image` rowがないため、LINE標準保存・`adb pull`・SHA-256・Android cleanupは実行なし |
 
 rendered screenshotにはrich-cardの視覚情報が残るが、独立した画像messageではないため`images/`へ推測保存していない。OCRは使用していない。同一runのmanifest/messages再適用後もmessage 1件・image 0件を維持し、冪等性を確認した。以後、`text`、`rich_card`、`image`、または組み合わせの新規incoming rowを漏れなくRAW保存できた場合を`success`とし、画像がある場合だけ画像取得処理を行う。
+
+さらに、UI階層の時刻ノードを本文へ混入させない修正後に同じ23:14返信を再取得した（`run_id=002745-9d9b41be`）。`messages.json`は`text=[]`、`line_display_time=23:14`となり、同一run再適用後も`message_count=1`、`image_count=0`を維持した。
