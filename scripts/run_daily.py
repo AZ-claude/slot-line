@@ -90,6 +90,8 @@ def split_warnings(errors: Any) -> tuple[list[Any], list[Any]]:
 
 def run_adapter(repo_root: Path, adapter: dict[str, str], timeout: float) -> dict[str, Any]:
     script = repo_root / "scripts" / adapter["script"]
+    if not script.exists():
+        script = Path(__file__).resolve().parent / adapter["script"]
     command = [sys.executable, str(script), "--repo-root", str(repo_root)]
     try:
         result = subprocess.run(
