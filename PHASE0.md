@@ -808,3 +808,46 @@ PIAの送信前に当日`manifest.json`を確認するguardを修正した。正
 | `existing_reply` diagnosticのみ | 再試行可 | 再試行可 | PASS |
 
 `skipped_already_attempted`には`previous_run_id`、`previous_status`、`previous_triggered_at`を記録する。daily summaryではこの状態を成功扱いにせず、他Adapterが成功していても`partial_failure`を維持する。Mac上のunit test 11件（4つの必須guard fixtureを含む）とcompile checkはPASSした。今回、実LINEへの追加送信とTask Scheduler変更は行っていない。
+
+## Scheduled dry-run確認（2026-09-23）
+
+Windows再起動、サービス再起動、電源設定変更、既存Task Schedulerの変更を行わず、slot-line専用の一時Task Schedulerだけで安全なdry-runを確認した。dry-runはAdapterを起動せず、PIA町田へ`最新情報`を送信せず、M&Mの既存メッセージ取得も行わない。
+
+### 実装
+
+`python scripts\\run_daily.py --dry-run`を追加した。確認対象はPython実行環境、repo path、ADBの存在、`adb devices`の`device`状態、Android read-onlyコマンド、LINE package、Windows `data\\raw`への一時ファイル書き込みと後始末である。失敗時は`status=failure`とし、Adapter実行へ進まない。
+
+### Windows実測
+
+| 項目 | 結果 |
+| --- | --- |
+| Windows接続ユーザー | `desktop-i5m1u6r\\eita ideguchi` |
+| Windows | `Microsoft Windows NT 10.0.26200.0` |
+| Python | `C:\\Users\\Eita Ideguchi\\AppData\\Local\\Programs\\Python\\Python312\\python.exe` / 3.12.8 |
+| repo path | `C:\\Users\\Public\\slot-line-scheduler-dry-run-20260923`（一時配置） |
+| working directory | 同上 |
+| ADB | `...\\platform-tools\\adb.EXE` |
+| ADB health | `success` / serial `HQ615G150D` |
+| Android command | `adb -s HQ615G150D shell getprop ro.build.version.release`、return code 0、Android `13` |
+| LINE package | `jp.naver.line.android`、`pm path`で存在確認 |
+| RAW書き込み | `data\\raw` writable、temporary file removed |
+| scheduled exit code | `0`（`LastTaskResult=0`、missed runs `0`） |
+| stdout/stderr | stdoutに上記JSON、stderrは空 |
+| 一時タスク | `\\slot-line__scheduled_dry_run_20260923`を1件作成・1回実行後に削除 |
+| 既存タスク | `SlotDiscordBackup`、`SlotDiscordBot`、`SlotFxtwitterSyncV1`は読み取りのみ。変更なし |
+
+確認後、一時Task Schedulerと一時配置ディレクトリは削除済みである。今回のPASS範囲は`Task Scheduler → Python → ADB → Android → Windows RAW書き込み`までであり、LINE trigger・Adapter取得の無人本番実行はまだ行っていない。
+
+### 本番Task Scheduler定義案（未登録）
+
+- task名: `SlotLineDaily`
+- 実行時刻: 毎日21:05（PIA町田の21時台を第一候補。返信可能条件と完全一致するとは断定しない）
+- command: `C:\\Users\\Eita Ideguchi\\AppData\\Local\\Programs\\Python\\Python312\\python.exe <REPO_ROOT>\\scripts\\run_daily.py --repo-root <REPO_ROOT>`
+- working directory: `<REPO_ROOT>`
+- timeout: 15分
+- 重複起動: `IgnoreNew`
+- スリープ中: PCを起床させず、その回は実行しない
+- missed start: 自動追実行しない
+- ログ: `<REPO_ROOT>\\data\\logs\\run_daily_YYYY-MM-DD.log` と `.err.log`
+
+今回のWindows再起動試験は他のTask Scheduler運用への影響を避けるため保留とする。サービス再起動、電源設定変更、既存Task Scheduler変更も行っていない。
