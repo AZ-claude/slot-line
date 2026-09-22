@@ -45,6 +45,30 @@ class RawStoreTest(unittest.TestCase):
             self.assertEqual(len(manifest), 1)
             self.assertEqual(manifest[0]["status"], "success")
 
+    def test_same_image_at_different_times_is_two_message_occurrences(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            store = RawStore(Path(temporary), "2026-09-22", "test_store", "official_line", "text_trigger")
+            store.initialize()
+
+            first = {
+                "message_type": "image",
+                "line_display_time": "12:00",
+                "observed_at": "2026-09-22T03:00:00+00:00",
+                "sha256": "same-image-sha",
+                "image_filename": "images/image_001.jpg",
+                "byte_size": 10,
+            }
+            second = dict(first, line_display_time="13:00", observed_at="2026-09-22T04:00:00+00:00")
+
+            store.merge_messages([first, second])
+            messages = json.loads(store.messages_path.read_text(encoding="utf-8"))
+            self.assertEqual(len(messages), 2)
+            self.assertEqual({message["line_display_time"] for message in messages}, {"12:00", "13:00"})
+
+            store.merge_messages([first])
+            messages = json.loads(store.messages_path.read_text(encoding="utf-8"))
+            self.assertEqual(len(messages), 2)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -53,7 +53,13 @@ def _load_json_list(path: Path) -> list[dict[str, Any]]:
 def _message_key(message: dict[str, Any]) -> str:
     image_hash = message.get("sha256")
     if image_hash:
-        return f"image:{image_hash}"
+        stable = {
+            "message_type": message.get("message_type"),
+            "line_display_time": message.get("line_display_time"),
+            "sha256": image_hash,
+        }
+        encoded = json.dumps(stable, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        return "image_message:" + hashlib.sha256(encoded.encode("utf-8")).hexdigest()
     stable = {
         "message_type": message.get("message_type"),
         "line_display_time": message.get("line_display_time"),
