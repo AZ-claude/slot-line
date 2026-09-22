@@ -6,7 +6,7 @@
 
 ## Status
 
-🚧 Phase 1/RAW — PIA町田のrich-card-only返信を新schemaへ`success`（`image_count=0`）保存するRAW-only実機確認済み。画像付き完全E2EとA/B共通schemaの最終PASS、日次運用は未実施。
+🚧 Phase 1/RAW — `passive`と`text_trigger`を採用方式として固定。rich-card-only返信のRAW保存は実機確認済み。daily runnerのWindows手動実行も確認済み。Task Scheduler本番登録と日次安定運用は未実施。
 
 ## Phase 1 runner
 
@@ -15,6 +15,14 @@ Windows運用機で、リポジトリルートから次を1回実行します。
 ```powershell
 python scripts\run_pia_machida.py
 ```
+
+2店舗をまとめて手動実行する最小runnerは次です。Task Schedulerにはまだ登録しません。
+
+```powershell
+python scripts\run_daily.py
+```
+
+summaryにはADB health、各`store_id`のstatus、今回runの`message_count`、保存総数`stored_message_count_total`、`image_count`、errors/warnings、`raw_path`を出力します。
 
 処理は、WindowsからADBで `https://line.me/R/oaMessage/%40030pwlwx/?%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1` をAndroidへ開き、UI階層で `PIA町田` と入力欄の `最新情報` を完全一致確認してから送信します。対象確認できない場合は送信せず終了します。返信は `uiautomator` で検知し、LINE標準のダウンロード操作、`adb pull`、SHA-256/byte size記録までを行います。
 

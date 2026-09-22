@@ -763,3 +763,22 @@ Android本体再起動後は`lockscreen.disabled=0`、`password_quality=null`だ
 rendered screenshotにはrich-cardの視覚情報が残るが、独立した画像messageではないため`images/`へ推測保存していない。OCRは使用していない。同一runのmanifest/messages再適用後もmessage 1件・image 0件を維持し、冪等性を確認した。以後、`text`、`rich_card`、`image`、または組み合わせの新規incoming rowを漏れなくRAW保存できた場合を`success`とし、画像がある場合だけ画像取得処理を行う。
 
 さらに、UI階層の時刻ノードを本文へ混入させない修正後に同じ23:14返信を再取得した（`run_id=002745-9d9b41be`）。`messages.json`は`text=[]`、`line_display_time=23:14`となり、同一run再適用後も`message_count=1`、`image_count=0`を維持した。
+
+## Phase 1採用方式と手動daily runner確認（2026-09-23）
+
+取得方式の探索は終了し、以下をPhase 1の採用方式とする。
+
+- A「エムアンドエム溝口」：`passive`
+- B「PIA町田」：`text_trigger`
+- rich-card-onlyは画像なしでも正常な受信構造として`success`、`image_count=0`
+
+`scripts/run_daily.py`を追加し、ADB health check後にM&M、PIAの既存Adapterを独立実行する手動runnerをWindowsで1回確認した。Task Schedulerは変更していない。
+
+| store_id | adapter_type | status | message_count | stored_message_count_total | image_count | raw_path |
+| --- | --- | --- | ---: | ---: | ---: | --- |
+| `m_and_m_mizoguchi` | `passive` | `success` | 1 | 1 | 0 | `C:\Users\Public\slot-line-daily-20260923\data\raw\2026-09-23\m_and_m_mizoguchi` |
+| `pia_machida` | `text_trigger` | `response_timeout` | 0 | 0 | 0 | `C:\Users\Public\slot-line-daily-20260923\data\raw\2026-09-23\pia_machida` |
+
+ADB healthは`success`、全体summaryは`partial_failure`だった。片方のAdapterが失敗してももう片方を停止せず実行できた。PIAへのtriggerはこの手動daily runner内で1回だけ実行し、追加送信・連打は行っていない。`message_count`は今回runの件数、`stored_message_count_total`はcanonical `messages.json`のmerge後総件数として、両Adapterで同じ意味に揃えた。
+
+Task Scheduler本番登録、多店舗化、OCR、AI解析、slot連携はまだ行っていない。
