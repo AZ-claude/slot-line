@@ -721,3 +721,19 @@ Android本体再起動後は`lockscreen.disabled=0`、`password_quality=null`だ
 | Android一時画像cleanup | 送信前後の画像一覧は同じ5件で、新規画像なし。対象画像のcleanupは対象なし | 未適用 |
 
 今回の失敗runを同じmanifest/messagesへ再適用しても、manifest 1件・messages 0件のままであることを確認した。これは失敗runの保存冪等性の確認であり、成功画像を含む完全E2Eの冪等性確認ではない。返信待機の実機結果が失敗だったため、PIA町田の新schema Live、A/B共通RAW schemaのPhase 1 PASS、SHA-256/byte size、画像cleanupは未成立とする。PIA町田への再送信は行わない。
+
+### PIA町田新schema Live再試験（2026-09-22）
+
+ユーザーから再実行可能の指示を受け、PIA町田への送信を追加で1回だけ実行した。21時更新と返信可能条件が一致するとは判断していない。
+
+- `run_id=231428-722e8985`
+- 送信時刻：23:14 JST
+- URLで`PIA町田`と入力欄`最新情報`を確認後に送信：成立
+- 90秒待機後も返信なし：`response_timeout`
+- `messages.json`：空
+- `images/`：新規ファイルなし
+- `ui/`：返信UI dumpなし
+- Android画像一覧：送信前後とも既存5件で変化なし
+- manifest再適用：`run_id`、`response_timeout`、messages 0件を維持し、冪等性確認済み
+
+この再試験でも返信が得られなかったため、reply detection以降のimage save、`adb pull`、SHA-256/byte size、Android一時画像cleanupは未確認である。PIA町田の新schema成功LiveおよびA/B共通RAW schemaのPhase 1 PASSには変更なし。追加送信・連打は行っていない。

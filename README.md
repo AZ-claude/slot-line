@@ -6,7 +6,7 @@
 
 ## Status
 
-🚧 Phase 1/RAW — PIA町田の既存E2EとA `passive` adapterは実機確認済み。新schemaのPIA町田LiveはURL送信後に`response_timeout`となり、成功RAWおよびA/B共通schemaのPASSは未確定。日次運用は未実施。
+🚧 Phase 1/RAW — PIA町田の既存E2EとA `passive` adapterは実機確認済み。新schemaのPIA町田Liveは2回ともURL送信後に`response_timeout`となり、成功RAWおよびA/B共通schemaのPASSは未確定。日次運用は未実施。
 
 ## Phase 1 runner
 
