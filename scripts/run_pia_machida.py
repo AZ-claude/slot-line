@@ -128,6 +128,24 @@ def adb_run(ctx: AndroidContext, args: list[str], *, timeout: float = 30.0, chec
     return result
 
 
+def adb_binary_run(ctx: AndroidContext, args: list[str], *, timeout: float = 30.0) -> bytes:
+    try:
+        result = subprocess.run(
+            [ctx.adb, "-s", ctx.serial, *args],
+            capture_output=True,
+            timeout=timeout,
+            check=False,
+        )
+    except FileNotFoundError as exc:
+        raise PhaseError("android_unreachable", "adb_not_found") from exc
+    except subprocess.TimeoutExpired as exc:
+        raise PhaseError("android_unreachable", "adb_binary_command_timeout") from exc
+    if result.returncode != 0:
+        detail = (result.stderr or result.stdout).decode("utf-8", errors="replace").strip()
+        raise PhaseError("extraction_failed", f"adb_binary_failed:{detail[:300]}")
+    return result.stdout
+
+
 def discover_android() -> AndroidContext:
     adb = shutil.which("adb")
     if not adb:
@@ -307,6 +325,11 @@ def extract_message_rows(root: ElementTree.Element) -> list[dict[str, Any]]:
             continue
         descendants = descendant_nodes(row)
         ids = [resource_id(node) for node in descendants]
+        incoming = any("_receive_" in value for value in ids) or any(
+            resource_id(node) == "jp.naver.line.android:id/chat_ui_row_thumbnail"
+            and bool(node_attr(node, "content-desc"))
+            for node in descendants
+        )
         kind = None
         image_node = None
         if "jp.naver.line.android:id/chat_ui_row_image_balloon_root" in ids:
@@ -329,6 +352,7 @@ def extract_message_rows(root: ElementTree.Element) -> list[dict[str, Any]]:
         desc_values = [node_attr(node, "content-desc") for node in descendants if node_attr(node, "content-desc")]
         message = {
             "kind": kind,
+            "incoming": incoming,
             "timestamp": text_or_desc(timestamp_node) if timestamp_node is not None else None,
             "bounds": node_attr(row, "bounds"),
             "image_bounds": node_attr(image_node, "bounds") if image_node is not None else None,
@@ -372,10 +396,12 @@ def wait_for_reply(ctx: AndroidContext, baseline: list[dict[str, Any]], timeout_
             else:
                 new_rows.append(row)
         # Ignore a possible outgoing trigger text row and return as soon as an
-        # incoming rich-card or image boundary appears.  A rich-card-only
-        # response is still a reply; the caller separately decides whether an
-        # image is required for RAW completion.
-        incoming = [row for row in new_rows if row["kind"] in {"rich_card", "image"}]
+        # incoming text, rich-card, or image boundary appears.  Images are an
+        # optional part of a successful response and are handled separately.
+        incoming = [
+            row for row in new_rows
+            if row.get("incoming") and row["kind"] in {"text", "rich_card", "image"}
+        ]
         if incoming:
             return incoming, last_raw
         time.sleep(1.0)
@@ -423,6 +449,13 @@ def pull_image_to_stage(ctx: AndroidContext, android_path: str, raw_store: RawSt
         detail = (pulled.stderr or pulled.stdout).strip().replace("\r", " ").replace("\n", " ")
         raise PhaseError("pull_failed", detail[:300] or "adb_pull_failed")
     return stage
+
+
+def save_rendered_screenshot(ctx: AndroidContext, raw_store: RawStore, run_id: str) -> str:
+    screenshot = adb_binary_run(ctx, ["exec-out", "screencap", "-p"], timeout=30)
+    if not screenshot.startswith(b"\x89PNG"):
+        raise PhaseError("extraction_failed", "android_screenshot_invalid")
+    return raw_store.save_ui_artifact(screenshot, run_id, "reply_screen", ".png")
 
 
 def ps_quote(value: str) -> str:
@@ -549,10 +582,12 @@ def rows_to_messages(rows: list[dict[str, Any]], observed_at: str) -> list[dict[
     return [
         {
             "message_type": row.get("kind"),
+            "incoming": bool(row.get("incoming")),
             "line_display_time": row.get("timestamp"),
             "observed_at": observed_at,
             "text": row.get("text") or [],
             "content_desc": row.get("content_desc") or [],
+            "resource_ids": row.get("resource_ids") or [],
             "image_filename": None,
             "byte_size": None,
             "sha256": None,
@@ -581,6 +616,11 @@ def parse_args() -> argparse.Namespace:
         default="url",
         help="Preferred Android oaMessage URL trigger; windows-uia is the verified fallback only.",
     )
+    parser.add_argument(
+        "--existing-reply",
+        action="store_true",
+        help="Import the currently visible PIA reply without sending a trigger; diagnostic only.",
+    )
     return parser.parse_args()
 
 
@@ -595,14 +635,14 @@ def main() -> int:
         run_id,
         started_at,
         {
-            "type": ADAPTER_TYPE,
-            "text": TRIGGER_TEXT,
-            "mode": args.trigger_mode,
+            "type": "existing_reply" if args.existing_reply else ADAPTER_TYPE,
+            "text": None if args.existing_reply else TRIGGER_TEXT,
+            "mode": "existing_reply" if args.existing_reply else args.trigger_mode,
             "line_id": PIA_LINE_ID,
         },
     )
     record["line_id"] = PIA_LINE_ID
-    record["trigger_mode"] = args.trigger_mode
+    record["trigger_mode"] = "existing_reply" if args.existing_reply else args.trigger_mode
     android: AndroidContext | None = None
     android_image_path: str | None = None
     storage_finalized = False
@@ -611,7 +651,14 @@ def main() -> int:
         original = adb_run(android, ["shell", "settings", "get", "global", STAY_ON_KEY], timeout=15).stdout.strip()
         android.original_stay_on = original if original.isdigit() else "0"
         adb_run(android, ["shell", "settings", "put", "global", STAY_ON_KEY, "2"], timeout=15)
-        if args.trigger_mode == "url":
+        if args.existing_reply:
+            root = open_line_and_pia_chat(android)
+            root = focus_latest_message(android, root)
+            new_rows = [row for row in extract_message_rows(root) if row.get("incoming")]
+            if not new_rows:
+                raise PhaseError("extraction_failed", "existing_pia_reply_not_visible")
+            _, reply_raw = dump_ui(android, "existing-reply")
+        elif args.trigger_mode == "url":
             # The URL opens the target chat and prefills the text.  The exact
             # target title and exact input value are checked immediately before
             # the send-button tap; otherwise the run fails closed.
@@ -627,44 +674,53 @@ def main() -> int:
             # logged-on interactive session.  No message body is copied/read
             # from Windows; Android is the source of truth for the reply.
             _, triggered_at = send_trigger_on_windows()
-        record["triggered_at"] = triggered_at
+        if not args.existing_reply:
+            record["triggered_at"] = triggered_at
 
-        # Wait for the next rich-card + image message boundary exposed by
-        # Android UIAutomator.
-        new_rows, reply_raw = wait_for_reply(android, baseline, args.response_timeout)
+        if not args.existing_reply:
+            new_rows, reply_raw = wait_for_reply(android, baseline, args.response_timeout)
         received_at = utc_now()
         ui_filename = raw_store.save_ui_dump(reply_raw, run_id, "reply")
         record["ui_filenames"] = [ui_filename]
         record["received_at"] = received_at
 
-        image_row = next((row for row in reversed(new_rows) if row.get("kind") == "image"), None)
-        if image_row is None:
-            raise PhaseError("extraction_failed", "reply_detected_without_image_message_boundary")
-        before_files = list_android_line_files(android)
-        android_image_path = save_image_from_line(android, image_row, before_files)
-        stage = pull_image_to_stage(android, android_image_path, raw_store, run_id)
-        image_info = raw_store.import_image(stage, android_image_path)
         messages = rows_to_messages(new_rows, received_at)
-        image_message = next(message for message in messages if message["message_type"] == "image")
-        image_message.update(
-            {
-                "image_filename": image_info["image_filename"],
-                "byte_size": image_info["byte_size"],
-                "sha256": image_info["sha256"],
-            }
-        )
-        raw_store.merge_messages(messages)
-        record["image_count"] = 1
-        record["deduplicated_images"] = int(image_info["deduplicated"])
+        image_row = next((row for row in reversed(new_rows) if row.get("kind") == "image"), None)
+        if image_row is not None:
+            before_files = list_android_line_files(android)
+            android_image_path = save_image_from_line(android, image_row, before_files)
+            stage = pull_image_to_stage(android, android_image_path, raw_store, run_id)
+            image_info = raw_store.import_image(stage, android_image_path)
+            image_message = next(message for message in messages if message["message_type"] == "image")
+            image_message.update(
+                {
+                    "image_filename": image_info["image_filename"],
+                    "byte_size": image_info["byte_size"],
+                    "sha256": image_info["sha256"],
+                }
+            )
+            record["image_count"] = 1
+            record["deduplicated_images"] = int(image_info["deduplicated"])
+        else:
+            record["image_count"] = 0
+            record["deduplicated_images"] = 0
+            if any(message["message_type"] == "rich_card" for message in messages):
+                try:
+                    record["ui_filenames"].append(save_rendered_screenshot(android, raw_store, run_id))
+                except PhaseError as exc:
+                    record["errors"].append({"code": "screenshot_warning", "detail": exc.detail})
+        merged_messages = raw_store.merge_messages(messages)
+        record["message_count"] = len(merged_messages)
         record["status"] = "success"
         record["finished_at"] = utc_now()
         raw_store.persist_manifest(record)
         storage_finalized = True
 
-        cleanup_error = delete_android_image(android, android_image_path)
-        if cleanup_error:
-            record["errors"].append({"code": "cleanup_warning", "detail": cleanup_error})
-            raw_store.persist_manifest(record)
+        if android_image_path is not None:
+            cleanup_error = delete_android_image(android, android_image_path)
+            if cleanup_error:
+                record["errors"].append({"code": "cleanup_warning", "detail": cleanup_error})
+                raw_store.persist_manifest(record)
     except PhaseError as exc:
         record["status"] = exc.code
         record["errors"].append({"code": exc.code, "detail": exc.detail})

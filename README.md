@@ -6,7 +6,7 @@
 
 ## Status
 
-🚧 Phase 1/RAW — PIA町田の既存E2EとA `passive` adapterは実機確認済み。新schemaのPIA町田Liveは送信後にrich-card返信が確認できたが、添付画像行がなく、成功RAWおよびA/B共通schemaのPASSは未確定。日次運用は未実施。
+🚧 Phase 1/RAW — PIA町田のrich-card-only返信を新schemaへ`success`（`image_count=0`）保存するRAW-only実機確認済み。画像付き完全E2EとA/B共通schemaの最終PASS、日次運用は未実施。
 
 ## Phase 1 runner
 

@@ -742,6 +742,22 @@ Android本体再起動後は`lockscreen.disabled=0`、`password_quality=null`だ
 
 ユーザーの目視確認を受け、追加送信なしでAndroidの現在UI階層を再取得した。`PIA町田`ヘッダーの下に、`chat_ui_row_receive_rich_container`の返信行と`chat_ui_row_timestamp`の`23:14`が存在した。一方、別個の`chat_ui_row_image`行は存在しなかった。
 
-したがって、前回の`response_timeout`は「返信がなかった」という意味ではなく、返信検出が`rich_card`と`image`の両方を要求していたための誤分類だった。`scripts/run_pia_machida.py`を修正し、rich-card単独でも返信として検知し、画像行がなければ`extraction_failed: reply_detected_without_image_message_boundary`とする。
+したがって、前回の`response_timeout`は「返信がなかった」という意味ではなく、返信検出が`rich_card`と`image`の両方を要求していたための誤分類だった。`scripts/run_pia_machida.py`を修正し、text・rich_card・imageのいずれかの新規incoming rowを返信成立とし、画像行がなければ`image_count=0`の正常runとして保存する。
 
-今回確認できた事実は、返信検知（rich-card）は成立、画像message境界・LINE標準画像保存・`adb pull`・SHA-256/byte size・Android cleanupは未確認、である。rich-card内の`ImageView`は過去の実機確認でリンクカードと判定された形式と同じであり、添付画像として推測してRAW保存しない。成功画像を含む完全E2EおよびA/B共通RAW schemaのPhase 1 PASSは引き続き未達とする。追加送信・連打は行っていない。
+今回確認できた事実は、返信検知（rich-card）は成立、画像message境界は存在しない、である。rich-card内の`ImageView`は過去の実機確認でリンクカードと判定された形式と同じであり、添付画像として推測してRAW保存しない。画像がない場合もrich-cardの構造・UI dumpを保存する方式へ修正し、23:14既存返信で追加送信なしのRAW保存検証を行う。追加送信・連打は行っていない。
+
+### 23:14既存返信のRAW-only検証（2026-09-23）
+
+追加送信なしで、現在表示されているPIA町田の23:14返信を`--existing-reply`診断モードから読み取り、新RAW schemaへ保存した。
+
+| 項目 | 実測結果 |
+| --- | --- |
+| `run_id` | `002525-c6c220df` |
+| manifest | `status=success`、`message_count=1`、`image_count=0`、`errors=[]` |
+| message | `message_type=rich_card`、`incoming=true`、LINE表示時刻`23:14` |
+| 構造 | `resource_ids`、`text`、`content_desc`、`bounds=[0,146][1442,571]`を`messages.json`へ保存 |
+| UI dump | `ui/002525-c6c220df_reply.xml`、XML 27,806 bytes、SHA-256 `ff9ab4c390f5ccf0965ac7607ec3422affcbaee672a9c2d9c6d7d8dc27289308` |
+| rendered screenshot | `ui/002525-c6c220df_reply_screen.png`、1496×720、481,323 bytes、SHA-256 `576b8d0b4ea1cd7637e5447c07f31ce871905d0ae92a7f2a7370d43420e06b78` |
+| 画像処理 | 独立`image` rowがないため、LINE標準保存・`adb pull`・SHA-256・Android cleanupは実行なし |
+
+rendered screenshotにはrich-cardの視覚情報が残るが、独立した画像messageではないため`images/`へ推測保存していない。OCRは使用していない。同一runのmanifest/messages再適用後もmessage 1件・image 0件を維持し、冪等性を確認した。以後、`text`、`rich_card`、`image`、または組み合わせの新規incoming rowを漏れなくRAW保存できた場合を`success`とし、画像がある場合だけ画像取得処理を行う。

@@ -121,15 +121,20 @@ class RawStore:
             records.append(record)
         _atomic_write_json(self.manifest_path, records)
 
-    def save_ui_dump(self, raw: bytes, run_id: str, label: str = "reply") -> str:
-        if not raw.strip().startswith(b"<"):
-            raise RawStorageError("ui_dump_empty")
-        filename = f"{run_id}_{label}.xml"
+    def save_ui_artifact(self, raw: bytes, run_id: str, label: str, suffix: str) -> str:
+        if not raw:
+            raise RawStorageError("ui_artifact_empty")
+        filename = f"{run_id}_{label}{suffix}"
         path = self.ui_dir / filename
         temporary = path.with_name(f".{path.name}.{uuid.uuid4().hex}.tmp")
         temporary.write_bytes(raw)
         os.replace(temporary, path)
         return str(Path("ui") / filename)
+
+    def save_ui_dump(self, raw: bytes, run_id: str, label: str = "reply") -> str:
+        if not raw.strip().startswith(b"<"):
+            raise RawStorageError("ui_dump_empty")
+        return self.save_ui_artifact(raw, run_id, label, ".xml")
 
     def import_image(self, pulled_path: Path, source_name: str | None = None) -> dict[str, Any]:
         if not pulled_path.exists() or not pulled_path.is_file():

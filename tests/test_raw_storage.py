@@ -45,6 +45,14 @@ class RawStoreTest(unittest.TestCase):
             self.assertEqual(len(manifest), 1)
             self.assertEqual(manifest[0]["status"], "success")
 
+    def test_ui_artifact_is_saved_under_ui_directory(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            store = RawStore(Path(temporary), "2026-09-22", "test_store", "official_line", "passive")
+            store.initialize()
+            relative = store.save_ui_artifact(b"PNG", "run-1", "reply_screen", ".png")
+            self.assertEqual(relative, "ui/run-1_reply_screen.png")
+            self.assertEqual((store.root / relative).read_bytes(), b"PNG")
+
     def test_same_image_at_different_times_is_two_message_occurrences(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             store = RawStore(Path(temporary), "2026-09-22", "test_store", "official_line", "text_trigger")

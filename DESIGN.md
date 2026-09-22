@@ -313,15 +313,17 @@ data/
 `messages.json`は同一店舗・同一日で重複排除したメッセージ配列とする。各メッセージに最低限次を持つ。
 
 - `message_type`
+- `resource_ids`
 - `line_display_time`
 - `observed_at`
 - `text`
 - `content_desc`
+- `bounds`
 - `image_filename`
 - `byte_size`
 - `sha256`
 
-`images/`にはLINE標準保存後に`adb pull`した原画像を保存する。`ui/`には取得を裏付ける最終`uiautomator` dumpを実行単位で保存し、常時大量保存はしない。
+`images/`にはLINE標準保存後に`adb pull`した原画像を保存する。画像messageがない正常返信では`image_count=0`とし、画像保存処理は行わない。`ui/`には取得を裏付ける最終`uiautomator` dumpを実行単位で保存する。画像として独立保存できないrich cardは、必要に応じて同じ画面のrendered screenshotも`ui/`へ保存する。常時大量保存はしない。
 
 ### 8.2 保存構造例
 
@@ -459,7 +461,7 @@ RAW保存
 
 ## 14. 失敗状態
 
-成功/失敗を曖昧にしない。
+成功/失敗を曖昧にしない。新規incoming rowの構造（text、rich_card、image、またはそれらの組み合わせ）を漏れなくRAWへ保存できた場合を`success`とする。画像messageの存在は成功条件ではなく、存在する場合だけ標準保存・`adb pull`・SHA-256確認を行う。
 
 最低限:
 
