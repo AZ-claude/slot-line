@@ -371,11 +371,12 @@ def wait_for_reply(ctx: AndroidContext, baseline: list[dict[str, Any]], timeout_
                 remaining[signature] -= 1
             else:
                 new_rows.append(row)
-        # The expected PIA reply has a rich card followed by an image.  Ignore
-        # a possible outgoing trigger text row and wait for the incoming image
-        # or rich card boundary.
+        # Ignore a possible outgoing trigger text row and return as soon as an
+        # incoming rich-card or image boundary appears.  A rich-card-only
+        # response is still a reply; the caller separately decides whether an
+        # image is required for RAW completion.
         incoming = [row for row in new_rows if row["kind"] in {"rich_card", "image"}]
-        if incoming and any(row["kind"] == "image" for row in incoming):
+        if incoming:
             return incoming, last_raw
         time.sleep(1.0)
     raise PhaseError("response_timeout", f"no_new_pia_reply_within_{timeout_seconds:g}s")
@@ -638,7 +639,7 @@ def main() -> int:
 
         image_row = next((row for row in reversed(new_rows) if row.get("kind") == "image"), None)
         if image_row is None:
-            raise PhaseError("extraction_failed", "reply_image_message_boundary_not_found")
+            raise PhaseError("extraction_failed", "reply_detected_without_image_message_boundary")
         before_files = list_android_line_files(android)
         android_image_path = save_image_from_line(android, image_row, before_files)
         stage = pull_image_to_stage(android, android_image_path, raw_store, run_id)

@@ -737,3 +737,11 @@ Android本体再起動後は`lockscreen.disabled=0`、`password_quality=null`だ
 - manifest再適用：`run_id`、`response_timeout`、messages 0件を維持し、冪等性確認済み
 
 この再試験でも返信が得られなかったため、reply detection以降のimage save、`adb pull`、SHA-256/byte size、Android一時画像cleanupは未確認である。PIA町田の新schema成功LiveおよびA/B共通RAW schemaのPhase 1 PASSには変更なし。追加送信・連打は行っていない。
+
+### PIA町田返信の再確認と検出条件修正（2026-09-22）
+
+ユーザーの目視確認を受け、追加送信なしでAndroidの現在UI階層を再取得した。`PIA町田`ヘッダーの下に、`chat_ui_row_receive_rich_container`の返信行と`chat_ui_row_timestamp`の`23:14`が存在した。一方、別個の`chat_ui_row_image`行は存在しなかった。
+
+したがって、前回の`response_timeout`は「返信がなかった」という意味ではなく、返信検出が`rich_card`と`image`の両方を要求していたための誤分類だった。`scripts/run_pia_machida.py`を修正し、rich-card単独でも返信として検知し、画像行がなければ`extraction_failed: reply_detected_without_image_message_boundary`とする。
+
+今回確認できた事実は、返信検知（rich-card）は成立、画像message境界・LINE標準画像保存・`adb pull`・SHA-256/byte size・Android cleanupは未確認、である。rich-card内の`ImageView`は過去の実機確認でリンクカードと判定された形式と同じであり、添付画像として推測してRAW保存しない。成功画像を含む完全E2EおよびA/B共通RAW schemaのPhase 1 PASSは引き続き未達とする。追加送信・連打は行っていない。
