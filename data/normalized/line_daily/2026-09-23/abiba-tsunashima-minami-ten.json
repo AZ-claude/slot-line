@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "store_id": "abiba-tsunashima-minami-ten",
+  "date": "2026-09-23",
+  "source": "official_line",
+  "acquisition_type": "unknown",
+  "collection": {
+    "status": "not_checked",
+    "checked_at": null,
+    "failure_code": null
+  },
+  "line_update": "unknown",
+  "trigger": {
+    "required": false,
+    "performed": null,
+    "action": null,
+    "text": null,
+    "triggered_at": null,
+    "result": null
+  },
+  "messages": {
+    "count": 0,
+    "first_display_time": null,
+    "last_display_time": null,
+    "types": []
+  },
+  "summary": {
+    "status": "pending",
+    "text": null,
+    "generated_at": null,
+    "generator": null
+  },
+  "raw_refs": {
+    "directory": "data/raw/2026-09-23/abiba-tsunashima-minami-ten",
+    "run_ids": [],
+    "message_refs": []
+  }
+}

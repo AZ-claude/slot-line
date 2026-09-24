@@ -84,3 +84,7 @@ python scripts\run_m_and_m_mizoguchi.py
 
 - Default branch: `main`
 - Issueや設計、使い方は今後ここに整理します
+
+## LINE日次観測
+
+canonical RAWから店舗×日付の正規化JSONを生成するconverter、軽量validation、未収集日fixtureは [`docs/LINE_DAILY.md`](docs/LINE_DAILY.md) にまとめています。要約はRAWではなく派生値として扱い、今回のconverterはAI要約を実行しません。

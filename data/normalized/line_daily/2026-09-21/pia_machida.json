@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "store_id": "pia_machida",
+  "date": "2026-09-21",
+  "source": "official_line",
+  "acquisition_type": "text_trigger",
+  "collection": {
+    "status": "success",
+    "checked_at": "2026-09-21T11:35:52.382805+00:00",
+    "failure_code": null
+  },
+  "line_update": "present",
+  "trigger": {
+    "required": true,
+    "performed": true,
+    "action": "send_text",
+    "text": "最新情報",
+    "triggered_at": "2026-09-21T11:35:52.382805+00:00",
+    "result": "sent"
+  },
+  "messages": {
+    "count": 2,
+    "first_display_time": "12:44",
+    "last_display_time": "12:44",
+    "types": [
+      "image",
+      "rich_card"
+    ]
+  },
+  "summary": {
+    "status": "pending",
+    "text": null,
+    "generated_at": null,
+    "generator": null
+  },
+  "raw_refs": {
+    "directory": "data/raw/2026-09-21/pia_machida",
+    "run_ids": [],
+    "message_refs": []
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://slot-line.local/schema/line_daily.schema.json",
+  "title": "Slot LINE daily observation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "store_id",
+    "date",
+    "source",
+    "acquisition_type",
+    "collection",
+    "line_update",
+    "trigger",
+    "messages",
+    "summary",
+    "raw_refs"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "store_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$" },
+    "date": { "type": "string", "format": "date" },
+    "source": { "type": "string", "const": "official_line" },
+    "acquisition_type": {
+      "type": "string",
+      "enum": ["passive", "text_trigger", "android_ui_trigger", "unknown"]
+    },
+    "collection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "checked_at", "failure_code"],
+      "properties": {
+        "status": { "enum": ["success", "partial", "failed", "not_checked"] },
+        "checked_at": { "type": ["string", "null"], "format": "date-time" },
+        "failure_code": { "type": ["string", "null"] }
+      }
+    },
+    "line_update": { "enum": ["present", "absent", "unknown"] },
+    "trigger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "performed", "action", "text", "triggered_at", "result"],
+      "properties": {
+        "required": { "type": "boolean" },
+        "performed": { "type": ["boolean", "null"] },
+        "action": { "type": ["string", "null"] },
+        "text": { "type": ["string", "null"] },
+        "triggered_at": { "type": ["string", "null"], "format": "date-time" },
+        "result": { "type": ["string", "null"] }
+      }
+    },
+    "messages": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["count", "first_display_time", "last_display_time", "types"],
+      "properties": {
+        "count": { "type": "integer", "minimum": 0 },
+        "first_display_time": { "type": ["string", "null"], "pattern": "^\\d{2}:\\d{2}$" },
+        "last_display_time": { "type": ["string", "null"], "pattern": "^\\d{2}:\\d{2}$" },
+        "types": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "text", "generated_at", "generator"],
+      "properties": {
+        "status": { "enum": ["pending", "generated", "not_applicable", "failed"] },
+        "text": { "type": ["string", "null"] },
+        "generated_at": { "type": ["string", "null"], "format": "date-time" },
+        "generator": { "type": ["string", "null"] }
+      }
+    },
+    "raw_refs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["directory", "run_ids", "message_refs"],
+      "properties": {
+        "directory": { "type": "string" },
+        "run_ids": { "type": "array", "items": { "type": "string" } },
+        "message_refs": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}
