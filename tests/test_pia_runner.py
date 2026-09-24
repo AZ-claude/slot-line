@@ -1,9 +1,11 @@
 import unittest
 from collections import Counter
+from unittest.mock import patch
 
 from scripts.run_pia_machida import (
     has_reply_progress,
     incoming_rows_since_baseline,
+    parse_args,
     settled_row_signature,
 )
 
@@ -44,6 +46,20 @@ class PiaRunnerTests(unittest.TestCase):
         }
         result = incoming_rows_since_baseline([row, dict(row)], Counter())
         self.assertEqual(len(result), 2)
+
+    def test_windows_uia_verify_only_is_explicit_and_non_sending_mode(self):
+        with patch(
+            "sys.argv",
+            [
+                "run_pia_machida.py",
+                "--trigger-mode",
+                "windows-uia",
+                "--windows-uia-verify-only",
+            ],
+        ):
+            args = parse_args()
+        self.assertTrue(args.windows_uia_verify_only)
+        self.assertEqual(args.trigger_mode, "windows-uia")
 
 
 if __name__ == "__main__":

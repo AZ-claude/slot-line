@@ -558,8 +558,8 @@ def ps_quote(value: str) -> str:
     return "'" + value.replace("'", "''") + "'"
 
 
-def send_trigger_on_windows() -> tuple[str, str]:
-    """Set and send the trigger in the logged-on Windows LINE UI.
+def send_trigger_on_windows(*, verify_only: bool = False) -> dict[str, Any]:
+    """Verify the Windows LINE target and optionally send the trigger.
 
     The helper is ASCII-only so Windows PowerShell 5.1 cannot corrupt the
     Japanese trigger before it reaches LINE.  It is run in the current
@@ -570,6 +570,7 @@ def send_trigger_on_windows() -> tuple[str, str]:
     base = Path(r"C:\Users\Public")
     helper_path = base / f"slot-line-phase1-send-{os.getpid()}-{uuid.uuid4().hex[:8]}.ps1"
     result_path = base / f"slot-line-phase1-send-{os.getpid()}-{uuid.uuid4().hex[:8]}.json"
+    target_expression = " + ".join(f"([char]0x{ord(character):04X}).ToString()" for character in ACTIVE_CONFIG.target_title)
     desired_expression = " + ".join(f"([char]0x{ord(character):04X}).ToString()" for character in ACTIVE_CONFIG.trigger_text)
     expected_codepoints = ",".join(f"U+{ord(character):04X}" for character in ACTIVE_CONFIG.trigger_text)
     helper = f"""param([string]$OutFile)
@@ -577,31 +578,53 @@ $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName UIAutomationTypes
 Add-Type -AssemblyName System.Windows.Forms
-$result = [ordered]@{{ ok = $false; error = $null; sent_at_utc = $null; codepoints = $null }}
+$result = [ordered]@{{ ok = $false; error = $null; target_verified = $false; target_match_count = 0; target_matches = @(); input_verified = $false; input_match_count = 0; sent_at_utc = $null; codepoints = $null }}
 try {{
+  $target = {target_expression}
   $desired = {desired_expression}
-  $process = Get-Process -Name 'LINE' -ErrorAction SilentlyContinue | Select-Object -First 1
+  $process = Get-Process -Name 'LINE' -ErrorAction SilentlyContinue | Where-Object {{ $_.MainWindowHandle -ne [IntPtr]::Zero }} | Select-Object -First 1
   if ($null -eq $process) {{ throw 'LINE_process_not_found' }}
   if ($process.MainWindowHandle -eq [IntPtr]::Zero) {{ throw 'LINE_window_not_found' }}
   $line = [System.Windows.Automation.AutomationElement]::FromHandle($process.MainWindowHandle)
   if ($null -eq $line) {{ throw 'LINE_window_not_found' }}
+  $matches = @()
+  $nameCondition = New-Object -TypeName System.Windows.Automation.PropertyCondition -ArgumentList @([System.Windows.Automation.AutomationElement]::NameProperty, $target)
+  $targetNodes = @($line.FindAll([System.Windows.Automation.TreeScope]::Descendants, $nameCondition))
+  if ($targetNodes.Count -eq 0) {{
+    $automationCondition = New-Object -TypeName System.Windows.Automation.PropertyCondition -ArgumentList @([System.Windows.Automation.AutomationElement]::AutomationIdProperty, $target)
+    $targetNodes = @($line.FindAll([System.Windows.Automation.TreeScope]::Descendants, $automationCondition))
+  }}
+  foreach ($node in $targetNodes) {{
+    $matches += [ordered]@{{ name = [string]$node.Current.Name; automation_id = [string]$node.Current.AutomationId; class_name = [string]$node.Current.ClassName; value = $null; control_type = [string]$node.Current.ControlType.ProgrammaticName; bounds = [string]$node.Current.BoundingRectangle; is_offscreen = $node.Current.IsOffscreen }}
+  }}
+  $result.target_match_count = [int]$matches.Count
+  $result.target_matches = $matches
+  if ($matches.Count -ne 1 -or $matches[0].is_offscreen) {{ throw 'target_chat_not_verified' }}
+  $result.target_verified = $true
   $editType = New-Object -TypeName System.Windows.Automation.PropertyCondition -ArgumentList @([System.Windows.Automation.AutomationElement]::ControlTypeProperty, [System.Windows.Automation.ControlType]::Edit)
   $editClass = New-Object -TypeName System.Windows.Automation.PropertyCondition -ArgumentList @([System.Windows.Automation.AutomationElement]::ClassNameProperty, 'AutoSuggestTextArea')
   $editCondition = New-Object -TypeName System.Windows.Automation.AndCondition -ArgumentList @($editType, $editClass)
-  $edit = $line.FindFirst([System.Windows.Automation.TreeScope]::Descendants, $editCondition)
-  if ($null -eq $edit) {{ throw 'target_input_not_found' }}
+  $edits = @($line.FindAll([System.Windows.Automation.TreeScope]::Descendants, $editCondition))
+  $result.input_match_count = [int]$edits.Count
+  if ($edits.Count -ne 1 -or $edits[0].Current.IsOffscreen -or -not $edits[0].Current.IsEnabled) {{ throw 'target_input_not_unique' }}
+  $edit = $edits[0]
   $valuePattern = $edit.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern)
   if ($null -eq $valuePattern) {{ throw 'target_input_value_pattern_not_found' }}
-  $edit.SetFocus()
-  $valuePattern.SetValue($desired)
-  Start-Sleep -Milliseconds 200
-  $readBack = $valuePattern.Current.Value
-  if ($readBack -ne $desired) {{ throw 'trigger_unicode_readback_mismatch' }}
-  [System.Windows.Forms.SendKeys]::SendWait('{{ENTER}}')
-  Start-Sleep -Milliseconds 300
-  $result.ok = $true
-  $result.sent_at_utc = [DateTimeOffset]::Now.ToUniversalTime().ToString('o')
-  $result.codepoints = (($desired.ToCharArray() | ForEach-Object {{ 'U+{{0:X4}}' -f [int][char]$_ }}) -join ',')
+  $result.input_verified = $true
+  if ({'$true' if verify_only else '$false'}) {{
+    $result.ok = $true
+  }} else {{
+    $edit.SetFocus()
+    $valuePattern.SetValue($desired)
+    Start-Sleep -Milliseconds 200
+    $readBack = $valuePattern.Current.Value
+    if ($readBack -ne $desired) {{ throw 'trigger_unicode_readback_mismatch' }}
+    [System.Windows.Forms.SendKeys]::SendWait('{{ENTER}}')
+    Start-Sleep -Milliseconds 300
+    $result.ok = $true
+    $result.sent_at_utc = [DateTimeOffset]::Now.ToUniversalTime().ToString('o')
+    $result.codepoints = (($desired.ToCharArray() | ForEach-Object {{ 'U+{{0:X4}}' -f [int][char]$_ }}) -join ',')
+  }}
 }} catch {{
   $result.error = $_.Exception.Message
 }}
@@ -637,7 +660,7 @@ $result | ConvertTo-Json -Compress | Set-Content -LiteralPath $OutFile -Encoding
         run = run_process(["schtasks.exe", "/Run", "/TN", task_name], timeout=30)
         if run.returncode != 0:
             raise PhaseError("trigger_failed", f"temporary_task_run_failed:{run.stderr.strip()[:300]}")
-        deadline = time.monotonic() + 45
+        deadline = time.monotonic() + (15 if verify_only else 45)
         while time.monotonic() < deadline:
             if result_path.exists():
                 try:
@@ -645,13 +668,23 @@ $result | ConvertTo-Json -Compress | Set-Content -LiteralPath $OutFile -Encoding
                 except (OSError, json.JSONDecodeError):
                     result = None
                 if isinstance(result, dict):
-                    if result.get("ok") is True and result.get("codepoints") == "U+6700,U+65B0,U+60C5,U+5831":
-                        return ACTIVE_CONFIG.trigger_text, str(result.get("sent_at_utc") or utc_now())
-                    error = str(result.get("error") or "windows_uia_trigger_failed")
-                    code = "line_not_ready" if error in {
+                    if result.get("ok") is True:
+                        if result.get("target_verified") is not True or result.get("input_verified") is not True:
+                            raise PhaseError("target_not_verified", "windows_uia_target_verification_incomplete")
+                        if not verify_only and result.get("codepoints") != expected_codepoints:
+                            raise PhaseError("trigger_failed", "trigger_unicode_readback_mismatch")
+                        return result
+                    raw_error = str(result.get("error") or "windows_uia_trigger_failed")
+                    error = raw_error
+                    if "target_match_count" in result:
+                        error = (
+                            f"{error}:target_match_count={result.get('target_match_count', 0)}"
+                            f":input_match_count={result.get('input_match_count', 0)}"
+                        )
+                    code = "target_not_verified" if raw_error == "target_chat_not_verified" else "line_not_ready" if raw_error in {
                         "LINE_process_not_found",
                         "LINE_window_not_found",
-                        "target_input_not_found",
+                        "target_input_not_unique",
                         "target_input_value_pattern_not_found",
                     } else "trigger_failed"
                     raise PhaseError(code, error)
@@ -659,6 +692,7 @@ $result | ConvertTo-Json -Compress | Set-Content -LiteralPath $OutFile -Encoding
         raise PhaseError("trigger_failed", "temporary_task_result_timeout")
     finally:
         if created_task:
+            run_process(["schtasks.exe", "/End", "/TN", task_name], timeout=30)
             run_process(["schtasks.exe", "/Delete", "/TN", task_name, "/F"], timeout=30)
         for path in (helper_path, result_path):
             try:
@@ -727,6 +761,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Explicitly allow a new trigger even when today's trigger was already attempted.",
     )
+    parser.add_argument(
+        "--windows-uia-verify-only",
+        action="store_true",
+        help="Verify the exact Windows LINE target and input without sending or writing RAW.",
+    )
     return parser.parse_args()
 
 
@@ -742,6 +781,14 @@ def main() -> int:
         trigger_text=trigger_text,
     )
     repo_root = args.repo_root.resolve()
+    if args.windows_uia_verify_only:
+        try:
+            result = send_trigger_on_windows(verify_only=True)
+        except PhaseError as exc:
+            print(json.dumps({"mode": "windows_uia_verify_only", "status": "fail_closed", "error": exc.detail}, ensure_ascii=False, indent=2))
+            return 1
+        print(json.dumps({"mode": "windows_uia_verify_only", "status": "success", "target": result}, ensure_ascii=False, indent=2))
+        return 0
     raw_store = RawStore(
         repo_root,
         datetime.now().strftime("%Y-%m-%d"),
@@ -807,7 +854,9 @@ def main() -> int:
             # Windows LINE must expose the verified AutoSuggestTextArea in the
             # logged-on interactive session.  No message body is copied/read
             # from Windows; Android is the source of truth for the reply.
-            _, triggered_at = send_trigger_on_windows()
+            windows_target = send_trigger_on_windows()
+            record["windows_target_verification"] = windows_target
+            triggered_at = str(windows_target.get("sent_at_utc") or utc_now())
         if not args.existing_reply:
             record["triggered_at"] = triggered_at
 
