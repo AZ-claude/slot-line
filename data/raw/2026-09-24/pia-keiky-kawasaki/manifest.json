@@ -1,0 +1,81 @@
+[
+  {
+    "store_id": "pia-keiky-kawasaki",
+    "collector_key": "pia-keiky-kawasaki",
+    "source": "official_line",
+    "adapter_type": "android_ui_trigger",
+    "run_id": "rich-214238-f33074e9",
+    "started_at": "2026-09-24T12:42:38.575369+00:00",
+    "finished_at": "2026-09-24T12:42:51.533042+00:00",
+    "trigger": {
+      "type": "rich_menu",
+      "action": "latest_info",
+      "text": "最新情報",
+      "line_id": "@rmh1818e",
+      "mode": "portrait_visual_acceptance"
+    },
+    "triggered_at": "2026-09-24T12:42:43.160274+00:00",
+    "received_at": "2026-09-24T12:42:50.366716+00:00",
+    "status": "success",
+    "errors": [],
+    "messages_filename": "messages.json",
+    "ui_filenames": [
+      "ui\\rich-214238-f33074e9_rich_menu_before.xml",
+      "ui\\rich-214238-f33074e9_rich_menu_screen.png",
+      "ui\\rich-214238-f33074e9_reply.xml",
+      "ui\\rich-214238-f33074e9_reply_screen.png"
+    ],
+    "message_count": 1,
+    "stored_message_count_total": 1,
+    "image_count": 0,
+    "deduplicated_images": 0,
+    "line_source_key": "@rmh1818e",
+    "line_id": "@rmh1818e",
+    "trigger_mode": "portrait_visual_acceptance",
+    "acceptance_binding": {
+      "hall_id": "pia-keiky-kawasaki",
+      "collector_key": "pia-keiky-kawasaki",
+      "line_source_key": "@rmh1818e",
+      "slot_canonical_metadata_registered": false
+    },
+    "rich_menu": {
+      "visible": true,
+      "node_resource_id": "jp.naver.line.android:id/chat_ui_oa_richmenu",
+      "bounds": "[0,869][720,1355]",
+      "target_label": "最新情報",
+      "target_cell": "bottom_right",
+      "target_coordinate_source": "current_rich_menu_node_bounds"
+    }
+  },
+  {
+    "store_id": "pia-keiky-kawasaki",
+    "collector_key": "pia-keiky-kawasaki",
+    "source": "official_line",
+    "adapter_type": "text_trigger",
+    "run_id": "214301-ab10affb",
+    "started_at": "2026-09-24T12:43:01.626077+00:00",
+    "finished_at": "2026-09-24T12:43:19.859569+00:00",
+    "trigger": {
+      "type": "text_trigger",
+      "text": "最新情報",
+      "mode": "url",
+      "line_id": "@rmh1818e"
+    },
+    "triggered_at": "2026-09-24T12:43:11.478250+00:00",
+    "received_at": "2026-09-24T12:43:18.438349+00:00",
+    "status": "success",
+    "errors": [],
+    "messages_filename": "messages.json",
+    "ui_filenames": [
+      "ui\\214301-ab10affb_reply.xml",
+      "ui\\214301-ab10affb_reply_screen.png"
+    ],
+    "message_count": 2,
+    "stored_message_count_total": 2,
+    "image_count": 0,
+    "deduplicated_images": 0,
+    "line_source_key": "@rmh1818e",
+    "line_id": "@rmh1818e",
+    "trigger_mode": "url"
+  }
+]

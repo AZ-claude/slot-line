@@ -16,6 +16,7 @@ from urllib.parse import quote
 SCHEMA_VERSION = 2
 DEFAULT_SOURCE = "official_line"
 ADAPTER_TYPES = {"passive", "text_trigger", "android_ui_trigger", "unknown"}
+ADAPTER_TYPE_PRIORITY = ("text_trigger", "android_ui_trigger", "passive", "unknown")
 IDENTIFIER_PATTERN = r"[A-Za-z0-9@][A-Za-z0-9_.@:-]*"
 SUCCESS_STATUSES = {"success", "skipped_already_successful"}
 KNOWN_FAILURE_CODES = {
@@ -286,9 +287,32 @@ def _trigger_value(records: list[dict[str, Any]], key: str) -> Any:
             nested_trigger = record.get("trigger")
             if isinstance(nested_trigger, dict):
                 value = nested_trigger.get("text")
+        if value in (None, "") and key == "trigger_action":
+            nested_trigger = record.get("trigger")
+            if isinstance(nested_trigger, dict):
+                value = nested_trigger.get("action")
         if value not in (None, ""):
             values.append(value)
     return values[-1] if values else None
+
+
+def _acquisition_type(records: list[dict[str, Any]]) -> str:
+    """Choose a stable daily type when an acceptance has mixed run modes."""
+    valid_types = [
+        str(record.get("adapter_type"))
+        for record in records
+        if str(record.get("adapter_type") or "") in ADAPTER_TYPES
+    ]
+    successful_types = [
+        str(record.get("adapter_type"))
+        for record in records
+        if _status(record) in SUCCESS_STATUSES and str(record.get("adapter_type") or "") in ADAPTER_TYPES
+    ]
+    candidates = successful_types or valid_types
+    for adapter_type in ADAPTER_TYPE_PRIORITY:
+        if adapter_type in candidates:
+            return adapter_type
+    return "unknown"
 
 
 def _convert_records(
@@ -305,9 +329,7 @@ def _convert_records(
 ) -> dict[str, Any]:
     records = sorted(records, key=_record_order)
     source = str(next((record.get("source") for record in records if record.get("source")), DEFAULT_SOURCE))
-    acquisition_type = str(next((record.get("adapter_type") for record in records if record.get("adapter_type")), "unknown"))
-    if acquisition_type not in ADAPTER_TYPES:
-        acquisition_type = "unknown"
+    acquisition_type = _acquisition_type(records)
 
     statuses = {_status(record) for record in records}
     if not records:
@@ -333,15 +355,21 @@ def _convert_records(
     triggered = [record for record in records if record.get("triggered_at")]
     actual_success = [record for record in records if _status(record) == "success"]
     successful_skip = [record for record in records if _status(record) == "skipped_already_successful"]
+    trigger_action = "send_text" if acquisition_type == "text_trigger" else _trigger_value(records, "trigger_action")
+    trigger_text = _trigger_value(records, "trigger_text")
+    explicit_trigger = bool(triggered) or any(
+        isinstance(record.get("trigger"), dict) and record["trigger"].get("type") not in (None, "", "passive")
+        for record in records
+    )
     trigger = {
         "required": required,
         "performed": bool(triggered) if records else None,
-        "action": "send_text" if required else None,
-        "text": _trigger_value(records, "trigger_text") if required else None,
+        "action": trigger_action,
+        "text": trigger_text,
         "triggered_at": _trigger_value(triggered, "triggered_at"),
         "result": None,
     }
-    if required:
+    if explicit_trigger or required:
         if actual_success:
             trigger["result"] = "sent" if triggered else "received"
         elif successful_skip:

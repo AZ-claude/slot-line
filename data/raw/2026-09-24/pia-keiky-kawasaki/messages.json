@@ -1,0 +1,47 @@
+[
+  {
+    "message_type": "rich_card",
+    "incoming": true,
+    "line_display_time": null,
+    "observed_at": "2026-09-24T12:42:50.366716+00:00",
+    "text": [],
+    "content_desc": [],
+    "resource_ids": [
+      "jp.naver.line.android:id/chat_ui_row_clicktarget",
+      "jp.naver.line.android:id/chat_ui_row_contentview_container",
+      "jp.naver.line.android:id/chat_ui_row_message_layout",
+      "jp.naver.line.android:id/chat_ui_row_progress",
+      "jp.naver.line.android:id/chat_ui_row_receive_rich_container",
+      "jp.naver.line.android:id/chat_ui_row_swipeable_framelayout"
+    ],
+    "image_filename": null,
+    "byte_size": null,
+    "sha256": null,
+    "bounds": "[0,163][720,869]",
+    "image_bounds": null,
+    "line_source_key": "@rmh1818e"
+  },
+  {
+    "message_type": "rich_card",
+    "incoming": true,
+    "line_display_time": "21:43",
+    "observed_at": "2026-09-24T12:43:18.438349+00:00",
+    "text": [],
+    "content_desc": [],
+    "resource_ids": [
+      "jp.naver.line.android:id/chat_ui_newest_message_bottom_space",
+      "jp.naver.line.android:id/chat_ui_row_clicktarget",
+      "jp.naver.line.android:id/chat_ui_row_contentview_container",
+      "jp.naver.line.android:id/chat_ui_row_message_layout",
+      "jp.naver.line.android:id/chat_ui_row_receive_rich_container",
+      "jp.naver.line.android:id/chat_ui_row_swipeable_framelayout",
+      "jp.naver.line.android:id/chat_ui_row_timestamp"
+    ],
+    "image_filename": null,
+    "byte_size": null,
+    "sha256": null,
+    "bounds": "[0,300][720,1347]",
+    "image_bounds": null,
+    "line_source_key": "@rmh1818e"
+  }
+]

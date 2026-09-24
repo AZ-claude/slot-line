@@ -180,6 +180,54 @@ class LineDailyTests(unittest.TestCase):
             self.assertEqual(result["line_update"], "present")
             self.assertEqual(result["trigger"]["result"], "sent")
 
+    def test_rich_menu_trigger_metadata_is_preserved_without_schema_change(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            record = self.record(
+                "rich-01",
+                "success",
+                adapter_type="android_ui_trigger",
+                triggered_at="2026-09-23T12:00:01+00:00",
+            )
+            record["trigger"] = {"type": "rich_menu", "action": "latest_info", "text": "最新情報"}
+            raw = self.write_raw(root, [record], [{"message_type": "rich_card", "line_display_time": "21:05"}])
+            result = convert_raw_directory(raw, repo_root=root)
+            self.assertEqual(result["acquisition_type"], "android_ui_trigger")
+            self.assertEqual(result["trigger"]["action"], "latest_info")
+            self.assertEqual(result["trigger"]["text"], "最新情報")
+            self.assertEqual(result["trigger"]["result"], "sent")
+
+    def test_mixed_trigger_runs_prefer_successful_text_metadata(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            rich = self.record(
+                "rich-01",
+                "success",
+                adapter_type="android_ui_trigger",
+                triggered_at="2026-09-23T12:00:01+00:00",
+            )
+            rich["trigger"] = {"type": "rich_menu", "action": "latest_info", "text": "最新情報"}
+            text = self.record(
+                "text-02",
+                "success",
+                adapter_type="text_trigger",
+                triggered_at="2026-09-23T12:02:01+00:00",
+            )
+            raw = self.write_raw(
+                root,
+                [rich, text],
+                [
+                    {"run_id": "rich-01", "message_type": "rich_card", "line_display_time": "21:05"},
+                    {"run_id": "text-02", "message_type": "rich_card", "line_display_time": "21:06"},
+                ],
+            )
+            result = convert_raw_directory(raw, repo_root=root)
+            self.assertEqual(result["acquisition_type"], "text_trigger")
+            self.assertEqual(result["trigger"]["action"], "send_text")
+            self.assertEqual(result["trigger"]["text"], "最新情報")
+            self.assertEqual(result["trigger"]["result"], "sent")
+            self.assertEqual(result["raw_refs"]["run_ids"], ["rich-01", "text-02"])
+
     def test_nested_manifest_trigger_text_is_preserved(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

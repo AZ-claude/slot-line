@@ -1,0 +1,49 @@
+{
+  "schema_version": 2,
+  "hall_id": "pia-keiky-kawasaki",
+  "collector_key": "pia-keiky-kawasaki",
+  "line_source_key": "@rmh1818e",
+  "date": "2026-09-24",
+  "source": "official_line",
+  "acquisition_type": "text_trigger",
+  "collection": {
+    "status": "success",
+    "checked_at": "2026-09-24T12:43:19.859569+00:00",
+    "failure_code": null
+  },
+  "line_update": "present",
+  "trigger": {
+    "required": true,
+    "performed": true,
+    "action": "send_text",
+    "text": "最新情報",
+    "triggered_at": "2026-09-24T12:43:11.478250+00:00",
+    "result": "sent"
+  },
+  "messages": {
+    "count": 2,
+    "first_display_time": "21:43",
+    "last_display_time": "21:43",
+    "types": [
+      "rich_card"
+    ]
+  },
+  "summary": {
+    "status": "pending",
+    "text": null,
+    "generated_at": null,
+    "generator": null
+  },
+  "raw_refs": {
+    "directory": "data/raw/2026-09-24/pia-keiky-kawasaki",
+    "run_ids": [
+      "214301-ab10affb",
+      "rich-214238-f33074e9"
+    ],
+    "record_refs": [
+      "manifest.json#0",
+      "manifest.json#1"
+    ],
+    "message_refs": []
+  }
+}
