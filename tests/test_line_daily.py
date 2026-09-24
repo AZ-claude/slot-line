@@ -180,6 +180,20 @@ class LineDailyTests(unittest.TestCase):
             self.assertEqual(result["line_update"], "present")
             self.assertEqual(result["trigger"]["result"], "sent")
 
+    def test_nested_manifest_trigger_text_is_preserved(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            record = self.record("pia-01", "success", triggered_at="2026-09-23T12:00:01+00:00")
+            record.pop("trigger_text")
+            record["trigger"] = {"type": "text_trigger", "text": "最新情報"}
+            raw = self.write_raw(
+                root,
+                [record],
+                [{"message_type": "text", "line_display_time": "21:05"}],
+            )
+            result = convert_raw_directory(raw, repo_root=root)
+            self.assertEqual(result["trigger"]["text"], "最新情報")
+
     def test_response_timeout_is_unknown_not_absent(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

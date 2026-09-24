@@ -279,7 +279,15 @@ def _failure_code(records: list[dict[str, Any]]) -> str | None:
 
 
 def _trigger_value(records: list[dict[str, Any]], key: str) -> Any:
-    values = [record.get(key) for record in records if record.get(key) not in (None, "")]
+    values: list[Any] = []
+    for record in records:
+        value = record.get(key)
+        if value in (None, "") and key == "trigger_text":
+            nested_trigger = record.get("trigger")
+            if isinstance(nested_trigger, dict):
+                value = nested_trigger.get("text")
+        if value not in (None, ""):
+            values.append(value)
     return values[-1] if values else None
 
 
