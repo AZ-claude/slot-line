@@ -50,6 +50,8 @@ python3 scripts/line_daily.py not-checked \
 
 選定対象は一覧の公式LINE確認済み行から、現行masterへ住所・P-WORLD detail URLで一意に照合でき、PoC 2店舗を除外した候補を `hall_id` 昇順に並べた先頭10件とした。
 
+一覧の公式LINE確認済み281行を現行masterへ照合した結果、正規化名で対応なしが10行、同名の既存master行が複数で住所根拠を確定しなかったものが12行あり、合計22行は登録対象から外した。選択した10行にはこの未確定分を含めていない。
+
 ```text
 123-yokohama-nishiguchi-ten
 abiba-ebina-ten
