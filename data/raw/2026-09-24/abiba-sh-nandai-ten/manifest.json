@@ -1,0 +1,32 @@
+[
+  {
+    "store_id": "abiba-sh-nandai-ten",
+    "collector_key": "abiba-sh-nandai-ten",
+    "source": "official_line",
+    "adapter_type": "text_trigger",
+    "run_id": "212031-8236c524",
+    "started_at": "2026-09-24T12:20:31.670964+00:00",
+    "finished_at": "2026-09-24T12:20:47.189933+00:00",
+    "trigger": {
+      "type": "text_trigger",
+      "text": "最新情報",
+      "mode": "url",
+      "line_id": "@lxh1446l"
+    },
+    "triggered_at": "2026-09-24T12:20:39.818916+00:00",
+    "received_at": "2026-09-24T12:20:47.183932+00:00",
+    "status": "success",
+    "errors": [],
+    "messages_filename": "messages.json",
+    "ui_filenames": [
+      "ui\\212031-8236c524_reply.xml"
+    ],
+    "message_count": 1,
+    "stored_message_count_total": 1,
+    "image_count": 0,
+    "deduplicated_images": 0,
+    "line_source_key": "@lxh1446l",
+    "line_id": "@lxh1446l",
+    "trigger_mode": "url"
+  }
+]

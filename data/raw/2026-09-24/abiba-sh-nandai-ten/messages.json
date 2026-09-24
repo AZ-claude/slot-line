@@ -1,0 +1,42 @@
+[
+  {
+    "message_type": "text",
+    "incoming": true,
+    "line_display_time": "21:20",
+    "observed_at": "2026-09-24T12:20:47.183932+00:00",
+    "text": [
+      "https://aviva04.lp-dokidoki.com",
+      "アビバ湘南台店",
+      "アビバ湘南台店　神奈川県藤沢市湘南台1-2-1 パチンコ・スロット地域密着の楽しさをお届け致します。小田急・相鉄線・地下鉄『湘南台駅』東口徒歩0分"
+    ],
+    "content_desc": [
+      "アビバ湘南台店のプロフィール",
+      "https://aviva04.lp-dokidoki.com",
+      "外部リンク https://aviva04.lp-dokidoki.com"
+    ],
+    "resource_ids": [
+      "jp.naver.line.android:id/chat_ui_message_text",
+      "jp.naver.line.android:id/chat_ui_newest_message_bottom_space",
+      "jp.naver.line.android:id/chat_ui_row_clicktarget",
+      "jp.naver.line.android:id/chat_ui_row_contentview_container",
+      "jp.naver.line.android:id/chat_ui_row_layout_metadata",
+      "jp.naver.line.android:id/chat_ui_row_message_layout",
+      "jp.naver.line.android:id/chat_ui_row_swipeable_framelayout",
+      "jp.naver.line.android:id/chat_ui_row_text_message",
+      "jp.naver.line.android:id/chat_ui_row_thumbnail",
+      "jp.naver.line.android:id/chat_ui_row_timestamp",
+      "jp.naver.line.android:id/chat_ui_text_message_balloon_root",
+      "jp.naver.line.android:id/chat_ui_web_page_preview_container",
+      "jp.naver.line.android:id/chat_ui_web_page_preview_item_prefix_bar",
+      "jp.naver.line.android:id/chat_ui_web_page_preview_item_summary",
+      "jp.naver.line.android:id/chat_ui_web_page_preview_item_thumbnail",
+      "jp.naver.line.android:id/chat_ui_web_page_preview_item_title"
+    ],
+    "image_filename": null,
+    "byte_size": null,
+    "sha256": null,
+    "bounds": "[0,369][1442,571]",
+    "image_bounds": null,
+    "line_source_key": "@lxh1446l"
+  }
+]
