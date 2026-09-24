@@ -81,6 +81,17 @@ python scripts\run_m_and_m_mizoguchi.py
 
 登録直後の手動実行は行っていません。初回実行は次の21:05のscheduled runに任せます。
 
+### Regression Task Scheduler定義
+
+- task名: `SlotLineRegression`
+- 実行時刻: 毎日21:16（21:15に既存の一回限りの`Schedule Work`があるため1分ずらして登録）
+- command: `C:\Users\Eita Ideguchi\AppData\Local\Programs\Python\Python312\python.exe C:\Users\Public\slot-line\scripts\run_regression_targets.py --repo-root C:\Users\Public\slot-line --execute`
+- timeout: 15分
+- 重複起動: `IgnoreNew`
+- `WakeToRun=false`, `StartWhenAvailable=false`
+- PIA町田・PIA京急川崎を順番に実行。同日guardにより成功済み・trigger済み失敗runは再送しない
+- 既存の`SlotLineDaily`は変更しない。登録後はdry-runだけ実施し、登録直後のtrigger手動実行は行わない
+
 2026-09-21の実機確認では、ADB論理再接続、LINE強制終了後のADB起動、画面OFF後のADB復帰、物理USB再接続が成立しました。Windows再起動はユーザーによるWindows再起動後に復帰確認、Android本体再起動はキーガード解除後に復帰確認となり、完全無人復旧は未成立です。画面ロック方式やセキュリティ設定は変更していません。
 
 ## Repository
