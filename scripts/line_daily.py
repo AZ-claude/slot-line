@@ -127,7 +127,7 @@ def _message_rows(raw_dir: Path, records: list[dict[str, Any]]) -> list[dict[str
 
 def _message_summary(messages: list[dict[str, Any]]) -> dict[str, Any]:
     times = sorted(
-        str(message["line_display_time"])
+        _normalise_display_time(message["line_display_time"])
         for message in messages
         if isinstance(message.get("line_display_time"), str) and message["line_display_time"]
     )
@@ -144,6 +144,18 @@ def _message_summary(messages: list[dict[str, Any]]) -> dict[str, Any]:
         "last_display_time": times[-1] if times else None,
         "types": types,
     }
+
+
+def _normalise_display_time(value: str) -> str:
+    """Return a schema-compatible HH:MM value without changing the RAW row.
+
+    Some Windows LINE UI captures emit a single-digit hour (for example
+    ``0:40``).  The normalized schema deliberately keeps HH:MM, so pad only
+    that harmless presentation difference and leave other invalid values for
+    normal validation to reject.
+    """
+    match = re.fullmatch(r"(\d):(\d{2})", value)
+    return f"0{match.group(1)}:{match.group(2)}" if match else value
 
 
 def _raw_refs(

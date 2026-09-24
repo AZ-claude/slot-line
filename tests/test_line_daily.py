@@ -116,6 +116,18 @@ class LineDailyTests(unittest.TestCase):
             self.assertEqual(result["collector_key"], "pia_machida")
             self.assertEqual(result["line_source_key"], "@line-a")
 
+    def test_single_digit_raw_display_hour_is_normalized_to_schema_hh_mm(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            raw = self.write_raw(
+                root,
+                [self.record("pia-01", "success")],
+                [{"message_type": "rich_card", "line_display_time": "0:40"}],
+            )
+            result = convert_raw_directory(raw, repo_root=root)
+            self.assertEqual(result["messages"]["first_display_time"], "00:40")
+            validate_observation(result)
+
     def test_one_hall_multiple_line_sources_are_not_merged(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
