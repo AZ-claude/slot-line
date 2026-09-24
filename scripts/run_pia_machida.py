@@ -41,7 +41,6 @@ SOURCE = "official_line"
 ADAPTER_TYPE = "text_trigger"
 LINE_PACKAGE = "jp.naver.line.android"
 ANDROID_IMAGE_DIR = "/sdcard/Pictures/LINE"
-STAY_ON_KEY = "stay_on_while_plugged_in"
 REPLY_SETTLE_MAX_SECONDS = 5.0
 REPLY_SETTLE_INTERVAL_SECONDS = 1.0
 
@@ -57,7 +56,6 @@ class PhaseError(RuntimeError):
 class AndroidContext:
     adb: str
     serial: str
-    original_stay_on: str | None = None
     gallery_open: bool = False
 
 
@@ -673,8 +671,6 @@ def restore_android(ctx: AndroidContext) -> None:
     if ctx.gallery_open:
         adb_run(ctx, ["shell", "input", "keyevent", "KEYCODE_BACK"], timeout=15, check=False)
         ctx.gallery_open = False
-    if ctx.original_stay_on is not None:
-        adb_run(ctx, ["shell", "settings", "put", "global", STAY_ON_KEY, ctx.original_stay_on], timeout=15, check=False)
 
 
 def rows_to_messages(rows: list[dict[str, Any]], observed_at: str) -> list[dict[str, Any]]:
@@ -789,9 +785,6 @@ def main() -> int:
     storage_finalized = False
     try:
         android = discover_android()
-        original = adb_run(android, ["shell", "settings", "get", "global", STAY_ON_KEY], timeout=15).stdout.strip()
-        android.original_stay_on = original if original.isdigit() else "0"
-        adb_run(android, ["shell", "settings", "put", "global", STAY_ON_KEY, "2"], timeout=15)
         if args.existing_reply:
             root = open_line_and_target_chat(android)
             root = focus_latest_message(android, root)
