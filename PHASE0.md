@@ -872,3 +872,11 @@ Windows再起動、サービス再起動、電源設定変更、既存Task Sched
 | 初回実行状態 | 手動実行なし。`LastTaskResult=267011`、`NumberOfMissedRuns=0` |
 
 登録直後に本番taskを手動実行していない。PIAには追加送信していない。既存の`SlotDiscordBackup`、`SlotDiscordBot`、`SlotFxtwitterSyncV1`その他のTask Scheduler、Windows再起動、サービス、電源設定は変更していない。Windows再起動試験は引き続き保留とする。初回実行後はTask SchedulerのLast Run/LastTaskResult、daily log、A/B manifest/messages、PIAの`triggered_at`、RAW、ADB状態を確認する。
+
+## LINE日次identity boundary確定（2026-09-24）
+
+日次normalized schemaをv2へ更新し、slot側canonical hall masterとの責務境界を固定した。normalizedの正式識別単位は`hall_id × line_source_key × date`であり、旧adapter slugは`collector_key`としてRAW directory/Adapter選択に限定する。同一hallの複数公式LINE sourceは配列へ押し込まず、sourceごとの観測・ファイルとして保持する。
+
+slot-line checkoutで確認できるPIA町田旧RAWには`@030pwlwx`のsource ID候補はあるが、slot側で明示されたPIA町田のcanonical hall bindingはない。このためconverterはhall_idを推測せず、identity引数なしのPIA変換を拒否する。旧RAW・画像・UI XML・manifestは書き換えていない。canonical bindingがslot側から供給された後に、同じRAWを明示identityで再生成する。
+
+10店舗の未収集fixtureは既存canonical hall IDへ付け替え、複数source店舗はsource別JSONに分割した。全fixtureは`collection.status=not_checked`、`line_update=unknown`で、配信内容を捏造していない。Windows/Android実機、M&M canonical RAW取得、slot側metadata更新、友だち追加、trigger送信、Task Scheduler変更はこの作業では行っていない。

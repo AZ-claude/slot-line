@@ -636,7 +636,14 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     repo_root = args.repo_root.resolve()
-    raw_store = RawStore(repo_root, datetime.now().strftime("%Y-%m-%d"), STORE_ID, SOURCE, ADAPTER_TYPE)
+    raw_store = RawStore(
+        repo_root,
+        datetime.now().strftime("%Y-%m-%d"),
+        STORE_ID,
+        SOURCE,
+        ADAPTER_TYPE,
+        line_source_key=PIA_LINE_ID,
+    )
     raw_store.initialize()
     run_id = datetime.now().strftime("%H%M%S") + "-" + uuid.uuid4().hex[:8]
     started_at = utc_now()

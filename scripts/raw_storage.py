@@ -71,11 +71,22 @@ def _message_key(message: dict[str, Any]) -> str:
 
 
 class RawStore:
-    """Own one date/store directory and make its writes idempotent."""
+    """Own one date/collector directory and make its writes idempotent."""
 
-    def __init__(self, repo_root: Path, date_text: str, store_id: str, source: str, adapter_type: str):
+    def __init__(
+        self,
+        repo_root: Path,
+        date_text: str,
+        store_id: str,
+        source: str,
+        adapter_type: str,
+        line_source_key: str | None = None,
+    ):
+        # ``store_id`` is retained as a backwards-compatible collector key
+        # argument.  It is never promoted to normalized hall identity.
         self.root = repo_root / "data" / "raw" / date_text / store_id
         self.store_id = store_id
+        self.line_source_key = line_source_key
         self.source = source
         self.adapter_type = adapter_type
         self.manifest_path = self.root / "manifest.json"
@@ -94,6 +105,7 @@ class RawStore:
     def new_manifest_record(self, run_id: str, started_at: str, trigger: Any) -> dict[str, Any]:
         return {
             "store_id": self.store_id,
+            "collector_key": self.store_id,
             "source": self.source,
             "adapter_type": self.adapter_type,
             "run_id": run_id,
@@ -110,6 +122,7 @@ class RawStore:
             "stored_message_count_total": 0,
             "image_count": 0,
             "deduplicated_images": 0,
+            **({"line_source_key": self.line_source_key} if self.line_source_key else {}),
         }
 
     def persist_manifest(self, record: dict[str, Any]) -> None:

@@ -2,7 +2,7 @@
 
 `slot-line` は、LINE収集の実機PoCを進めるプロジェクトです。
 
-現在はPIA町田の`text_trigger`と、エムアンドエム溝口の`passive`をWindows canonical RAW schemaへ載せる最小実装を進めています。設計の正は [`DESIGN.md`](DESIGN.md)、実機記録は [`PHASE0.md`](PHASE0.md) です。
+現在はPIA町田の`text_trigger`と、エムアンドエム溝口の`passive`をWindows canonical RAWへ載せる最小実装を進めています。店舗masterと公式LINE source metadataの正はslot側です。slot-lineのnormalizedは`hall_id × line_source_key × date`で識別し、`collector_key`は内部RAW/Adapter用に限定します。設計の正は [`DESIGN.md`](DESIGN.md)、実機記録は [`PHASE0.md`](PHASE0.md) です。
 
 ## Status
 
@@ -28,7 +28,7 @@ Task Scheduler登録前の安全な実行環境確認は、次で行います。
 python scripts\run_daily.py --dry-run
 ```
 
-summaryにはADB health、各`store_id`のstatus、今回runの`message_count`、保存総数`stored_message_count_total`、`image_count`、errors/warnings、`raw_path`を出力します。
+summaryにはADB health、各collector keyのstatus、今回runの`message_count`、保存総数`stored_message_count_total`、`image_count`、errors/warnings、`raw_path`を出力します。
 
 通常runの最終summaryは、同日複数回でも上書きせず、`data/logs/run_daily_YYYY-MM-DD.log`へ1実行1 JSON行で追記します。各Adapterの`run_id`、RAW path、前回trigger情報、`process_exit_code`も記録します。
 
@@ -42,12 +42,12 @@ python scripts\run_daily.py --force-trigger
 
 旧方式のWindows UI Automation送信は、明示的に `--trigger-mode windows-uia` を指定した場合だけdebug/fallbackとして使用します。現在開いているWindowsトークへの盲目的送信は本番方式ではありません。
 
-RAWは `data/raw/YYYY-MM-DD/<store_id>/` に保存されます。`manifest.json` は実行単位でupsertし、同一SHA-256の画像は再保存しません。実行時に作るTask Schedulerタスクは一時的な対話セッション用で、終了時に削除します。
+RAWは `data/raw/YYYY-MM-DD/<collector_key>/` に保存されます。既存adapterの`store_id`変数はcollector keyの後方互換名であり、canonical hall IDではありません。`manifest.json` は実行単位でupsertし、同一SHA-256の画像は再保存しません。実行時に作るTask Schedulerタスクは一時的な対話セッション用で、終了時に削除します。
 
 保存形式は全店舗で次に固定します。
 
 ```text
-data/raw/YYYY-MM-DD/<store_id>/
+data/raw/YYYY-MM-DD/<collector_key>/
   manifest.json
   messages.json
   images/

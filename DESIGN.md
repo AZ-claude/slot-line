@@ -295,16 +295,17 @@ WindowsをRAWの正本とし、Android通常ストレージは一時領域とす
 data/
   raw/
     YYYY-MM-DD/
-      <store_id>/
+      <collector_key>/
         manifest.json
         messages.json
         images/
         ui/
 ```
 
-`manifest.json`は実行レコードの配列で、各レコードに最低限次を持つ。
+`manifest.json`は実行レコードの配列で、各レコードに最低限次を持つ。`store_id`は既存adapterとの後方互換で残る場合があるが、collector keyとしてのみ扱う。
 
-- `store_id`
+- `collector_key`
+- `line_source_key`（判明している場合）
 - `source`
 - `adapter_type`
 - `run_id`
@@ -353,20 +354,22 @@ RAWはまず原形で保存し、その後に解析する。
 - 示唆内容の構造化
 - 信頼度・根拠の保存
 
-正規化例:
+正規化例（schema v2のidentity部分）:
 
 ```json
 {
-  "store_id": "pia_machida",
-  "target_date": "2026-09-21",
-  "information_type": "machine_notice",
-  "machines": [
-    "マイジャグラーV"
-  ],
+  "schema_version": 2,
+  "hall_id": "canonical-hall-id-from-slot",
+  "collector_key": "pia_machida",
+  "line_source_key": "@030pwlwx",
+  "date": "2026-09-21",
   "source": "official_line",
-  "observed_at": "2026-09-20T21:05:32+09:00"
+  "line_update": "present",
+  "raw_refs": {"directory": "data/raw/2026-09-21/pia_machida"}
 }
 ```
+
+normalizedの正式join keyは`hall_id`である。`collector_key`はRAW directory/Adapterの内部識別子、`line_source_key`は公式LINE sourceの識別子であり、どちらもhall masterの代替ではない。同一hallに複数sourceがある場合は、`hall_id × line_source_key × date`ごとに一次観測を保持する。hall_idを明示できないRAWはnormalizedへ出力しない。
 
 ---
 
@@ -493,7 +496,7 @@ RAW保存
 日次で以下を追えるようにする。
 
 - 実行日時
-- store_id
+- collector_key（既存ログのstore_idは後方互換の内部名）
 - Adapter
 - trigger開始/終了
 - Android接続状態

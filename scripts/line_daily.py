@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Convert canonical LINE RAW into deterministic store-day observations."""
+"""Convert canonical LINE RAW into deterministic hall/source-day observations."""
 
 from __future__ import annotations
 
@@ -10,11 +10,13 @@ import re
 from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
+from urllib.parse import quote
 
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 DEFAULT_SOURCE = "official_line"
 ADAPTER_TYPES = {"passive", "text_trigger", "android_ui_trigger", "unknown"}
+IDENTIFIER_PATTERN = r"[A-Za-z0-9@][A-Za-z0-9_.@:-]*"
 SUCCESS_STATUSES = {"success", "skipped_already_successful"}
 KNOWN_FAILURE_CODES = {
     "response_timeout",
@@ -28,6 +30,14 @@ KNOWN_FAILURE_CODES = {
 
 
 class LineDailyValidationError(ValueError):
+    def __init__(self, errors: list[str]):
+        self.errors = errors
+        super().__init__("; ".join(errors))
+
+
+class LineDailyIdentityError(ValueError):
+    """Raised when RAW cannot be bound to one explicit hall/source identity."""
+
     def __init__(self, errors: list[str]):
         self.errors = errors
         super().__init__("; ".join(errors))
@@ -91,7 +101,7 @@ def _message_rows(raw_dir: Path, records: list[dict[str, Any]]) -> list[dict[str
         value = _load_json(messages_path, [])
         if not isinstance(value, list):
             raise ValueError("messages.json must contain an array")
-        return [item for item in value if isinstance(item, dict)]
+        return [dict(item) for item in value if isinstance(item, dict)]
 
     # The first RAW schema version only had message_types/message_times in the
     # manifest. Keep this read-only compatibility path for those existing RAWs.
@@ -108,6 +118,8 @@ def _message_rows(raw_dir: Path, records: list[dict[str, Any]]) -> list[dict[str
                 {
                     "message_type": message_type,
                     "line_display_time": times[index] if index < len(times) else None,
+                    "_manifest_index": record.get("_manifest_index"),
+                    "line_source_key": _record_line_source_key(record),
                 }
             )
     return rows
@@ -134,8 +146,15 @@ def _message_summary(messages: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def _raw_refs(records: list[dict[str, Any]], messages: list[dict[str, Any]], raw_dir: Path, repo_root: Path) -> dict[str, Any]:
+def _raw_refs(
+    records: list[dict[str, Any]],
+    messages: list[dict[str, Any]],
+    raw_dir: Path,
+    repo_root: Path,
+    record_indices: Iterable[int],
+) -> dict[str, Any]:
     run_ids = sorted({str(record["run_id"]) for record in records if record.get("run_id")})
+    record_refs = [f"manifest.json#{index}" for index in sorted(set(record_indices))]
     message_refs = sorted(
         {
             str(message[key])
@@ -148,7 +167,82 @@ def _raw_refs(records: list[dict[str, Any]], messages: list[dict[str, Any]], raw
         directory = raw_dir.relative_to(repo_root).as_posix()
     except ValueError:
         directory = raw_dir.as_posix()
-    return {"directory": directory, "run_ids": run_ids, "message_refs": message_refs}
+    return {
+        "directory": directory,
+        "run_ids": run_ids,
+        "record_refs": record_refs,
+        "message_refs": message_refs,
+    }
+
+
+def _line_source_from_value(value: Any) -> str | None:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    return value.strip()
+
+
+def _record_line_source_key(record: dict[str, Any]) -> str | None:
+    return _line_source_from_value(record.get("line_source_key") or record.get("line_id"))
+
+
+def _message_line_source_key(message: dict[str, Any]) -> str | None:
+    return _line_source_from_value(message.get("line_source_key") or message.get("line_id"))
+
+
+def _resolve_identity_groups(
+    records: list[dict[str, Any]],
+    *,
+    hall_id: str | None,
+    line_source_key: str | None,
+) -> dict[tuple[str, str], list[dict[str, Any]]]:
+    if not records:
+        raise LineDailyIdentityError(["raw.manifest:identity_required"])
+
+    hall_candidates = {
+        str(record["hall_id"]).strip()
+        for record in records
+        if isinstance(record.get("hall_id"), str) and record["hall_id"].strip()
+    }
+    if hall_id is not None:
+        hall_id = hall_id.strip()
+        if not hall_id:
+            raise LineDailyIdentityError(["hall_id:empty"])
+        if hall_candidates and hall_candidates != {hall_id}:
+            raise LineDailyIdentityError(["hall_id:conflict"])
+    elif len(hall_candidates) == 1:
+        hall_id = next(iter(hall_candidates))
+    elif not hall_candidates:
+        raise LineDailyIdentityError(["hall_id:unresolved"])
+    else:
+        raise LineDailyIdentityError(["hall_id:ambiguous"])
+
+    source_candidates = {
+        source
+        for record in records
+        if (source := _record_line_source_key(record)) is not None
+    }
+    if line_source_key is not None:
+        line_source_key = line_source_key.strip()
+        if not line_source_key:
+            raise LineDailyIdentityError(["line_source_key:empty"])
+        if source_candidates and source_candidates != {line_source_key}:
+            raise LineDailyIdentityError(["line_source_key:conflict"])
+    elif len(source_candidates) == 1:
+        line_source_key = next(iter(source_candidates))
+    elif not source_candidates:
+        raise LineDailyIdentityError(["line_source_key:unresolved"])
+
+    groups: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    for record in records:
+        record_hall_id = record.get("hall_id") or hall_id
+        record_source_key = _record_line_source_key(record) or line_source_key
+        if not isinstance(record_hall_id, str) or not record_hall_id.strip():
+            raise LineDailyIdentityError(["hall_id:unresolved"])
+        if not isinstance(record_source_key, str) or not record_source_key.strip():
+            raise LineDailyIdentityError(["line_source_key:unresolved"])
+        key = (record_hall_id.strip(), record_source_key.strip())
+        groups.setdefault(key, []).append(record)
+    return groups
 
 
 def _failure_code(records: list[dict[str, Any]]) -> str | None:
@@ -181,10 +275,13 @@ def _convert_records(
     records: list[dict[str, Any]],
     messages: list[dict[str, Any]],
     *,
-    store_id: str,
+    hall_id: str,
+    collector_key: str,
+    line_source_key: str,
     date_text: str,
     raw_dir: Path,
     repo_root: Path,
+    record_indices: Iterable[int],
 ) -> dict[str, Any]:
     records = sorted(records, key=_record_order)
     source = str(next((record.get("source") for record in records if record.get("source")), DEFAULT_SOURCE))
@@ -235,7 +332,9 @@ def _convert_records(
     summary_status = "not_applicable" if line_update == "absent" else "pending"
     return {
         "schema_version": SCHEMA_VERSION,
-        "store_id": store_id,
+        "hall_id": hall_id,
+        "collector_key": collector_key,
+        "line_source_key": line_source_key,
         "date": date_text,
         "source": source,
         "acquisition_type": acquisition_type,
@@ -253,51 +352,158 @@ def _convert_records(
             "generated_at": None,
             "generator": None,
         },
-        "raw_refs": _raw_refs(records, messages, raw_dir, repo_root),
+        "raw_refs": _raw_refs(records, messages, raw_dir, repo_root, record_indices),
     }
 
 
-def convert_raw_directory(raw_dir: Path, *, repo_root: Path | None = None) -> dict[str, Any]:
+def _indexed_manifest_records(manifest: Any) -> list[dict[str, Any]]:
+    if isinstance(manifest, dict):
+        return [{**manifest, "_manifest_index": 0}]
+    if isinstance(manifest, list):
+        return [
+            {**item, "_manifest_index": index}
+            for index, item in enumerate(manifest)
+            if isinstance(item, dict)
+        ]
+    raise ValueError("manifest must be an object or list")
+
+
+def _messages_for_group(
+    messages: list[dict[str, Any]],
+    *,
+    group_key: tuple[str, str],
+    group_records: list[dict[str, Any]],
+    group_count: int,
+) -> list[dict[str, Any]]:
+    hall_id, line_source_key = group_key
+    record_indices = {
+        record.get("_manifest_index")
+        for record in group_records
+    }
+    run_ids = {
+        str(record["run_id"])
+        for record in group_records
+        if record.get("run_id")
+    }
+    selected: list[dict[str, Any]] = []
+    for message in messages:
+        message_hall_id = message.get("hall_id")
+        if message_hall_id and message_hall_id != hall_id:
+            continue
+        message_source_key = _message_line_source_key(message)
+        if message_source_key:
+            if message_source_key == line_source_key:
+                selected.append(message)
+            continue
+        if message.get("_manifest_index") in record_indices:
+            selected.append(message)
+            continue
+        if message.get("run_id") and str(message["run_id"]) in run_ids:
+            selected.append(message)
+            continue
+        if group_count == 1:
+            selected.append(message)
+            continue
+        raise LineDailyIdentityError([
+            "messages.json:line_source_key_required_for_multiple_sources"
+        ])
+    return selected
+
+
+def convert_raw_directory_all(
+    raw_dir: Path,
+    *,
+    repo_root: Path | None = None,
+    hall_id: str | None = None,
+    line_source_key: str | None = None,
+) -> list[dict[str, Any]]:
+    """Convert one collector directory, retaining one observation per source."""
     raw_dir = raw_dir.resolve()
     if raw_dir.name == "" or raw_dir.parent.name == "":
         raise ValueError(f"invalid_raw_directory:{raw_dir}")
     date_text = raw_dir.parent.name
-    store_id = raw_dir.name
+    collector_key = raw_dir.name
     try:
         date.fromisoformat(date_text)
     except ValueError as exc:
         raise ValueError(f"invalid_date_directory:{date_text}") from exc
     manifest = _load_json(raw_dir / "manifest.json", [])
-    records = _records(manifest)
-    messages = _message_rows(raw_dir, records)
-    return _convert_records(
+    records = _indexed_manifest_records(manifest)
+    groups = _resolve_identity_groups(
         records,
-        messages,
-        store_id=store_id,
-        date_text=date_text,
-        raw_dir=raw_dir,
-        repo_root=(repo_root or raw_dir.parents[3]).resolve(),
+        hall_id=hall_id,
+        line_source_key=line_source_key,
     )
+    messages = _message_rows(raw_dir, records)
+    resolved_repo_root = (repo_root or raw_dir.parents[3]).resolve()
+    observations: list[dict[str, Any]] = []
+    for group_key, group_records in sorted(groups.items()):
+        group_messages = _messages_for_group(
+            messages,
+            group_key=group_key,
+            group_records=group_records,
+            group_count=len(groups),
+        )
+        observations.append(
+            _convert_records(
+                group_records,
+                group_messages,
+                hall_id=group_key[0],
+                collector_key=collector_key,
+                line_source_key=group_key[1],
+                date_text=date_text,
+                raw_dir=raw_dir,
+                repo_root=resolved_repo_root,
+                record_indices=(record["_manifest_index"] for record in group_records),
+            )
+        )
+    return observations
+
+
+def convert_raw_directory(
+    raw_dir: Path,
+    *,
+    repo_root: Path | None = None,
+    hall_id: str | None = None,
+    line_source_key: str | None = None,
+) -> dict[str, Any]:
+    """Convert a single-source directory; reject source ambiguity."""
+    observations = convert_raw_directory_all(
+        raw_dir,
+        repo_root=repo_root,
+        hall_id=hall_id,
+        line_source_key=line_source_key,
+    )
+    if len(observations) != 1:
+        raise LineDailyIdentityError([
+            "raw.manifest:multiple_line_sources_use_convert_raw_directory_all"
+        ])
+    return observations[0]
 
 
 def make_not_checked(
-    store_id: str,
+    hall_id: str,
     date_text: str,
     *,
     repo_root: Path,
+    line_source_key: str,
+    collector_key: str = "not_checked",
     acquisition_type: str = "unknown",
     source: str = DEFAULT_SOURCE,
 ) -> dict[str, Any]:
     if acquisition_type not in ADAPTER_TYPES:
         raise ValueError(f"invalid_acquisition_type:{acquisition_type}")
-    raw_dir = repo_root / "data" / "raw" / date_text / store_id
+    raw_dir = repo_root / "data" / "raw" / date_text / collector_key
     result = _convert_records(
         [],
         [],
-        store_id=store_id,
+        hall_id=hall_id,
+        collector_key=collector_key,
+        line_source_key=line_source_key,
         date_text=date_text,
         raw_dir=raw_dir,
         repo_root=repo_root,
+        record_indices=[],
     )
     result["source"] = source
     result["acquisition_type"] = acquisition_type
@@ -306,12 +512,12 @@ def make_not_checked(
     return result
 
 
-def load_store_ids(master_path: Path) -> set[str]:
+def load_hall_ids(master_path: Path) -> set[str]:
     with master_path.open(encoding="utf-8", newline="") as handle:
         rows = csv.DictReader(handle)
-        field = "store_id" if "store_id" in (rows.fieldnames or []) else "hall_id"
+        field = "hall_id"
         if field not in (rows.fieldnames or []):
-            raise ValueError(f"store_id_column_missing:{master_path}")
+            raise ValueError(f"hall_id_column_missing:{master_path}")
         return {str(row[field]).strip() for row in rows if row.get(field)}
 
 
@@ -332,18 +538,38 @@ def _check_string(value: Any, errors: list[str], path: str, *, allow_null: bool 
         errors.append(f"{path}:format")
 
 
-def validate_observation(value: Any, *, known_store_ids: Iterable[str] | None = None) -> None:
+def validate_observation(value: Any, *, known_hall_ids: Iterable[str] | None = None) -> None:
     errors: list[str] = []
     if not isinstance(value, dict):
         raise LineDailyValidationError(["$:object"])
+    allowed_keys = {
+        "schema_version",
+        "hall_id",
+        "collector_key",
+        "line_source_key",
+        "date",
+        "source",
+        "acquisition_type",
+        "collection",
+        "line_update",
+        "trigger",
+        "messages",
+        "summary",
+        "raw_refs",
+    }
+    errors.extend(f"$.{key}:additional-property" for key in sorted(set(value) - allowed_keys))
 
     schema_version = _require(value, "schema_version", errors, "$")
     if schema_version != SCHEMA_VERSION:
         errors.append("$.schema_version:unsupported")
-    store_id = _require(value, "store_id", errors, "$")
-    _check_string(store_id, errors, "$.store_id", pattern=r"[a-z0-9][a-z0-9_-]*")
-    if known_store_ids is not None and store_id not in set(known_store_ids):
-        errors.append("$.store_id:unknown")
+    hall_id = _require(value, "hall_id", errors, "$")
+    _check_string(hall_id, errors, "$.hall_id", pattern=r"[a-z0-9][a-z0-9_-]*")
+    if known_hall_ids is not None and hall_id not in set(known_hall_ids):
+        errors.append("$.hall_id:unknown")
+    collector_key = _require(value, "collector_key", errors, "$")
+    _check_string(collector_key, errors, "$.collector_key", pattern=r"[a-z0-9][a-z0-9_-]*")
+    line_source_key = _require(value, "line_source_key", errors, "$")
+    _check_string(line_source_key, errors, "$.line_source_key", pattern=IDENTIFIER_PATTERN)
     date_text = _require(value, "date", errors, "$")
     _check_string(date_text, errors, "$.date", pattern=r"\d{4}-\d{2}-\d{2}")
     if isinstance(date_text, str):
@@ -353,6 +579,8 @@ def validate_observation(value: Any, *, known_store_ids: Iterable[str] | None = 
             errors.append("$.date:invalid")
     source = _require(value, "source", errors, "$")
     _check_string(source, errors, "$.source")
+    if source != DEFAULT_SOURCE:
+        errors.append("$.source:unsupported")
     acquisition_type = _require(value, "acquisition_type", errors, "$")
     if acquisition_type not in ADAPTER_TYPES:
         errors.append("$.acquisition_type:enum")
@@ -420,7 +648,7 @@ def validate_observation(value: Any, *, known_store_ids: Iterable[str] | None = 
     if isinstance(raw_refs, dict):
         directory = _require(raw_refs, "directory", errors, "$.raw_refs")
         _check_string(directory, errors, "$.raw_refs.directory")
-        for key in ("run_ids", "message_refs"):
+        for key in ("run_ids", "record_refs", "message_refs"):
             refs = _require(raw_refs, key, errors, "$.raw_refs")
             if not isinstance(refs, list) or not all(isinstance(item, str) for item in refs):
                 errors.append(f"$.raw_refs.{key}:string-array")
@@ -433,10 +661,16 @@ def validate_observation(value: Any, *, known_store_ids: Iterable[str] | None = 
         raise LineDailyValidationError(errors)
 
 
-def write_observation(observation: dict[str, Any], path: Path, *, known_store_ids: Iterable[str] | None = None) -> None:
-    validate_observation(observation, known_store_ids=known_store_ids)
+def write_observation(observation: dict[str, Any], path: Path, *, known_hall_ids: Iterable[str] | None = None) -> None:
+    validate_observation(observation, known_hall_ids=known_hall_ids)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(observation, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def observation_filename(observation: dict[str, Any]) -> str:
+    hall_id = quote(str(observation["hall_id"]), safe="-._~")
+    line_source_key = quote(str(observation["line_source_key"]), safe="-._~")
+    return f"{hall_id}__{line_source_key}.json"
 
 
 def main() -> int:
@@ -447,12 +681,17 @@ def main() -> int:
     convert.add_argument("raw_dir", type=Path)
     convert.add_argument("--repo-root", type=Path)
     convert.add_argument("--output", type=Path)
-    convert.add_argument("--store-master", type=Path)
+    convert.add_argument("--output-root", type=Path)
+    convert.add_argument("--hall-id")
+    convert.add_argument("--line-source-key")
+    convert.add_argument("--store-master", type=Path, help="Read-only slot hall master used for hall_id validation")
 
     not_checked = subparsers.add_parser("not-checked")
     not_checked.add_argument("--repo-root", type=Path, required=True)
     not_checked.add_argument("--date", dest="date_text", required=True)
-    not_checked.add_argument("--store-id", action="append", required=True)
+    not_checked.add_argument("--hall-id", required=True)
+    not_checked.add_argument("--line-source-key", action="append", required=True)
+    not_checked.add_argument("--collector-key", default="not_checked")
     not_checked.add_argument("--output-root", type=Path)
     not_checked.add_argument("--store-master", type=Path)
 
@@ -463,19 +702,42 @@ def main() -> int:
     args = parser.parse_args()
     if args.command == "convert":
         repo_root = (args.repo_root or args.raw_dir.parents[3]).resolve()
-        observation = convert_raw_directory(args.raw_dir, repo_root=repo_root)
-        known = load_store_ids(args.store_master) if args.store_master else None
-        write_observation(observation, args.output or repo_root / "data" / "normalized" / "line_daily" / observation["date"] / f"{observation['store_id']}.json", known_store_ids=known)
+        observations = convert_raw_directory_all(
+            args.raw_dir,
+            repo_root=repo_root,
+            hall_id=args.hall_id,
+            line_source_key=args.line_source_key,
+        )
+        known = load_hall_ids(args.store_master) if args.store_master else None
+        if args.output and len(observations) != 1:
+            raise SystemExit("--output is only valid when RAW resolves to one LINE source")
+        output_root = (
+            args.output_root
+            or repo_root / "data" / "normalized" / "line_daily"
+        ).resolve()
+        for observation in observations:
+            output = args.output if args.output else output_root / observation["date"] / observation_filename(observation)
+            write_observation(observation, output, known_hall_ids=known)
     elif args.command == "not-checked":
-        known = load_store_ids(args.store_master) if args.store_master else None
+        known = load_hall_ids(args.store_master) if args.store_master else None
         output_root = (args.output_root or args.repo_root / "data" / "normalized" / "line_daily").resolve()
-        for store_id in sorted(args.store_id):
-            observation = make_not_checked(store_id, args.date_text, repo_root=args.repo_root.resolve())
-            write_observation(observation, output_root / args.date_text / f"{store_id}.json", known_store_ids=known)
+        for source_key in sorted(set(args.line_source_key)):
+            observation = make_not_checked(
+                args.hall_id,
+                args.date_text,
+                repo_root=args.repo_root.resolve(),
+                line_source_key=source_key,
+                collector_key=args.collector_key,
+            )
+            write_observation(
+                observation,
+                output_root / args.date_text / observation_filename(observation),
+                known_hall_ids=known,
+            )
     else:
         observation = _load_json(args.path, {})
-        known = load_store_ids(args.store_master) if args.store_master else None
-        validate_observation(observation, known_store_ids=known)
+        known = load_hall_ids(args.store_master) if args.store_master else None
+        validate_observation(observation, known_hall_ids=known)
         print("valid")
     return 0
 

@@ -1,66 +1,100 @@
 # LINE日次観測
 
-## 保存場所
+## 責務境界と保存単位
 
-正規化データは canonical RAW と分離して保存する。
+`slot` が canonical hall master、`hall_id`、公式LINE source metadataを所有する。`slot-line` はLINE取得、RAW保存、日次normalized observation、trigger/Android処理だけを担当する。slot-lineに店舗masterや店舗名によるruntime補完を持ち込まない。
+
+normalized observationの識別単位は次の複合キーである。
 
 ```text
-data/normalized/line_daily/YYYY-MM-DD/<store_id>.json
+hall_id × line_source_key × date
 ```
 
-JSON Schemaの正本は [`schemas/line_daily.schema.json`](../schemas/line_daily.schema.json) で、実装上の軽量な意味検証は [`scripts/line_daily.py`](../scripts/line_daily.py) の `validate_observation` が行う。
+保存先とファイル名は次の形式とする。`line_source_key`の`@`などはファイル名ではURL percent-encodingされる。
 
-`store_id` は既存店舗マスタのIDをそのまま参照する。公式LINE sourceの10件は `slot` リポジトリの `src/features/hall-registry/line-sources.csv` に、同じmasterの `hall_id` を外部キーとして保持する。現行のPoC RAWは過去のAdapter ID（`pia_machida`、`m_and_m_mizoguchi`）を使っているため、移行時に同一店舗のcanonical master IDとの対応を確定するまでは、converterへ既知ID集合を明示して検証する。店舗名だけでの補完はしない。
+```text
+data/normalized/line_daily/YYYY-MM-DD/<hall_id>__<quoted-line_source_key>.json
+```
+
+`collector_key`はRAWディレクトリとAdapter選択用のslot-line内部キーで、canonical join keyではない。旧RAWの`store_id`もcollector keyとしてのみ扱う。normalized JSONに`store_id`は持たせない。
+
+## schema v2
+
+必須identityは次の通り。
+
+```json
+{
+  "schema_version": 2,
+  "hall_id": "abiba-kami-oka-ten",
+  "collector_key": "abiba-kami-oka-ten",
+  "line_source_key": "@bzi0364s",
+  "date": "2026-09-23",
+  "source": "official_line"
+}
+```
+
+`hall_id`はslotのcanonical IDを明示的に受け取る。RAWにそれがなく、外部source metadataからも渡されない場合はnormalizedを生成せずfail closedする。店舗名、collector key、LINE表示名からのfuzzy matchingは行わない。
+
+`line_source_key`は公式LINE sourceを識別するキーで、`hall_id`の代替ではない。同一hallに複数sourceがある場合はsourceごとに別JSONを保存し、一次normalizedでmergeしない。hall-day表示へのaggregationはslot側の別責務とする。
+
+RAWとnormalizedの境界は以下の通り。
+
+- RAW: original text、image、UI XML、rendered screenshot、manifest、messages。
+- normalized: identity、date、acquisition/collection status、`line_update`、trigger結果、message件数/種別/時刻、summary、RAW refs。
+- `summary`はRAWではなく再生成可能な派生データであり、このconverterはAI要約を実行しない。
 
 ## 状態の意味
 
-- `line_update`: `present` は配信またはtrigger返信を確認、`absent` は正常確認済みで対象日の新規メッセージなし、`unknown` は取得失敗・timeout・未確認。
+- `line_update`: `present`は配信またはtrigger返信を確認、`absent`は正常確認済みで対象更新なし、`unknown`は未確認・timeout・取得失敗。
+- `response_timeout`は`absent`に変換しない。
 - `collection.status`: `success` / `partial` / `failed` / `not_checked`。
-- `collection.failure_code`: RAW manifestの低レベルコードを保持する。`response_timeout` は `absent` へ変換しない。
-- `summary`: RAWではなく派生値。`pending` / `generated` / `not_applicable` / `failed` を持つ。今回のconverterはAI要約を実行せず、更新ありは `pending` とする。
-- `acquisition_type=unknown`: 未収集店舗のAdapter分類を捏造しないための値。10店舗の未収集fixtureはこの値を使う。
+- `not_checked`のfixtureは`line_update=unknown`とし、配信内容を作らない。
+- 同一sourceの複数runは、`success`または`skipped_already_successful`を優先する。timeoutや`skipped_already_attempted`を成功・absentへ丸めない。
 
-同一日複数runでは、`success`（または既存成功を示す `skipped_already_successful`）を優先する。timeoutや `skipped_already_attempted` を先に見て `absent` や成功へ丸めない。全runはRAW manifestに残り、run IDを持つ新schemaのRAWは `raw_refs.run_ids` から追跡できる。旧manifestにrun IDがない場合は空配列を維持し、IDを推測しない。
+`raw_refs.run_ids`にはRAWが持つ実run IDだけを記録する。旧manifestのようにrun IDが存在しない場合は推測せず空配列とし、`raw_refs.record_refs`（例:`manifest.json#0`）でmanifestレコード位置を追跡する。
 
 ## RAWからの再生成
+
+RAW manifestに`hall_id`と`line_source_key`がある場合はそれを使う。旧RAWにidentityがない場合だけ、slot側のsource metadataから明示的に渡す。
 
 ```bash
 python3 scripts/line_daily.py convert \
   data/raw/2026-09-21/pia_machida \
   --repo-root . \
-  --output data/normalized/line_daily/2026-09-21/pia_machida.json
+  --hall-id <slotのcanonical-hall-id> \
+  --line-source-key @030pwlwx \
+  --store-master /path/to/slot/src/features/hall-registry/halls.csv
 ```
 
-`messages.json` が存在する場合はそれを使用し、旧RAWのように存在しない場合だけ manifest の `message_types` / `message_times` を読み取り専用で補完する。RAW本体は書き換えない。
+同一RAW directory内に複数sourceがある場合は`convert`がsource別ファイルを生成する。Python APIでは`convert_raw_directory_all()`を使う。`convert_raw_directory()`は単一sourceの場合だけ成功し、複数sourceを1件へmergeしない。
 
-未収集日の生成例:
+RAW本体は読み取り専用で、converterはmanifest/messages/images/uiを書き換えない。PIA町田の現存旧RAWはrich cardとimageを含む成功記録を検出できるが、現ローカルで確認できるslot hall/source metadataにPIA町田のcanonical bindingがないため、identity引数なしではnormalizedを生成しない。`@030pwlwx`はsource ID候補として利用できるが、hall_idを推測する根拠にはならない。
+
+## 未収集fixture
 
 ```bash
 python3 scripts/line_daily.py not-checked \
   --repo-root . --date 2026-09-23 \
-  --store-id <existing-store-id> \
+  --hall-id abiba-kami-oka-ten \
+  --line-source-key @bzi0364s \
+  --line-source-key @isg5065c \
+  --line-source-key @072akruj \
   --store-master /path/to/slot/src/features/hall-registry/halls.csv
 ```
 
-## 既存サンプル
+10店舗のfixtureはslot側で確認されたcanonical hall IDを使い、`not_checked` / `unknown`を維持している。複数sourceの店舗はsourceごとにファイルを分けている。
 
-- [`data/normalized/line_daily/2026-09-21/pia_machida.json`](../data/normalized/line_daily/2026-09-21/pia_machida.json): 現存PIA RAWから生成。
-- `data/normalized/line_daily/2026-09-23/`: 公式LINE確認済みで既存masterへ一意に対応できた10店舗の `not_checked` fixture。送信・友だち追加・実収集はしていない。
-- M&M溝口の2026-09-23 canonical RAW本体はMac側checkoutに存在しないため、実データfixtureを捏造していない。Windowsからread-onlyでRAWを取得できた時点で同じconverterを実行する。
+| hall_id | source fixture | source数 |
+| --- | --- | ---: |
+| `123-yokohama-nishiguchi-ten` | `@rvs1554c`, `@123yokohama` | 2 |
+| `abiba-ebina-ten` | `@743tmazu`, `@aviva5555` | 2 |
+| `abiba-kami-oka-ten` | `@bzi0364s`, `@isg5065c`, `@072akruj` | 3 |
+| `abiba-miharu-machi-ten` | `@aviva0422miharu`, `@gga9118w`, `@441scmdp` | 3 |
+| `abiba-minamiashigara-ten` | `@edr3119j`, `@039ujzic` | 2 |
+| `abiba-sekiuchi-ten` | `YRBeiYiST8` | 1 |
+| `abiba-sh-nandai-ten` | `@lxh1446l` | 1 |
+| `abiba-shinsugita-ten` | `@521hisef` | 1 |
+| `abiba-tsunashima-minami-ten` | `@585sgrtl`, `@120gvvvr` | 2 |
+| `abiba-tsunashima-taru-machi-ten` | `@vbv7336k` | 1 |
 
-選定対象は一覧の公式LINE確認済み行から、現行masterへ住所・P-WORLD detail URLで一意に照合でき、PoC 2店舗を除外した候補を `hall_id` 昇順に並べた先頭10件とした。
-
-一覧の公式LINE確認済み281行を現行masterへ照合した結果、正規化名で対応なしが10行、同名の既存master行が複数で住所根拠を確定しなかったものが12行あり、合計22行は登録対象から外した。選択した10行にはこの未確定分を含めていない。
-
-```text
-123-yokohama-nishiguchi-ten
-abiba-ebina-ten
-abiba-kami-oka-ten
-abiba-miharu-machi-ten
-abiba-minamiashigara-ten
-abiba-sekiuchi-ten
-abiba-sh-nandai-ten
-abiba-shinsugita-ten
-abiba-tsunashima-minami-ten
-abiba-tsunashima-taru-machi-ten
-```
+M&M溝口のcanonical RAWはMac checkoutにないため、実データfixtureを捏造していない。Windows/Android実機から正本RAWとslot側source metadataが揃った時点で同じconverterを実行する。

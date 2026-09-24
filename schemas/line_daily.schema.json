@@ -6,7 +6,9 @@
   "additionalProperties": false,
   "required": [
     "schema_version",
-    "store_id",
+    "hall_id",
+    "collector_key",
+    "line_source_key",
     "date",
     "source",
     "acquisition_type",
@@ -18,8 +20,10 @@
     "raw_refs"
   ],
   "properties": {
-    "schema_version": { "const": 1 },
-    "store_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$" },
+    "schema_version": { "const": 2 },
+    "hall_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$" },
+    "collector_key": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$" },
+    "line_source_key": { "type": "string", "pattern": "^[A-Za-z0-9@][A-Za-z0-9_.@:-]*$" },
     "date": { "type": "string", "format": "date" },
     "source": { "type": "string", "const": "official_line" },
     "acquisition_type": {
@@ -75,10 +79,11 @@
     "raw_refs": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["directory", "run_ids", "message_refs"],
+      "required": ["directory", "run_ids", "record_refs", "message_refs"],
       "properties": {
         "directory": { "type": "string" },
         "run_ids": { "type": "array", "items": { "type": "string" } },
+        "record_refs": { "type": "array", "items": { "type": "string" } },
         "message_refs": { "type": "array", "items": { "type": "string" } }
       }
     }
