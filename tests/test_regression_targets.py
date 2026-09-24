@@ -9,8 +9,10 @@ from scripts.raw_storage import RawStore, evaluate_trigger_guard
 from scripts.run_daily import ADAPTERS
 from scripts.run_regression_targets import (
     REGRESSION_TARGETS,
+    append_regression_log,
     build_command,
     main,
+    run_dry_run,
     validate_target_configs,
 )
 
@@ -119,6 +121,47 @@ class RegressionTargetsTests(unittest.TestCase):
             with patch("sys.argv", ["run_regression_targets.py"]):
                 self.assertEqual(main(), 0)
             run.assert_not_called()
+
+    def test_regression_log_contains_one_target_record(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            result = {
+                "name": "pia-keiky-kawasaki",
+                "run_id": "run-1",
+                "status": "skipped_already_successful",
+                "collector_key": "pia-keiky-kawasaki",
+                "line_source_key": "@rmh1818e",
+                "message_count": 2,
+                "raw_path": "data/raw/2026-09-24/pia-keiky-kawasaki",
+                "skip_reason": "successful_text_trigger_exists_today",
+                "previous_run_id": "run-0",
+                "process_exit_code": 0,
+            }
+            path = append_regression_log(Path(temporary), "execution-1", result)
+            saved = json.loads(path.read_text(encoding="utf-8").splitlines()[0])
+            self.assertEqual(saved["target"], "pia-keiky-kawasaki")
+            self.assertEqual(saved["run_id"], "run-1")
+            self.assertEqual(saved["line_source_key"], "@rmh1818e")
+            self.assertEqual(saved["previous_run_id"], "run-0")
+
+    def test_dry_run_checks_environment_without_triggering_children(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            scripts = root / "scripts"
+            scripts.mkdir()
+            for target in REGRESSION_TARGETS:
+                (scripts / target["script"]).write_text("# test\n", encoding="utf-8")
+            with patch(
+                "scripts.run_regression_targets.check_adb_health",
+                return_value={"status": "success", "adb": "adb", "serial": "test-device", "errors": []},
+            ), patch(
+                "scripts.run_regression_targets.check_line_package",
+                return_value={"name": "jp.naver.line.android", "status": "present", "path": "package:/line.apk"},
+            ):
+                result, code = run_dry_run(root)
+            self.assertEqual(code, 0)
+            self.assertEqual(result["status"], "success")
+            self.assertFalse(result["trigger_executed"])
+            self.assertEqual(result["config"]["status"], "valid")
 
 
 if __name__ == "__main__":

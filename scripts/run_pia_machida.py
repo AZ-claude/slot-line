@@ -31,7 +31,10 @@ from typing import Any
 from urllib.parse import quote
 from xml.etree import ElementTree
 
-from raw_storage import RawStorageError, RawStore, evaluate_trigger_guard
+try:
+    from raw_storage import RawStorageError, RawStore, evaluate_trigger_guard
+except ModuleNotFoundError:  # Also support importing this runner in unit tests.
+    from scripts.raw_storage import RawStorageError, RawStore, evaluate_trigger_guard
 
 
 SOURCE = "official_line"
@@ -39,6 +42,8 @@ ADAPTER_TYPE = "text_trigger"
 LINE_PACKAGE = "jp.naver.line.android"
 ANDROID_IMAGE_DIR = "/sdcard/Pictures/LINE"
 STAY_ON_KEY = "stay_on_while_plugged_in"
+REPLY_SETTLE_MAX_SECONDS = 5.0
+REPLY_SETTLE_INTERVAL_SECONDS = 1.0
 
 
 class PhaseError(RuntimeError):
@@ -402,6 +407,81 @@ def row_signature(row: dict[str, Any]) -> tuple[Any, ...]:
     )
 
 
+def settled_row_signature(row: dict[str, Any]) -> tuple[Any, ...]:
+    """Include rendering resources so loader and final rich-card rows differ."""
+    return (
+        row.get("kind"),
+        row.get("timestamp"),
+        tuple(row.get("text") or []),
+        tuple(row.get("content_desc") or []),
+        tuple(row.get("resource_ids") or []),
+        row.get("bounds"),
+        row.get("image_bounds"),
+    )
+
+
+def has_reply_progress(rows: list[dict[str, Any]]) -> bool:
+    progress_id = "jp.naver.line.android:id/chat_ui_row_progress"
+    return any(progress_id in (row.get("resource_ids") or []) for row in rows)
+
+
+def incoming_rows_since_baseline(
+    rows: list[dict[str, Any]],
+    baseline_counts: Counter,
+) -> list[dict[str, Any]]:
+    new_rows: list[dict[str, Any]] = []
+    remaining = baseline_counts.copy()
+    for row in rows:
+        signature = row_signature(row)
+        if remaining[signature] > 0:
+            remaining[signature] -= 1
+        else:
+            new_rows.append(row)
+    return [
+        row
+        for row in new_rows
+        if row.get("incoming") and row["kind"] in {"text", "rich_card", "image"}
+    ]
+
+
+def settle_reply_ui(
+    ctx: AndroidContext,
+    baseline_counts: Counter,
+    initial_rows: list[dict[str, Any]],
+    initial_raw: bytes,
+    *,
+    max_wait_seconds: float = REPLY_SETTLE_MAX_SECONDS,
+) -> tuple[list[dict[str, Any]], bytes]:
+    """Capture two consecutive stable reply signatures without deduplication."""
+    last_rows = initial_rows
+    last_raw = initial_raw
+    previous_signature: tuple[Any, ...] | None = None
+    deadline = time.monotonic() + min(REPLY_SETTLE_MAX_SECONDS, max_wait_seconds)
+
+    # Give LINE one full rendering interval after the first reply boundary.
+    time.sleep(min(REPLY_SETTLE_INTERVAL_SECONDS, max(0.0, deadline - time.monotonic())))
+    while time.monotonic() < deadline:
+        root, raw = dump_ui(ctx, "reply-settle")
+        if is_system_ui(root):
+            raise PhaseError("android_unreachable", "android_locked_during_reply_settle")
+        root = focus_latest_message(ctx, root)
+        root, focused_raw = dump_ui(ctx, "reply-settle-final")
+        rows = incoming_rows_since_baseline(extract_message_rows(root), baseline_counts)
+        if rows:
+            signature = tuple(settled_row_signature(row) for row in rows)
+            last_rows = rows
+            last_raw = focused_raw or raw
+            if signature == previous_signature and not has_reply_progress(rows):
+                return last_rows, last_raw
+            previous_signature = signature
+        time.sleep(min(REPLY_SETTLE_INTERVAL_SECONDS, max(0.0, deadline - time.monotonic())))
+
+    # A reply boundary was already observed. Return the latest capture after
+    # the bounded settle window rather than converting a slow render to a
+    # response timeout or deduplicating any rows.
+    return last_rows, last_raw
+
+
 def wait_for_reply(ctx: AndroidContext, baseline: list[dict[str, Any]], timeout_seconds: float) -> tuple[list[dict[str, Any]], bytes]:
     baseline_counts = Counter(row_signature(row) for row in baseline)
     deadline = time.monotonic() + timeout_seconds
@@ -416,23 +496,12 @@ def wait_for_reply(ctx: AndroidContext, baseline: list[dict[str, Any]], timeout_
             root, focused_raw = dump_ui(ctx, "reply-final")
             last_raw = focused_raw
         rows = extract_message_rows(root)
-        new_rows: list[dict[str, Any]] = []
-        remaining = baseline_counts.copy()
-        for row in rows:
-            signature = row_signature(row)
-            if remaining[signature] > 0:
-                remaining[signature] -= 1
-            else:
-                new_rows.append(row)
         # Ignore a possible outgoing trigger text row and return as soon as an
         # incoming text, rich-card, or image boundary appears.  Images are an
         # optional part of a successful response and are handled separately.
-        incoming = [
-            row for row in new_rows
-            if row.get("incoming") and row["kind"] in {"text", "rich_card", "image"}
-        ]
+        incoming = incoming_rows_since_baseline(rows, baseline_counts)
         if incoming:
-            return incoming, last_raw
+            return settle_reply_ui(ctx, baseline_counts, incoming, last_raw)
         time.sleep(1.0)
     raise PhaseError("response_timeout", f"no_new_target_reply_within_{timeout_seconds:g}s")
 
