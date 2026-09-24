@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the minimal PIA Machida text-trigger acquisition flow.
+"""Run the minimal single-target text-trigger acquisition flow.
 
 This is intentionally a single-store PoC.  It uses only the mechanisms that
 were verified during Phase 0/1:
@@ -34,11 +34,8 @@ from xml.etree import ElementTree
 from raw_storage import RawStorageError, RawStore, evaluate_trigger_guard
 
 
-STORE_ID = "pia_machida"
 SOURCE = "official_line"
 ADAPTER_TYPE = "text_trigger"
-TRIGGER_TEXT = "".join(chr(codepoint) for codepoint in (0x6700, 0x65B0, 0x60C5, 0x5831))
-PIA_LINE_ID = "@030pwlwx"
 LINE_PACKAGE = "jp.naver.line.android"
 ANDROID_IMAGE_DIR = "/sdcard/Pictures/LINE"
 STAY_ON_KEY = "stay_on_while_plugged_in"
@@ -57,6 +54,23 @@ class AndroidContext:
     serial: str
     original_stay_on: str | None = None
     gallery_open: bool = False
+
+
+@dataclass(frozen=True)
+class TextTriggerConfig:
+    collector_key: str
+    target_title: str
+    line_source_key: str
+    trigger_text: str
+
+
+DEFAULT_CONFIG = TextTriggerConfig(
+    collector_key="pia_machida",
+    target_title="PIA町田",
+    line_source_key="@030pwlwx",
+    trigger_text="".join(chr(codepoint) for codepoint in (0x6700, 0x65B0, 0x60C5, 0x5831)),
+)
+ACTIVE_CONFIG = DEFAULT_CONFIG
 
 
 def utc_now() -> str:
@@ -186,10 +200,10 @@ def is_system_ui(root: ElementTree.Element) -> bool:
     return bool(packages) and packages.issubset({"com.android.systemui", "android"})
 
 
-def is_pia_chat(root: ElementTree.Element) -> bool:
+def is_target_chat(root: ElementTree.Element) -> bool:
     for node in root.iter():
         value = text_or_desc(node)
-        if value == "PIA町田" and resource_id(node) in {
+        if value == ACTIVE_CONFIG.target_title and resource_id(node) in {
             "jp.naver.line.android:id/header_title",
             "jp.naver.line.android:id/chat_header_title",
         }:
@@ -197,7 +211,7 @@ def is_pia_chat(root: ElementTree.Element) -> bool:
     # The header resource id can vary between LINE builds.  A visible exact
     # title near the top is acceptable for this single-store PoC.
     for node in root.iter():
-        if text_or_desc(node) == "PIA町田":
+        if text_or_desc(node) == ACTIVE_CONFIG.target_title:
             bounds = parse_bounds(node_attr(node, "bounds"))
             if bounds and bounds[1] < 250:
                 return True
@@ -211,20 +225,20 @@ def tap_node(ctx: AndroidContext, node: ElementTree.Element) -> None:
     adb_run(ctx, ["shell", "input", "tap", str(center[0]), str(center[1])], timeout=15)
 
 
-def open_line_and_pia_chat(ctx: AndroidContext) -> ElementTree.Element:
+def open_line_and_target_chat(ctx: AndroidContext) -> ElementTree.Element:
     adb_run(ctx, ["shell", "input", "keyevent", "KEYCODE_WAKEUP"], timeout=15)
     adb_run(ctx, ["shell", "monkey", "-p", LINE_PACKAGE, "1"], timeout=30)
     time.sleep(1.5)
     root, _ = dump_ui(ctx, "open")
     if is_system_ui(root):
         raise PhaseError("android_unreachable", "android_secure_lock_or_system_ui")
-    if is_pia_chat(root):
+    if is_target_chat(root):
         return root
 
-    # Use only a visible exact PIA町田 entry if LINE is on its chat list.
+    # Use only a visible exact target entry if LINE is on its chat list.
     # No coordinate is hard-coded; the current UI hierarchy supplies bounds.
     for _ in range(5):
-        entry = find_node(root, lambda node: text_or_desc(node) == "PIA町田" and bool(parse_bounds(node_attr(node, "bounds"))))
+        entry = find_node(root, lambda node: text_or_desc(node) == ACTIVE_CONFIG.target_title and bool(parse_bounds(node_attr(node, "bounds"))))
         if entry is None:
             time.sleep(0.5)
             root, _ = dump_ui(ctx, "navigate")
@@ -234,26 +248,26 @@ def open_line_and_pia_chat(ctx: AndroidContext) -> ElementTree.Element:
         root, _ = dump_ui(ctx, "chat")
         if is_system_ui(root):
             raise PhaseError("android_unreachable", "android_secure_lock_or_system_ui")
-        if is_pia_chat(root):
+        if is_target_chat(root):
             return root
-    raise PhaseError("android_unreachable", "pia_chat_not_visible_in_android_ui")
+    raise PhaseError("android_unreachable", "target_chat_not_visible_in_android_ui")
 
 
-def pia_oa_message_url() -> str:
-    encoded_id = quote(PIA_LINE_ID, safe="")
-    encoded_text = quote(TRIGGER_TEXT, safe="")
+def target_oa_message_url() -> str:
+    encoded_id = quote(ACTIVE_CONFIG.line_source_key, safe="")
+    encoded_text = quote(ACTIVE_CONFIG.trigger_text, safe="")
     return f"https://line.me/R/oaMessage/{encoded_id}/?{encoded_text}"
 
 
-def is_prefilled_pia_chat(root: ElementTree.Element) -> bool:
-    if not is_pia_chat(root):
+def is_prefilled_target_chat(root: ElementTree.Element) -> bool:
+    if not is_target_chat(root):
         return False
     input_node = find_node(root, lambda node: resource_id(node) == "jp.naver.line.android:id/chat_ui_message_edit")
-    return input_node is not None and node_attr(input_node, "text") == TRIGGER_TEXT
+    return input_node is not None and node_attr(input_node, "text") == ACTIVE_CONFIG.trigger_text
 
 
-def open_pia_via_url(ctx: AndroidContext) -> ElementTree.Element:
-    url = pia_oa_message_url()
+def open_target_via_url(ctx: AndroidContext) -> ElementTree.Element:
+    url = target_oa_message_url()
     adb_run(ctx, ["shell", "input", "keyevent", "KEYCODE_WAKEUP"], timeout=15)
     adb_run(
         ctx,
@@ -277,7 +291,7 @@ def open_pia_via_url(ctx: AndroidContext) -> ElementTree.Element:
             continue
         if is_system_ui(root):
             raise PhaseError("android_unreachable", "android_secure_lock_or_system_ui")
-        if is_prefilled_pia_chat(root):
+        if is_prefilled_target_chat(root):
             return root
         time.sleep(0.8)
     raise PhaseError("trigger_failed", last_error)
@@ -285,8 +299,8 @@ def open_pia_via_url(ctx: AndroidContext) -> ElementTree.Element:
 
 def send_prefilled_trigger_android(ctx: AndroidContext) -> str:
     root, _ = dump_ui(ctx, "prefilled")
-    if not is_prefilled_pia_chat(root):
-        raise PhaseError("trigger_failed", "pia_target_or_prefill_changed_before_send")
+    if not is_prefilled_target_chat(root):
+        raise PhaseError("trigger_failed", "target_or_prefill_changed_before_send")
     send_button = find_node(
         root,
         lambda node: resource_id(node) == "jp.naver.line.android:id/chat_ui_send_button_image"
@@ -409,7 +423,7 @@ def wait_for_reply(ctx: AndroidContext, baseline: list[dict[str, Any]], timeout_
         if incoming:
             return incoming, last_raw
         time.sleep(1.0)
-    raise PhaseError("response_timeout", f"no_new_pia_reply_within_{timeout_seconds:g}s")
+    raise PhaseError("response_timeout", f"no_new_target_reply_within_{timeout_seconds:g}s")
 
 
 def list_android_line_files(ctx: AndroidContext) -> set[str]:
@@ -474,11 +488,12 @@ def send_trigger_on_windows() -> tuple[str, str]:
     interactive session through a one-shot task and is removed afterwards.
     """
 
-    task_name = f"SlotLinePhase1PIA_{os.getpid()}_{uuid.uuid4().hex[:8]}"
+    task_name = f"SlotLinePhase1TextTrigger_{os.getpid()}_{uuid.uuid4().hex[:8]}"
     base = Path(r"C:\Users\Public")
     helper_path = base / f"slot-line-phase1-send-{os.getpid()}-{uuid.uuid4().hex[:8]}.ps1"
     result_path = base / f"slot-line-phase1-send-{os.getpid()}-{uuid.uuid4().hex[:8]}.json"
-    desired_expression = " + ".join(f"([char]0x{codepoint:04X}).ToString()" for codepoint in (0x6700, 0x65B0, 0x60C5, 0x5831))
+    desired_expression = " + ".join(f"([char]0x{ord(character):04X}).ToString()" for character in ACTIVE_CONFIG.trigger_text)
+    expected_codepoints = ",".join(f"U+{ord(character):04X}" for character in ACTIVE_CONFIG.trigger_text)
     helper = f"""param([string]$OutFile)
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName UIAutomationClient
@@ -496,14 +511,14 @@ try {{
   $editClass = New-Object -TypeName System.Windows.Automation.PropertyCondition -ArgumentList @([System.Windows.Automation.AutomationElement]::ClassNameProperty, 'AutoSuggestTextArea')
   $editCondition = New-Object -TypeName System.Windows.Automation.AndCondition -ArgumentList @($editType, $editClass)
   $edit = $line.FindFirst([System.Windows.Automation.TreeScope]::Descendants, $editCondition)
-  if ($null -eq $edit) {{ throw 'PIA_input_not_found' }}
+  if ($null -eq $edit) {{ throw 'target_input_not_found' }}
   $valuePattern = $edit.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern)
-  if ($null -eq $valuePattern) {{ throw 'PIA_input_value_pattern_not_found' }}
+  if ($null -eq $valuePattern) {{ throw 'target_input_value_pattern_not_found' }}
   $edit.SetFocus()
   $valuePattern.SetValue($desired)
   Start-Sleep -Milliseconds 200
   $readBack = $valuePattern.Current.Value
-  if ($readBack -ne $desired) {{ throw 'PIA_trigger_unicode_readback_mismatch' }}
+  if ($readBack -ne $desired) {{ throw 'trigger_unicode_readback_mismatch' }}
   [System.Windows.Forms.SendKeys]::SendWait('{{ENTER}}')
   Start-Sleep -Milliseconds 300
   $result.ok = $true
@@ -553,13 +568,13 @@ $result | ConvertTo-Json -Compress | Set-Content -LiteralPath $OutFile -Encoding
                     result = None
                 if isinstance(result, dict):
                     if result.get("ok") is True and result.get("codepoints") == "U+6700,U+65B0,U+60C5,U+5831":
-                        return TRIGGER_TEXT, str(result.get("sent_at_utc") or utc_now())
+                        return ACTIVE_CONFIG.trigger_text, str(result.get("sent_at_utc") or utc_now())
                     error = str(result.get("error") or "windows_uia_trigger_failed")
                     code = "line_not_ready" if error in {
                         "LINE_process_not_found",
                         "LINE_window_not_found",
-                        "PIA_input_not_found",
-                        "PIA_input_value_pattern_not_found",
+                        "target_input_not_found",
+                        "target_input_value_pattern_not_found",
                     } else "trigger_failed"
                     raise PhaseError(code, error)
             time.sleep(0.5)
@@ -611,8 +626,12 @@ def delete_android_image(ctx: AndroidContext, android_path: str) -> str | None:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run the single-store PIA Machida text-trigger E2E.")
+    parser = argparse.ArgumentParser(description="Run one configured text-trigger E2E target.")
     parser.add_argument("--repo-root", type=Path, default=Path(__file__).resolve().parents[1])
+    parser.add_argument("--collector-key", default=DEFAULT_CONFIG.collector_key)
+    parser.add_argument("--target-title", default=DEFAULT_CONFIG.target_title)
+    parser.add_argument("--line-source-key", default=DEFAULT_CONFIG.line_source_key)
+    parser.add_argument("--trigger-text", default=DEFAULT_CONFIG.trigger_text)
     parser.add_argument("--response-timeout", type=float, default=90.0)
     parser.add_argument(
         "--trigger-mode",
@@ -623,7 +642,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--existing-reply",
         action="store_true",
-        help="Import the currently visible PIA reply without sending a trigger; diagnostic only.",
+        help="Import the currently visible target reply without sending a trigger; diagnostic only.",
     )
     parser.add_argument(
         "--force-trigger",
@@ -634,15 +653,22 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
+    global ACTIVE_CONFIG
     args = parse_args()
+    ACTIVE_CONFIG = TextTriggerConfig(
+        collector_key=args.collector_key,
+        target_title=args.target_title,
+        line_source_key=args.line_source_key,
+        trigger_text=args.trigger_text,
+    )
     repo_root = args.repo_root.resolve()
     raw_store = RawStore(
         repo_root,
         datetime.now().strftime("%Y-%m-%d"),
-        STORE_ID,
+        ACTIVE_CONFIG.collector_key,
         SOURCE,
         ADAPTER_TYPE,
-        line_source_key=PIA_LINE_ID,
+        line_source_key=ACTIVE_CONFIG.line_source_key,
     )
     raw_store.initialize()
     run_id = datetime.now().strftime("%H%M%S") + "-" + uuid.uuid4().hex[:8]
@@ -652,12 +678,12 @@ def main() -> int:
         started_at,
         {
             "type": "existing_reply" if args.existing_reply else ADAPTER_TYPE,
-            "text": None if args.existing_reply else TRIGGER_TEXT,
+            "text": None if args.existing_reply else ACTIVE_CONFIG.trigger_text,
             "mode": "existing_reply" if args.existing_reply else args.trigger_mode,
-            "line_id": PIA_LINE_ID,
+            "line_id": ACTIVE_CONFIG.line_source_key,
         },
     )
-    record["line_id"] = PIA_LINE_ID
+    record["line_id"] = ACTIVE_CONFIG.line_source_key
     record["trigger_mode"] = "existing_reply" if args.existing_reply else args.trigger_mode
     guard_decision = None
     if not args.existing_reply:
@@ -683,22 +709,22 @@ def main() -> int:
         android.original_stay_on = original if original.isdigit() else "0"
         adb_run(android, ["shell", "settings", "put", "global", STAY_ON_KEY, "2"], timeout=15)
         if args.existing_reply:
-            root = open_line_and_pia_chat(android)
+            root = open_line_and_target_chat(android)
             root = focus_latest_message(android, root)
             new_rows = [row for row in extract_message_rows(root) if row.get("incoming")]
             if not new_rows:
-                raise PhaseError("extraction_failed", "existing_pia_reply_not_visible")
+                raise PhaseError("extraction_failed", "existing_target_reply_not_visible")
             _, reply_raw = dump_ui(android, "existing-reply")
         elif args.trigger_mode == "url":
             # The URL opens the target chat and prefills the text.  The exact
             # target title and exact input value are checked immediately before
             # the send-button tap; otherwise the run fails closed.
-            root = open_pia_via_url(android)
+            root = open_target_via_url(android)
             root = focus_latest_message(android, root)
             baseline = extract_message_rows(root)
             triggered_at = send_prefilled_trigger_android(android)
         else:
-            root = open_line_and_pia_chat(android)
+            root = open_line_and_target_chat(android)
             root = focus_latest_message(android, root)
             baseline = extract_message_rows(root)
             # Windows LINE must expose the verified AutoSuggestTextArea in the
