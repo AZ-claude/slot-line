@@ -73,6 +73,17 @@ DEFAULT_CONFIG = TextTriggerConfig(
 ACTIVE_CONFIG = DEFAULT_CONFIG
 
 
+def decode_codepoints(value: str) -> str:
+    try:
+        codepoints = [int(part.strip(), 16) for part in value.split(",") if part.strip()]
+        decoded = "".join(chr(codepoint) for codepoint in codepoints)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"invalid_codepoints:{value}") from exc
+    if not decoded:
+        raise ValueError("empty_codepoints")
+    return decoded
+
+
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
@@ -630,8 +641,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--repo-root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--collector-key", default=DEFAULT_CONFIG.collector_key)
     parser.add_argument("--target-title", default=DEFAULT_CONFIG.target_title)
+    parser.add_argument("--target-title-codepoints", default=None)
     parser.add_argument("--line-source-key", default=DEFAULT_CONFIG.line_source_key)
     parser.add_argument("--trigger-text", default=DEFAULT_CONFIG.trigger_text)
+    parser.add_argument("--trigger-codepoints", default=None)
     parser.add_argument("--response-timeout", type=float, default=90.0)
     parser.add_argument(
         "--trigger-mode",
@@ -655,11 +668,13 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     global ACTIVE_CONFIG
     args = parse_args()
+    target_title = decode_codepoints(args.target_title_codepoints) if args.target_title_codepoints else args.target_title
+    trigger_text = decode_codepoints(args.trigger_codepoints) if args.trigger_codepoints else args.trigger_text
     ACTIVE_CONFIG = TextTriggerConfig(
         collector_key=args.collector_key,
-        target_title=args.target_title,
+        target_title=target_title,
         line_source_key=args.line_source_key,
-        trigger_text=args.trigger_text,
+        trigger_text=trigger_text,
     )
     repo_root = args.repo_root.resolve()
     raw_store = RawStore(
