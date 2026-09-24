@@ -74,9 +74,9 @@ Windows版LINEデスクトップは通常運用のランタイム依存にしな
 
 Macは開発用とし、実運用・E2EはWindowsで確認する。
 
-Phase 1では`passive`（エムアンドエム溝口）と`text_trigger`（PIA町田）の2 Adapterを採用する。`scripts/run_daily.py`は両Adapterを手動で順番に実行し、ADB health、店舗ごとのstatus、今回runのmessage/image件数、保存総数、errors/warnings、RAW pathをsummaryとして出力する。片方のAdapterが失敗しても、もう片方は実行する。通常runのsummaryは`data/logs/run_daily_YYYY-MM-DD.log`へ追記する。`--dry-run`はAdapterとLINE triggerを実行せず、Scheduler実行環境だけを検証する。Task Schedulerの登録・変更はrunner自身では行わず、運用側で明示的に管理する。
+Phase 1では`passive`（エムアンドエム溝口）をproduction adapterとして採用し、PIA町田（東京都）とPIA京急川崎（神奈川県）は`text_trigger`の手動regression targetとして保持する。`scripts/run_daily.py`はproduction adapterだけを実行し、PIA targetは含めない。PIA targetは`scripts/run_regression_targets.py`でのみ、`--execute`を明示した手動実行として扱う。targetごとに異なるcollector key/source keyのRAW directoryと同日trigger guardを持ち、Task Schedulerの登録・変更は行わない。`--dry-run`または引数なしのplanはAdapterとLINE triggerを実行しない。
 
-PIAの`text_trigger`は送信側も冪等にする。当日manifestに正常な`text_trigger` runが存在する場合は送信せず、`skipped_already_successful`を返す。当日に通常triggerが実際に送信されており`triggered_at`があるが成功していない場合も送信せず、前回run情報を付けた`skipped_already_attempted`を返す。`existing_reply`診断や、送信前に失敗して`triggered_at`がない`trigger_failed`はtrigger試行に数えない。通常再実行での自動再送は行わず、再送は`--force-trigger`を明示した場合だけ許可する。`skipped_already_attempted`は取得成功へ変換せず、daily summaryでは`partial_failure`を維持する。M&Mの`passive`にはこのguardを適用しない。
+PIAの`text_trigger`は送信側も冪等にする。当日manifestに正常な`text_trigger` runが存在する場合は送信せず、`skipped_already_successful`を返す。当日に通常triggerが実際に送信されており`triggered_at`があるが成功していない場合も送信せず、前回run情報を付けた`skipped_already_attempted`を返す。`existing_reply`診断や、送信前に失敗して`triggered_at`がない`trigger_failed`はtrigger試行に数えない。regression runnerからの強制再送経路は設けない。`skipped_already_attempted`は取得成功へ変換せず、regression summaryでは失敗扱いを維持する。M&Mの`passive`にはこのguardを適用しない。
 
 ---
 

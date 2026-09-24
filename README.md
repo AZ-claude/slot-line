@@ -2,21 +2,21 @@
 
 `slot-line` は、LINE収集の実機PoCを進めるプロジェクトです。
 
-現在はPIA町田の`text_trigger`と、エムアンドエム溝口の`passive`をWindows canonical RAWへ載せる最小実装を進めています。店舗masterと公式LINE source metadataの正はslot側です。slot-lineのnormalizedは`hall_id × line_source_key × date`で識別し、`collector_key`は内部RAW/Adapter用に限定します。設計の正は [`DESIGN.md`](DESIGN.md)、実機記録は [`PHASE0.md`](PHASE0.md) です。
+現在はエムアンドエム溝口の`passive`を本番収集系として扱い、PIA町田（東京都）とPIA京急川崎（神奈川県）は別の手動regression targetとして保持しています。店舗masterと公式LINE source metadataの正はslot側です。slot-lineのnormalizedは`hall_id × line_source_key × date`で識別し、`collector_key`は内部RAW/Adapter用に限定します。設計の正は [`DESIGN.md`](DESIGN.md)、実機記録は [`PHASE0.md`](PHASE0.md) です。
 
 ## Status
 
-🚧 Phase 1/運用準備 — `passive`と`text_trigger`を採用方式として固定。rich-card-only返信のRAW保存、daily runner、Task Scheduler経由のdry-runを確認済み。`SlotLineDaily`は本番登録済みで、初回scheduled run待ち。今回のWindows再起動試験は保留。
+🚧 Phase 1/運用準備 — `passive`と`text_trigger`を採用方式として固定。rich-card-only返信のRAW保存、production runner、regression runner、Task Scheduler経由のdry-runを確認済み。PIA regression targetの自動Scheduler登録は行っていません。
 
 ## Phase 1 runner
 
-Windows運用機で、リポジトリルートから次を1回実行します。標準のtrigger方式はAndroidのLINE URL schemeで、通常運用にWindows版LINEの起動や現在の表示トークは要求しません。
+個別のPIA regressionをWindows運用機で手動確認する場合は、次の既存runnerを使えます。通常のregression取得には下記の専用runnerを使用し、標準のtrigger方式はAndroidのLINE URL schemeです。
 
 ```powershell
 python scripts\run_pia_machida.py
 ```
 
-2店舗をまとめて手動実行する最小runnerは次です。本番Task Schedulerとは別に、手動確認にも使用できます。
+本番収集系の手動runnerは次です。現在のproduction targetはM&Mのみで、PIA regression targetは含みません。
 
 ```powershell
 python scripts\run_daily.py
@@ -30,15 +30,18 @@ python scripts\run_daily.py --dry-run
 
 summaryにはADB health、各collector keyのstatus、今回runの`message_count`、保存総数`stored_message_count_total`、`image_count`、errors/warnings、`raw_path`を出力します。
 
-通常runの最終summaryは、同日複数回でも上書きせず、`data/logs/run_daily_YYYY-MM-DD.log`へ1実行1 JSON行で追記します。各Adapterの`run_id`、RAW path、前回trigger情報、`process_exit_code`も記録します。
-
-PIA町田は当日すでに正常な`text_trigger` runがある場合、再送せず`skipped_already_successful`になります。当日に送信済みで`triggered_at`があるものの成功していない場合も再送せず、前回情報付きの`skipped_already_attempted`になります。送信前に失敗して`triggered_at`がない場合は通常再実行を妨げません。`skipped_already_attempted`は取得成功に変換せず、daily summaryは`partial_failure`を維持します。明示的に再送する場合だけ次を指定します。
+PIA町田とPIA京急川崎のregression targetは別runnerです。引数なしでは計画表示だけを行い、実機操作には明示的な`--execute`が必要です。Task Schedulerからは呼び出しません。
 
 ```powershell
-python scripts\run_daily.py --force-trigger
+python scripts\run_regression_targets.py
+python scripts\run_regression_targets.py --execute
 ```
 
-処理は、WindowsからADBで `https://line.me/R/oaMessage/%40030pwlwx/?%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1` をAndroidへ開き、UI階層で `PIA町田` と入力欄の `最新情報` を完全一致確認してから送信します。対象確認できない場合は送信せず終了します。返信は `uiautomator` で検知し、LINE標準のダウンロード操作、`adb pull`、SHA-256/byte size記録までを行います。
+通常runの最終summaryは、同日複数回でも上書きせず、`data/logs/run_daily_YYYY-MM-DD.log`へ1実行1 JSON行で追記します。各Adapterの`run_id`、RAW path、前回trigger情報、`process_exit_code`も記録します。
+
+PIA regression targetは各`collector_key`ディレクトリで同日guardを独立評価します。当日すでに正常な`text_trigger` runがある場合は`skipped_already_successful`、送信済みで成功していない場合は`skipped_already_attempted`として再送しません。regression runnerには`--force-trigger`を用意していません。
+
+処理は、各targetのsource keyと店舗タイトルを完全一致確認してからAndroid LINE URLで送信します。対象確認できない場合は送信せず終了します。返信は`uiautomator`で検知し、LINE標準のダウンロード操作、`adb pull`、SHA-256/byte size記録までを行います。
 
 旧方式のWindows UI Automation送信は、明示的に `--trigger-mode windows-uia` を指定した場合だけdebug/fallbackとして使用します。現在開いているWindowsトークへの盲目的送信は本番方式ではありません。
 
@@ -67,7 +70,7 @@ python scripts\run_m_and_m_mizoguchi.py
 ### Task Scheduler本番定義
 
 - task名: `SlotLineDaily`（登録済み）
-- 実行時刻: 毎日21:05（PIA町田の21時台更新を第一候補。返信可能時刻の完全な境界は未確定）
+- 実行時刻: 毎日21:05（既存設定。現在の`run_daily.py`はM&Mのproduction adapterのみを実行し、PIA regression targetは対象外）
 - command: `C:\Users\Eita Ideguchi\AppData\Local\Programs\Python\Python312\python.exe C:\Users\Public\slot-line\scripts\run_daily.py --repo-root C:\Users\Public\slot-line`
 - working directory: `C:\Users\Public\slot-line`
 - timeout: 15分

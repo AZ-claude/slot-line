@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the two fixed Phase 1 adapters once and print a compact run summary.
+"""Run the fixed production adapter once and print a compact run summary.
 
 This is a manual-run coordinator only.  It does not create or modify a
 Task Scheduler task and deliberately keeps each adapter as a separate child
@@ -27,11 +27,6 @@ ADAPTERS = (
         "store_id": "m_and_m_mizoguchi",
         "script": "run_m_and_m_mizoguchi.py",
         "adapter_type": "passive",
-    },
-    {
-        "store_id": "pia_machida",
-        "script": "run_pia_machida.py",
-        "adapter_type": "text_trigger",
     },
 )
 LINE_PACKAGE = "jp.naver.line.android"
@@ -214,13 +209,11 @@ def split_warnings(errors: Any) -> tuple[list[Any], list[Any]]:
     return errors_out, warnings_out
 
 
-def run_adapter(repo_root: Path, adapter: dict[str, str], timeout: float, force_trigger: bool) -> dict[str, Any]:
+def run_adapter(repo_root: Path, adapter: dict[str, str], timeout: float) -> dict[str, Any]:
     script = repo_root / "scripts" / adapter["script"]
     if not script.exists():
         script = Path(__file__).resolve().parent / adapter["script"]
     command = [sys.executable, str(script), "--repo-root", str(repo_root)]
-    if force_trigger and adapter["store_id"] == "pia_machida":
-        command.append("--force-trigger")
     try:
         result = subprocess.run(
             command,
@@ -289,14 +282,9 @@ def determine_overall_status(health_status: str, adapters: list[dict[str, Any]])
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Run both fixed Phase 1 LINE adapters once.")
+    parser = argparse.ArgumentParser(description="Run the fixed production LINE adapters once.")
     parser.add_argument("--repo-root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--adapter-timeout", type=float, default=180.0)
-    parser.add_argument(
-        "--force-trigger",
-        action="store_true",
-        help="Explicitly allow a new PIA text trigger when today's trigger was already attempted.",
-    )
     parser.add_argument(
         "--dry-run",
         action="store_true",
@@ -310,7 +298,7 @@ def main() -> int:
         return exit_code
     started_at = utc_now()
     health = check_adb_health()
-    adapters = [run_adapter(repo_root, adapter, args.adapter_timeout, args.force_trigger) for adapter in ADAPTERS]
+    adapters = [run_adapter(repo_root, adapter, args.adapter_timeout) for adapter in ADAPTERS]
     overall_status = determine_overall_status(health["status"], adapters)
     summary = {
         "started_at": started_at,
