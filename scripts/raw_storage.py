@@ -54,6 +54,7 @@ def _message_key(message: dict[str, Any]) -> str:
     image_hash = message.get("sha256")
     if image_hash:
         stable = {
+            "line_source_key": message.get("line_source_key"),
             "message_type": message.get("message_type"),
             "line_display_time": message.get("line_display_time"),
             "sha256": image_hash,
@@ -61,6 +62,7 @@ def _message_key(message: dict[str, Any]) -> str:
         encoded = json.dumps(stable, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
         return "image_message:" + hashlib.sha256(encoded.encode("utf-8")).hexdigest()
     stable = {
+        "line_source_key": message.get("line_source_key"),
         "message_type": message.get("message_type"),
         "line_display_time": message.get("line_display_time"),
         "text": message.get("text") or [],
@@ -193,6 +195,11 @@ class RawStore:
         by_key = {_message_key(item): item for item in existing}
         for message in messages:
             normalized = dict(message)
+            if self.line_source_key:
+                message_source_key = normalized.get("line_source_key")
+                if message_source_key not in (None, "", self.line_source_key):
+                    raise RawStorageError("line_source_key_mismatch")
+                normalized["line_source_key"] = self.line_source_key
             normalized.setdefault("observed_at", utc_now())
             key = _message_key(normalized)
             if key in by_key:

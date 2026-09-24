@@ -329,7 +329,7 @@ def _convert_records(
         elif records:
             trigger["result"] = _status(max(records, key=_record_order))
 
-    summary_status = "not_applicable" if line_update == "absent" else "pending"
+    summary_status = "pending" if line_update == "present" else "not_applicable"
     return {
         "schema_version": SCHEMA_VERSION,
         "hall_id": hall_id,
@@ -368,46 +368,51 @@ def _indexed_manifest_records(manifest: Any) -> list[dict[str, Any]]:
     raise ValueError("manifest must be an object or list")
 
 
-def _messages_for_group(
+def _messages_by_group(
     messages: list[dict[str, Any]],
-    *,
-    group_key: tuple[str, str],
-    group_records: list[dict[str, Any]],
-    group_count: int,
-) -> list[dict[str, Any]]:
-    hall_id, line_source_key = group_key
+    groups: dict[tuple[str, str], list[dict[str, Any]]],
+) -> dict[tuple[str, str], list[dict[str, Any]]]:
+    """Assign every message to exactly one identity group or fail closed."""
+    group_keys = set(groups)
     record_indices = {
-        record.get("_manifest_index")
-        for record in group_records
+        key: {record.get("_manifest_index") for record in records}
+        for key, records in groups.items()
     }
     run_ids = {
-        str(record["run_id"])
-        for record in group_records
-        if record.get("run_id")
+        key: {str(record["run_id"]) for record in records if record.get("run_id")}
+        for key, records in groups.items()
     }
-    selected: list[dict[str, Any]] = []
+    grouped = {key: [] for key in groups}
+
     for message in messages:
+        evidence: list[set[tuple[str, str]]] = []
         message_hall_id = message.get("hall_id")
-        if message_hall_id and message_hall_id != hall_id:
-            continue
+        if message_hall_id not in (None, ""):
+            evidence.append({key for key in group_keys if key[0] == message_hall_id})
+
         message_source_key = _message_line_source_key(message)
         if message_source_key:
-            if message_source_key == line_source_key:
-                selected.append(message)
-            continue
-        if message.get("_manifest_index") in record_indices:
-            selected.append(message)
-            continue
-        if message.get("run_id") and str(message["run_id"]) in run_ids:
-            selected.append(message)
-            continue
-        if group_count == 1:
-            selected.append(message)
-            continue
-        raise LineDailyIdentityError([
-            "messages.json:line_source_key_required_for_multiple_sources"
-        ])
-    return selected
+            evidence.append({key for key in group_keys if key[1] == message_source_key})
+
+        manifest_index = message.get("_manifest_index")
+        if manifest_index is not None:
+            evidence.append({key for key in group_keys if manifest_index in record_indices[key]})
+
+        message_run_id = message.get("run_id")
+        if message_run_id:
+            run_id = str(message_run_id)
+            evidence.append({key for key in group_keys if run_id in run_ids[key]})
+
+        candidates = set.intersection(*evidence) if evidence else set(group_keys)
+        if not evidence and len(group_keys) != 1:
+            raise LineDailyIdentityError([
+                "messages.json:identity_required_for_multiple_sources"
+            ])
+        if len(candidates) != 1:
+            reason = "ambiguous" if len(candidates) > 1 else "unmatched_or_conflicting"
+            raise LineDailyIdentityError([f"messages.json:identity_{reason}"])
+        grouped[next(iter(candidates))].append(message)
+    return grouped
 
 
 def convert_raw_directory_all(
@@ -435,15 +440,11 @@ def convert_raw_directory_all(
         line_source_key=line_source_key,
     )
     messages = _message_rows(raw_dir, records)
+    messages_by_group = _messages_by_group(messages, groups)
     resolved_repo_root = (repo_root or raw_dir.parents[3]).resolve()
     observations: list[dict[str, Any]] = []
     for group_key, group_records in sorted(groups.items()):
-        group_messages = _messages_for_group(
-            messages,
-            group_key=group_key,
-            group_records=group_records,
-            group_count=len(groups),
-        )
+        group_messages = messages_by_group[group_key]
         observations.append(
             _convert_records(
                 group_records,
@@ -662,6 +663,8 @@ def validate_observation(value: Any, *, known_hall_ids: Iterable[str] | None = N
 
 
 def write_observation(observation: dict[str, Any], path: Path, *, known_hall_ids: Iterable[str] | None = None) -> None:
+    if known_hall_ids is None:
+        raise LineDailyValidationError(["$.hall_id:canonical_master_required"])
     validate_observation(observation, known_hall_ids=known_hall_ids)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(observation, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -684,7 +687,7 @@ def main() -> int:
     convert.add_argument("--output-root", type=Path)
     convert.add_argument("--hall-id")
     convert.add_argument("--line-source-key")
-    convert.add_argument("--store-master", type=Path, help="Read-only slot hall master used for hall_id validation")
+    convert.add_argument("--store-master", type=Path, required=True, help="Read-only slot hall master used for hall_id validation")
 
     not_checked = subparsers.add_parser("not-checked")
     not_checked.add_argument("--repo-root", type=Path, required=True)
@@ -693,7 +696,7 @@ def main() -> int:
     not_checked.add_argument("--line-source-key", action="append", required=True)
     not_checked.add_argument("--collector-key", default="not_checked")
     not_checked.add_argument("--output-root", type=Path)
-    not_checked.add_argument("--store-master", type=Path)
+    not_checked.add_argument("--store-master", type=Path, required=True)
 
     validate = subparsers.add_parser("validate")
     validate.add_argument("path", type=Path)

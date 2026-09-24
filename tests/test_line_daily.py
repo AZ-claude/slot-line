@@ -179,6 +179,7 @@ class LineDailyTests(unittest.TestCase):
             result = convert_raw_directory(raw, repo_root=root)
             self.assertEqual(result["collection"]["failure_code"], "response_timeout")
             self.assertEqual(result["line_update"], "unknown")
+            self.assertEqual(result["summary"]["status"], "not_applicable")
 
     def test_not_checked_is_unknown(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -190,6 +191,7 @@ class LineDailyTests(unittest.TestCase):
             )
             self.assertEqual(result["collection"]["status"], "not_checked")
             self.assertEqual(result["line_update"], "unknown")
+            self.assertEqual(result["summary"]["status"], "not_applicable")
             validate_observation(result, known_hall_ids={"hall-a"})
 
     def test_skipped_statuses_and_success_run_priority(self):
@@ -198,6 +200,7 @@ class LineDailyTests(unittest.TestCase):
             records = [
                 self.record("pia-01", "success", triggered_at="2026-09-23T12:00:01+00:00"),
                 self.record("pia-02", "response_timeout", triggered_at="2026-09-23T13:00:01+00:00", error_code="response_timeout"),
+                self.record("pia-05", "trigger_failed", error_code="trigger_failed"),
                 self.record("pia-03", "skipped_already_successful"),
                 {**self.record("pia-04", "skipped_already_attempted"), "previous_status": "response_timeout"},
             ]
@@ -211,6 +214,37 @@ class LineDailyTests(unittest.TestCase):
             self.assertIsNone(result["collection"]["failure_code"])
             self.assertEqual(result["line_update"], "present")
             self.assertEqual(result["trigger"]["result"], "sent")
+
+    def test_multiple_sources_can_attribute_message_by_run_id(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            raw = self.write_raw(
+                root,
+                [
+                    self.record("line-a-01", "success", line_source_key="@line-a", adapter_type="passive"),
+                    self.record("line-b-01", "success", line_source_key="@line-b", adapter_type="passive"),
+                ],
+                [{"run_id": "line-a-01", "message_type": "text", "line_display_time": "21:01"}],
+            )
+            results = convert_raw_directory_all(raw, repo_root=root)
+            self.assertEqual(results[0]["line_source_key"], "@line-a")
+            self.assertEqual(results[0]["line_update"], "present")
+            self.assertEqual(results[1]["line_source_key"], "@line-b")
+            self.assertEqual(results[1]["line_update"], "absent")
+
+    def test_unmatched_message_identity_fails_closed(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            raw = self.write_raw(
+                root,
+                [
+                    self.record("line-a-01", "success", line_source_key="@line-a"),
+                    self.record("line-b-01", "success", line_source_key="@line-b"),
+                ],
+                [{"line_source_key": "@line-unknown", "message_type": "text", "line_display_time": "21:01"}],
+            )
+            with self.assertRaises(LineDailyIdentityError):
+                convert_raw_directory_all(raw, repo_root=root)
 
     def test_raw_traceability(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -250,6 +284,13 @@ class LineDailyTests(unittest.TestCase):
             output = root / "observation.json"
             write_observation(value, output, known_hall_ids={"hall-a"})
             self.assertEqual(json.loads(output.read_text(encoding="utf-8")), value)
+
+    def test_normalized_output_requires_canonical_master(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            value = make_not_checked("hall-a", "2026-09-23", repo_root=root, line_source_key="@line-a")
+            with self.assertRaises(LineDailyValidationError):
+                write_observation(value, root / "observation.json")
 
     def test_existing_pia_raw_needs_external_canonical_identity_and_is_read_only(self):
         repo_root = Path(__file__).resolve().parents[1]

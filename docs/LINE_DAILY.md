@@ -50,6 +50,7 @@ RAWとnormalizedの境界は以下の通り。
 - `collection.status`: `success` / `partial` / `failed` / `not_checked`。
 - `not_checked`のfixtureは`line_update=unknown`とし、配信内容を作らない。
 - 同一sourceの複数runは、`success`または`skipped_already_successful`を優先する。timeoutや`skipped_already_attempted`を成功・absentへ丸めない。
+- `summary.status`は、`present`だけを`pending`（要約対象RAWあり）とし、`absent` / `unknown`は`not_applicable`とする。
 
 `raw_refs.run_ids`にはRAWが持つ実run IDだけを記録する。旧manifestのようにrun IDが存在しない場合は推測せず空配列とし、`raw_refs.record_refs`（例:`manifest.json#0`）でmanifestレコード位置を追跡する。
 
@@ -66,7 +67,7 @@ python3 scripts/line_daily.py convert \
   --store-master /path/to/slot/src/features/hall-registry/halls.csv
 ```
 
-同一RAW directory内に複数sourceがある場合は`convert`がsource別ファイルを生成する。Python APIでは`convert_raw_directory_all()`を使う。`convert_raw_directory()`は単一sourceの場合だけ成功し、複数sourceを1件へmergeしない。
+同一RAW directory内に複数sourceがある場合は`convert`がsource別ファイルを生成する。messageは`line_source_key`、manifest index、または`run_id`で1つのsource groupへ帰属できる必要があり、未帰属・曖昧・矛盾するmessageはfail closedする。Python APIでは`convert_raw_directory_all()`を使う。`convert_raw_directory()`は単一sourceの場合だけ成功し、複数sourceを1件へmergeしない。
 
 RAW本体は読み取り専用で、converterはmanifest/messages/images/uiを書き換えない。PIA町田の現存旧RAWはrich cardとimageを含む成功記録を検出できるが、現ローカルで確認できるslot hall/source metadataにPIA町田のcanonical bindingがないため、identity引数なしではnormalizedを生成しない。`@030pwlwx`はsource ID候補として利用できるが、hall_idを推測する根拠にはならない。
 

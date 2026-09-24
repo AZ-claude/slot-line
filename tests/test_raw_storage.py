@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.raw_storage import RawStore, evaluate_trigger_guard
+from scripts.raw_storage import RawStorageError, RawStore, evaluate_trigger_guard
 from scripts.run_daily import append_daily_log, determine_overall_status
 
 
@@ -33,6 +33,21 @@ class RawStoreTest(unittest.TestCase):
             store.merge_messages([message])
             store.merge_messages([message])
             self.assertEqual(len(json.loads(store.messages_path.read_text(encoding="utf-8"))), 1)
+
+    def test_message_source_attribution_is_preserved_and_part_of_deduplication(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            message = {"message_type": "text", "line_display_time": "23:00", "text": ["sample"]}
+            source_a = RawStore(root, "2026-09-22", "hall-a", "official_line", "passive", "@line-a")
+            source_a.initialize()
+            source_a.merge_messages([message])
+            source_b = RawStore(root, "2026-09-22", "hall-a", "official_line", "passive", "@line-b")
+            source_b.initialize()
+            source_b.merge_messages([message])
+            messages = json.loads(source_b.messages_path.read_text(encoding="utf-8"))
+            self.assertEqual({item["line_source_key"] for item in messages}, {"@line-a", "@line-b"})
+            with self.assertRaises(RawStorageError):
+                source_a.merge_messages([{**message, "line_source_key": "@line-b"}])
 
     def test_manifest_upserts_by_run_id(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

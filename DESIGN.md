@@ -317,6 +317,7 @@ data/
 
 `messages.json`は同一店舗・同一日で重複排除したメッセージ配列とする。各メッセージに最低限次を持つ。
 
+- `line_source_key`（source別保存時）
 - `message_type`
 - `resource_ids`
 - `line_display_time`
