@@ -1,0 +1,1833 @@
+{
+  "schema_version": 1,
+  "survey_id": "line_capability_2026-09-25",
+  "survey_date": "2026-09-25",
+  "survey_timezone": "Asia/Tokyo",
+  "generated_at": "2026-09-25T03:12:15+09:00",
+  "survey_status": "partial",
+  "purpose": "LINE rich menu availability, candidate acquisition method, and read-only Android UI processing time capacity survey",
+  "safety": {
+    "line_messages_sent": 0,
+    "rich_menu_clicked": false,
+    "force_trigger_used": false,
+    "scheduler_changed": false,
+    "android_settings_changed": false,
+    "slot_repository_modified": false
+  },
+  "sampling": {
+    "method": "Evenly spaced selection across the P-WORLD LINE table after exact normalized store-name join to canonical hall master; forced inclusion of the three Kanagawa shops already present in the dedicated Android chat list.",
+    "selected_count": 50,
+    "unique_hall_ids": 50,
+    "unique_line_source_keys": 50,
+    "eligible_exact_join_unique_hall_source_pairs": 166,
+    "hall_master": "/Users/eita/projects/slot/src/features/hall-registry/halls.csv",
+    "line_sources_csv": {
+      "revision": "e3034dd",
+      "path_at_revision": "src/features/hall-registry/line-sources.csv",
+      "confirmed_rows_in_revision": 10,
+      "note": "The file is absent at current slot HEAD; it was read from this historical revision. The P-WORLD 2026-09-23 list provided confirmed source keys for the wider sample."
+    },
+    "line_candidate_table": "kanagawa_pworld_line_x_20260923.md",
+    "source_table_scope": "Only the primary LINE table at lines 9-315; supplementary tables elsewhere in the Markdown were excluded."
+  },
+  "summary": {
+    "selected_target_count": 50,
+    "successful_observations": 3,
+    "error_class_counts": {
+      "success": 3,
+      "target_not_verified": 47,
+      "navigation_failed": 0,
+      "ui_not_settled": 0,
+      "rich_menu_not_observed": 0,
+      "adb_failed": 0,
+      "line_not_ready": 0,
+      "unknown": 0
+    },
+    "rich_menu_status_counts": {
+      "present": 2,
+      "absent_confirmed": 1,
+      "not_observed": 0,
+      "unknown": 47
+    },
+    "text_trigger_candidate_count": 3,
+    "passive_candidate_count": 1,
+    "processing_time": {
+      "measured_store_count": 3,
+      "successful_observation_total_seconds": 173.825,
+      "average_seconds_per_store": 57.942,
+      "p50_seconds": 58.174,
+      "p75_seconds": 60.331,
+      "p90_seconds": 61.624,
+      "max_seconds": 62.487,
+      "percentile_method": "linear interpolation; n=3, interpret as preliminary",
+      "stores_per_hour_by_mean": 62.131,
+      "actual_50_store_total_seconds": null,
+      "linear_estimate_if_all_targets_are_already_accessible": {
+        "50": {
+          "seconds": 2897.083,
+          "minutes": 48.28,
+          "hours": 0.8
+        },
+        "100": {
+          "seconds": 5794.167,
+          "minutes": 96.57,
+          "hours": 1.61
+        },
+        "300": {
+          "seconds": 17382.5,
+          "minutes": 289.71,
+          "hours": 4.83
+        }
+      },
+      "worker_split_estimate_for_300_if_parallelism_is_linear": {
+        "1": {
+          "hours": 4.83
+        },
+        "2": {
+          "hours": 2.41
+        },
+        "4": {
+          "hours": 1.21
+        }
+      },
+      "estimate_limitations": [
+        "only 3 accessible Kanagawa chats were timed",
+        "47 of the selected targets were not accessible as existing chats",
+        "friend additions/onboarding and worker contention excluded",
+        "linear projections are not measured 50/100/300-store runs"
+      ]
+    },
+    "one_worker_throughput_assessment": "3件の直接観測平均は約62店舗/時。全件が既存トークとしてアクセス可能なら300件は約4.8時間の線形試算だが、この調査では50件完了していない。1 workerで成立するかは暫定。2 workersなら約2.4時間、4 workersなら約1.2時間の単純割り算で、必要性は日次締切次第。"
+  },
+  "quality_check": {
+    "absent_confirmed_records_rechecked": 1,
+    "invalid_absent_confirmed_records": 0,
+    "aviva_absence_review": "Passed final recheck: two new dumps, same target header, zero progress nodes, zero rich-menu nodes, normal composer present, screenshot bottom rendering reviewed."
+  },
+  "records": [
+    {
+      "hall_id": "pia-keiky-kawasaki",
+      "collector_key": "pia-keiky-kawasaki",
+      "line_source_key": "@rmh1818e",
+      "store_name": "PIA京急川崎",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 138,
+        "pworld_store_name": "PIA京急川崎",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": true,
+      "rich_menu_status": "present",
+      "rich_menu_labels": [
+        "最新情報"
+      ],
+      "text_trigger_candidate": true,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [
+        "rich_menu_trigger_verified_existing_poc",
+        "text_trigger_verified_existing_poc"
+      ],
+      "observation_status": "success",
+      "error_class": "success",
+      "elapsed_seconds": 62.487,
+      "timing": {
+        "navigation_seconds": 38.092,
+        "settle_seconds": 3.0,
+        "dump_seconds": 21.383,
+        "total_seconds": 62.487
+      },
+      "target_present_in_existing_chat_list": true,
+      "notes": "対象タイトルが2回のdumpで一致。progressなし。chat_ui_oa_richmenuとimageviewが実画面に表示。2026-09-24の既存PoCでrich-menuとtext-triggerの両方式がsuccess。今回の調査では送信・menuクリックなし。",
+      "observation_evidence": {
+        "dump_count": 2,
+        "dump_files": [
+          "survey_pia_keikyu_1.xml",
+          "survey_pia_keikyu_2.xml"
+        ],
+        "stable_target_header": true,
+        "loading_progress_nodes": 0,
+        "rich_menu_node_ids": [
+          "jp.naver.line.android:id/chat_ui_oa_richmenu",
+          "jp.naver.line.android:id/oa_richmenu_imageview"
+        ],
+        "screen_bottom_rendered": true,
+        "source": "existing PoC manifest and current read-only UI dumps"
+      }
+    },
+    {
+      "hall_id": "abiba-sh-nandai-ten",
+      "collector_key": "abiba-sh-nandai-ten",
+      "line_source_key": "@lxh1446l",
+      "store_name": "アビバ湘南台店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 183,
+        "pworld_store_name": "アビバ湘南台店",
+        "slot_line_sources_csv_match": true,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": true,
+      "rich_menu_status": "absent_confirmed",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": true,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [
+        "text_trigger_candidate_from_existing_chat_history"
+      ],
+      "observation_status": "success",
+      "error_class": "success",
+      "elapsed_seconds": 53.164,
+      "timing": {
+        "navigation_seconds": 31.503,
+        "settle_seconds": 3.0,
+        "dump_seconds": 18.652,
+        "total_seconds": 53.164
+      },
+      "target_present_in_existing_chat_list": true,
+      "notes": "初回2 dumpと最終QAの2 dumpで対象タイトルが一致し、progress/menu nodeなし。正常な入力欄と描画済みチャットが表示され、最終QAスクリーンショットでも画面下部の正常描画を再確認。既存会話履歴に「最新情報」送信と返信URLあり（今回の送信ではない）。",
+      "observation_evidence": {
+        "dump_count": 2,
+        "dump_files": [
+          "survey_aviva_1.xml",
+          "survey_aviva_2.xml"
+        ],
+        "stable_target_header": true,
+        "loading_progress_nodes": 0,
+        "rich_menu_node_ids": [],
+        "bottom_composer_visible": true,
+        "visible_chat_message_nodes": 6,
+        "absence_criteria_all_met": true
+      },
+      "quality_recheck": {
+        "performed": true,
+        "dump_count": 2,
+        "dump_files": [
+          "survey_aviva_qa_1.xml",
+          "survey_aviva_qa_2.xml"
+        ],
+        "stable_target_header": true,
+        "loading_progress_nodes": 0,
+        "rich_menu_node_ids": [],
+        "bottom_composer_visible": true,
+        "screen_bottom_screenshot_reviewed": true,
+        "result": "retained_absent_confirmed"
+      }
+    },
+    {
+      "hall_id": "pachisuroemuandoemu",
+      "collector_key": "m_and_m_mizoguchi",
+      "line_source_key": "@mm_mizo",
+      "store_name": "パチスロエムアンドエム",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 201,
+        "pworld_store_name": "パチスロエムアンドエム",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": true,
+      "rich_menu_status": "present",
+      "rich_menu_labels": [
+        "店舗最新情報",
+        "遊技台データ",
+        "ランキング",
+        "フロアマップ",
+        "人気機種"
+      ],
+      "text_trigger_candidate": true,
+      "passive_candidate": true,
+      "acquisition_method_candidates": [
+        "passive_existing_adapter",
+        "rich_menu_present",
+        "text_trigger_candidate_from_visible_menu_label"
+      ],
+      "observation_status": "success",
+      "error_class": "success",
+      "elapsed_seconds": 58.174,
+      "timing": {
+        "navigation_seconds": 35.568,
+        "settle_seconds": 3.0,
+        "dump_seconds": 19.593,
+        "total_seconds": 58.174
+      },
+      "target_present_in_existing_chat_list": true,
+      "notes": "対象タイトルが2回のdumpで一致。progressなし。rich-menu container/imageviewを確認し、画面表示から5 labelsを記録。トーク一覧に9/21の自動配信履歴が表示され、既存passive adapterの対象。今回の調査ではmenuクリック・送信なし。",
+      "observation_evidence": {
+        "dump_count": 2,
+        "dump_files": [
+          "survey_mm_1.xml",
+          "survey_mm_2.xml"
+        ],
+        "stable_target_header": true,
+        "loading_progress_nodes": 0,
+        "rich_menu_node_ids": [
+          "jp.naver.line.android:id/chat_ui_oa_richmenu",
+          "jp.naver.line.android:id/oa_richmenu_imageview"
+        ],
+        "screenshot_reviewed": true,
+        "recent_passive_history_preview": "9/21 エムエムの9月オススメはリオエース2！"
+      }
+    },
+    {
+      "hall_id": "jiasu-kami-oka",
+      "collector_key": "jiasu-kami-oka",
+      "line_source_key": "@zia_k",
+      "store_name": "ジアス上大岡",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 11,
+        "pworld_store_name": "ジアス上大岡",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "123-yokohama-nishiguchi-ten",
+      "collector_key": "123-yokohama-nishiguchi-ten",
+      "line_source_key": "@rvs1554c",
+      "store_name": "123横浜西口店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 15,
+        "pworld_store_name": "１２３横浜西口店",
+        "slot_line_sources_csv_match": true,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "kui-pu-higashitotsuka-ten",
+      "collector_key": "kui-pu-higashitotsuka-ten",
+      "line_source_key": "@gqq6628y",
+      "store_name": "くいーぷ東戸塚店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 19,
+        "pworld_store_name": "くいーぷ東戸塚店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "doki-waku-rando-ch-go-ekimae-ten",
+      "collector_key": "doki-waku-rando-ch-go-ekimae-ten",
+      "line_source_key": "@gyf4355o",
+      "store_name": "ドキわくランド長後駅前店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 23,
+        "pworld_store_name": "ドキわくランド長後駅前店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "kik-na-chigasaki-ten",
+      "collector_key": "kik-na-chigasaki-ten",
+      "line_source_key": "@kicona-chigasaki",
+      "store_name": "キコーナ茅ヶ崎店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 30,
+        "pworld_store_name": "キコーナ茅ヶ崎店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "rakuen-sagamihara-ten",
+      "collector_key": "rakuen-sagamihara-ten",
+      "line_source_key": "@962wucpf",
+      "store_name": "楽園相模原店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 40,
+        "pworld_store_name": "楽園相模原店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "kurie-j-nichi-shij-ten",
+      "collector_key": "kurie-j-nichi-shij-ten",
+      "line_source_key": "@c0459862933",
+      "store_name": "クリエ十日市場店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 49,
+        "pworld_store_name": "クリエ十日市場店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "kik-na-bakuro-ten",
+      "collector_key": "kik-na-bakuro-ten",
+      "line_source_key": "@kicona-hakuraku",
+      "store_name": "キコーナ白楽店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 56,
+        "pworld_store_name": "キコーナ白楽店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "biggu-pandora-ido-ke-tani-ten-shinkan",
+      "collector_key": "biggu-pandora-ido-ke-tani-ten-shinkan",
+      "line_source_key": "@949hkhtd",
+      "store_name": "ビッグパンドラ井土ヶ谷店新館",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 60,
+        "pworld_store_name": "ビッグパンドラ井土ヶ谷店新館",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "gurando-h-ru-odawara-ten",
+      "collector_key": "gurando-h-ru-odawara-ten",
+      "line_source_key": "@354skdpc",
+      "store_name": "グランドホール小田原店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 65,
+        "pworld_store_name": "グランドホール小田原店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "nakayama-uno",
+      "collector_key": "nakayama-uno",
+      "line_source_key": "@zwt0488b",
+      "store_name": "中山UNO",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 71,
+        "pworld_store_name": "中山ＵＮＯ",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "jiasu-k-nandai",
+      "collector_key": "jiasu-k-nandai",
+      "line_source_key": "@fap2637x",
+      "store_name": "ジアス港南台",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 76,
+        "pworld_store_name": "ジアス港南台",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "kik-na-isezaki-ten",
+      "collector_key": "kik-na-isezaki-ten",
+      "line_source_key": "@isezaki",
+      "store_name": "キコーナ伊勢佐木店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 80,
+        "pworld_store_name": "キコーナ伊勢佐木店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "kitch-kawasaki-nogawa-ten",
+      "collector_key": "kitch-kawasaki-nogawa-ten",
+      "line_source_key": "@565yasud",
+      "store_name": "吉兆川崎野川店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 88,
+        "pworld_store_name": "吉兆川崎野川店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "tow-zu-sagamihara-ten",
+      "collector_key": "tow-zu-sagamihara-ten",
+      "line_source_key": "@bck0569v",
+      "store_name": "トワーズ相模原店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 91,
+        "pworld_store_name": "トワーズ相模原店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "jiasusent-minami",
+      "collector_key": "jiasusent-minami",
+      "line_source_key": "@rbt8267i",
+      "store_name": "ジアスセンター南",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 96,
+        "pworld_store_name": "ジアス　センター南",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "pia-tsunashima",
+      "collector_key": "pia-tsunashima",
+      "line_source_key": "@813qcshp",
+      "store_name": "PIA綱島",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 103,
+        "pworld_store_name": "PIA綱島",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "japan-ny-arufa-kurami-ten",
+      "collector_key": "japan-ny-arufa-kurami-ten",
+      "line_source_key": "@fpu2515q",
+      "store_name": "ジャパンニューアルファ倉見店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 123,
+        "pworld_store_name": "ジャパンニューアルファ　倉見店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "doki-waku-rando-ido-ke-tani-ten",
+      "collector_key": "doki-waku-rando-ido-ke-tani-ten",
+      "line_source_key": "@mnt5245y",
+      "store_name": "ドキわくランド井土ヶ谷店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 128,
+        "pworld_store_name": "ドキわくランド井土ヶ谷店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "gaianekusuto-ebina-ekimae-ten",
+      "collector_key": "gaianekusuto-ebina-ekimae-ten",
+      "line_source_key": "@yfg7107w",
+      "store_name": "ガイアネクスト海老名駅前店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 133,
+        "pworld_store_name": "ガイアネクスト海老名駅前店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "p-ku-sagami-no",
+      "collector_key": "p-ku-sagami-no",
+      "line_source_key": "@515hybfb",
+      "store_name": "ピーアーク相模大野",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 137,
+        "pworld_store_name": "ピーアーク相模大野",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "p-ru-shoppu-tomo-e-fuchinobe-ten",
+      "collector_key": "p-ru-shoppu-tomo-e-fuchinobe-ten",
+      "line_source_key": "@781yaczj",
+      "store_name": "パールショップともえ淵野辺店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 144,
+        "pworld_store_name": "パールショップともえ淵野辺店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "arrow-hiratsuka-ten",
+      "collector_key": "arrow-hiratsuka-ten",
+      "line_source_key": "@fqp0469n",
+      "store_name": "ARROW平塚店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 149,
+        "pworld_store_name": "ＡＲＲＯＷ平塚店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "new-garden-totsuka",
+      "collector_key": "new-garden-totsuka",
+      "line_source_key": "@jri9235n",
+      "store_name": "新！ガーデン戸塚",
+      "prefecture": "神奈川県",
+      "city": "横浜市戸塚区",
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 154,
+        "pworld_store_name": "新！ガーデン戸塚",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "nambusen-shitte-ekimae-ten",
+      "collector_key": "nambusen-shitte-ekimae-ten",
+      "line_source_key": "@qqr1482n",
+      "store_name": "南武線尻手駅前店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 159,
+        "pworld_store_name": "南武線尻手駅前店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "purego-yugawara-ten",
+      "collector_key": "purego-yugawara-ten",
+      "line_source_key": "@232bqwsv",
+      "store_name": "プレゴ湯河原店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 165,
+        "pworld_store_name": "プレゴ湯河原店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "abiba-zushi-ekimae-ten",
+      "collector_key": "abiba-zushi-ekimae-ten",
+      "line_source_key": "@aviva-zushi",
+      "store_name": "アビバ逗子駅前店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 170,
+        "pworld_store_name": "アビバ逗子駅前店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "taig-7-tsunashima-ten",
+      "collector_key": "taig-7-tsunashima-ten",
+      "line_source_key": "@237gsfjs",
+      "store_name": "タイガー7綱島店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 176,
+        "pworld_store_name": "タイガー７　綱島店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "gaia-wada-machi-ten",
+      "collector_key": "gaia-wada-machi-ten",
+      "line_source_key": "@g-wadamachi",
+      "store_name": "ガイア和田町店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 184,
+        "pworld_store_name": "ガイア和田町店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "gaia-higashitotsuka-ten",
+      "collector_key": "gaia-higashitotsuka-ten",
+      "line_source_key": "@pfk1259x",
+      "store_name": "ガイア東戸塚店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 187,
+        "pworld_store_name": "ガイア東戸塚店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "abiba-tsunashima-minami-ten",
+      "collector_key": "abiba-tsunashima-minami-ten",
+      "line_source_key": "@585sgrtl",
+      "store_name": "アビバ綱島南店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 197,
+        "pworld_store_name": "アビバ綱島南店",
+        "slot_line_sources_csv_match": true,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "ny-ritchirando",
+      "collector_key": "ny-ritchirando",
+      "line_source_key": "@chi7610e",
+      "store_name": "ニューリッチランド",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 207,
+        "pworld_store_name": "ニューリッチランド",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "kik-na-odawara-gimachi-ten",
+      "collector_key": "kik-na-odawara-gimachi-ten",
+      "line_source_key": "@hkg7433u",
+      "store_name": "キコーナ小田原扇町店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 212,
+        "pworld_store_name": "キコーナ小田原扇町店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "sanrakk-sagamihara-ten",
+      "collector_key": "sanrakk-sagamihara-ten",
+      "line_source_key": "@628hqwbe",
+      "store_name": "サンラッキー相模原店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 219,
+        "pworld_store_name": "サンラッキー相模原店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "ginzah-ru-707",
+      "collector_key": "ginzah-ru-707",
+      "line_source_key": "@351eiuvz",
+      "store_name": "ギンザホール707",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 224,
+        "pworld_store_name": "ギンザホール707",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "ichibankan-sagamihara-ten",
+      "collector_key": "ichibankan-sagamihara-ten",
+      "line_source_key": "@dse9977u",
+      "store_name": "一番舘 相模原店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 227,
+        "pworld_store_name": "一番舘　相模原店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "gur-n",
+      "collector_key": "gur-n",
+      "line_source_key": "@629aqwlz",
+      "store_name": "グリーン",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 233,
+        "pworld_store_name": "グリーン",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "japan-ny-arufa-fujisawa-ten",
+      "collector_key": "japan-ny-arufa-fujisawa-ten",
+      "line_source_key": "@nxv1359a",
+      "store_name": "ジャパンニューアルファ藤沢店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 237,
+        "pworld_store_name": "ジャパンニューアルファ　藤沢店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "higashiyoko-fesuta-3",
+      "collector_key": "higashiyoko-fesuta-3",
+      "line_source_key": "@576ncfpf",
+      "store_name": "東横フェスタ3",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 244,
+        "pworld_store_name": "東横フェスタ3",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "ja-ran-hiratsuka-ten",
+      "collector_key": "ja-ran-hiratsuka-ten",
+      "line_source_key": "@uvb7365o",
+      "store_name": "ジャラン平塚店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 251,
+        "pworld_store_name": "ジャラン平塚店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "maruhan-hashimotodai-ten",
+      "collector_key": "maruhan-hashimotodai-ten",
+      "line_source_key": "@bls7088c",
+      "store_name": "マルハン橋本台店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 262,
+        "pworld_store_name": "マルハン橋本台店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "maruhan-atsugi-ten",
+      "collector_key": "maruhan-atsugi-ten",
+      "line_source_key": "@ggz8372o",
+      "store_name": "マルハン厚木店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 265,
+        "pworld_store_name": "マルハン厚木店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "mega-feisu-1180-zama",
+      "collector_key": "mega-feisu-1180-zama",
+      "line_source_key": "@811gyfrr",
+      "store_name": "メガフェイス1180座間",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 272,
+        "pworld_store_name": "メガフェイス1180座間",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "maruhan-atsugi-kita-ten",
+      "collector_key": "maruhan-atsugi-kita-ten",
+      "line_source_key": "@ukw5467h",
+      "store_name": "マルハン厚木北店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 277,
+        "pworld_store_name": "マルハン厚木北店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "monos-kawasaki",
+      "collector_key": "monos-kawasaki",
+      "line_source_key": "@monoskawasaki",
+      "store_name": "MONOS川崎",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 282,
+        "pworld_store_name": "ＭＯＮＯＳ川崎",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "deizu-shinsugita-ten",
+      "collector_key": "deizu-shinsugita-ten",
+      "line_source_key": "@days-shinsugita",
+      "store_name": "デイズ新杉田店",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 294,
+        "pworld_store_name": "デイズ新杉田店",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    },
+    {
+      "hall_id": "ny-shatoru",
+      "collector_key": "ny-shatoru",
+      "line_source_key": "@359gpeap",
+      "store_name": "ニューシャトル",
+      "prefecture": "神奈川県",
+      "city": null,
+      "line_confirmation_status": "confirmed_pworld_2026-09-23",
+      "line_source_evidence": {
+        "file": "kanagawa_pworld_line_x_20260923.md",
+        "line": 311,
+        "pworld_store_name": "ニューシャトル",
+        "slot_line_sources_csv_match": false,
+        "slot_line_sources_csv_revision": "e3034dd"
+      },
+      "profile_verified": null,
+      "rich_menu_status": "unknown",
+      "rich_menu_labels": [],
+      "text_trigger_candidate": null,
+      "passive_candidate": null,
+      "acquisition_method_candidates": [],
+      "observation_status": "unknown",
+      "error_class": "target_not_verified",
+      "elapsed_seconds": null,
+      "timing": {
+        "navigation_seconds": null,
+        "settle_seconds": null,
+        "dump_seconds": null,
+        "total_seconds": null
+      },
+      "target_present_in_existing_chat_list": false,
+      "notes": "専用Android LINEの既存トーク一覧に対象会話を確認できず、追加などの状態変更は行わなかった。LINEプロフィールとリッチメニューは観測していないためunknown。個別処理時間は未測定。"
+    }
+  ]
+}
