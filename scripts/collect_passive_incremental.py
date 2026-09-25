@@ -199,15 +199,31 @@ def observation_state_signature(observation: dict[str, Any]) -> str | None:
 
 
 def is_exact_day_label_rollover(previous: dict[str, Any], current: dict[str, Any]) -> bool:
-    """Identify HH:mm -> 昨日 label aging, which still needs chat-level verification."""
+    """Prove the narrowly supported HH:mm -> 昨日 presentation-only rollover.
+
+    Missing resource IDs are not evidence of matching stable row structure. This
+    deliberately fails closed when LINE exposes no stable content IDs.
+    """
+    previous_ids = sorted(previous.get("stable_content_resource_ids") or [])
+    current_ids = sorted(current.get("stable_content_resource_ids") or [])
+    previous_state = observation_state_signature(previous)
+    current_state = observation_state_signature(current)
+    previous_label = str(previous.get("displayed_time") or "")
     if (
-        normalise(previous.get("displayed_name", "")) != normalise(current.get("displayed_name", ""))
+        not previous.get("row_complete_in_viewport")
+        or not current.get("row_complete_in_viewport")
+        or previous.get("loading_or_progress_present")
+        or current.get("loading_or_progress_present")
+        or not normalise(previous.get("displayed_name", ""))
+        or normalise(previous.get("displayed_name", "")) != normalise(current.get("displayed_name", ""))
+        or not normalise(previous.get("preview_text", ""))
         or normalise(previous.get("preview_text", "")) != normalise(current.get("preview_text", ""))
-        or sorted(previous.get("stable_content_resource_ids") or [])
-        != sorted(current.get("stable_content_resource_ids") or [])
-        or observation_state_signature(previous) != observation_state_signature(current)
+        or not previous_ids
+        or previous_ids != current_ids
+        or not previous_state
+        or previous_state != current_state
         or current.get("displayed_time") != "昨日"
-        or not TIME_RE.fullmatch(str(previous.get("displayed_time") or ""))
+        or not TIME_RE.fullmatch(previous_label)
     ):
         return False
     try:
@@ -216,14 +232,13 @@ def is_exact_day_label_rollover(previous: dict[str, Any], current: dict[str, Any
     except (KeyError, TypeError, ValueError):
         return False
     day_delta = current_dt.date() - previous_dt.date()
-    if day_delta == timedelta(days=1):
-        return True
-    if day_delta != timedelta(0):
+    if day_delta != timedelta(days=1):
         return False
-    old_hour, old_minute = (int(part) for part in str(previous["displayed_time"]).split(":"))
-    # A clock label later than the prior observation's wall clock must refer to
-    # the previous day; LINE may refresh it to "昨日" on a later list dump.
-    return (old_hour, old_minute) > (previous_dt.hour, previous_dt.minute)
+    old_hour, old_minute = (int(part) for part in previous_label.split(":"))
+    # HH:mm is only consistent with a same-day label when it is not later than
+    # the previous observation's local wall clock. Do not generalize other
+    # date-label transitions or same-day stale-label refreshes.
+    return (old_hour, old_minute) <= (previous_dt.hour, previous_dt.minute)
 
 
 def aliases_for(row: dict[str, Any]) -> set[str]:
@@ -1187,7 +1202,7 @@ def detect_candidate(
         return "unknown", "row_has_no_comparable_preview_time_or_unread_signal"
     if current_content != previous_content:
         if is_exact_day_label_rollover(previous, observation):
-            return "changed", "line_time_label_rolled_to_yesterday; verify_message_identity_before_checkpoint"
+            return "unchanged", "line_time_label_rollover_only"
         return "changed", "preview_time_name_or_stable_content_fields_changed"
     current_state = observation_state_signature(observation)
     previous_state = observation_state_signature(previous)
@@ -2280,6 +2295,10 @@ def main() -> None:
             ),
             "midnight_time_label_rollover_requires_chat_check_count": sum(
                 outcome.get("candidate_detection_reason") == "line_time_label_rolled_to_yesterday; verify_message_identity_before_checkpoint"
+                for outcome in outcomes.values()
+            ),
+            "day_label_rollover_safely_suppressed_count": sum(
+                outcome.get("candidate_detection_reason") == "line_time_label_rollover_only"
                 for outcome in outcomes.values()
             ),
             "preview_association_counts": association_counts.as_dict(),
