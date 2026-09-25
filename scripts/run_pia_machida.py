@@ -215,21 +215,23 @@ def is_system_ui(root: ElementTree.Element) -> bool:
 
 
 def is_target_chat(root: ElementTree.Element) -> bool:
-    for node in root.iter():
-        value = text_or_desc(node)
-        if value == ACTIVE_CONFIG.target_title and resource_id(node) in {
+    header = find_node(
+        root,
+        lambda node: text_or_desc(node) == ACTIVE_CONFIG.target_title
+        and resource_id(node)
+        in {
             "jp.naver.line.android:id/header_title",
             "jp.naver.line.android:id/chat_header_title",
-        }:
-            return True
-    # The header resource id can vary between LINE builds.  A visible exact
-    # title near the top is acceptable for this single-store PoC.
-    for node in root.iter():
-        if text_or_desc(node) == ACTIVE_CONFIG.target_title:
-            bounds = parse_bounds(node_attr(node, "bounds"))
-            if bounds and bounds[1] < 250:
-                return True
-    return False
+        },
+    )
+    # A matching chat-list row can sit near the top of the screen. Require the
+    # chat composer as well as the exact header so that row text cannot pass
+    # target identity verification.
+    composer = find_node(
+        root,
+        lambda node: resource_id(node) == "jp.naver.line.android:id/chat_ui_message_edit",
+    )
+    return header is not None and composer is not None
 
 
 def tap_node(ctx: AndroidContext, node: ElementTree.Element) -> None:
