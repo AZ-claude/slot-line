@@ -31,11 +31,16 @@ ACQUISITION_FILE = ROOT / "data/surveys/line_acquisition_20_2026-09-25.json"
 OUTPUT_FILE = ROOT / "data/surveys/passive_incremental_20_2026-09-25.json"
 CHECKPOINT_FILE = ROOT / "data/surveys/passive_incremental_20_checkpoint.json"
 EVIDENCE_DIR = ROOT / "data/surveys/passive_incremental_20_2026-09-25_evidence"
+OUTPUT_FILE_41 = ROOT / "data/surveys/passive_incremental_41_acceptance_2026-09-26.json"
+CHECKPOINT_FILE_41 = ROOT / "data/surveys/passive_incremental_41_checkpoint_2026-09-26.json"
+EVIDENCE_DIR_41 = ROOT / "data/surveys/passive_incremental_41_evidence_2026-09-26"
 TIMEZONE = ZoneInfo("Asia/Tokyo")
 LINE_ID_PREFIX = "jp.naver.line.android:id/"
 LIST_SCROLL_LIMIT = 80
 LIST_NO_PROGRESS_LIMIT = 3
 MAX_SETTLE_RETRIES = 2
+DEFAULT_FRONTIER_STABLE_ROWS = 8
+UNREAD_RESOURCE_RE = re.compile(r"unread|badge|new_message|unread_count|message_count", re.I)
 
 REQUIRED_KEYS = {
     "doki-waku-rando-ch-go-ekimae-ten",
@@ -52,6 +57,10 @@ EXCLUDED_ACQUISITION_KEYS = {
 ORDINARY_NOTICE_RE = re.compile(
     r"新台|店休日|休業|抽選|イベント|取材|入荷|来店|営業|入替|景品|整理券|営業時間|開店|"
     r"シルバーウィーク|本日の情報|最新情報|ご案内|本日も|本日のお知らせ"
+)
+RICH_CARD_NOTICE_RE = re.compile(
+    r"新台|店休日|休業|抽選|イベント|取材|入荷|来店|営業|入替|景品|整理券|営業時間|開店|"
+    r"シルバーウィーク|本日の情報|本日のお知らせ"
 )
 WELCOME_RE = re.compile(r"友だち登録ありがとう|友だち追加ありがとう|友達登録ありがとう|追加ありがとうございます")
 TIME_RE = re.compile(r"^(?:[01]?\d|2[0-3]):[0-5]\d$")
@@ -102,36 +111,48 @@ def atomic_json(path: Path, value: Any) -> None:
             os.unlink(temp_name)
 
 
-def select_targets() -> list[dict[str, Any]]:
+def select_targets(sample_size: int = 20) -> list[dict[str, Any]]:
     capability = load_json(CAPABILITY_FILE)
-    previous = load_json(ACQUISITION_FILE)
     cap_by_key = {row["collector_key"]: row for row in capability["records"]}
-    base_keys = [
-        row["collector_key"]
-        for row in previous["records"]
-        if row["collector_key"] not in EXCLUDED_ACQUISITION_KEYS
-    ]
-    keys = base_keys + [
-        "japan-ny-arufa-kurami-ten",
-        "deizu-shinsugita-ten",
-        "p-ru-shoppu-tomo-e-fuchinobe-ten",
-    ]
-    if len(keys) != 20 or len(set(keys)) != 20 or not REQUIRED_KEYS.issubset(keys):
-        raise RuntimeError("fixed PoC target set failed its 20-store/required-store guard")
-    result = []
-    for key in keys:
-        row = cap_by_key.get(key)
-        if not row:
-            raise RuntimeError(f"target absent from frozen 50: {key}")
-        if not row.get("profile_verified") or not str(row.get("identity_status", "")).startswith("verified_"):
-            raise RuntimeError(f"target identity not verified in frozen survey: {key}")
-        if row.get("prefecture") != "神奈川県":
-            raise RuntimeError(f"target outside Kanagawa: {key}")
-        result.append(row)
-    if len({r["hall_id"] for r in result}) != 20:
-        raise RuntimeError("fixed target hall_id values are not unique")
-    if len({r["line_source_key"] for r in result}) != 20:
-        raise RuntimeError("fixed target line_source_key values are not unique")
+    if sample_size == 20:
+        previous = load_json(ACQUISITION_FILE)
+        base_keys = [
+            row["collector_key"]
+            for row in previous["records"]
+            if row["collector_key"] not in EXCLUDED_ACQUISITION_KEYS
+        ]
+        keys = base_keys + [
+            "japan-ny-arufa-kurami-ten",
+            "deizu-shinsugita-ten",
+            "p-ru-shoppu-tomo-e-fuchinobe-ten",
+        ]
+        if len(keys) != 20 or len(set(keys)) != 20 or not REQUIRED_KEYS.issubset(keys):
+            raise RuntimeError("fixed PoC target set failed its 20-store/required-store guard")
+        result = []
+        for key in keys:
+            row = cap_by_key.get(key)
+            if not row:
+                raise RuntimeError(f"target absent from frozen 50: {key}")
+            if not row.get("profile_verified") or not str(row.get("identity_status", "")).startswith("verified_"):
+                raise RuntimeError(f"target identity not verified in frozen survey: {key}")
+            if row.get("prefecture") != "神奈川県":
+                raise RuntimeError(f"target outside Kanagawa: {key}")
+            result.append(row)
+    elif sample_size == 41:
+        result = [
+            row for row in capability["records"]
+            if row.get("profile_verified")
+            and str(row.get("identity_status", "")).startswith("verified_")
+            and row.get("prefecture") == "神奈川県"
+        ]
+        if len(result) != 41 or not REQUIRED_KEYS.issubset({row["collector_key"] for row in result}):
+            raise RuntimeError(f"frozen identity-confirmed sample expected 41 rows; found {len(result)}")
+    else:
+        raise ValueError(f"unsupported fixed sample size: {sample_size}")
+    if len({r["hall_id"] for r in result}) != sample_size:
+        raise RuntimeError(f"fixed target hall_id values are not unique for {sample_size} stores")
+    if len({r["line_source_key"] for r in result}) != sample_size:
+        raise RuntimeError(f"fixed target line_source_key values are not unique for {sample_size} stores")
     alias_owners: dict[str, list[str]] = defaultdict(list)
     for row in result:
         for alias in aliases_for(row):
@@ -140,6 +161,69 @@ def select_targets() -> list[dict[str, Any]]:
     if collisions:
         raise RuntimeError(f"ambiguous exact chat aliases in fixed sample: {collisions}")
     return result
+
+
+def _signature(value: Any) -> str:
+    return hashlib.sha256(
+        json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+
+
+def observation_content_signature(observation: dict[str, Any]) -> str | None:
+    if observation.get("content_signature"):
+        return str(observation["content_signature"])
+    if not observation.get("displayed_name"):
+        return None
+    resource_ids = observation.get("row_resource_ids") or observation.get("stable_resource_ids") or []
+    content_ids = sorted(rid for rid in resource_ids if not UNREAD_RESOURCE_RE.search(rid))
+    return _signature({
+        "displayed_name": normalise(observation.get("displayed_name", "")),
+        "preview_text": normalise(observation.get("preview_text", "")),
+        "displayed_time": normalise(observation.get("displayed_time", "")),
+        "stable_content_resource_ids": content_ids,
+    })
+
+
+def observation_state_signature(observation: dict[str, Any]) -> str | None:
+    if observation.get("state_signature"):
+        return str(observation["state_signature"])
+    if "unread_state" not in observation:
+        return None
+    resource_ids = observation.get("row_resource_ids") or observation.get("stable_resource_ids") or []
+    state_ids = sorted(rid for rid in resource_ids if UNREAD_RESOURCE_RE.search(rid))
+    return _signature({
+        "unread_state": observation.get("unread_state"),
+        "unread_count": observation.get("unread_count"),
+        "unread_resource_ids": state_ids,
+    })
+
+
+def is_exact_day_label_rollover(previous: dict[str, Any], current: dict[str, Any]) -> bool:
+    """Identify HH:mm -> 昨日 label aging, which still needs chat-level verification."""
+    if (
+        normalise(previous.get("displayed_name", "")) != normalise(current.get("displayed_name", ""))
+        or normalise(previous.get("preview_text", "")) != normalise(current.get("preview_text", ""))
+        or sorted(previous.get("stable_content_resource_ids") or [])
+        != sorted(current.get("stable_content_resource_ids") or [])
+        or observation_state_signature(previous) != observation_state_signature(current)
+        or current.get("displayed_time") != "昨日"
+        or not TIME_RE.fullmatch(str(previous.get("displayed_time") or ""))
+    ):
+        return False
+    try:
+        previous_dt = datetime.fromisoformat(str(previous["observed_at"]).replace("Z", "+00:00")).astimezone(TIMEZONE)
+        current_dt = datetime.fromisoformat(str(current["observed_at"]).replace("Z", "+00:00")).astimezone(TIMEZONE)
+    except (KeyError, TypeError, ValueError):
+        return False
+    day_delta = current_dt.date() - previous_dt.date()
+    if day_delta == timedelta(days=1):
+        return True
+    if day_delta != timedelta(0):
+        return False
+    old_hour, old_minute = (int(part) for part in str(previous["displayed_time"]).split(":"))
+    # A clock label later than the prior observation's wall clock must refer to
+    # the previous day; LINE may refresh it to "昨日" on a later list dump.
+    return (old_hour, old_minute) > (previous_dt.hour, previous_dt.minute)
 
 
 def aliases_for(row: dict[str, Any]) -> set[str]:
@@ -153,15 +237,28 @@ def aliases_for(row: dict[str, Any]) -> set[str]:
 
 
 def adb_call(adb: str, serial: str, args: list[str], timeout: int = 40) -> subprocess.CompletedProcess:
-    return subprocess.run(
-        [adb, "-s", serial, *args],
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-        errors="replace",
-        timeout=timeout,
-        check=False,
-    )
+    command = [adb, "-s", serial, *args]
+    try:
+        return subprocess.run(
+            command,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=timeout,
+            check=False,
+        )
+    except subprocess.TimeoutExpired as exc:
+        def readable(value: str | bytes | None) -> str:
+            if value is None:
+                return ""
+            return value.decode("utf-8", errors="replace") if isinstance(value, bytes) else value
+        return subprocess.CompletedProcess(
+            command,
+            124,
+            stdout=readable(exc.stdout),
+            stderr=f"adb command timeout after {timeout}s: {readable(exc.stderr)}",
+        )
 
 
 class Android:
@@ -169,6 +266,8 @@ class Android:
         self.adb = adb
         self.serial = serial
         self.remote_xml = remote_xml
+        self.dump_attempt_count = 0
+        self.dump_success_count = 0
 
     def command(self, args: list[str], timeout: int = 40) -> subprocess.CompletedProcess:
         proc = adb_call(self.adb, self.serial, args, timeout)
@@ -180,6 +279,7 @@ class Android:
     def dump(self, retries: int = MAX_SETTLE_RETRIES) -> tuple[bytes | None, str | None, int]:
         last_error = "ui_dump_failed"
         for attempt in range(retries + 1):
+            self.dump_attempt_count += 1
             proc = adb_call(self.adb, self.serial, ["shell", "uiautomator", "dump", self.remote_xml], 50)
             combined = (proc.stdout or "") + (proc.stderr or "")
             if proc.returncode == 0 and "dumped to" in combined.lower():
@@ -188,6 +288,7 @@ class Android:
                 if cat.returncode == 0 and raw.lstrip().startswith((b"<?xml", b"<hierarchy")):
                     try:
                         ET.fromstring(raw)
+                        self.dump_success_count += 1
                         return raw, None, attempt
                     except ET.ParseError:
                         last_error = "uiautomator_xml_parse_error"
@@ -431,17 +532,24 @@ def row_observation(
     )
     complete = bool(row_intersects_viewport and clickable_center_visible and all_accessible_fields_visible)
     stable_ids = sorted(row_resource_ids)
-    signature_payload = {
-        "displayed_name": label_node.attrib.get("text") or label_node.attrib.get("content-desc"),
-        "preview_text": preview_text,
-        "displayed_time": displayed_time,
+    state_resource_ids = sorted(rid for rid in stable_ids if UNREAD_RESOURCE_RE.search(rid))
+    content_resource_ids = sorted(set(stable_ids) - set(state_resource_ids))
+    content_signature = _signature({
+        "displayed_name": normalise(label_node.attrib.get("text") or label_node.attrib.get("content-desc", "")),
+        "preview_text": normalise(preview_text),
+        "displayed_time": normalise(displayed_time or ""),
+        "stable_content_resource_ids": content_resource_ids,
+    })
+    state_signature = _signature({
         "unread_state": unread_state,
         "unread_count": unread_count,
-        "stable_resource_ids": stable_ids,
+        "unread_resource_ids": state_resource_ids,
+    })
+    signature_payload = {
+        "content_signature": content_signature,
+        "state_signature": state_signature,
     }
-    signature = hashlib.sha256(
-        json.dumps(signature_payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
-    ).hexdigest()
+    stable_signature = _signature(signature_payload)
     return {
         "line_source_key": target["line_source_key"],
         "hall_id": target["hall_id"],
@@ -453,6 +561,8 @@ def row_observation(
         "unread_state": unread_state,
         "unread_count": unread_count,
         "row_resource_ids": stable_ids,
+        "stable_content_resource_ids": content_resource_ids,
+        "unread_resource_ids": state_resource_ids,
         "content_desc": row_desc_values,
         "row_text_values": row_text_values,
         "bounds": row_node.attrib.get("bounds"),
@@ -468,7 +578,12 @@ def row_observation(
             )
         ),
         "clickable_row": row_node.attrib.get("clickable") == "true",
-        "stable_row_signature": signature,
+        "content_signature": content_signature,
+        "state_signature": state_signature,
+        "stable_row_signature": stable_signature,
+        "signature_components": signature_payload,
+        "source": "conversation_list_preview",
+        "source_distinction": "preview is a list observation, not a complete chat_message body",
         "observed_at": observed_at,
         "raw_snapshot_ref": raw_ref,
         "page_index": page_index,
@@ -509,6 +624,250 @@ def all_visible_row_signature(root: ET.Element) -> str:
     return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
 
 
+def conversation_rows_in_view(
+    root: ET.Element,
+    targets: list[dict[str, Any]],
+    aliases: dict[str, list[dict[str, Any]]],
+    raw_ref: str,
+    page_index: int,
+    observed_at: str,
+) -> list[dict[str, Any]]:
+    """Capture ordered visible list rows, including non-target rows for frontier proof."""
+    scroll_node = list_scroll_container(root)
+    viewport = bounds_of(scroll_node) if scroll_node is not None else None
+    if not viewport:
+        return []
+    width = max((bounds_of(node)[2] for node in root.iter() if bounds_of(node)), default=720)
+    parents = {child: parent for parent in root.iter() for child in parent}
+    seen: set[int] = set()
+    rows = []
+    for text_node in root.iter():
+        label = (text_node.attrib.get("text") or text_node.attrib.get("content-desc") or "").strip()
+        if not label:
+            continue
+        row_node = clickable_row_for(text_node, parents, width)
+        if row_node is None or id(row_node) in seen:
+            continue
+        row_bounds = bounds_of(row_node)
+        if not row_bounds:
+            continue
+        center_y = (row_bounds[1] + row_bounds[3]) // 2
+        if not (viewport[1] <= center_y < viewport[3]):
+            continue
+        seen.add(id(row_node))
+
+        fields = []
+        text_values = []
+        desc_values = []
+        resource_ids = set()
+        numeric_values = []
+        time_values = []
+        unread_hints = []
+        field_nodes = []
+        for child in row_node.iter():
+            rid = child.attrib.get("resource-id", "")
+            if rid:
+                resource_ids.add(rid)
+            text = (child.attrib.get("text") or "").strip()
+            desc = (child.attrib.get("content-desc") or "").strip()
+            bounds = bounds_of(child)
+            if text:
+                text_values.append(text)
+                field_nodes.append((bounds, text, "text", rid))
+                if TIME_RE.fullmatch(text) or DATE_RE.fullmatch(text):
+                    time_values.append(text)
+                elif re.fullmatch(r"\d{1,3}", text):
+                    numeric_values.append(text)
+            if desc:
+                desc_values.append(desc)
+                field_nodes.append((bounds, desc, "content_desc", rid))
+            if re.search(r"未読|unread|未読メッセージ|新規メッセージ", desc, re.I):
+                unread_hints.append(desc)
+            if rid and UNREAD_RESOURCE_RE.search(rid):
+                unread_hints.append(rid)
+        if field_nodes:
+            field_nodes.sort(
+                key=lambda item: (
+                    item[0][1] if item[0] else 10**9,
+                    item[0][0] if item[0] else 10**9,
+                    item[2],
+                )
+            )
+        ordered_text = []
+        for bounds, value, kind, _rid in field_nodes:
+            if kind == "text" and value not in ordered_text:
+                ordered_text.append(value)
+        if not ordered_text and not desc_values:
+            continue
+        matched_titles = [value for value in ordered_text if aliases.get(value)]
+        title = matched_titles[0] if matched_titles else (ordered_text[0] if ordered_text else desc_values[0])
+        possible_target_keys = {
+            owner["collector_key"]
+            for owner in aliases.get(title, [])
+            if owner["collector_key"] in {target["collector_key"] for target in targets}
+        }
+        target_key = next(iter(possible_target_keys)) if len(possible_target_keys) == 1 else None
+        displayed_time = time_values[-1] if time_values else None
+        preview_values = [
+            value for value in ordered_text
+            if value != title and value not in time_values and not re.fullmatch(r"\d{1,3}", value)
+        ]
+        preview_text = " ".join(preview_values).strip()
+        if unread_hints:
+            unread_state = "unread"
+            unread_count = numeric_values[-1] if numeric_values else None
+        elif numeric_values:
+            unread_state = "unread"
+            unread_count = numeric_values[-1]
+        else:
+            unread_state = "none_observed"
+            unread_count = None
+        stable_ids = sorted(resource_ids)
+        unread_ids = sorted(rid for rid in stable_ids if UNREAD_RESOURCE_RE.search(rid))
+        content_ids = sorted(set(stable_ids) - set(unread_ids))
+        stable_text = [
+            normalise(value) for value in ordered_text
+            if value not in time_values and not re.fullmatch(r"\d{1,3}", value)
+        ]
+        stable_desc = [
+            normalise(value) for value in desc_values
+            if not re.search(r"未読|unread|未読メッセージ|新規メッセージ", value, re.I)
+        ]
+        content_signature = _signature({
+            "target_key": target_key,
+            "displayed_name": normalise(title),
+            "stable_text_fields": stable_text,
+            "content_desc": stable_desc,
+            "displayed_time": normalise(displayed_time or ""),
+            "stable_content_resource_ids": content_ids,
+        })
+        state_signature = _signature({
+            "unread_state": unread_state,
+            "unread_count": unread_count,
+            "unread_resource_ids": unread_ids,
+        })
+        field_bounds = [bounds for bounds, _value, _kind, _rid in field_nodes]
+        fields_inside_view = bool(field_bounds) and all(
+            bounds is not None
+            and bounds[0] >= viewport[0]
+            and bounds[1] >= viewport[1]
+            and bounds[2] <= viewport[2]
+            and bounds[3] <= viewport[3]
+            for bounds in field_bounds
+        )
+        row_inside_view = (
+            row_bounds[0] >= viewport[0]
+            and row_bounds[1] >= viewport[1]
+            and row_bounds[2] <= viewport[2]
+            and row_bounds[3] <= viewport[3]
+        )
+        rows.append({
+            "target_key": target_key,
+            "displayed_name": title,
+            "preview_text": preview_text,
+            "displayed_time": displayed_time,
+            "unread_state": unread_state,
+            "unread_count": unread_count,
+            "row_resource_ids": stable_ids,
+            "stable_content_resource_ids": content_ids,
+            "unread_resource_ids": unread_ids,
+            "content_signature": content_signature,
+            "state_signature": state_signature,
+            "frontier_signature": _signature([content_signature, state_signature]),
+            "complete_in_viewport": fields_inside_view and row_inside_view,
+            "bounds": row_node.attrib.get("bounds"),
+            "page_index": page_index,
+            "observed_at": observed_at,
+            "raw_snapshot_ref": raw_ref,
+        })
+    rows.sort(key=lambda row: (bounds_of(ET.Element("row", {"bounds": row["bounds"]}))[1], row["displayed_name"]))
+    return rows
+
+
+def merge_row_pages(
+    previous: list[dict[str, Any]], page_rows: list[dict[str, Any]]
+) -> tuple[list[dict[str, Any]], bool, dict[str, Any]]:
+    complete_page_rows = [row for row in page_rows if row.get("complete_in_viewport")]
+    excluded_incomplete = len(page_rows) - len(complete_page_rows)
+    page_rows = complete_page_rows
+    if not previous:
+        return list(page_rows), True, {
+            "overlap_rows": 0,
+            "merge_basis": "first_page",
+            "excluded_incomplete_rows": excluded_incomplete,
+        }
+    prev_sig = [row["frontier_signature"] for row in previous]
+    next_sig = [row["frontier_signature"] for row in page_rows]
+    max_len = min(len(prev_sig), len(next_sig))
+    overlaps = [
+        size for size in range(1, max_len + 1)
+        if prev_sig[-size:] == next_sig[:size]
+    ]
+    if not overlaps:
+        return previous + page_rows, False, {
+            "overlap_rows": 0,
+            "merge_basis": "no_exact_page_overlap",
+            "excluded_incomplete_rows": excluded_incomplete,
+        }
+    size = max(overlaps)
+    overlap_sig = prev_sig[-size:]
+    ambiguous = any(
+        prev_sig.count(signature) != 1 or next_sig.count(signature) != 1
+        for signature in overlap_sig
+    )
+    if size < 2 or ambiguous:
+        return previous + page_rows[size:], False, {
+            "overlap_rows": size,
+            "merge_basis": "overlap_too_short_or_duplicate_signature",
+            "excluded_incomplete_rows": excluded_incomplete,
+        }
+    return previous + page_rows[size:], True, {
+        "overlap_rows": size,
+        "merge_basis": "unique_exact_suffix_prefix",
+        "excluded_incomplete_rows": excluded_incomplete,
+    }
+
+
+def find_stable_frontier(
+    current_rows: list[dict[str, Any]],
+    previous_rows: list[dict[str, Any]],
+    required_rows: int,
+) -> dict[str, Any] | None:
+    if len(current_rows) < required_rows or len(previous_rows) < required_rows:
+        return None
+    prior_positions: dict[str, list[int]] = defaultdict(list)
+    for index, row in enumerate(previous_rows):
+        prior_positions[row["frontier_signature"]].append(index)
+    prior_signatures = [row["frontier_signature"] for row in previous_rows]
+    current_signatures = [row["frontier_signature"] for row in current_rows]
+    for start, signature in enumerate(current_signatures):
+        positions = prior_positions.get(signature, [])
+        if len(positions) != 1 or current_signatures.count(signature) != 1:
+            continue
+        prior_start = positions[0]
+        run = 1
+        while run < required_rows and start + run < len(current_rows) and prior_start + run < len(previous_rows):
+            current_sig = current_signatures[start + run]
+            if (
+                current_sig != prior_signatures[prior_start + run]
+                or len(prior_positions.get(current_sig, [])) != 1
+                or current_signatures.count(current_sig) != 1
+            ):
+                break
+            run += 1
+        if run >= required_rows:
+            return {
+                "current_start_index": start,
+                "current_end_index": start + run - 1,
+                "previous_start_index": prior_start,
+                "previous_end_index": prior_start + run - 1,
+                "stable_row_count": run,
+                "required_stable_rows": required_rows,
+                "basis": "unique_exact_consecutive_content_and_state_frontier",
+            }
+    return None
+
+
 def save_raw(evidence_dir: Path, name: str, raw: bytes) -> str:
     path = evidence_dir / name
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -523,22 +882,38 @@ def scan_conversation_list(
     targets: list[dict[str, Any]],
     evidence_dir: Path,
     attempt_offset: int = 0,
+    scan_mode: str = "targets",
+    previous_frontier_rows: list[dict[str, Any]] | None = None,
+    previous_frontier_complete: bool = False,
+    frontier_stable_rows: int = DEFAULT_FRONTIER_STABLE_ROWS,
 ) -> dict[str, Any]:
     aliases = aliases_map(targets)
     started = time.perf_counter()
+    dump_success_start = android.dump_success_count
+    dump_attempt_start = android.dump_attempt_count
     root, raw, error = ensure_chat_list(android)
     if root is None or raw is None:
         return {
             "status": "unknown",
+            "scan_completeness": "unknown",
             "error": error,
             "list_scan_seconds": time.perf_counter() - started,
+            "ui_dump_success_count": android.dump_success_count - dump_success_start,
+            "ui_dump_attempt_count": android.dump_attempt_count - dump_attempt_start,
+            "all_pages_settled": False,
             "pages": [],
             "target_observations": {target["collector_key"]: [] for target in targets},
             "all_target_rows_found": False,
+            "all_target_rows_complete": False,
+            "full_list_complete": False,
+            "frontier_order_safe": False,
+            "ordered_rows": [],
+            "frontier": None,
             "last_root": None,
             "last_raw": None,
         }
     top_reset_observations = []
+    top_reset_settled = not loading_present(root)
     top_no_progress = 0
     previous_signature = all_visible_row_signature(root)
     top_reset_stop = "top_reset_limit"
@@ -548,7 +923,11 @@ def scan_conversation_list(
         if not scroll_bounds:
             top_reset_stop = "conversation_list_scroll_container_not_observed"
             break
-        android.swipe_in_node(scroll_bounds, "toward_newer")
+        try:
+            android.swipe_in_node(scroll_bounds, "toward_newer")
+        except Exception as exc:
+            top_reset_stop = f"adb_failed_during_top_reset:{type(exc).__name__}:{exc}"
+            break
         time.sleep(0.45)
         top_raw, top_error, _ = android.dump()
         if top_raw is None:
@@ -558,6 +937,7 @@ def scan_conversation_list(
         if not is_chat_list(root):
             top_reset_stop = "conversation_list_lost_during_top_reset"
             break
+        top_reset_settled = top_reset_settled and not loading_present(root)
         raw_ref = save_raw(evidence_dir, f"conversation_list/top_reset_{rewind_index:03d}.xml", top_raw)
         signature = all_visible_row_signature(root)
         top_reset_observations.append(
@@ -585,9 +965,13 @@ def scan_conversation_list(
         raw = top_raw
     if top_reset_stop == "top_reset_limit":
         top_reset_stop = "top_reset_scroll_limit"
-    if top_reset_stop.startswith("ui_dump_failed") or top_reset_stop == "conversation_list_lost_during_top_reset":
+    if (
+        top_reset_stop.startswith(("ui_dump_failed", "adb_failed"))
+        or top_reset_stop == "conversation_list_lost_during_top_reset"
+    ):
         return {
             "status": "unknown",
+            "scan_completeness": "unknown",
             "error": top_reset_stop,
             "list_scan_seconds": time.perf_counter() - started,
             "pages": [],
@@ -595,6 +979,10 @@ def scan_conversation_list(
             "target_observations": {target["collector_key"]: [] for target in targets},
             "all_target_rows_found": False,
             "all_target_rows_complete": False,
+            "full_list_complete": False,
+            "frontier_order_safe": False,
+            "ordered_rows": [],
+            "frontier": None,
             "last_root": None,
             "last_raw": None,
         }
@@ -606,6 +994,15 @@ def scan_conversation_list(
     no_progress = 0
     stop_reason = "list_scroll_limit"
     dump_count = 0
+    ordered_rows: list[dict[str, Any]] = []
+    frontier_order_safe = True
+    merge_events = []
+    frontier = None
+    full_list_complete = False
+    all_pages_settled = top_reset_settled
+    fallback_reason = None
+    if scan_mode == "frontier" and not previous_frontier_complete:
+        fallback_reason = "previous_full_list_order_checkpoint_not_complete"
     for page_index in range(LIST_SCROLL_LIMIT):
         if page_index == 0:
             page_raw = raw
@@ -628,9 +1025,14 @@ def scan_conversation_list(
             if observation:
                 visible_targets.append(target["collector_key"])
                 target_observations[target["collector_key"]].append(observation)
+        page_rows = conversation_rows_in_view(root, targets, aliases, raw_ref, page_index, observed_at)
+        ordered_rows, merge_ok, merge_metadata = merge_row_pages(ordered_rows, page_rows)
+        frontier_order_safe = frontier_order_safe and merge_ok
+        merge_events.append({"page_index": page_index, **merge_metadata, "merge_safe": merge_ok})
         scroll_node = list_scroll_container(root)
         scroll_bounds = bounds_of(scroll_node) if scroll_node is not None else None
         loading = loading_present(root)
+        all_pages_settled = all_pages_settled and not loading
         pages.append(
             {
                 "page_index": page_index,
@@ -639,6 +1041,9 @@ def scan_conversation_list(
                 "visible_target_keys": visible_targets,
                 "page_signature": page_signature,
                 "loading_or_progress_present": loading,
+                "list_row_count": len(page_rows),
+                "complete_list_row_count": sum(row.get("complete_in_viewport", False) for row in page_rows),
+                "excluded_incomplete_list_row_count": merge_metadata.get("excluded_incomplete_rows", 0),
                 "scroll_container_resource_id": scroll_node.attrib.get("resource-id") if scroll_node is not None else None,
                 "scroll_container_bounds": scroll_node.attrib.get("bounds") if scroll_node is not None else None,
             }
@@ -653,8 +1058,29 @@ def scan_conversation_list(
             f"complete={len(complete_keys)}",
             flush=True,
         )
-        if len(complete_keys) == len(targets):
+        if scan_mode == "targets" and len(complete_keys) == len(targets):
             stop_reason = "all_fixed_targets_found_in_complete_rows"
+            break
+        if scan_mode == "frontier" and fallback_reason is None and frontier_order_safe:
+            frontier = find_stable_frontier(
+                ordered_rows,
+                previous_frontier_rows or [],
+                frontier_stable_rows,
+            )
+            if frontier:
+                if len(complete_keys) == len(targets):
+                    stop_reason = "stable_ordered_row_frontier_reached_after_all_targets_observed"
+                    break
+                # A global UI-row watermark alone cannot certify target rows
+                # below the frontier. Continue through the fixed target set;
+                # unseen stores stay unknown until their exact rows are seen.
+                fallback_reason = "stable_frontier_before_all_fixed_target_rows_observed"
+        if (
+            scan_mode == "frontier"
+            and fallback_reason
+            and len(complete_keys) == len(targets)
+        ):
+            stop_reason = "all_fixed_targets_found_after_frontier_fallback"
             break
         if page_signature in seen_page_signatures:
             no_progress += 1
@@ -663,14 +1089,36 @@ def scan_conversation_list(
         seen_page_signatures.add(page_signature)
         if no_progress >= LIST_NO_PROGRESS_LIMIT:
             stop_reason = "three_list_scrolls_without_new_visible_content"
+            full_list_complete = all_pages_settled
+            if not all_pages_settled:
+                fallback_reason = fallback_reason or "loading_or_progress_seen_during_list_scan"
+            if scan_mode == "frontier" and frontier is None and fallback_reason is None:
+                fallback_reason = "frontier_not_reached_before_full_list_boundary"
             break
         if not scroll_bounds:
             stop_reason = "conversation_list_scroll_container_not_observed"
             break
-        android.swipe_in_node(scroll_bounds, "toward_older")
+        try:
+            android.swipe_in_node(scroll_bounds, "toward_older")
+        except Exception as exc:
+            stop_reason = f"adb_failed_during_list_scroll:{type(exc).__name__}:{exc}"
+            break
         time.sleep(0.55)
+    if scan_mode == "frontier" and fallback_reason and (
+        full_list_complete or stop_reason == "all_fixed_targets_found_after_frontier_fallback"
+    ):
+        scan_completeness = "fallback_full_scan"
+    elif scan_mode == "frontier" and frontier:
+        scan_completeness = "incremental_complete"
+    elif scan_mode == "full" and full_list_complete:
+        scan_completeness = "full_scan_complete"
+    elif scan_mode == "targets" and stop_reason == "all_fixed_targets_found_in_complete_rows":
+        scan_completeness = "target_set_complete"
+    else:
+        scan_completeness = "unknown"
     return {
-        "status": "success" if pages else "unknown",
+        "status": "success" if pages and all_pages_settled else "unknown",
+        "scan_completeness": scan_completeness,
         "error": None if pages else stop_reason,
         "list_scan_seconds": time.perf_counter() - started,
         "pages": pages,
@@ -680,10 +1128,21 @@ def scan_conversation_list(
             any(o["row_complete_in_viewport"] and not o["loading_or_progress_present"] for o in items)
             for items in target_observations.values()
         ),
+        "full_list_complete": full_list_complete,
+        "frontier_order_safe": frontier_order_safe,
+        "ordered_rows": ordered_rows,
+        "frontier": frontier,
+        "frontier_stable_rows_required": frontier_stable_rows if scan_mode == "frontier" else None,
+        "previous_frontier_complete": previous_frontier_complete if scan_mode == "frontier" else None,
+        "fallback_reason": fallback_reason,
+        "row_sequence_merge_events": merge_events,
         "top_reset_observations": top_reset_observations,
         "top_reset_stop_reason": top_reset_stop,
         "stop_reason": stop_reason,
         "dump_count": dump_count + len(top_reset_observations),
+        "ui_dump_success_count": android.dump_success_count - dump_success_start,
+        "ui_dump_attempt_count": android.dump_attempt_count - dump_attempt_start,
+        "all_pages_settled": all_pages_settled,
         "last_root": root,
         "last_raw": raw,
     }
@@ -715,8 +1174,10 @@ def detect_candidate(
         return "unknown", "target_row_partial_or_list_still_loading"
     if previous is None:
         return "first_observation", "no_previous_checkpoint"
-    if not previous.get("stable_row_signature"):
-        return "unknown", "previous_checkpoint_lacks_comparable_row_signature"
+    current_content = observation_content_signature(observation)
+    previous_content = observation_content_signature(previous)
+    if not current_content or not previous_content:
+        return "unknown", "content_signature_missing_from_current_or_previous_checkpoint"
     has_signal = bool(
         observation.get("preview_text")
         or observation.get("displayed_time")
@@ -724,9 +1185,32 @@ def detect_candidate(
     )
     if not has_signal:
         return "unknown", "row_has_no_comparable_preview_time_or_unread_signal"
-    if observation.get("stable_row_signature") != previous.get("stable_row_signature"):
-        return "changed", "preview_time_unread_state_or_stable_row_signature_changed"
-    return "unchanged", "complete_row_and_stable_signature_match_checkpoint"
+    if current_content != previous_content:
+        if is_exact_day_label_rollover(previous, observation):
+            return "changed", "line_time_label_rolled_to_yesterday; verify_message_identity_before_checkpoint"
+        return "changed", "preview_time_name_or_stable_content_fields_changed"
+    current_state = observation_state_signature(observation)
+    previous_state = observation_state_signature(previous)
+    if not current_state or not previous_state:
+        return "unknown", "state_signature_missing_from_current_or_previous_checkpoint"
+    if current_state == previous_state:
+        return "unchanged", "complete_row_content_and_ui_state_match_checkpoint"
+
+    # A chat open can clear the unread badge. Suppress only the exact transition
+    # that the previous run recorded as its own expected read-state effect.
+    expected_read = previous.get("expected_read_state_transition")
+    if (
+        expected_read
+        and previous.get("unread_state") == "unread"
+        and observation.get("unread_state") == "none_observed"
+        and not observation.get("unread_count")
+    ):
+        return "unchanged", "collector_expected_read_state_transition_with_same_content"
+
+    # State changes in either direction are retained and investigated. In
+    # particular, a new unread badge/count can signal activity even when the
+    # preview text and displayed minute happen to be unchanged.
+    return "changed", "ui_read_state_changed_without_content_change_requires_chat_check"
 
 
 def load_active_events(targets: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
@@ -862,6 +1346,7 @@ def message_rows(root: ET.Element, line_source_key: str) -> tuple[list[dict[str,
         )
         item = {
             **payload,
+            "source": "chat_message",
             "direction": direction,
             "direction_evidence": direction_evidence,
             "bounds": row.attrib.get("bounds"),
@@ -896,6 +1381,12 @@ def classify_origin(
         return "active_reply", "manifest_run_time_and_visible_date_context_match"
     if possible and not row.get("date_separator_context"):
         return "unknown", "possible_active_manifest_time_match_but_date_context_missing"
+    if events and not row.get("line_display_time") and not row.get("date_separator_context"):
+        return "unknown", "active_manifest_cannot_be_ruled_out_without_message_time_or_date_context"
+    if row.get("message_type") == "rich_card" and not normalise(" ".join(row.get("text", []))):
+        accessible_card_label = normalise(" ".join(row.get("content_desc", [])))
+        if not RICH_CARD_NOTICE_RE.search(accessible_card_label):
+            return "unknown", "rich_card_exposes_only_a_generic_or_non_notice_accessibility_label"
     if ORDINARY_NOTICE_RE.search(payload):
         return "passive_candidate", "incoming_ordinary_notice_text; no matched active manifest"
     return "unknown", "incoming_content_does_not_verify_natural_store_notice"
@@ -1004,7 +1495,10 @@ def locate_live_row(
         )
         direction = "toward_newer" if current_page > target_page else "toward_older"
         before = all_visible_row_signature(root)
-        android.swipe_in_node(b, direction)
+        try:
+            android.swipe_in_node(b, direction)
+        except Exception as exc:
+            return None, cached_root, cached_raw, f"adb_failed_while_locating_target:{type(exc).__name__}:{exc}", current_page, dump_index
         time.sleep(0.55)
         next_raw, next_error, _ = android.dump()
         if next_raw is None:
@@ -1061,7 +1555,7 @@ def acquire_chat(
     list_scan: dict[str, Any],
     active_events: list[dict[str, Any]],
     previous_message_keys: set[str],
-    has_previous_checkpoint: bool,
+    previous_checkpoint: dict[str, Any] | None,
     evidence_dir: Path,
     chat_index: int,
 ) -> tuple[dict[str, Any], dict[str, Any] | None, int]:
@@ -1161,12 +1655,20 @@ def acquire_chat(
     raw_rows, logical_rows = message_rows(root, target["line_source_key"])
     row_results = []
     new_verified = duplicate_count = uncertain_count = 0
+    prior_preview = (previous_checkpoint or {}).get("preview_text", "")
+    current_preview = list_scan.get("selected_observation", {}).get("preview_text", "")
+    preview_changed = bool(current_preview) and current_preview != prior_preview
+    has_chat_baseline = bool(
+        previous_checkpoint
+        and "message_candidate_keys" in previous_checkpoint
+        and previous_checkpoint.get("message_baseline_status") != "preview_only_list_baseline"
+    )
     for row in logical_rows:
         key = row.get("logical_candidate_key")
         origin, origin_reason = match_active_status(row, active_events)
         row["origin_class"] = origin
         row["origin_reason"] = origin_reason
-        if not has_previous_checkpoint or not previous_message_keys:
+        if not previous_checkpoint:
             status = "identity_uncertain"
             status_reason = "baseline_capture_without_previous_message_checkpoint"
         elif not key:
@@ -1176,13 +1678,24 @@ def acquire_chat(
             status = "duplicate_candidate"
             status_reason = "candidate_signature_exists_in_previous_checkpoint"
             duplicate_count += 1
-        elif origin == "passive_candidate":
+        elif origin == "passive_candidate" and preview_changed and association.get("status") == "preview_and_chat_matched":
             status = "new_verified"
-            status_reason = "new incoming ordinary notice; identity verified; no matching active manifest"
+            status_reason = "incoming notice exactly matches a changed checkpointed conversation-list preview"
+            new_verified += 1
+        elif origin == "passive_candidate" and has_chat_baseline and (
+            row.get("line_display_time") or row.get("date_separator_context")
+        ):
+            status = "new_verified"
+            status_reason = "new incoming ordinary notice has usable message time/date context; identity verified; no matching active manifest"
             new_verified += 1
         else:
             status = "identity_uncertain"
-            status_reason = f"new row but origin is {origin}: {origin_reason}"
+            if origin == "passive_candidate" and not has_chat_baseline:
+                status_reason = "preview_only_baseline_requires_exact_match_to_changed_preview"
+            elif origin == "passive_candidate" and not row.get("line_display_time") and not row.get("date_separator_context"):
+                status_reason = "message key is new but the chat row has no date/time and the preview was not changed; age cannot be verified"
+            else:
+                status_reason = f"new row but origin is {origin}: {origin_reason}"
             uncertain_count += 1
         row["candidate_status"] = status
         row["candidate_status_reason"] = status_reason
@@ -1212,6 +1725,7 @@ def acquire_chat(
     }
     checkpoint_update = {
         "message_candidate_keys": sorted(set(previous_message_keys) | {r["logical_candidate_key"] for r in logical_rows if r.get("logical_candidate_key")})[-500:],
+        "message_baseline_status": "chat_rows_captured",
         "last_chat_observed_at": now_local(),
         "last_preview_chat_association": association,
     }
@@ -1241,22 +1755,168 @@ def load_serial(adb: str, requested: str | None) -> str:
     return devices[0]
 
 
+def seed_checkpoint_from_existing_list_run(
+    targets: list[dict[str, Any]],
+    source_run_id: str,
+    checkpoint_path: Path,
+    output_path: Path,
+) -> dict[str, Any]:
+    """Build a 41-store list baseline from already preserved exact-name list XML."""
+    if checkpoint_path.exists():
+        raise RuntimeError(f"refusing to overwrite existing checkpoint: {checkpoint_path}")
+    source_output = load_json(OUTPUT_FILE)
+    source_run = next(
+        (run for run in source_output.get("runs", []) if run.get("run_id") == source_run_id),
+        None,
+    )
+    if source_run is None:
+        raise RuntimeError(f"existing survey has no run_id={source_run_id}")
+    aliases = aliases_map(targets)
+    observations: dict[str, list[dict[str, Any]]] = {target["collector_key"]: [] for target in targets}
+    frontier_rows: list[dict[str, Any]] = []
+    merge_safe = True
+    for page in source_run.get("conversation_list_scan", {}).get("pages", []):
+        raw_path = ROOT / page["raw_snapshot_ref"]
+        if not raw_path.is_file():
+            raise RuntimeError(f"existing RAW list snapshot missing: {raw_path}")
+        root = parse_root(raw_path.read_bytes())
+        for target in targets:
+            row = row_observation(
+                root,
+                target,
+                aliases,
+                page["raw_snapshot_ref"],
+                page.get("page_index", 0),
+                page.get("observed_at", now_local()),
+            )
+            if row:
+                observations[target["collector_key"]].append(row)
+        page_rows = conversation_rows_in_view(
+            root,
+            targets,
+            aliases,
+            page["raw_snapshot_ref"],
+            page.get("page_index", 0),
+            page.get("observed_at", now_local()),
+        )
+        frontier_rows, page_merge_safe, _merge_metadata = merge_row_pages(frontier_rows, page_rows)
+        merge_safe = merge_safe and page_merge_safe
+    chosen = {
+        key: choose_best_observation(rows)
+        for key, rows in observations.items()
+    }
+    incomplete = [
+        key for key, row in chosen.items()
+        if not row or not row.get("row_complete_in_viewport") or row.get("loading_or_progress_present")
+    ]
+    if incomplete:
+        raise RuntimeError(f"cannot safely seed list baseline; target rows incomplete: {incomplete}")
+
+    old_checkpoint = load_json(CHECKPOINT_FILE, {"targets": {}})
+    old_targets = old_checkpoint.get("targets", {})
+    checkpoint_targets = {}
+    for target in targets:
+        key = target["collector_key"]
+        row = dict(chosen[key])
+        old = old_targets.get(key)
+        if old and "message_candidate_keys" in old:
+            row["message_candidate_keys"] = list(old.get("message_candidate_keys") or [])
+            row["message_baseline_status"] = old.get("message_baseline_status", "chat_rows_captured")
+            for field in ("last_chat_observed_at", "last_preview_chat_association"):
+                if field in old:
+                    row[field] = old[field]
+        else:
+            row["message_baseline_status"] = "preview_only_list_baseline"
+        checkpoint_targets[key] = row
+
+    checkpoint = {
+        "schema_version": "2",
+        "updated_at": now_local(),
+        "source_survey": str(CAPABILITY_FILE.relative_to(ROOT)),
+        "derived_state_only": True,
+        "target_set_size": 41,
+        "targets": checkpoint_targets,
+        "frontier_rows": frontier_rows,
+        "frontier_rows_order_safe": merge_safe,
+        "frontier_list_complete": False,
+        "baseline_source": {
+            "type": "preserved_raw_conversation_list_xml",
+            "source_file": str(OUTPUT_FILE.relative_to(ROOT)),
+            "source_run_id": source_run_id,
+            "target_rows_found_and_complete": len(chosen),
+            "message_baseline_from_prior_20_store_checkpoint_count": sum(key in old_targets and "message_candidate_keys" in old_targets[key] for key in checkpoint_targets),
+            "target_count": len(targets),
+            "full_list_boundary_observed": False,
+        },
+    }
+    atomic_json(checkpoint_path, checkpoint)
+    existing_output = load_json(output_path, {"schema_version": "1.0", "runs": []})
+    existing_output.setdefault("survey_id", "passive-incremental-41-acceptance-2026-09-26")
+    existing_output.setdefault("timezone", "Asia/Tokyo")
+    existing_output.setdefault("source_survey", str(CAPABILITY_FILE.relative_to(ROOT)))
+    existing_output.setdefault("target_keys", [target["collector_key"] for target in targets])
+    existing_output.setdefault("runs", [])
+    existing_output["existing_evidence_baseline"] = checkpoint["baseline_source"] | {
+        "target_keys": [target["collector_key"] for target in targets],
+        "frontier_prefix_rows": len(frontier_rows),
+        "frontier_prefix_merge_safe": merge_safe,
+        "note": "No chat was opened to seed; 21 added targets start from exact list previews and can only yield a verified new message when an incoming row exactly matches a changed checkpointed preview.",
+    }
+    atomic_json(output_path, existing_output)
+    return {
+        "target_count": len(targets),
+        "complete_target_list_rows": len(chosen),
+        "chat_history_baseline_count": checkpoint["baseline_source"]["message_baseline_from_prior_20_store_checkpoint_count"],
+        "preview_only_baseline_count": len(targets) - checkpoint["baseline_source"]["message_baseline_from_prior_20_store_checkpoint_count"],
+        "frontier_prefix_rows": len(frontier_rows),
+        "frontier_prefix_merge_safe": merge_safe,
+        "full_list_boundary_observed": False,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--run-id", required=True, help="unique label, e.g. 01-baseline or 02-unchanged")
+    parser.add_argument("--run-id", help="unique label, e.g. 41-full-01 or 41-frontier-01")
     parser.add_argument("--serial", help="Android serial; inferred only when exactly one device is ready")
     parser.add_argument("--adb", default=shutil.which("adb") or "/tmp/codex-adb-bridge/adb")
-    parser.add_argument("--checkpoint", type=Path, default=CHECKPOINT_FILE)
-    parser.add_argument("--output", type=Path, default=OUTPUT_FILE)
-    parser.add_argument("--evidence-dir", type=Path, default=EVIDENCE_DIR)
+    parser.add_argument("--target-set", type=int, choices=(20, 41), default=20)
+    parser.add_argument("--scan-mode", choices=("targets", "full", "frontier"))
+    parser.add_argument("--frontier-stable-rows", type=int, default=DEFAULT_FRONTIER_STABLE_ROWS)
+    parser.add_argument("--checkpoint", type=Path)
+    parser.add_argument("--output", type=Path)
+    parser.add_argument("--evidence-dir", type=Path)
+    parser.add_argument("--seed-existing-list-run", help="build the 41-store list baseline from preserved raw list XML and exit")
     args = parser.parse_args()
-    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,40}", args.run_id):
+    if args.run_id and not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,40}", args.run_id):
         parser.error("run-id must use letters, digits, underscore or hyphen")
+    if args.frontier_stable_rows < 4:
+        parser.error("frontier-stable-rows must be at least 4")
 
-    targets = select_targets()
+    if args.target_set == 41:
+        args.checkpoint = args.checkpoint or CHECKPOINT_FILE_41
+        args.output = args.output or OUTPUT_FILE_41
+        args.evidence_dir = args.evidence_dir or EVIDENCE_DIR_41
+    else:
+        args.checkpoint = args.checkpoint or CHECKPOINT_FILE
+        args.output = args.output or OUTPUT_FILE
+        args.evidence_dir = args.evidence_dir or EVIDENCE_DIR
+    targets = select_targets(args.target_set)
     aliases = aliases_map(targets)
+    if args.seed_existing_list_run:
+        if args.target_set != 41:
+            parser.error("--seed-existing-list-run requires --target-set 41")
+        summary = seed_checkpoint_from_existing_list_run(
+            targets, args.seed_existing_list_run, args.checkpoint, args.output
+        )
+        print(json.dumps({"seeded_from_run": args.seed_existing_list_run, "summary": summary}, ensure_ascii=False))
+        return
+    if not args.run_id:
+        parser.error("--run-id is required unless --seed-existing-list-run is used")
+    scan_mode = args.scan_mode or ("targets" if args.target_set == 20 else "full")
     serial = load_serial(args.adb, args.serial)
     checkpoint = load_json(args.checkpoint, {"schema_version": "1", "targets": {}})
+    if args.target_set == 41 and len(checkpoint.get("targets", {})) != 41:
+        raise RuntimeError("41-store list baseline is incomplete; seed from preserved evidence before scanning")
     existing_output = load_json(args.output, {"schema_version": "1", "runs": []})
     if any(run.get("run_id") == args.run_id for run in existing_output.get("runs", [])):
         raise RuntimeError(f"run_id already exists in output; refusing to overwrite: {args.run_id}")
@@ -1265,8 +1925,20 @@ def main() -> None:
     android = Android(args.adb, serial, f"/sdcard/slot-line-passive-incremental-{os.getpid()}.xml")
     active_events = load_active_events(targets)
     started = time.perf_counter()
+    run_dump_success_start = android.dump_success_count
+    run_dump_attempt_start = android.dump_attempt_count
 
-    list_scan = scan_conversation_list(android, targets, evidence_dir)
+    list_scan = scan_conversation_list(
+        android,
+        targets,
+        evidence_dir,
+        scan_mode=scan_mode,
+        previous_frontier_rows=checkpoint.get("frontier_rows", []),
+        previous_frontier_complete=bool(
+            checkpoint.get("frontier_list_complete") and checkpoint.get("frontier_rows_order_safe")
+        ),
+        frontier_stable_rows=args.frontier_stable_rows,
+    )
     scan_finished = time.perf_counter()
     checkpoint_targets = checkpoint.setdefault("targets", {})
     observations = list_scan.get("target_observations", {})
@@ -1276,13 +1948,20 @@ def main() -> None:
     }
     candidate_started = time.perf_counter()
     outcomes = {}
+    scan_is_complete_enough_to_decide = list_scan.get("scan_completeness") in {
+        "target_set_complete", "full_scan_complete", "incremental_complete", "fallback_full_scan"
+    }
     for target in targets:
         key = target["collector_key"]
         prior = checkpoint_targets.get(key)
-        candidate_status, reason = detect_candidate(chosen.get(key), prior, list_scan.get("status", "unknown"))
+        if not scan_is_complete_enough_to_decide:
+            candidate_status, reason = "unknown", "conversation_list_scan_incomplete_or_frontier_unproven"
+        else:
+            candidate_status, reason = detect_candidate(chosen.get(key), prior, list_scan.get("status", "unknown"))
         outcomes[key] = {
             "candidate_detection": candidate_status,
             "candidate_detection_reason": reason,
+            "chat_open_required": candidate_status in {"changed", "first_observation"},
             "passive_update_status": "absent" if candidate_status == "unchanged" else "unknown",
             "conversation_list_observation": chosen.get(key),
             "conversation_list_observations": observations.get(key, []),
@@ -1311,6 +1990,7 @@ def main() -> None:
     current_list_raw = list_scan.get("last_raw")
     navigation_dump_index = list_scan.get("dump_count", 0)
     opened_chat_count = 0
+    chat_attempt_count = 0
     chat_dump_count = 0
     total_new_verified = 0
     association_counts = CounterLike()
@@ -1349,6 +2029,7 @@ def main() -> None:
         current_list_root, current_list_raw = None, None
         previous = checkpoint_targets.get(key)
         previous_keys = set((previous or {}).get("message_candidate_keys", []))
+        chat_attempt_count += 1
         chat_result, chat_checkpoint, dumps_added = acquire_chat(
             android,
             target,
@@ -1359,7 +2040,7 @@ def main() -> None:
             },
             active_events.get(key, []),
             previous_keys,
-            previous is not None,
+            previous,
             evidence_dir,
             chat_index,
         )
@@ -1392,6 +2073,13 @@ def main() -> None:
             outcomes[key]["post_chat_list_refresh_error"] = post_error
             if outcomes[key]["passive_update_status"] != "present":
                 outcomes[key]["passive_update_status"] = "unknown"
+            if chat_result.get("status") == "success":
+                prior_row = checkpoint_targets.setdefault(key, dict(chosen.get(key) or {}))
+                prior_row["expected_read_state_transition"] = {
+                    "after_chat_open_at": now_local(),
+                    "expected_state": "none_observed",
+                    "source_state_signature": observation_state_signature(chosen.get(key) or {}),
+                }
             continue
         current_list_root, current_list_raw = post_root, post_raw
         current_page = infer_current_page(post_root, targets, aliases, page_keys, current_page)
@@ -1414,7 +2102,13 @@ def main() -> None:
                 checkpoint_targets[key] = next_checkpoint
         elif chat_checkpoint:
             # Preserve the old row checkpoint when the post-open row cannot be safely reacquired.
-            checkpoint_targets.setdefault(key, {}).update(chat_checkpoint)
+            prior_row = checkpoint_targets.setdefault(key, dict(chosen.get(key) or {}))
+            prior_row.update(chat_checkpoint)
+            prior_row["expected_read_state_transition"] = {
+                "after_chat_open_at": now_local(),
+                "expected_state": "none_observed",
+                "source_state_signature": observation_state_signature(chosen.get(key) or {}),
+            }
 
     chat_acquisition_seconds = time.perf_counter() - chat_started
     all_observed_keys = set()
@@ -1424,6 +2118,11 @@ def main() -> None:
         row = chosen.get(key)
         if row and row.get("row_complete_in_viewport") and not row.get("loading_or_progress_present"):
             prior = checkpoint_targets.get(key)
+            if outcome.get("chat_open_required") and (outcome.get("chat_acquisition") or {}).get("status") != "success":
+                # Keep the old row checkpoint so an unverified or failed open
+                # cannot consume a detected change.
+                outcome["checkpoint_advanced"] = False
+                continue
             # For unchanged rows the current list state is the checkpoint. For candidates with an
             # opened chat, retain the refreshed post-open row if it was available.
             if outcome.get("chat_acquisition") and outcome["chat_acquisition"].get("status") == "success":
@@ -1433,8 +2132,12 @@ def main() -> None:
             if row is not None:
                 updated = dict(row)
                 if prior:
-                    updated.update({k: prior[k] for k in ("message_candidate_keys", "last_chat_observed_at", "last_preview_chat_association") if k in prior})
+                    fields_to_retain = ["message_candidate_keys", "message_baseline_status", "last_chat_observed_at", "last_preview_chat_association"]
+                    if outcome.get("candidate_detection_reason") != "collector_expected_read_state_transition_with_same_content":
+                        fields_to_retain.append("expected_read_state_transition")
+                    updated.update({k: prior[k] for k in fields_to_retain if k in prior})
                 checkpoint_targets[key] = updated
+                outcome["checkpoint_advanced"] = True
                 all_observed_keys.add(key)
         elif outcome["candidate_detection"] in {"first_observation", "changed", "unchanged"}:
             outcome["passive_update_status"] = "unknown"
@@ -1442,14 +2145,46 @@ def main() -> None:
             outcome["candidate_detection_reason"] = "complete_target_row_not_available_for_safe_checkpoint"
 
     total_time = time.perf_counter() - started
+    if list_scan.get("full_list_complete") and list_scan.get("frontier_order_safe") and not chat_attempt_count:
+        checkpoint["frontier_rows"] = list_scan.get("ordered_rows", [])
+        checkpoint["frontier_rows_order_safe"] = True
+        checkpoint["frontier_list_complete"] = True
+        checkpoint["frontier_checkpoint_run_id"] = args.run_id
+        checkpoint["frontier_checkpoint_observed_at"] = now_local()
     required_chat_opens = sum(
-        outcome["candidate_detection"] in {"changed", "first_observation"}
+        bool(outcome.get("chat_open_required") and outcome.get("candidate_detection") in {"changed", "first_observation"})
         for outcome in outcomes.values()
     )
     successful_chat_opens = sum(
         bool((outcome.get("chat_acquisition") or {}).get("status") == "success")
         for outcome in outcomes.values()
     )
+    false_unchanged = sum(
+        1
+        for target in targets
+        if outcomes[target["collector_key"]].get("candidate_detection") == "unchanged"
+        and not (
+            (row := chosen.get(target["collector_key"]))
+            and row.get("row_complete_in_viewport")
+            and not row.get("loading_or_progress_present")
+            and observation_content_signature(row)
+            and observation_state_signature(row)
+        )
+    )
+    historical_new_message_keys = {
+        message.get("logical_candidate_key")
+        for prior_run in existing_output.get("runs", [])
+        for store in prior_run.get("stores", [])
+        for message in (store.get("chat_acquisition") or {}).get("logical_message_candidates", [])
+        if message.get("candidate_status") == "new_verified" and message.get("logical_candidate_key")
+    }
+    current_new_message_keys = {
+        message.get("logical_candidate_key")
+        for outcome in outcomes.values()
+        for message in (outcome.get("chat_acquisition") or {}).get("logical_message_candidates", [])
+        if message.get("candidate_status") == "new_verified" and message.get("logical_candidate_key")
+    }
+    repeated_message_false_positives = len(historical_new_message_keys & current_new_message_keys)
     run = {
         "run_id": args.run_id,
         "observed_at": now_local(),
@@ -1457,15 +2192,32 @@ def main() -> None:
         "read_only": True,
         "run_valid_for_acceptance": bool(
             list_scan.get("status") == "success"
+            and (
+                list_scan.get("scan_completeness") in {"full_scan_complete", "fallback_full_scan", "target_set_complete"}
+            )
+            and list_scan.get("all_pages_settled")
             and list_scan.get("all_target_rows_complete")
-            and sum(o["candidate_detection"] == "unknown" for o in outcomes.values()) == 0
+            and false_unchanged == 0
             and required_chat_opens == successful_chat_opens
         ),
         "conversation_list_scan": {
             "status": list_scan.get("status"),
+            "scan_mode_requested": scan_mode,
+            "scan_completeness": list_scan.get("scan_completeness"),
+            "error": list_scan.get("error"),
+            "fallback_reason": list_scan.get("fallback_reason"),
             "stop_reason": list_scan.get("stop_reason"),
             "elapsed_seconds": list_scan.get("list_scan_seconds", 0),
             "dump_count": list_scan.get("dump_count", 0),
+            "ui_dump_success_count": list_scan.get("ui_dump_success_count", 0),
+            "ui_dump_attempt_count": list_scan.get("ui_dump_attempt_count", 0),
+            "all_pages_settled": list_scan.get("all_pages_settled", False),
+            "full_list_complete": list_scan.get("full_list_complete", False),
+            "frontier_order_safe": list_scan.get("frontier_order_safe", False),
+            "frontier": list_scan.get("frontier"),
+            "frontier_stable_rows_required": list_scan.get("frontier_stable_rows_required"),
+            "ordered_row_count": len(list_scan.get("ordered_rows", [])),
+            "row_sequence_merge_events": list_scan.get("row_sequence_merge_events", []),
             "pages": list_scan.get("pages", []),
             "top_reset_observations": list_scan.get("top_reset_observations", []),
             "top_reset_stop_reason": list_scan.get("top_reset_stop_reason"),
@@ -1473,6 +2225,7 @@ def main() -> None:
             "all_fixed_target_rows_complete": list_scan.get("all_target_rows_complete", False),
             "post_open_refreshes": list_after_open_observations,
         },
+        "target_set_size": len(targets),
         "candidate_detection_seconds": candidate_detection_seconds,
         "opened_chat_count": opened_chat_count,
         "chat_dump_count": chat_dump_count,
@@ -1496,11 +2249,39 @@ def main() -> None:
             "unchanged": sum(o["candidate_detection"] == "unchanged" for o in outcomes.values()),
             "first_observation": sum(o["candidate_detection"] == "first_observation" for o in outcomes.values()),
             "unknown": sum(o["candidate_detection"] == "unknown" for o in outcomes.values()),
+            "list_scan_completeness": list_scan.get("scan_completeness"),
+            "list_pages": len(list_scan.get("pages", [])),
+            "list_dump_count": list_scan.get("ui_dump_success_count", 0),
+            "list_dump_attempt_count": list_scan.get("ui_dump_attempt_count", 0),
+            "total_ui_dump_count": android.dump_success_count - run_dump_success_start,
+            "total_ui_dump_attempt_count": android.dump_attempt_count - run_dump_attempt_start,
             "passive_present": sum(o["passive_update_status"] == "present" for o in outcomes.values()),
             "passive_absent": sum(o["passive_update_status"] == "absent" for o in outcomes.values()),
             "passive_unknown": sum(o["passive_update_status"] == "unknown" for o in outcomes.values()),
             "opened_chat_count": opened_chat_count,
+            "chat_attempt_count": chat_attempt_count,
+            "required_chat_open_count": required_chat_opens,
+            "successful_chat_open_count": successful_chat_opens,
             "new_verified_passive_message_count": total_new_verified,
+            "repeated_message_false_positive_count": repeated_message_false_positives,
+            "target_identity_misattribution_count": sum(
+                1
+                for outcome in outcomes.values()
+                if (outcome.get("chat_acquisition") or {}).get("error_class") == "target_not_verified"
+                and (outcome.get("chat_acquisition") or {}).get("raw_message_row_observations")
+            ),
+            "state_only_change_count": sum(
+                outcome.get("candidate_detection_reason") == "ui_read_state_changed_without_content_change_requires_chat_check"
+                for outcome in outcomes.values()
+            ),
+            "collector_expected_read_state_suppression_count": sum(
+                outcome.get("candidate_detection_reason") == "collector_expected_read_state_transition_with_same_content"
+                for outcome in outcomes.values()
+            ),
+            "midnight_time_label_rollover_requires_chat_check_count": sum(
+                outcome.get("candidate_detection_reason") == "line_time_label_rolled_to_yesterday; verify_message_identity_before_checkpoint"
+                for outcome in outcomes.values()
+            ),
             "preview_association_counts": association_counts.as_dict(),
             "chat_row_candidate_count": sum(
                 (o.get("chat_acquisition") or {}).get("unique_logical_candidate_count", 0)
@@ -1512,7 +2293,7 @@ def main() -> None:
                 for row in (o.get("chat_acquisition") or {}).get("raw_message_row_observations", [])
                 if not row.get("logical_candidate_key")
             ),
-            "false_unchanged_from_missing_or_failed_rows": 0,
+            "false_unchanged_from_missing_or_failed_rows": false_unchanged,
         },
         "timing": {
             "conversation_list_scan_seconds": list_scan.get("list_scan_seconds", 0),
