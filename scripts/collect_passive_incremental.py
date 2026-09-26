@@ -34,6 +34,10 @@ EVIDENCE_DIR = ROOT / "data/surveys/passive_incremental_20_2026-09-25_evidence"
 OUTPUT_FILE_41 = ROOT / "data/surveys/passive_incremental_41_acceptance_2026-09-26.json"
 CHECKPOINT_FILE_41 = ROOT / "data/surveys/passive_incremental_41_checkpoint_2026-09-26.json"
 EVIDENCE_DIR_41 = ROOT / "data/surveys/passive_incremental_41_evidence_2026-09-26"
+REGISTRY_FILE = ROOT / "data/line_targets.json"
+OUTPUT_FILE_REGISTRY = ROOT / "data/surveys/passive_incremental_registry_runs.json"
+CHECKPOINT_FILE_REGISTRY = ROOT / "data/surveys/passive_incremental_registry_checkpoint.json"
+EVIDENCE_DIR_REGISTRY = ROOT / "data/surveys/passive_incremental_registry_evidence"
 TIMEZONE = ZoneInfo("Asia/Tokyo")
 LINE_ID_PREFIX = "jp.naver.line.android:id/"
 LIST_SCROLL_LIMIT = 80
@@ -111,7 +115,13 @@ def atomic_json(path: Path, value: Any) -> None:
             os.unlink(temp_name)
 
 
-def select_targets(sample_size: int = 20) -> list[dict[str, Any]]:
+def select_targets(sample_size: int | str = 20) -> list[dict[str, Any]]:
+    if sample_size == "registry":
+        result = [row for row in load_json(REGISTRY_FILE)["targets"] if row.get("active", True)]
+        for row in result:
+            if not str(row.get("identity_status", "")).startswith("verified_"):
+                raise RuntimeError(f"registry target identity not verified: {row.get('collector_key')}")
+        return _validate_target_set(result, len(result))
     capability = load_json(CAPABILITY_FILE)
     cap_by_key = {row["collector_key"]: row for row in capability["records"]}
     if sample_size == 20:
@@ -149,6 +159,10 @@ def select_targets(sample_size: int = 20) -> list[dict[str, Any]]:
             raise RuntimeError(f"frozen identity-confirmed sample expected 41 rows; found {len(result)}")
     else:
         raise ValueError(f"unsupported fixed sample size: {sample_size}")
+    return _validate_target_set(result, sample_size)
+
+
+def _validate_target_set(result: list[dict[str, Any]], sample_size: int) -> list[dict[str, Any]]:
     if len({r["hall_id"] for r in result}) != sample_size:
         raise RuntimeError(f"fixed target hall_id values are not unique for {sample_size} stores")
     if len({r["line_source_key"] for r in result}) != sample_size:
@@ -1894,7 +1908,7 @@ def main() -> None:
     parser.add_argument("--run-id", help="unique label, e.g. 41-full-01 or 41-frontier-01")
     parser.add_argument("--serial", help="Android serial; inferred only when exactly one device is ready")
     parser.add_argument("--adb", default=shutil.which("adb") or "/tmp/codex-adb-bridge/adb")
-    parser.add_argument("--target-set", type=int, choices=(20, 41), default=20)
+    parser.add_argument("--target-set", choices=("20", "41", "registry"), default="20")
     parser.add_argument("--scan-mode", choices=("targets", "full", "frontier"))
     parser.add_argument("--frontier-stable-rows", type=int, default=DEFAULT_FRONTIER_STABLE_ROWS)
     parser.add_argument("--checkpoint", type=Path)
@@ -1907,7 +1921,13 @@ def main() -> None:
     if args.frontier_stable_rows < 4:
         parser.error("frontier-stable-rows must be at least 4")
 
-    if args.target_set == 41:
+    if args.target_set != "registry":
+        args.target_set = int(args.target_set)
+    if args.target_set == "registry":
+        args.checkpoint = args.checkpoint or CHECKPOINT_FILE_REGISTRY
+        args.output = args.output or OUTPUT_FILE_REGISTRY
+        args.evidence_dir = args.evidence_dir or EVIDENCE_DIR_REGISTRY
+    elif args.target_set == 41:
         args.checkpoint = args.checkpoint or CHECKPOINT_FILE_41
         args.output = args.output or OUTPUT_FILE_41
         args.evidence_dir = args.evidence_dir or EVIDENCE_DIR_41

@@ -1,0 +1,727 @@
+{
+ "schema_version": 1,
+ "targets": [
+  {
+   "hall_id": "pia-keiky-kawasaki",
+   "collector_key": "pia-keiky-kawasaki",
+   "line_source_key": "@rmh1818e",
+   "store_name": "PIA京急川崎",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "PIA 京急川崎",
+   "chat_header_name": "PIA 京急川崎",
+   "profile_expected_names": [
+    "PIA京急川崎"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "abiba-sh-nandai-ten",
+   "collector_key": "abiba-sh-nandai-ten",
+   "line_source_key": "@lxh1446l",
+   "store_name": "アビバ湘南台店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "アビバ湘南台店",
+   "chat_header_name": "アビバ湘南台店",
+   "profile_expected_names": [
+    "アビバ湘南台店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "pachisuroemuandoemu",
+   "collector_key": "m_and_m_mizoguchi",
+   "line_source_key": "@mm_mizo",
+   "store_name": "パチスロエムアンドエム",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "エムアンドエム溝口",
+   "chat_header_name": "エムアンドエム溝口",
+   "profile_expected_names": [
+    "パチスロエムアンドエム"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "jiasu-kami-oka",
+   "collector_key": "jiasu-kami-oka",
+   "line_source_key": "@zia_k",
+   "store_name": "ジアス上大岡",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "ジアス上大岡",
+   "chat_header_name": "ジアス上大岡",
+   "profile_expected_names": [
+    "ジアス上大岡"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "123-yokohama-nishiguchi-ten",
+   "collector_key": "123-yokohama-nishiguchi-ten",
+   "line_source_key": "@rvs1554c",
+   "store_name": "123横浜西口店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "123横浜西口店",
+   "chat_header_name": "123横浜西口店",
+   "profile_expected_names": [
+    "123横浜西口店",
+    "１２３横浜西口店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "kui-pu-higashitotsuka-ten",
+   "collector_key": "kui-pu-higashitotsuka-ten",
+   "line_source_key": "@gqq6628y",
+   "store_name": "くいーぷ東戸塚店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "くいーぷ東戸塚店",
+   "chat_header_name": "くいーぷ東戸塚店",
+   "profile_expected_names": [
+    "くいーぷ東戸塚店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "doki-waku-rando-ch-go-ekimae-ten",
+   "collector_key": "doki-waku-rando-ch-go-ekimae-ten",
+   "line_source_key": "@gyf4355o",
+   "store_name": "ドキわくランド長後駅前店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "ドキわくランド長後駅前店",
+   "chat_header_name": "ドキわくランド長後駅前店",
+   "profile_expected_names": [
+    "ドキわくランド長後駅前店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "kik-na-chigasaki-ten",
+   "collector_key": "kik-na-chigasaki-ten",
+   "line_source_key": "@kicona-chigasaki",
+   "store_name": "キコーナ茅ヶ崎店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "キコーナ茅ヶ崎店",
+   "chat_header_name": "キコーナ茅ヶ崎店",
+   "profile_expected_names": [
+    "キコーナ茅ヶ崎店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "rakuen-sagamihara-ten",
+   "collector_key": "rakuen-sagamihara-ten",
+   "line_source_key": "@962wucpf",
+   "store_name": "楽園相模原店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "楽園相模原店",
+   "chat_header_name": "楽園相模原店",
+   "profile_expected_names": [
+    "楽園相模原店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "kurie-j-nichi-shij-ten",
+   "collector_key": "kurie-j-nichi-shij-ten",
+   "line_source_key": "@c0459862933",
+   "store_name": "クリエ十日市場店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "クリエ十日市場店",
+   "chat_header_name": "クリエ十日市場店",
+   "profile_expected_names": [
+    "クリエ十日市場店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "kik-na-bakuro-ten",
+   "collector_key": "kik-na-bakuro-ten",
+   "line_source_key": "@kicona-hakuraku",
+   "store_name": "キコーナ白楽店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "キコーナ白楽店",
+   "chat_header_name": "キコーナ白楽店",
+   "profile_expected_names": [
+    "キコーナ白楽店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "biggu-pandora-ido-ke-tani-ten-shinkan",
+   "collector_key": "biggu-pandora-ido-ke-tani-ten-shinkan",
+   "line_source_key": "@949hkhtd",
+   "store_name": "ビッグパンドラ井土ヶ谷店新館",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "ビッグパンドラ井土ヶ谷店新館",
+   "chat_header_name": "ビッグパンドラ井土ヶ谷店新館",
+   "profile_expected_names": [
+    "ビッグパンドラ井土ヶ谷店新館"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "gurando-h-ru-odawara-ten",
+   "collector_key": "gurando-h-ru-odawara-ten",
+   "line_source_key": "@354skdpc",
+   "store_name": "グランドホール小田原店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "グランドホール小田原",
+   "chat_header_name": "グランドホール小田原",
+   "profile_expected_names": [
+    "グランドホール小田原店",
+    "グランドホール小田原"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "nakayama-uno",
+   "collector_key": "nakayama-uno",
+   "line_source_key": "@zwt0488b",
+   "store_name": "中山UNO",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "中山ＵＮＯ",
+   "chat_header_name": "中山ＵＮＯ",
+   "profile_expected_names": [
+    "中山UNO",
+    "中山ＵＮＯ"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "kik-na-isezaki-ten",
+   "collector_key": "kik-na-isezaki-ten",
+   "line_source_key": "@isezaki",
+   "store_name": "キコーナ伊勢佐木店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "キコーナ伊勢佐木店",
+   "chat_header_name": "キコーナ伊勢佐木店",
+   "profile_expected_names": [
+    "キコーナ伊勢佐木店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "kitch-kawasaki-nogawa-ten",
+   "collector_key": "kitch-kawasaki-nogawa-ten",
+   "line_source_key": "@565yasud",
+   "store_name": "吉兆川崎野川店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "吉兆川崎野川店",
+   "chat_header_name": "吉兆川崎野川店",
+   "profile_expected_names": [
+    "吉兆川崎野川店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "tow-zu-sagamihara-ten",
+   "collector_key": "tow-zu-sagamihara-ten",
+   "line_source_key": "@bck0569v",
+   "store_name": "トワーズ相模原店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "トワーズ相模原店",
+   "chat_header_name": "トワーズ相模原店",
+   "profile_expected_names": [
+    "トワーズ相模原店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "jiasusent-minami",
+   "collector_key": "jiasusent-minami",
+   "line_source_key": "@rbt8267i",
+   "store_name": "ジアスセンター南",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "ジアスセンター南",
+   "chat_header_name": "ジアスセンター南",
+   "profile_expected_names": [
+    "ジアスセンター南",
+    "ジアス　センター南"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "pia-tsunashima",
+   "collector_key": "pia-tsunashima",
+   "line_source_key": "@813qcshp",
+   "store_name": "PIA綱島",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "PIA綱島",
+   "chat_header_name": "PIA綱島",
+   "profile_expected_names": [
+    "PIA綱島"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "japan-ny-arufa-kurami-ten",
+   "collector_key": "japan-ny-arufa-kurami-ten",
+   "line_source_key": "@fpu2515q",
+   "store_name": "ジャパンニューアルファ倉見店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "ジャパンニューアルファ倉見店",
+   "chat_header_name": "ジャパンニューアルファ倉見店",
+   "profile_expected_names": [
+    "ジャパンニューアルファ倉見店",
+    "ジャパンニューアルファ　倉見店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "doki-waku-rando-ido-ke-tani-ten",
+   "collector_key": "doki-waku-rando-ido-ke-tani-ten",
+   "line_source_key": "@mnt5245y",
+   "store_name": "ドキわくランド井土ヶ谷店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "ドキわくランド井土ヶ谷店",
+   "chat_header_name": "ドキわくランド井土ヶ谷店",
+   "profile_expected_names": [
+    "ドキわくランド井土ヶ谷店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "gaianekusuto-ebina-ekimae-ten",
+   "collector_key": "gaianekusuto-ebina-ekimae-ten",
+   "line_source_key": "@yfg7107w",
+   "store_name": "ガイアネクスト海老名駅前店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "ガイアネクスト海老名駅前店",
+   "chat_header_name": "ガイアネクスト海老名駅前店",
+   "profile_expected_names": [
+    "ガイアネクスト海老名駅前店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "p-ku-sagami-no",
+   "collector_key": "p-ku-sagami-no",
+   "line_source_key": "@515hybfb",
+   "store_name": "ピーアーク相模大野",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "ピーアーク相模大野",
+   "chat_header_name": "ピーアーク相模大野",
+   "profile_expected_names": [
+    "ピーアーク相模大野"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "p-ru-shoppu-tomo-e-fuchinobe-ten",
+   "collector_key": "p-ru-shoppu-tomo-e-fuchinobe-ten",
+   "line_source_key": "@781yaczj",
+   "store_name": "パールショップともえ淵野辺店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "パールショップともえ淵野辺店",
+   "chat_header_name": "パールショップともえ淵野辺店",
+   "profile_expected_names": [
+    "パールショップともえ淵野辺店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "arrow-hiratsuka-ten",
+   "collector_key": "arrow-hiratsuka-ten",
+   "line_source_key": "@fqp0469n",
+   "store_name": "ARROW平塚店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "ARROW平塚店",
+   "chat_header_name": "ARROW平塚店",
+   "profile_expected_names": [
+    "ARROW平塚店",
+    "ＡＲＲＯＷ平塚店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "new-garden-totsuka",
+   "collector_key": "new-garden-totsuka",
+   "line_source_key": "@jri9235n",
+   "store_name": "新！ガーデン戸塚",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "新！ガーデン戸塚",
+   "chat_header_name": "新！ガーデン戸塚",
+   "profile_expected_names": [
+    "新！ガーデン戸塚"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "nambusen-shitte-ekimae-ten",
+   "collector_key": "nambusen-shitte-ekimae-ten",
+   "line_source_key": "@qqr1482n",
+   "store_name": "南武線尻手駅前店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "南武線尻手駅前店",
+   "chat_header_name": "南武線尻手駅前店",
+   "profile_expected_names": [
+    "南武線尻手駅前店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "purego-yugawara-ten",
+   "collector_key": "purego-yugawara-ten",
+   "line_source_key": "@232bqwsv",
+   "store_name": "プレゴ湯河原店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "プレゴ湯河原店",
+   "chat_header_name": "プレゴ湯河原店",
+   "profile_expected_names": [
+    "プレゴ湯河原店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "sanrakk-sagamihara-ten",
+   "collector_key": "sanrakk-sagamihara-ten",
+   "line_source_key": "@628hqwbe",
+   "store_name": "サンラッキー相模原店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "サンラッキー相模原店",
+   "chat_header_name": "サンラッキー相模原店",
+   "profile_expected_names": [
+    "サンラッキー相模原店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "ginzah-ru-707",
+   "collector_key": "ginzah-ru-707",
+   "line_source_key": "@351eiuvz",
+   "store_name": "ギンザホール707",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "ギンザホール707",
+   "chat_header_name": "ギンザホール707",
+   "profile_expected_names": [
+    "ギンザホール707"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "ichibankan-sagamihara-ten",
+   "collector_key": "ichibankan-sagamihara-ten",
+   "line_source_key": "@dse9977u",
+   "store_name": "一番舘 相模原店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "一番舘　相模原店",
+   "chat_header_name": "一番舘　相模原店",
+   "profile_expected_names": [
+    "一番舘 相模原店",
+    "一番舘　相模原店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "gur-n",
+   "collector_key": "gur-n",
+   "line_source_key": "@629aqwlz",
+   "store_name": "グリーン",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "グリーン",
+   "chat_header_name": "グリーン",
+   "profile_expected_names": [
+    "グリーン"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "japan-ny-arufa-fujisawa-ten",
+   "collector_key": "japan-ny-arufa-fujisawa-ten",
+   "line_source_key": "@nxv1359a",
+   "store_name": "ジャパンニューアルファ藤沢店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "ジャパンニューアルファ藤沢店",
+   "chat_header_name": "ジャパンニューアルファ藤沢店",
+   "profile_expected_names": [
+    "ジャパンニューアルファ藤沢店",
+    "ジャパンニューアルファ　藤沢店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "higashiyoko-fesuta-3",
+   "collector_key": "higashiyoko-fesuta-3",
+   "line_source_key": "@576ncfpf",
+   "store_name": "東横フェスタ3",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "東横フェスタ3",
+   "chat_header_name": "東横フェスタ3",
+   "profile_expected_names": [
+    "東横フェスタ3"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "ja-ran-hiratsuka-ten",
+   "collector_key": "ja-ran-hiratsuka-ten",
+   "line_source_key": "@uvb7365o",
+   "store_name": "ジャラン平塚店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "ジャラン平塚店",
+   "chat_header_name": "ジャラン平塚店",
+   "profile_expected_names": [
+    "ジャラン平塚店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "maruhan-hashimotodai-ten",
+   "collector_key": "maruhan-hashimotodai-ten",
+   "line_source_key": "@bls7088c",
+   "store_name": "マルハン橋本台店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "マルハン橋本台店",
+   "chat_header_name": "マルハン橋本台店",
+   "profile_expected_names": [
+    "マルハン橋本台店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "maruhan-atsugi-ten",
+   "collector_key": "maruhan-atsugi-ten",
+   "line_source_key": "@ggz8372o",
+   "store_name": "マルハン厚木店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "マルハン厚木店",
+   "chat_header_name": "マルハン厚木店",
+   "profile_expected_names": [
+    "マルハン厚木店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "maruhan-atsugi-kita-ten",
+   "collector_key": "maruhan-atsugi-kita-ten",
+   "line_source_key": "@ukw5467h",
+   "store_name": "マルハン厚木北店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "マルハン厚木北店",
+   "chat_header_name": "マルハン厚木北店",
+   "profile_expected_names": [
+    "マルハン厚木北店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "monos-kawasaki",
+   "collector_key": "monos-kawasaki",
+   "line_source_key": "@monoskawasaki",
+   "store_name": "MONOS川崎",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "MONOS川崎",
+   "chat_header_name": "MONOS川崎",
+   "profile_expected_names": [
+    "MONOS川崎",
+    "ＭＯＮＯＳ川崎"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "deizu-shinsugita-ten",
+   "collector_key": "deizu-shinsugita-ten",
+   "line_source_key": "@days-shinsugita",
+   "store_name": "デイズ新杉田店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "デイズ新杉田店",
+   "chat_header_name": "デイズ新杉田店",
+   "profile_expected_names": [
+    "デイズ新杉田店"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "ny-shatoru",
+   "collector_key": "ny-shatoru",
+   "line_source_key": "@359gpeap",
+   "store_name": "ニューシャトル",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_exact_url_and_chat_header",
+   "profile_display_name": "ニューシャトル",
+   "chat_header_name": "ニューシャトル",
+   "profile_expected_names": [
+    "ニューシャトル"
+   ],
+   "source": "line_capability_50_live_2026-09-25",
+   "active": true
+  },
+  {
+   "hall_id": "jiasu-k-nandai",
+   "collector_key": "jiasu-k-nandai",
+   "line_source_key": "@fap2637x",
+   "store_name": "ジアス港南台",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "ジアス 港南台",
+   "profile_expected_names": [
+    "ジアス港南台"
+   ],
+   "source": "line_onboarding_batch00_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "taig-7-tsunashima-ten",
+   "collector_key": "taig-7-tsunashima-ten",
+   "line_source_key": "@237gsfjs",
+   "store_name": "タイガー7綱島店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "タイガー7綱島店",
+   "profile_expected_names": [
+    "タイガー7綱島店"
+   ],
+   "source": "line_onboarding_batch00_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "gaia-wada-machi-ten",
+   "collector_key": "gaia-wada-machi-ten",
+   "line_source_key": "@g-wadamachi",
+   "store_name": "ガイア和田町店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "ガイア和田町店",
+   "profile_expected_names": [
+    "ガイア和田町店"
+   ],
+   "source": "line_onboarding_batch00_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "abiba-tsunashima-minami-ten",
+   "collector_key": "abiba-tsunashima-minami-ten",
+   "line_source_key": "@120gvvvr",
+   "store_name": "アビバ綱島南店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "アビバ綱島南",
+   "profile_expected_names": [
+    "アビバ綱島南店"
+   ],
+   "source": "line_onboarding_batch00_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "ny-ritchirando",
+   "collector_key": "ny-ritchirando",
+   "line_source_key": "@chi7610e",
+   "store_name": "ニューリッチランド",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "ニューリッチランド",
+   "profile_expected_names": [
+    "ニューリッチランド"
+   ],
+   "source": "line_onboarding_batch00_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "kik-na-odawara-gimachi-ten",
+   "collector_key": "kik-na-odawara-gimachi-ten",
+   "line_source_key": "@hkg7433u",
+   "store_name": "キコーナ小田原扇町店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "キコーナ小田原扇町店",
+   "profile_expected_names": [
+    "キコーナ小田原扇町店"
+   ],
+   "source": "line_onboarding_batch00_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "gaia-higashitotsuka-ten",
+   "collector_key": "gaia-higashitotsuka-ten",
+   "line_source_key": "@pfk1259x",
+   "store_name": "ガイア東戸塚店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_name_without_store_suffix",
+   "chat_header_name": "ガイア東戸塚",
+   "profile_expected_names": [
+    "ガイア東戸塚店"
+   ],
+   "source": "line_onboarding_batch00_2026-09-26.json",
+   "active": true
+  }
+ ]
+}

@@ -1,0 +1,2798 @@
+{
+ "schema_version": 1,
+ "source_halls_csv": "/Users/eita/projects/slot-kanagawa-hall-master/src/features/hall-registry/halls.csv",
+ "source_pworld_list": "kanagawa_pworld_line_x_20260923.md",
+ "candidates": [
+  {
+   "hall_id": "jiasu-kami-oka",
+   "store_name": "ジアス上大岡",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/ziath-kami.htm",
+   "line_tokens": [
+    "@zia_k"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-551f707a3510d433",
+   "store_name": "楽園 川崎店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/rakuen-kawasaki.htm",
+   "line_tokens": [
+    "@yvo4044i"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-805189d07028553b",
+   "store_name": "モナコ二俣川店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/monaco-g1.htm",
+   "line_tokens": [
+    "https://lin.ee/EEsZNPF",
+    "@749fpqte"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "jiasu-bune",
+   "store_name": "ジアス大船",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/ziath-o.htm",
+   "line_tokens": [
+    "@zia_o",
+    "@qqv2474s"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "rakuen-kaminagaya-ten",
+   "store_name": "楽園上永谷店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/rakuenkaminagaya.htm",
+   "line_tokens": [
+    "@vbk8450k",
+    "@rakuen-kaminagaya",
+    "https://line.me/ti/p/L88Y4sDWDv"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "123-yokohama-nishiguchi-ten",
+   "store_name": "123横浜西口店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/123yokohamanishi.htm",
+   "line_tokens": [
+    "@rvs1554c",
+    "@123yokohama"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "taig-7-tsunashima-ten",
+   "store_name": "タイガー7綱島店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/tiger7tsunashima.htm",
+   "line_tokens": [
+    "@237gsfjs",
+    "https://lin.ee/mJcPUxP"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-79ab16be0b4394fd",
+   "store_name": "ノア上永谷店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/noah-kaminagaya.htm",
+   "line_tokens": [
+    "@683myuzv"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "doki-waku-rando-ch-go-ekimae-ten",
+   "store_name": "ドキわくランド長後駅前店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/dokiwakuland-chogo.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/fV1inqGU3h",
+    "@gyf4355o"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-95195c4b4c0bb303",
+   "store_name": "ZAP大船店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/zap-ofuna.htm",
+   "line_tokens": [
+    "@vrc3112o",
+    "@zapofuna"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-53398f2bf42df154",
+   "store_name": "SS ZAP追浜店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/zap.htm",
+   "line_tokens": [
+    "http://line.naver.jp/ti/p/g33TtYWeit"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "nambusen-shitte-ekimae-ten",
+   "store_name": "南武線尻手駅前店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/nanbusen-s.htm",
+   "line_tokens": [
+    "@qqr1482n"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-9f780a1b45b5d558",
+   "store_name": "ヒノマル新丸子西口 スロット館",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/hinomaru.htm",
+   "line_tokens": [
+    "@zkx8098z"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "yokosuka-mabori-mar-n",
+   "store_name": "横須賀・馬堀マリーン",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/yokosukamarine.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/BaTenNHK1I",
+    "@pje7868p"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "biggu-pandora-ido-ke-tani-ten-shinkan",
+   "store_name": "ビッグパンドラ井土ヶ谷店新館",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/pandora-is.htm",
+   "line_tokens": [
+    "https://lin.ee/BdCLHlZ",
+    "@949hkhtd"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-3c4ffc5ecd159f24",
+   "store_name": "ZAP京急久里浜店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/zapkqkurihama.htm",
+   "line_tokens": [
+    "@bjs2804d",
+    "@450bmepa"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-c6b84e1256adfaf9",
+   "store_name": "デルパラ大和店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/derupara-yamato.htm",
+   "line_tokens": [
+    "@gso4796b"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-01bc494aca56f763",
+   "store_name": "Ｐ’Ｓｔｏｗｎ桜ヶ丘",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/sakuragaoka-ps.htm",
+   "line_tokens": [
+    "@349cuepr",
+    "@ps-80g0"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-4b773687726b244a",
+   "store_name": "デラックス７ 西横浜",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/deluxe7.htm",
+   "line_tokens": [
+    "@deluxe7-yokohama"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "kik-na-odawara-gimachi-ten",
+   "store_name": "キコーナ小田原扇町店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kicona-odawara.htm",
+   "line_tokens": [
+    "@hkg7433u"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "yokohama-mar-n",
+   "store_name": "横浜マリーン",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/yokohamamarine.htm",
+   "line_tokens": [
+    "@160jmifm",
+    "@marine-yokohama"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "abiba-yokosuka-ch-ten",
+   "store_name": "アビバ横須賀中央店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/abiva-yokosuka.htm",
+   "line_tokens": [
+    "@435bxklk"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-b369f23a10d47640",
+   "store_name": "ＺＡＰ生麦店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/zapnamamugi.htm",
+   "line_tokens": [
+    "@lhn5178j"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "skip-ayase-ten",
+   "store_name": "SKIP綾瀬店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/skip-ayase.htm",
+   "line_tokens": [
+    "https://lin.ee/VrDK16z",
+    "https://line.me/R/ti/p/@855vckqy?oat_content=url"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "gurando-h-ru-odawara-ten",
+   "store_name": "グランドホール小田原店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/super-g-view.htm",
+   "line_tokens": [
+    "@354skdpc",
+    "@gh-odawara"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "gurando-h-ru-ch-go-ten",
+   "store_name": "グランドホール長後店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/grandhall-c.htm",
+   "line_tokens": [
+    "@lyp3690t"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "charenj-kan",
+   "store_name": "チャレンジャー遊館",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/challenger-u.htm",
+   "line_tokens": [
+    "@ofi9651u"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "kurabu-ny-y-ku-tammachi",
+   "store_name": "クラブニューヨーク反町",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/asahi-tanmachi.htm",
+   "line_tokens": [
+    "@663rzpio"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-5f23ce7bab3bec39",
+   "store_name": "PIA大船1店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/pia-ofuna.htm",
+   "line_tokens": [
+    "https://lin.ee/3r7hgls",
+    "@694ixtwm"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-6de281b6d542b550",
+   "store_name": "ZAP追浜店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/zap-oppama.htm",
+   "line_tokens": [
+    "http://line.naver.jp/ti/p/g33TtYWeit"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-c59a3855044451cd",
+   "store_name": "SS ZAP京急久里浜店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/sszapkqkurihama.htm",
+   "line_tokens": [
+    "@450bmepa"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-37a22f0aa26ca586",
+   "store_name": "1ぱちZAP京急久里浜店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/1pachizapkqkurihama.htm",
+   "line_tokens": [
+    "@450bmepa"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-9e82d175822820b7",
+   "store_name": "ZAP JR久里浜店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/zapjrkurihama.htm",
+   "line_tokens": [
+    "@bjs2804d"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "kurie-j-nichi-shij-ten",
+   "store_name": "クリエ十日市場店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/creer-tokaichiba.htm",
+   "line_tokens": [
+    "@c0459862933",
+    "@oyj2141k"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "skip-yokohama-ky-ten",
+   "store_name": "SKIP横浜橋店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/skip-yokohama.htm",
+   "line_tokens": [
+    "https://lin.ee/t48WvmT",
+    "https://line.me/R/ti/p/@982zhhhh?oat_content=url"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-8c575c49425feb75",
+   "store_name": "キコーナ秦野店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kicona-hadano.htm",
+   "line_tokens": [
+    "@kicona-hadano"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "nakayama-uno",
+   "store_name": "中山UNO",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/1130uno.htm",
+   "line_tokens": [
+    "http://line.naver.jp/ti/p/VuvQCkQItA",
+    "@zwt0488b"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "zap-prestige",
+   "store_name": "ZAP PRESTIGE",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/zap-prestige.htm",
+   "line_tokens": [
+    "@622zaycv"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "yasu-da-yamato-ten",
+   "store_name": "やすだ大和店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/yasuda-yamato.htm",
+   "line_tokens": [
+    "@364uabgz",
+    "@gkr1982o",
+    "https://line.me/R/ti/p/%40810sqerh"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "doki-waku-rando-kitayamata-ten",
+   "store_name": "ドキわくランド北山田店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/sunshine-kitayamada.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/BYZURznbrt",
+    "@liv5349g"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-31e7a172504fa5e8",
+   "store_name": "キコーナ愛川店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kicona-aikawa.htm",
+   "line_tokens": [
+    "@kicona-aikawa"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-424dd37de08584cb",
+   "store_name": "ZAP衣笠店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/zap-kinugasa.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "skip-surotto-kurabu-sekiuchi-ten",
+   "store_name": "SKIPスロットクラブ関内店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/skip-sc.htm",
+   "line_tokens": [
+    "https://lin.ee/7Nmd9dp",
+    "@895hjbia"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-77a38befe04d1cc6",
+   "store_name": "Ｍ＆Ｍ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/sunpalace.htm",
+   "line_tokens": [
+    "@vpress"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-722fe5252b78b260",
+   "store_name": "パチンココロナ小田原店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/korona-odawara.htm",
+   "line_tokens": [
+    "@wjp6298j"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-d61ce3e0c5a4eac6",
+   "store_name": "ＺＡＰ代官店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/zap-daikan.htm",
+   "line_tokens": [
+    "@zap-maj1678"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-5abd6f0e82dc6445",
+   "store_name": "キングＥＸ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kingex.htm",
+   "line_tokens": [
+    "@etp4181w",
+    "@anianiex"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "s-p-d-sut-shon-hiratsuka-ekimae-ten",
+   "store_name": "スーパーDステーション平塚駅前店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/superdstation-hira.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "hall-29a83bba47fa406f",
+   "store_name": "でるたまランドむげん",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/derutamaland-mugen.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "hall-5a179ee22ec6db8d",
+   "store_name": "ジャパンニューアルファ 藤沢店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/jnalpha-fujisawa.htm",
+   "line_tokens": [
+    "@nxv1359a"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "maruhan-tsuzuki-ten",
+   "store_name": "マルハン都筑店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/maruhan-tsuzuki.htm",
+   "line_tokens": [
+    "@ryy9041d"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "jiasu-shin-hyaku-g-ke-oka",
+   "store_name": "ジアス新百合ヶ丘",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/ziath-s.htm",
+   "line_tokens": [
+    "@kfw2841o"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "maruhan-odawara-ten",
+   "store_name": "マルハン小田原店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/maruhan-odawaraten.htm",
+   "line_tokens": [
+    "@m0465439344",
+    "@040reyel"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "tow-zu-asamizodai-ten",
+   "store_name": "トワーズ麻溝台店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/towars-asamizodai.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/X0SI8CbRMG#~",
+    "@tw_asamizo"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-53654a43dbfae2a3",
+   "store_name": "Ｄ’station上永谷店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/dstation-kaminagaya.htm",
+   "line_tokens": [
+    "@gzi8123r"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "gaia-kawasaki-surotto-semmon-ten",
+   "store_name": "ガイア川崎スロット専門店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/gaia-kawasaki.htm",
+   "line_tokens": [
+    "@clk3997w"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "pachisuroemuandoemu",
+   "store_name": "パチスロエムアンドエム",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/m-and-m.htm",
+   "line_tokens": [
+    "@621bszkr",
+    "@mm_mizo"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-d3664ba3a84d773a",
+   "store_name": "ニューパレス",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/new-palace.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "dainamu-sagamihara-ten",
+   "store_name": "ダイナム相模原店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/dynam-sagamihara.htm",
+   "line_tokens": [
+    "@fxl9564y",
+    "@320qwyfb"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "jiasu-k-nandai",
+   "store_name": "ジアス港南台",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/ziath-k.htm",
+   "line_tokens": [
+    "@fap2637x"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "doki-waku-rando-ky-honten",
+   "store_name": "ドキわくランド橋本店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/pslandhashimoto.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/oOSCTxvtdo",
+    "@dqd3164c"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-31aaf6de4df9babe",
+   "store_name": "ドルフィン",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/dolphin.htm",
+   "line_tokens": [
+    "@dolphin777"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "pia-kawasaki-gin-yanagi",
+   "store_name": "PIA川崎銀柳",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/pia-k-g.htm",
+   "line_tokens": [
+    "@995tgjfn",
+    "https://lin.ee/83S33tP",
+    "https://lin.ee/hwdWKM6"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-3db00880aaca73a8",
+   "store_name": "ジャパンニューアルファ 鶴ヶ峰店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/jn-alpha.htm",
+   "line_tokens": [
+    "@045wgotb"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "daigakuin",
+   "store_name": "大学院",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/daigakuin.htm",
+   "line_tokens": [
+    "http://line.naver.jp/ti/p/kwwIwhZBVR"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "y-k-rakk-tsujid-ten",
+   "store_name": "ユーコーラッキー辻堂店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/tujido-lucky.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "hall-c8433dcaf6de3aa4",
+   "store_name": "ＺＡＰ舟倉店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/zap-funagura.htm",
+   "line_tokens": [
+    "@epl1242y"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "kitch-yokohama-komaoka-ten",
+   "store_name": "吉兆横浜駒岡店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kiccho-komaoka.htm",
+   "line_tokens": [
+    "@959gcvhr"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "abiba-minamiashigara-ten",
+   "store_name": "アビバ南足柄店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/aviva-minamiashigara.htm",
+   "line_tokens": [
+    "@edr3119j",
+    "@039ujzic"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "kik-na-tsurumi-chuo-ten",
+   "store_name": "キコーナ鶴見中央店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kicona-turumichuo.htm",
+   "line_tokens": [
+    "@yzw2215t"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "kik-na-bakuro-ten",
+   "store_name": "キコーナ白楽店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kicona-hakuraku.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/UsuOtuGnuh",
+    "@kicona-hakuraku"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-cf54355e47af72ab",
+   "store_name": "バンバンポラリス",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/banban-pola.htm",
+   "line_tokens": [
+    "https://lin.ee/zQIHIen",
+    "@banban-p",
+    "@wfc4665b"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-b3957f942700482c",
+   "store_name": "PIA大船2店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/pia-ofuna2.htm",
+   "line_tokens": [
+    "https://lin.ee/3r7hgls"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "pia-kanazawa-hakkei",
+   "store_name": "PIA金沢八景",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/pia-kanazawahakkei.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "pia-atsugi-honkan",
+   "store_name": "PIA厚木本館",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/pia-atsugi.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "pia-tsunashima",
+   "store_name": "PIA綱島",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/pia-tunasima.htm",
+   "line_tokens": [
+    "@813qcshp",
+    "@pia_tunashima"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-29a4eae243ef947f",
+   "store_name": "モナコ桜木町本店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/the-monaco.htm",
+   "line_tokens": [
+    "https://lin.ee/5e7VwC8",
+    "@549mafuw"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-bbd8368f83485942",
+   "store_name": "PIA伊勢佐木3丁目",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/santrope.htm",
+   "line_tokens": [
+    "@147qaktr",
+    "@pia_isezaki3chome"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "pia-isezaki-machi",
+   "store_name": "PIA伊勢佐木町",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/pia-isezaki.htm",
+   "line_tokens": [
+    "@020yawaw",
+    "@pia_isezakicho"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-30397a9696f2e0cb",
+   "store_name": "PIA横須賀中央",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/pia-y-c.htm",
+   "line_tokens": [
+    "@778sbcki",
+    "https://lin.ee/ItWqP4u"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "pia-yokohama-mo-zu",
+   "store_name": "PIA横浜モアーズ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/pia-y-m.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "hall-b8c21b0b4bda81d9",
+   "store_name": "PIA川崎新川通り店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/ropestation2.htm",
+   "line_tokens": [
+    "https://lin.ee/KGyoDIg",
+    "@224onuqw"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-43832bf3d34f5004",
+   "store_name": "PREST 弥生台店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/dondon.htm",
+   "line_tokens": [
+    "@zat7734l"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-06c31ec72212e8d7",
+   "store_name": "ザ シティ/ベルシティ元住吉店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/city-motosumi.htm",
+   "line_tokens": [
+    "http://line.naver.jp/ti/p/frpaJg2l4c"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hatoya",
+   "store_name": "ハトヤ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/hatoya.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "hinomaru-muk-gaoka-y-en-ten",
+   "store_name": "ヒノマル向ヶ丘遊園店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/hinomaru-mukougaoka.htm",
+   "line_tokens": [
+    "@cfu1692p"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "komparu-hashimoto",
+   "store_name": "コンパル橋本",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/conpal.htm",
+   "line_tokens": [
+    "@aht9625w",
+    "@conpal-h"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "kik-na-totsuka-ten",
+   "store_name": "キコーナ戸塚店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kicona-totsuka.htm",
+   "line_tokens": [
+    "@zag6537r"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-b5215f767512c4ae",
+   "store_name": "小杉プラザ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kosugiplaza.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "sukuramburu-taya-ten",
+   "store_name": "スクランブル田谷店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/scramble.htm",
+   "line_tokens": [
+    "@xrj2329j",
+    "@sc-taya"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "tow-zu-yamato-fukami-ten-1120",
+   "store_name": "トワーズ大和深見店1120",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/towars-yamatofukami.htm",
+   "line_tokens": [
+    "@pmp6295m",
+    "@tw_fukami"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-75c652995806ad35",
+   "store_name": "PASSAGE 弘明寺駅前店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/psg-gumyouziekimae.htm",
+   "line_tokens": [
+    "@pasa7"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "niraku-hiratsuka-kurobeoka-ten",
+   "store_name": "ニラク平塚黒部丘店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/niraku-kurobeoka.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/JmvMWHnhLG"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "maruhan-kawasaki-sakura-honten",
+   "store_name": "マルハン川崎桜本店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/maruhan-sakuramoto.htm",
+   "line_tokens": [
+    "@qvq4128s"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-3ff6c83c170afa2a",
+   "store_name": "パーラー スーパーセブン",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/parlor-superseven.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "hall-d50e82d601b24feb",
+   "store_name": "ＰＲＩＵＳ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/prius.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "maruhan-sagamihara-ten",
+   "store_name": "マルハン相模原店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/maruhan-sagamihara.htm",
+   "line_tokens": [
+    "@ojc7047i"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "tow-zu-atsugi-ten",
+   "store_name": "トワーズ厚木店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/towars-atsugi.htm",
+   "line_tokens": [
+    "@fbf2322z"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "abiba-ebina-ten",
+   "store_name": "アビバ海老名店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/aviva-ebina5555.htm",
+   "line_tokens": [
+    "@743tmazu",
+    "@aviva5555"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "abiba-shinsugita-ten",
+   "store_name": "アビバ新杉田店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/aviva-shinsugita.htm",
+   "line_tokens": [
+    "@521hisef"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-e7472263f7fa35af",
+   "store_name": "Super Slot Club Z",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/ssclub-z.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/ZHbdE3Evru"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-44ff247e6a80abd3",
+   "store_name": "夢球殿",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/yumekyuden.htm",
+   "line_tokens": [
+    "@yumekyuden"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-6d3dcf249959a4cd",
+   "store_name": "グランド アクア",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/grand-aqua.htm",
+   "line_tokens": [
+    "https://eqrcode.co/a/2xqsLX",
+    "@yps1547g",
+    "https://lin.ee/xAeUj2G"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "sunsun-kusu-hommoku-ten",
+   "store_name": "SUNSUNアークス本牧店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/arks-h.htm",
+   "line_tokens": [
+    "@255hlwby"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "abiba-zushi-ekimae-ten",
+   "store_name": "アビバ逗子駅前店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/aviva-zusiekimae.htm",
+   "line_tokens": [
+    "@aviva-zushi",
+    "@344abvxc"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-96bfe9c243f3186d",
+   "store_name": "パチンコＦＵＪＩ伊勢原店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/fuji-isehara.htm",
+   "line_tokens": [
+    "@jxd6147v",
+    "@fuji-isehara"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-03bf109cd8acde55",
+   "store_name": "くいーぷ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/qui-pu.htm",
+   "line_tokens": [
+    "https://lin.ee/AeAxSqv",
+    "@082vrhpq"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "noa-kusu",
+   "store_name": "ノアアークス",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/noaharks.htm",
+   "line_tokens": [
+    "@379gwnyf"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-70484ca736a3a65e",
+   "store_name": "ノア 溝口店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/noah.htm",
+   "line_tokens": [
+    "@489thdnz",
+    "https://lin.ee/t4Ou31Sh"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "sanrakk-sagamihara-ten",
+   "store_name": "サンラッキー相模原店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/sl-sagamihara.htm",
+   "line_tokens": [
+    "https://lin.ee/PquDSQe",
+    "@628hqwbe"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-a74d0d3c82098cbb",
+   "store_name": "スーパーハリウッド",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/sh-isezaki.htm",
+   "line_tokens": [
+    "@eyr1996q"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-ee471f0e0e99e2a4",
+   "store_name": "ＳＫＩＰ関内店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/skip-kannai.htm",
+   "line_tokens": [
+    "https://lin.ee/7Nmd9dp"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "ny-ritchirando",
+   "store_name": "ニューリッチランド",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/newrichland.htm",
+   "line_tokens": [
+    "https://lin.ee/26sAYrF",
+    "@chi7610e"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-50b3144563516470",
+   "store_name": "サンラッキー 中央林間店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/jack-betty-chu.htm",
+   "line_tokens": [
+    "@sunlucky-rinkan"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "purego-yugawara-ten",
+   "store_name": "プレゴ湯河原店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/prego.htm",
+   "line_tokens": [
+    "@232bqwsv"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-c438b4e1226058fb",
+   "store_name": "ピカデリー",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/piccadilly.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/XCtIF6jUFn"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "gurando-h-ru-kaneme-ten",
+   "store_name": "グランドホール金目店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/grandhall-kaname.htm",
+   "line_tokens": [
+    "@gh-kaname"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "p-r-fi-re-tama-pur-za",
+   "store_name": "パーラーフィオーレたまプラーザ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/fiore-tama.htm",
+   "line_tokens": [
+    "@yev3377o"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "kurie-sh-nandai-ten",
+   "store_name": "クリエ湘南台店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/creer-shonandai.htm",
+   "line_tokens": [
+    "@yim9148v"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-a6cdb078a0523b40",
+   "store_name": "ＭＱ（三益球殿） 上川井店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/mimasu-kamikawai.htm",
+   "line_tokens": [
+    "https://lin.ee/LfL9ZdZ",
+    "@sxb3947f"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-648452fa6516a3fd",
+   "store_name": "ＳＫＩＰ小田原ダイヤ街店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/skip-odawara.htm",
+   "line_tokens": [
+    "https://lin.ee/cWjxLMHt",
+    "https://line.me/R/ti/p/@706vdbqq?oat_content=url"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "maruko",
+   "store_name": "マルコ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/p-marco.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/OpBrNI0R_g"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "higashiyoko-fesuta-5",
+   "store_name": "東横フェスタ5",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/toyoko-festa5.htm",
+   "line_tokens": [
+    "https://lin.ee/YUkyiPZ",
+    "@477cfcve"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "green-fujisawa",
+   "store_name": "グリーン藤沢",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/greenholl.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "japanny-arufat-muzu",
+   "store_name": "ジャパンニューアルファテームズ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/jnalpha-thames.htm",
+   "line_tokens": [
+    "@jsy8709u"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "p-ku-sagamihara",
+   "store_name": "ピーアーク相模原",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/p-ark.htm",
+   "line_tokens": [
+    "@park.sagamihara",
+    "@gki0669f"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "maruhan-ayase-kamitsuchidana-ten",
+   "store_name": "マルハン綾瀬上土棚店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/maruhan-ayase-k.htm",
+   "line_tokens": [
+    "@aam8235z"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "afesuta-miharu-machi-ten",
+   "store_name": "アフェスタ三春町店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/afesta.htm",
+   "line_tokens": [
+    "@ipe1372i"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "abiba-tsurumi-ten",
+   "store_name": "アビバ鶴見店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/aviva-tsurumi.htm",
+   "line_tokens": [
+    "@aviva-tsurumi",
+    "@656nuqbb"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "parattso-fujisawa-minami-ten",
+   "store_name": "パラッツォ藤沢南店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/palazzo-fujisawa.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/jIyJ0-7jxZ",
+    "@306dgyhq"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "parattso-hadano-shibusawa-ten",
+   "store_name": "パラッツォ秦野渋沢店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/palazzo-hadano.htm",
+   "line_tokens": [
+    "@lum9244z",
+    "@970tlkvf"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-08678a468fa62e97",
+   "store_name": "PASSAGE３横浜泉店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/passage.htm",
+   "line_tokens": [
+    "@209ibaao"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "gaia-higashitotsuka-ten",
+   "store_name": "ガイア東戸塚店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/gaia-higashi-totsuka.htm",
+   "line_tokens": [
+    "@pfk1259x",
+    "@g-htotsukas"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "pureisupottodoragon",
+   "store_name": "プレイスポットドラゴン",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/play-spot-dragon.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "sent-kita-sank",
+   "store_name": "センター北サンコー",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/sanko.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/IfJ1T7WQwk"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "rakuen-sagamihara-ten",
+   "store_name": "楽園相模原店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/rakuen-sagamihara.htm",
+   "line_tokens": [
+    "https://lin.ee/ecvhVw1",
+    "@962wucpf"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "parattso-tsuru-ke-h-ten",
+   "store_name": "パラッツォ鶴ヶ峰店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/palazzo-tsurugamine.htm",
+   "line_tokens": [
+    "@gpr4023i"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "parattso-tsuru-ke-h-surotto-kan",
+   "store_name": "パラッツォ鶴ヶ峰スロット館",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/palazzo-tsurugamines.htm",
+   "line_tokens": [
+    "@gpr4023i"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "tow-zu-yamato-ten",
+   "store_name": "トワーズ大和店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/towars-yamato.htm",
+   "line_tokens": [
+    "@oiq9986h"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "parattso-sh-nandai-ten",
+   "store_name": "パラッツォ湘南台店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/palazzo-shonandai.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/SYCf00UM1b"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "kui-pu-higashitotsuka-ten",
+   "store_name": "くいーぷ東戸塚店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/p-quipu-totsuka.htm",
+   "line_tokens": [
+    "@gqq6628y"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "ber-ver-ch-rinkan",
+   "store_name": "ベリーヴェリー中央林間",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/berry-very.htm",
+   "line_tokens": [
+    "@berry777"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "skip-surotto-kurabu-odawara-nishiki-d-ri-ten",
+   "store_name": "SKIPスロットクラブ小田原錦通り店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/skip-nishiki.htm",
+   "line_tokens": [
+    "https://lin.ee/DFnuZLW",
+    "https://line.me/R/ti/p/@903uqeqc?oat_content=url"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-13e1f3cce23d354e",
+   "store_name": "スタジアム 二俣川店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/stadium.htm",
+   "line_tokens": [
+    "@sxn9582o"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "abiba-sekiuchi-ten",
+   "store_name": "アビバ関内店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/aviva-kannnai.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/YRBeiYiST8"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "tow-zu-fujisawa-ten",
+   "store_name": "トワーズ藤沢店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/towars-fujisawa.htm",
+   "line_tokens": [
+    "https://lin.ee/GslHCBd",
+    "@nyi9783y"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-56272056c9dcf939",
+   "store_name": "パチンコ＆スロット SHIROYAMA",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/shiroyama.htm",
+   "line_tokens": [
+    "https://lin.ee/ikBiizG"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "doki-waku-rando-ido-ke-tani-ten",
+   "store_name": "ドキわくランド井土ヶ谷店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/dokiwakuland-idogaya.htm",
+   "line_tokens": [
+    "@mnt5245y"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-0943e9ce46a5150a",
+   "store_name": "BRAJAN",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/brajan.htm",
+   "line_tokens": [
+    "@brajan"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-81d23d2360ac8551",
+   "store_name": "PREST平間店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/prest-hiramatenn.htm",
+   "line_tokens": [
+    "http://line.naver.jp/ti/p/WRYbvcbzHJ#~",
+    "@kqy6116j"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-67af17de3fd85a54",
+   "store_name": "ZoRoN",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/2100zoron.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/TTlMSqs2QG",
+    "@zoro888zoro"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "kitch-yokohama-nishiterao-ten",
+   "store_name": "吉兆横浜西寺尾店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kiccho-nishiterao.htm",
+   "line_tokens": [
+    "@318gyyxi"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-9b103243f15e04cc",
+   "store_name": "PREST平間店II",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/hanz.htm",
+   "line_tokens": [
+    "http://line.naver.jp/ti/p/WRYbvcbzHJ#~",
+    "@kqy6116j"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "gaianekusuto-hodogaya",
+   "store_name": "ガイアネクスト保土ヶ谷",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/gaianext-hodogaya.htm",
+   "line_tokens": [
+    "@hcq4677h"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "gurando-h-ru-k-nan-ten",
+   "store_name": "グランドホール港南店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/grand-kounan.htm",
+   "line_tokens": [
+    "@nnh1097m"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "ichibankan-yokohama-izumi-ten",
+   "store_name": "一番舘横浜泉店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/ichibankan-yokohama.htm",
+   "line_tokens": [
+    "@1ban-yokohamaizumi"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "kik-na-t-kaidai-zen-mise",
+   "store_name": "キコーナ東海大前店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kicona-tokaidaimae.htm",
+   "line_tokens": [
+    "@kicona-tokai"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-d8be5720a9636cd2",
+   "store_name": "アビバ 三浦海岸店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/aviva-miura.htm",
+   "line_tokens": [
+    "@aviva-miurakaigan"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-d3dce3cd9b305dcf",
+   "store_name": "キコーナ平塚店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kicona-hiratsuka.htm",
+   "line_tokens": [
+    "@kicona-hiratsuka"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "doki-waku-rando-aikawa-ten",
+   "store_name": "ドキわくランド愛川店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/dokiwaku.htm",
+   "line_tokens": [
+    "@dokiwaku.aikawa",
+    "@lxh7292n"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-c5e95b44e86be1d3",
+   "store_name": "キコーナ伊勢原店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kicona-isehara.htm",
+   "line_tokens": [
+    "@kct0807d"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "kik-na-chigasaki-ten",
+   "store_name": "キコーナ茅ヶ崎店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kicona-chigasaki.htm",
+   "line_tokens": [
+    "@kicona-chigasaki",
+    "@791tlpxw"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "doragon-odaky-sagamihara-ten",
+   "store_name": "ドラゴン小田急相模原店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/newdragon.htm",
+   "line_tokens": [
+    "@drasaga"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-6879991203bb9d23",
+   "store_name": "P-rex",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/p-rex.htm",
+   "line_tokens": [
+    "@349rrnni"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-398e3ccc3c3474a3",
+   "store_name": "VIVAヤスダ相模原店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/yasuda-sagamihara.htm",
+   "line_tokens": [
+    "https://lin.ee/nnijOFW",
+    "@uxu3235e"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "sagami-no-uno",
+   "store_name": "相模大野UNO",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/1060uno.htm",
+   "line_tokens": [
+    "@hns2182h"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-10ffaea544c3653c",
+   "store_name": "フェスタ8",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/toyoko-festa8.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "sh-z-suparesu",
+   "store_name": "シーザースパレス",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/seasars-palace.htm",
+   "line_tokens": [
+    "@680msqmy"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-ad2388ecfad0dc62",
+   "store_name": "キコーナ相武台店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kicona-sobudai.htm",
+   "line_tokens": [
+    "https://line.me/ti/p/iS6_6RowQW",
+    "@dmv3549t"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-f16e58d7fcda98bd",
+   "store_name": "J I N",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/jin.htm",
+   "line_tokens": [
+    "@bqu5889m"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "higashiyoko-fesuta-1",
+   "store_name": "東横フェスタ1",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/toyoko-festa1.htm",
+   "line_tokens": [
+    "https://lin.ee/LoRj9gu",
+    "@671glvvx"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-5bcb34ef9ca0733a",
+   "store_name": "ヒノマル新城店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/hinomaru-shinjo.htm",
+   "line_tokens": [
+    "@976wwsvi"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-c87277226308d8d0",
+   "store_name": "ヒノマルパチンコ新城駅前店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/hinomarushinjoekimae.htm",
+   "line_tokens": [
+    "@976wwsvi"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "odaky-sagamihara-uno",
+   "store_name": "小田急相模原UNO",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/1140uno.htm",
+   "line_tokens": [
+    "@qkd3223e",
+    "https://line.me/ti/p/frpaJg2l4c"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "kik-na-isezaki-ten",
+   "store_name": "キコーナ伊勢佐木店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kicona-isezaki.htm",
+   "line_tokens": [
+    "https://lin.ee/87PQCWh",
+    "https://line.me/R/ti/p/@isezaki"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-f39976506d3719e5",
+   "store_name": "アビバANNEX ＆ SQUARE",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/aviva-anex.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/F0H8DXmDgc",
+    "@zsi4220v",
+    "@699vgvxm",
+    "https://lin.ee/YoFskeb"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-0907ae6121491bb4",
+   "store_name": "楽園 One Wien 川崎店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/rakuen-kawasaki-one.htm",
+   "line_tokens": [
+    "https://lin.ee/ABRATwX",
+    "@rakuen-shinoomiya"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "red-stadium-uwamizo-ten",
+   "store_name": "RED STADIUM上溝店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/stadium-kamimizo.htm",
+   "line_tokens": [
+    "https://lin.ee/tdnRcN9",
+    "@jub1351o"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "kitch-kawasaki-nogawa-ten",
+   "store_name": "吉兆川崎野川店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kiccho-nogawa.htm",
+   "line_tokens": [
+    "@565yasud"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-71b2fffc46d836fc",
+   "store_name": "ビッグパンドラ 井土ヶ谷店 本館",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/pandora-i.htm",
+   "line_tokens": [
+    "https://lin.ee/BdCLHlZ",
+    "@903ndacx",
+    "@949hkhtd"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "tow-zu-sagamihara-ten",
+   "store_name": "トワーズ相模原店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/towars-sagamihara.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/dTp8rsXV6A",
+    "@bck0569v"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-08a3317b78b78e0d",
+   "store_name": "＠！[アット]磯子",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/at-isogo.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "kitch-kawasaki-ch-ten",
+   "store_name": "吉兆川崎中央店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kiccho-chuo.htm",
+   "line_tokens": [
+    "@188akqky"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "kitch-t-mei-kawasaki-ten",
+   "store_name": "吉兆東名川崎店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kiccho-tomeikawasaki.htm",
+   "line_tokens": [
+    "@567pylga"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "japan-ny-arufa-kurami-ten",
+   "store_name": "ジャパンニューアルファ倉見店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/jnalpha-kurami.htm",
+   "line_tokens": [
+    "@fpu2515q"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "rakuen-mizo-no-kuchi-ten",
+   "store_name": "楽園溝の口店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/rakuen-mizonokuchi.htm",
+   "line_tokens": [
+    "http://line.naver.jp/ti/p/j5yhiGC6kM"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "s-p-d-sut-shon-zama-ten",
+   "store_name": "スーパーDステーション座間店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/superdstation-zama.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "pia-keiky-kawasaki",
+   "store_name": "PIA京急川崎",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/pia-k.htm",
+   "line_tokens": [
+    "@rmh1818e"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "abiba-sh-nandai-ten",
+   "store_name": "アビバ湘南台店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/aviva-shonandai.htm",
+   "line_tokens": [
+    "@lxh1446l"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "pia-kawasaki-daisu",
+   "store_name": "PIA川崎ダイス",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/pia-k-d.htm",
+   "line_tokens": [
+    "@678nekpj",
+    "@pia_dice"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "jiasusent-minami",
+   "store_name": "ジアスセンター南",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/ziath-c.htm",
+   "line_tokens": [
+    "@rbt8267i"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "p-ku-sagami-no",
+   "store_name": "ピーアーク相模大野",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/p-ark-sagamioono.htm",
+   "line_tokens": [
+    "@515hybfb",
+    "@644zqfzq",
+    "@park.sagamiohno.a"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "abiba-kami-oka-ten",
+   "store_name": "アビバ上大岡店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/aviva-kamioka.htm",
+   "line_tokens": [
+    "@bzi0364s",
+    "@isg5065c",
+    "@072akruj"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "p-ru-shoppu-tomo-e-yamato-ten",
+   "store_name": "パールショップともえ大和店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/yamatomo.htm",
+   "line_tokens": [
+    "@571nrntj",
+    "@tomoe69yamato"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "p-ru-shoppu-tomo-e-fuchinobe-ten",
+   "store_name": "パールショップともえ淵野辺店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/fuchitomo.htm",
+   "line_tokens": [
+    "@781yaczj"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "tomoe-sen-minami-eki-sugu-yo-ko-ten",
+   "store_name": "ともえセン南駅すぐよこ店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/tomoe-center-minami.htm",
+   "line_tokens": [
+    "https://lin.ee/qOJdV4c",
+    "@t69center",
+    "@923wgquw"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-fa95740895177d9e",
+   "store_name": "ジャパンニューアルファ綾瀬寺尾店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/jnalpha.htm",
+   "line_tokens": [
+    "@jn-a-terao",
+    "@ruz9878m"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "abiba-miharu-machi-ten",
+   "store_name": "アビバ三春町店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/aviva-miharucho.htm",
+   "line_tokens": [
+    "@aviva0422miharu",
+    "@gga9118w",
+    "@441scmdp"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "kik-na-ebina-ten",
+   "store_name": "キコーナ海老名店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kicona-ebina.htm",
+   "line_tokens": [
+    "@kicona-ebina",
+    "@wfk4016v"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "maruhan-hiratsuka-ten",
+   "store_name": "マルハン平塚店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/maruhan-hiratsuka.htm",
+   "line_tokens": [
+    "@vyy9794k",
+    "@m0463512105"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "gurando-ta-atsugi-ten",
+   "store_name": "グランドオータ厚木店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/grandohta-atsugi.htm",
+   "line_tokens": [
+    "@vpx8961w"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "new-garden-totsuka",
+   "store_name": "新！ガーデン戸塚",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/garden-totsuka.htm",
+   "line_tokens": [
+    "@jri9235n",
+    "@g-totsuka"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "arrow-hiratsuka-ten",
+   "store_name": "ARROW平塚店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/arrow-hiratsuka.htm",
+   "line_tokens": [
+    "@fqp0469n",
+    "@arrow-hiratsuka"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "gurando-ta-seya-ten",
+   "store_name": "グランドオータ瀬谷店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/ohta-seya.htm",
+   "line_tokens": [
+    "@wtq0158l",
+    "@ohta-seya"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "p-ku-shinj-makkusu-pachinko",
+   "store_name": "ピーアーク新城マックスパチンコ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/himawari-shinjo.htm",
+   "line_tokens": [
+    "@owf8878n",
+    "https://lin.ee/n6kYbhw"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "erand-ru-izumi-ten",
+   "store_name": "エランドール泉店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/elandor.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "yokohama-po-pai",
+   "store_name": "横浜ポパイ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/popeye.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "doki-waku-rando-yamato-ekimae-ten",
+   "store_name": "ドキわくランド大和駅前店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/grandohta-yamato.htm",
+   "line_tokens": [
+    "@dokiwaku-yamato",
+    "@gmz6539o"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "abiba-tsunashima-minami-ten",
+   "store_name": "アビバ綱島南店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/aviva-tunasimaminami.htm",
+   "line_tokens": [
+    "@585sgrtl",
+    "@120gvvvr"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "gurankik-na-sagamihara-ten",
+   "store_name": "グランキコーナ相模原店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/grankicona.htm",
+   "line_tokens": [
+    "https://lin.ee/YBifLog",
+    "@088webeb"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-607cb0916e371b96",
+   "store_name": "キコーナ厚木北店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kicona-atsugikita.htm",
+   "line_tokens": [
+    "@kicona-atsugikita"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "ginzah-ru-707",
+   "store_name": "ギンザホール707",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/ginzahall.htm",
+   "line_tokens": [
+    "https://t.co/P8vsZVxCGl",
+    "@351eiuvz"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "deizu-shinsugita-ten",
+   "store_name": "デイズ新杉田店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/days.htm",
+   "line_tokens": [
+    "https://lin.ee/ce3EkJ1",
+    "@days-shinsugita",
+    "@248gwgrk"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "skip-surotto-kurabu-shin-yokohama-ten",
+   "store_name": "SKIPスロットクラブ新横浜店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/skip-sc-shinyoko.htm",
+   "line_tokens": [
+    "https://lin.ee/uBoaBhD"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-1003b8d33c81c863",
+   "store_name": "甲子園２",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/koshien2.htm",
+   "line_tokens": [
+    "@koshien2"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "gaia-wada-machi-ten",
+   "store_name": "ガイア和田町店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/gaia-wadamachi.htm",
+   "line_tokens": [
+    "@g-wadamachi",
+    "@639xaalr"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-bf56f04e72466730",
+   "store_name": "ＰＲＥＳＴ三ツ境店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/hanz-mitsukyo.htm",
+   "line_tokens": [
+    "@nfh1926t"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "asahi-2-shika-shimada-ten",
+   "store_name": "アサヒ2鹿島田店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/asahi2-kashimada.htm",
+   "line_tokens": [
+    "https://lin.ee/olvACXY",
+    "@742nrfox"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "higashiyoko-fesuta-3",
+   "store_name": "東横フェスタ3",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/toyoko-festa3.htm",
+   "line_tokens": [
+    "https://lin.ee/pc9JKIg",
+    "@576ncfpf"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "abiba-tsunashima-taru-machi-ten",
+   "store_name": "アビバ綱島樽町店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/aviva-tsunashima.htm",
+   "line_tokens": [
+    "@vbv7336k",
+    "https://lin.ee/RDfHLIZ"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-f931697dc1527592",
+   "store_name": "ベルシティザシティ川崎店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/city.htm",
+   "line_tokens": [
+    "@city-kawasaki0714",
+    "@087ajvql"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "esupasu-bi-tsubuse-mizonokuchi-ekimae-shinkan",
+   "store_name": "エスパス日拓溝の口駅前新館",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/espace-mizo2.htm",
+   "line_tokens": [
+    "@knk3389q"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "sampachinko",
+   "store_name": "サンパチンコ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/sun.htm",
+   "line_tokens": [
+    "@seg8641p"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-af3450c4fdeb6190",
+   "store_name": "セントラル",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/central.htm",
+   "line_tokens": [
+    "@509ollzt"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-556adea332c58e19",
+   "store_name": "SKIP六角橋店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/skip-rokkaku.htm",
+   "line_tokens": [
+    "https://lin.ee/6pFfLGv",
+    "https://line.me/R/ti/p/@448duscj?oat_content=url"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "mega-feisu-1180-zama",
+   "store_name": "メガフェイス1180座間",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/megaface-zama.htm",
+   "line_tokens": [
+    "@811gyfrr"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "maruhan-chigasaki-ten",
+   "store_name": "マルハン茅ヶ崎店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/maruhan-chigasaki.htm",
+   "line_tokens": [
+    "@zhx5199z"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-ae591645708b6a97",
+   "store_name": "ザ シティ／ベルシティ相模大野店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/city-sagamioono.htm",
+   "line_tokens": [
+    "@dxp3123e"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "gaianekusuto-ebina-ekimae-ten",
+   "store_name": "ガイアネクスト海老名駅前店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/gaianext-ebina.htm",
+   "line_tokens": [
+    "@yfg7107w"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-1dbcb73a25b2cb4a",
+   "store_name": "オークラプラスアサヒ武蔵中原店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/o-kuramusasinakahara.htm",
+   "line_tokens": [
+    "@ok634"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-dbcd75ccf6a45d28",
+   "store_name": "チャレンジャーＡ館",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/challenger-a.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/_XJTaZZeKH"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "ky-ei-kaikan",
+   "store_name": "共栄会館",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kyoei.htm",
+   "line_tokens": [
+    "@fgv0630r"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "higashiyoko-fesuta-2",
+   "store_name": "東横フェスタ2",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/toyoko-festa2.htm",
+   "line_tokens": [
+    "https://lin.ee/p17Zuo4",
+    "@228wgojz"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "charenj-b-kan",
+   "store_name": "チャレンジャーB館",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/challenger-h.htm",
+   "line_tokens": [
+    "https://t.co/ZYrfH5tczt",
+    "@cim6080b"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-c4a5d97eabdc6501",
+   "store_name": "パチンコＦＵＪＩ相模原店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/fuji-sagamihara.htm",
+   "line_tokens": [
+    "@iyb7939k"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-04cdbadc9a018193",
+   "store_name": "パサージュ寒川店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/passage-samukawa.htm",
+   "line_tokens": [
+    "@samu-pass"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-144819bfcd74ebff",
+   "store_name": "ヒノマル新丸子東口 パチンコ館",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/h-east.htm",
+   "line_tokens": [
+    "@zkx8098z"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-e3ad828521fb24fc",
+   "store_name": "キコーナ仲町台店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kicona-nakamachidai.htm",
+   "line_tokens": [
+    "@k-nakamachidai",
+    "@luh1944r"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "new-garden-shiki-no-mori-ten",
+   "store_name": "新！ガーデン四季の森店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/garden-shikinomori.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "hall-cb4a4ae9e73feb4c",
+   "store_name": "バンバンブラッサム",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/banban-brasam.htm",
+   "line_tokens": [
+    "@banban-b"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "gaianekusuto-mitsuzakai",
+   "store_name": "ガイアネクスト三ツ境",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/gaianext-mitsukyo1.htm",
+   "line_tokens": [
+    "@tml0844h",
+    "@gn-mitsukyo1"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-86d2c28146564510",
+   "store_name": "キコーナ溝の口店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kicona-mizonokuchi.htm",
+   "line_tokens": [
+    "@ieo8975u"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-15128bafeea01e61",
+   "store_name": "ザシティベルシティ新杉田店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/city-sugita.htm",
+   "line_tokens": [
+    "@sugita0316"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "happy-g-fujisawa",
+   "store_name": "HAPPY G・FUJISAWA",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/happy-g-fujisawa.htm",
+   "line_tokens": [
+    "@537qxtzc"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-4821a264d99fa917",
+   "store_name": "スリーエイト",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/888-threeeight.htm",
+   "line_tokens": [
+    "@239bwzhe"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-c8ceca30d4444ff1",
+   "store_name": "ニュースター",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/new-star.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "maruhan-hashimotodai-ten",
+   "store_name": "マルハン橋本台店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/maruhan-hashimotodai.htm",
+   "line_tokens": [
+    "@bls7088c"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-adf89234124829c8",
+   "store_name": "エスタディオ本牧",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/estadio.htm",
+   "line_tokens": [
+    "https://lin.ee/KEMAO7Q",
+    "@319ivssr"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-ced83678b3afd82e",
+   "store_name": "ＨＥＩＷＡ ＣＥＮＴＥＲ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/heiwa.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "sap-atsugi",
+   "store_name": "SAP厚木",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/sapatsugi.htm",
+   "line_tokens": [
+    "@996ljlrb"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "tsurumi-uno",
+   "store_name": "鶴見UNO",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/2080uno.htm",
+   "line_tokens": [
+    "http://line.naver.jp/ti/p/zbZELD_gBB",
+    "@uno-tsurumi",
+    "@lpb7668j"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "glow-amusementhall",
+   "store_name": "glow AMUSEMENTHALL",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/glow.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/jmoxQAgZFb"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "t-k",
+   "store_name": "ターキー",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/turkey.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "champion-tana-ten",
+   "store_name": "チャンピオン田名店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/champion-tana.htm",
+   "line_tokens": [
+    "@champion8"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "puraza-kami-oka-ando-mir-ju",
+   "store_name": "プラザ上大岡アンドミラージュ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/mirage-pk.htm",
+   "line_tokens": [
+    "@eos1245x",
+    "@mirage-PK"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "japan-ny-arufa-sagamihara-minami-ten",
+   "store_name": "ジャパンニューアルファ相模原南店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/jnalpha-sagamihara.htm",
+   "line_tokens": [
+    "@zib7516e"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "sebun-s-kawasaki-ten",
+   "store_name": "セブンS川崎店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/seven-s.htm",
+   "line_tokens": [
+    "@613lylgc"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-827d9a5fc9367864",
+   "store_name": "エスパス日拓溝の口駅前本館",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/espace-mizo1.htm",
+   "line_tokens": [
+    "http://line.naver.jp/ti/p/fhPtpPCMNI"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "monos-kawasaki",
+   "store_name": "MONOS川崎",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/monos-kawasaki.htm",
+   "line_tokens": [
+    "https://line.me/ti/p/yNGZwJPRQ-",
+    "@monoskawasaki"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "kintoki-tsurumi-ten",
+   "store_name": "金時鶴見店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kintoki-turumi.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/bcWIMT5vIR",
+    "@kintoki-tsurumi"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "maruhan-atsugi-ten",
+   "store_name": "マルハン厚木店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/maruhan-shinatsugi.htm",
+   "line_tokens": [
+    "@ggz8372o"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "maruhan-hirasawa-ten",
+   "store_name": "マルハン平沢店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/maruhan-hirasawa.htm",
+   "line_tokens": [
+    "@m0463836905",
+    "@fjb0514w"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-fb9dc3bc95c9ecb6",
+   "store_name": "アクセス",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/access-n.htm",
+   "line_tokens": [
+    "@hsg2482n",
+    "@090ggecp"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-1ff439bb2e6000c4",
+   "store_name": "MONOS 寒川南館",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/monos-samukawaminami.htm",
+   "line_tokens": [
+    "@monossamukawasouth"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "maruhammegashiti-yokohama-machida",
+   "store_name": "マルハンメガシティ横浜町田",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/maruhan-y-machida.htm",
+   "line_tokens": [
+    "@ita3769h"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "sh-saido-puraza",
+   "store_name": "シーサイドプラザ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/seasideplaza.htm",
+   "line_tokens": [
+    "@632ygztc",
+    "@seaside444"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "maruhan-atsugi-kita-ten",
+   "store_name": "マルハン厚木北店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/maruhan-atsugikita.htm",
+   "line_tokens": [
+    "@ukw5467h"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "maruhan-tsurumi-ten",
+   "store_name": "マルハン鶴見店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/maruhan-tsurumi.htm",
+   "line_tokens": [
+    "@mni9715f"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "monos-chigasaki",
+   "store_name": "MONOS茅ヶ崎",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/monos-chigasaki.htm",
+   "line_tokens": [
+    "https://line.me/ti/p/30hUYwM2qo"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-eb81423673719a16",
+   "store_name": "ＤＩＶＡＳ（ディーバス柿生）",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/divas-k.htm",
+   "line_tokens": [
+    "https://lin.ee/WoK3Nbm",
+    "@444qnpgh"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-fa602d8bd96d0ae2",
+   "store_name": "ニラク海老名本郷店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/niraku-ebinahongo.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/TckpP9yoA8"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-ee9b7339966d9c2a",
+   "store_name": "TENMAN",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/tenman.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "slot-act",
+   "store_name": "SLOT ACT",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/s-act.htm",
+   "line_tokens": [
+    "https://lin.ee/EYXcMkl",
+    "@uan3527z"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "sebun-sut",
+   "store_name": "セブンスター",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/sevenstars.htm",
+   "line_tokens": [
+    "https://lin.ee/Wx5o2bp",
+    "@580nxsxs"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "ja-ran-hiratsuka-ten",
+   "store_name": "ジャラン平塚店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/jaran-hiratsuka.htm",
+   "line_tokens": [
+    "@uvb7365o"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-6c35e33ed1f49673",
+   "store_name": "ＭＱ（三益球殿） 大井松田店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/mimasu-oimatuda.htm",
+   "line_tokens": [
+    "@vfo2345v"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-8a1f97c6ecce3448",
+   "store_name": "ＨＹＤＲＡ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/hydra.htm",
+   "line_tokens": [
+    "@qyk6946v"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-d223a2d43de0afbb",
+   "store_name": "ダイナム神奈川秦野店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/dynam-hadano.htm",
+   "line_tokens": [
+    "@oqt0834u"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-bbb9a6a253b8c9c3",
+   "store_name": "ＭＱ（三益球殿） 開成町店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/mimasu-kaisei.htm",
+   "line_tokens": [
+    "@lxp3458h"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-cfa30448840c7118",
+   "store_name": "ＭＱ（三益球殿） 藤沢店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/mq-fujisawa.htm",
+   "line_tokens": [
+    "@hfu4239v"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-ad4871198df781bf",
+   "store_name": "ダック2",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/dac2.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "hall-587b423e47094de5",
+   "store_name": "スタジアム",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/kawasaki-stadium.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "hall-ebc1e503ffcb6f3c",
+   "store_name": "WEST END",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/westend.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/pZu1bJ3WL6"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "sap-sagamihara",
+   "store_name": "SAP相模原",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/sap-sagamihara.htm",
+   "line_tokens": [
+    "@sapsagamihara"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "ichibankan-sagamihara-ten",
+   "store_name": "一番舘 相模原店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/1bankan-sagamihara.htm",
+   "line_tokens": [
+    "@dse9977u"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-27c55f530b3e8b02",
+   "store_name": "ルビーセブン",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/rubyseven.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "hall-7bbd96088e6b4c19",
+   "store_name": "GAUDI湘南茅ヶ崎スロット館",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/gaudichigasaki-s.htm",
+   "line_tokens": [
+    "@083eciyg"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-350372cca70cff26",
+   "store_name": "ＳＫＩＰ新横浜店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/skip-shinyoko.htm",
+   "line_tokens": [
+    "https://lin.ee/uBoaBhD",
+    "@568gxsyg"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-273521382f28ee59",
+   "store_name": "Ｊ－ＯＮＥ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/jone.htm",
+   "line_tokens": [
+    "@593rmyvc"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-148b2c74432ac42e",
+   "store_name": "相模原プラザ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/sagamihara-plaza.htm",
+   "line_tokens": [
+    "@sagamihara-plaza",
+    "@287maeow"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-a9c240cd67cc41c4",
+   "store_name": "アクセスII・III",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/access23.htm",
+   "line_tokens": [
+    "@hsg2482n"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "akusesu-kawasaki-ten",
+   "store_name": "アクセス川崎店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/access-s.htm",
+   "line_tokens": [
+    "@686mcgro"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-ff7ea4f8edc76b3c",
+   "store_name": "GAUDI湘南茅ヶ崎",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/gaudishonanchigasaki.htm",
+   "line_tokens": [
+    "@396dibor"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-7b0928b243406b83",
+   "store_name": "パーラーWASUKE",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/wasuke.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "hall-3fe656521acf92fc",
+   "store_name": "スリーセブン２",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/three-seven.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "hall-6feb9bf63a2c456a",
+   "store_name": "MQリゾート 東神奈川店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/higashi-mq-resort.htm",
+   "line_tokens": [
+    "https://line.me/R/ti/p/fMBPXSr3HS"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-f5bc270b0a85f02f",
+   "store_name": "ＧＵＳＴＹ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/gusty.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "hall-e38b800266a23135",
+   "store_name": "パチンコサロン ヴィジュ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/bijou.htm",
+   "line_tokens": [
+    "@bijyou-hiyoshi39"
+   ],
+   "status": "pending"
+  },
+  {
+   "hall_id": "hall-f86aa50f660cb2fe",
+   "store_name": "青葉台会館",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/aobadai-kaikan.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "ny-shatoru",
+   "store_name": "ニューシャトル",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/new-shuttle.htm",
+   "line_tokens": [
+    "@359gpeap"
+   ],
+   "status": "registered"
+  },
+  {
+   "hall_id": "hall-9e34d2b37bb1049f",
+   "store_name": "センチュリーII",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/century2.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "hall-5ec59c31133168e7",
+   "store_name": "パチスロ イレブン 浅田店",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/a-eleven.htm",
+   "line_tokens": [],
+   "status": "no_line_listed"
+  },
+  {
+   "hall_id": "hall-d446b305d0d64f08",
+   "store_name": "カサブランカ",
+   "pworld_detail_url": "https://www.p-world.co.jp/kanagawa/casablanca.htm",
+   "line_tokens": [
+    "@nlp8584u",
+    "https://liff.line.me/1645278921-kWRPP32q/?accountId=nlp8584u"
+   ],
+   "status": "pending"
+  }
+ ]
+}

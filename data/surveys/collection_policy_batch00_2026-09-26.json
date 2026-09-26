@@ -1,0 +1,220 @@
+{
+ "schema_version": 1,
+ "policy_id": "collection_policy_batch00_2026-09-26",
+ "source_inventory": null,
+ "source_review": "collection_policy_batch00_2026-09-26_review",
+ "scheduler_modified": false,
+ "passive_collector_modified": false,
+ "daily_policy": {
+  "type_a_passive": "passive scan only",
+  "type_b_passive_plus_active": "passive scan + scheduled active trigger (text trigger when text_trigger_verified, otherwise the verified rich-menu action)",
+  "type_c_passive_external_web": "passive scan only; external_url is an auxiliary source",
+  "unresolved": "passive scan only until evidence is sufficient"
+ },
+ "counts": {
+  "type_a_passive": 0,
+  "type_b_passive_plus_active": 3,
+  "type_c_passive_external_web": 1,
+  "unresolved": 3
+ },
+ "store_count": 7,
+ "stores": [
+  {
+   "hall_id": "jiasu-k-nandai",
+   "line_source_key": "@fap2637x",
+   "store_name": "ジアス港南台",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/jiasu-k-nandai.jpg",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/jiasu-k-nandai.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "Banner only points to the tiles below; no dedicated latest-information tile."
+  },
+  {
+   "hall_id": "taig-7-tsunashima-ten",
+   "line_source_key": "@237gsfjs",
+   "store_name": "タイガー7綱島店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "21時更新 PUSH 最新情報",
+   "action_result": "line_reply",
+   "collection_type": "type_b_passive_plus_active",
+   "active_method": "rich_menu",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/taig-7-tsunashima-ten.jpg",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/taig-7-tsunashima-ten.xml",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/actions/taig-7-tsunashima-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/actions/taig-7-tsunashima-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/actions/taig-7-tsunashima-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/actions/action_results.jsonl#taig-7-tsunashima-ten"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": true,
+    "external_url_role": null
+   },
+   "notes": "Image message appeared right after the tap; no user-side text bubble."
+  },
+  {
+   "hall_id": "gaia-wada-machi-ten",
+   "line_source_key": "@g-wadamachi",
+   "store_name": "ガイア和田町店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/gaia-wada-machi-ten.jpg",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/gaia-wada-machi-ten.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   }
+  },
+  {
+   "hall_id": "abiba-tsunashima-minami-ten",
+   "line_source_key": "@120gvvvr",
+   "store_name": "アビバ綱島南店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "最新情報",
+   "action_result": "line_reply",
+   "collection_type": "type_b_passive_plus_active",
+   "active_method": "rich_menu",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/abiba-tsunashima-minami-ten.jpg",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/abiba-tsunashima-minami-ten.xml",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/actions/abiba-tsunashima-minami-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/actions/abiba-tsunashima-minami-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/actions/abiba-tsunashima-minami-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/actions/action_results.jsonl#abiba-tsunashima-minami-ten"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": true,
+    "external_url_role": null
+   },
+   "notes": "Image message appeared right after the tap; no user-side text bubble."
+  },
+  {
+   "hall_id": "ny-ritchirando",
+   "line_source_key": "@chi7610e",
+   "store_name": "ニューリッチランド",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/ny-ritchirando.jpg",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/ny-ritchirando.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "Welcome message advertises machine-data keyword search (台番号/機種名)."
+  },
+  {
+   "hall_id": "kik-na-odawara-gimachi-ten",
+   "line_source_key": "@hkg7433u",
+   "store_name": "キコーナ小田原扇町店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "NEW 毎日21時更新! 最新情報",
+   "action_result": "line_reply",
+   "collection_type": "type_b_passive_plus_active",
+   "active_method": "rich_menu",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/kik-na-odawara-gimachi-ten.jpg",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/kik-na-odawara-gimachi-ten.xml",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/actions/kik-na-odawara-gimachi-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/actions/kik-na-odawara-gimachi-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/actions/kik-na-odawara-gimachi-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/actions/action_results.jsonl#kik-na-odawara-gimachi-ten"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": true,
+    "external_url_role": null
+   },
+   "notes": "Image message appeared right after the tap; no user-side text bubble."
+  },
+  {
+   "hall_id": "gaia-higashitotsuka-ten",
+   "line_source_key": "@pfk1259x",
+   "store_name": "ガイア東戸塚店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "NEW 最新情報",
+   "action_result": "external_web",
+   "collection_type": "type_c_passive_external_web",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": "https://p-town.dmm.com/shops/kanagawa/4532",
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/gaia-higashitotsuka-ten.jpg",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/gaia-higashitotsuka-ten.xml",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/actions/gaia-higashitotsuka-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/actions/gaia-higashitotsuka-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/actions/gaia-higashitotsuka-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/actions/action_results.jsonl#gaia-higashitotsuka-ten"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": "auxiliary_source"
+   },
+   "notes": "Opened the DMMぱちタウン store page in the LINE in-app browser."
+  }
+ ]
+}

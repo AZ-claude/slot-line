@@ -442,6 +442,25 @@ def build_policy_row(record: dict[str, Any], review: dict[str, Any] | None) -> d
     return row
 
 
+def onboarding_inventory_record(record: dict[str, Any], review: dict[str, Any] | None) -> dict[str, Any]:
+    """Inventory-shaped record for a newly onboarded store; menu status comes from the review."""
+    attempt = next(item for item in record["attempts"] if item.get("result") == "onboarded")
+    menu_status = (review or {}).get("rich_menu_status", "not_observed")
+    return {
+        "hall_id": record["hall_id"],
+        "collector_key": record["hall_id"],
+        "line_source_key": record["line_source_key"],
+        "store_name": record["store_name"],
+        "identity_verified": True,
+        "rich_menu_observation": {"status": menu_status, "evidence_refs": [attempt["screenshot"], attempt["ui_xml"]]},
+        "action_candidates_status": "not_observed",
+        "action_execution": {"status": "not_attempted", "result": "unknown", "action_kind": None, "observed_destinations": []},
+        "text_trigger_route_status": "not_observed",
+        "text_trigger_verified": False,
+        "evidence_sources": {"active_evidence_refs": []},
+    }
+
+
 def build_policy_table(inventory: dict[str, Any], review: dict[str, Any]) -> dict[str, Any]:
     reviews = review.get("stores", {})
     unknown = set(reviews) - {record["hall_id"] for record in inventory["records"]}
@@ -474,12 +493,19 @@ def main(argv: list[str] | None = None) -> int:
     from pathlib import Path
 
     parser = argparse.ArgumentParser(description="Build the permanent per-store collection policy table.")
-    parser.add_argument("--inventory", type=Path, required=True)
+    parser.add_argument("--inventory", type=Path)
+    parser.add_argument("--onboarding", type=Path, nargs="*", default=[], help="onboarding outputs whose onboarded stores are added")
     parser.add_argument("--review", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
-    inventory = classify_inventory(json.loads(args.inventory.read_text(encoding="utf-8")))
-    table = build_policy_table(inventory, json.loads(args.review.read_text(encoding="utf-8")))
+    review = json.loads(args.review.read_text(encoding="utf-8"))
+    raw_inventory = json.loads(args.inventory.read_text(encoding="utf-8")) if args.inventory else {"records": []}
+    for path in args.onboarding:
+        for record in json.loads(path.read_text(encoding="utf-8"))["records"]:
+            if record.get("result") == "onboarded":
+                raw_inventory["records"].append(onboarding_inventory_record(record, review.get("stores", {}).get(record["hall_id"])))
+    inventory = classify_inventory(raw_inventory)
+    table = build_policy_table(inventory, review)
     args.output.write_text(json.dumps(table, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(json.dumps(table["counts"], ensure_ascii=False))
     return 0

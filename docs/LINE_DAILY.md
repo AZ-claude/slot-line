@@ -124,3 +124,19 @@ python3 -m scripts.active_acquisition_policy \
 - action mappingは明確な最新情報系タイルに1店舗1回だけ実行し、結果を見た場合のみ`line_reply`/`external_web`とする。LIFF同意画面は許可せず`liff_consent_required`として残す。
 - rich menu tapで送信文字列が見えない（postback型）店舗は、text triggerの同等性を検証しない。
 - ownerが手動で確認した結果（LIFF同意後の遷移先、ラベル内容の判断）は`owner_reported_action_result`/`owner_confirmed_no_collection_action`としてcollector観測と区別し、confidenceは`medium`に留める。
+
+## 対象店舗の拡大（onboarding）
+
+候補は`slot-kanagawa-hall-master`の`halls.csv`とP-WORLD LINE一覧を店名で結合して作る（`data/surveys/line_target_candidates_kanagawa_2026-09-26.json`）。
+
+```
+python3 scripts/onboard_line_targets.py onboard --candidates data/surveys/line_target_candidates_kanagawa_2026-09-26.json \
+  --hall-ids <30件以内> --output data/surveys/line_onboarding_batchNN_<date>.json --evidence-dir data/surveys/line_onboarding_batchNN_<date>_evidence
+python3 scripts/onboard_line_targets.py registry   # data/line_targets.json を再生成
+python3 scripts/collect_passive_incremental.py --target-set registry --run-id <id>
+```
+
+- 本人確認はプロフィールに出るP-WORLD URLがhall masterと一致するか、正規化した店名（末尾の「店」の有無は同一扱い）が一致した場合のみ。確認できなければ友だち追加しない。
+- `lin.ee`短縮URLはMac側でリダイレクト先に解決してから開く。「表示できません」ダイアログのIDは無効として記録する。
+- 端末は縦向き・画面点灯が前提（onboardは消灯時にWAKEUPし、横向きなら中断する）。
+- registryモードは`data/line_targets.json`を読み、checkpointにない店舗は初回観測として基準化する。20/41の固定モードは変更しない。

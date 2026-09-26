@@ -1,0 +1,233 @@
+{
+ "schema_version": 1,
+ "records": [
+  {
+   "hall_id": "jiasu-k-nandai",
+   "store_name": "ジアス港南台",
+   "attempts": [
+    {
+     "line_source_key": "@fap2637x",
+     "url": "https://line.me/R/ti/p/%40fap2637x",
+     "first_screen": "chat",
+     "identity": "verified_normalized_name",
+     "friend_added": false,
+     "already_friend": true,
+     "chat_header": "ジアス 港南台",
+     "screenshot": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/jiasu-k-nandai.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/jiasu-k-nandai.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@fap2637x",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-09-26T14:04:36.846006+00:00",
+   "friend_added_note": "Friend-added at 2026-09-26T23:03 JST during a trial run whose record was lost to an evidence-path bug; the rerun found the chat already open."
+  },
+  {
+   "hall_id": "taig-7-tsunashima-ten",
+   "store_name": "タイガー7綱島店",
+   "attempts": [
+    {
+     "line_source_key": "@237gsfjs",
+     "url": "https://line.me/R/ti/p/%40237gsfjs",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/taig-7-tsunashima-ten_profile_0.xml",
+     "profile_name": "タイガー7綱島店",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "タイガー7綱島店",
+     "screenshot": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/taig-7-tsunashima-ten.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/taig-7-tsunashima-ten.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@237gsfjs",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-09-26T14:12:11.567712+00:00"
+  },
+  {
+   "hall_id": "gaia-wada-machi-ten",
+   "store_name": "ガイア和田町店",
+   "attempts": [
+    {
+     "line_source_key": "@g-wadamachi",
+     "url": "https://line.me/R/ti/p/%40g-wadamachi",
+     "first_screen": "chat",
+     "identity": "verified_normalized_name",
+     "friend_added": false,
+     "already_friend": true,
+     "chat_header": "ガイア和田町店",
+     "screenshot": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/gaia-wada-machi-ten.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/gaia-wada-machi-ten.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@g-wadamachi",
+   "identity_status": "verified_normalized_name",
+   "friend_added": false,
+   "onboarded_at": "2026-09-26T14:13:17.868558+00:00"
+  },
+  {
+   "hall_id": "abiba-tsunashima-minami-ten",
+   "store_name": "アビバ綱島南店",
+   "attempts": [
+    {
+     "line_source_key": "@585sgrtl",
+     "url": "https://line.me/R/ti/p/%40585sgrtl",
+     "first_screen": "dialog",
+     "result": "dialog:LINEの友だちではないユーザー、またはLINEアカウントが違うため表示できません。"
+    },
+    {
+     "line_source_key": "@120gvvvr",
+     "url": "https://line.me/R/ti/p/%40120gvvvr",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/abiba-tsunashima-minami-ten_profile_1.xml",
+     "profile_name": "アビバ綱島南",
+     "profile_pworld_path": "kanagawa/aviva-tunasimaminami.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "アビバ綱島南",
+     "screenshot": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/abiba-tsunashima-minami-ten.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/abiba-tsunashima-minami-ten.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@120gvvvr",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-09-26T14:17:13.446520+00:00"
+  },
+  {
+   "hall_id": "ny-ritchirando",
+   "store_name": "ニューリッチランド",
+   "attempts": [
+    {
+     "line_source_key": "@chi7610e",
+     "url": "https://line.me/R/ti/p/@chi7610e",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/ny-ritchirando_profile_0.xml",
+     "profile_name": "ニューリッチランド",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "ニューリッチランド",
+     "screenshot": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/ny-ritchirando.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/ny-ritchirando.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@chi7610e",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-09-26T14:18:53.739523+00:00"
+  },
+  {
+   "hall_id": "kik-na-odawara-gimachi-ten",
+   "store_name": "キコーナ小田原扇町店",
+   "attempts": [
+    {
+     "line_source_key": "@hkg7433u",
+     "url": "https://line.me/R/ti/p/%40hkg7433u",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/kik-na-odawara-gimachi-ten_profile_0.xml",
+     "profile_name": "キコーナ小田原扇町店",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "キコーナ小田原扇町店",
+     "screenshot": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/kik-na-odawara-gimachi-ten.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/kik-na-odawara-gimachi-ten.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@hkg7433u",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-09-26T14:20:51.581279+00:00"
+  },
+  {
+   "hall_id": "gaia-higashitotsuka-ten",
+   "store_name": "ガイア東戸塚店",
+   "attempts": [
+    {
+     "line_source_key": "@pfk1259x",
+     "url": "https://line.me/R/ti/p/%40pfk1259x",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/gaia-higashitotsuka-ten_profile_0.xml",
+     "profile_name": "ガイア東戸塚",
+     "profile_pworld_path": null,
+     "identity": "verified_name_without_store_suffix",
+     "friend_added": true,
+     "chat_header": "ガイア東戸塚",
+     "screenshot": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/gaia-higashitotsuka-ten.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/gaia-higashitotsuka-ten.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@pfk1259x",
+   "identity_status": "verified_name_without_store_suffix",
+   "friend_added": true,
+   "onboarded_at": "2026-09-26T14:23:55.415692+00:00"
+  },
+  {
+   "hall_id": "abiba-zushi-ekimae-ten",
+   "store_name": "アビバ逗子駅前店",
+   "attempts": [
+    {
+     "line_source_key": "@aviva-zushi",
+     "url": "https://line.me/R/ti/p/%40aviva-zushi",
+     "first_screen": "dialog",
+     "result": "dialog:LINEの友だちではないユーザー、またはLINEアカウントが違うため表示できません。"
+    },
+    {
+     "line_source_key": "@344abvxc",
+     "url": "https://line.me/R/ti/p/%40344abvxc",
+     "first_screen": "dialog",
+     "result": "dialog:LINEの友だちではないユーザー、またはLINEアカウントが違うため表示できません。"
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "mega-feisu-1180-zama",
+   "store_name": "メガフェイス1180座間",
+   "attempts": [
+    {
+     "line_source_key": "@811gyfrr",
+     "url": "https://line.me/R/ti/p/%40811gyfrr",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/mega-feisu-1180-zama_profile_0.xml",
+     "profile_name": "MEGAFACE1180座間",
+     "profile_pworld_path": null,
+     "identity": null,
+     "result": "identity_unverified"
+    }
+   ],
+   "result": "not_onboarded"
+  }
+ ]
+}
