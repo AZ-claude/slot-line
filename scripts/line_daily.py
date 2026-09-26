@@ -343,11 +343,16 @@ def _convert_records(
 
     message_info = _message_summary(messages)
     has_messages = message_info["count"] > 0
+    semantic_deferred = any(
+        record.get("semantic_interpretation") == "deferred"
+        and _status(record) in SUCCESS_STATUSES
+        for record in records
+    )
     line_update = (
         "present"
         if has_messages
         else "absent"
-        if collection_status == "success"
+        if collection_status == "success" and not semantic_deferred
         else "unknown"
     )
 

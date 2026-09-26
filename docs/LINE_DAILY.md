@@ -46,6 +46,7 @@ RAWとnormalizedの境界は以下の通り。
 ## 状態の意味
 
 - `line_update`: `present`は配信またはtrigger返信を確認、`absent`は正常確認済みで対象更新なし、`unknown`は未確認・timeout・取得失敗。
+- active collectorが`semantic_interpretation=deferred`を記録した場合、画面RAW保存が成功していても返信内容は未解釈のため、messageが空なら`line_update=unknown`とする。
 - `response_timeout`は`absent`に変換しない。
 - `collection.status`: `success` / `partial` / `failed` / `not_checked`。
 - `not_checked`のfixtureは`line_update=unknown`とし、配信内容を作らない。

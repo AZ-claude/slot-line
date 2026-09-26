@@ -28,6 +28,7 @@ REGRESSION_TARGETS: tuple[dict[str, str], ...] = (
         "name": "pia_machida",
         "role": "non-Kanagawa regression",
         "collector_key": "pia_machida",
+        "hall_id": "hall-pia-machida",
         "line_source_key": "@030pwlwx",
         "target_title_codepoints": "0050,0049,0041,753A,7530",
         "trigger_codepoints": TRIGGER_CODEPOINTS,
@@ -37,6 +38,7 @@ REGRESSION_TARGETS: tuple[dict[str, str], ...] = (
         "name": "pia-keiky-kawasaki",
         "role": "Kanagawa regression",
         "collector_key": "pia-keiky-kawasaki",
+        "hall_id": "pia-keiky-kawasaki",
         "line_source_key": "@rmh1818e",
         "target_title_codepoints": "0050,0049,0041,0020,4EAC,6025,5DDD,5D0E",
         "trigger_codepoints": TRIGGER_CODEPOINTS,
@@ -54,6 +56,7 @@ def validate_target_configs(targets: tuple[dict[str, str], ...] = REGRESSION_TAR
         "name",
         "role",
         "collector_key",
+        "hall_id",
         "line_source_key",
         "target_title_codepoints",
         "trigger_codepoints",
@@ -77,8 +80,10 @@ def validate_target_configs(targets: tuple[dict[str, str], ...] = REGRESSION_TAR
             raise ValueError(f"unsupported_regression_script:{target['script']}")
 
 
-def build_command(repo_root: Path, target: dict[str, str], response_timeout: float) -> list[str]:
+def build_command(repo_root: Path, target: dict[str, str], post_action_wait: float) -> list[str]:
     validate_target_configs((target,))
+    if not 0 <= post_action_wait <= 10:
+        raise ValueError("post_action_wait_must_be_between_0_and_10_seconds")
     script = repo_root / "scripts" / target["script"]
     return [
         sys.executable,
@@ -87,6 +92,8 @@ def build_command(repo_root: Path, target: dict[str, str], response_timeout: flo
         str(repo_root),
         "--collector-key",
         target["collector_key"],
+        "--hall-id",
+        target["hall_id"],
         "--target-title-codepoints",
         target["target_title_codepoints"],
         "--line-source-key",
@@ -95,8 +102,8 @@ def build_command(repo_root: Path, target: dict[str, str], response_timeout: flo
         target["trigger_codepoints"],
         "--trigger-mode",
         "url",
-        "--response-timeout",
-        str(response_timeout),
+        "--post-action-wait",
+        str(post_action_wait),
     ]
 
 
@@ -258,8 +265,8 @@ def run_dry_run(repo_root: Path) -> tuple[dict[str, Any], int]:
     return result, 0 if result["status"] == "success" else 1
 
 
-def run_target(repo_root: Path, target: dict[str, str], response_timeout: float) -> dict[str, Any]:
-    command = build_command(repo_root, target, response_timeout)
+def run_target(repo_root: Path, target: dict[str, str], post_action_wait: float) -> dict[str, Any]:
+    command = build_command(repo_root, target, post_action_wait)
     try:
         result = subprocess.run(
             command,
@@ -267,7 +274,7 @@ def run_target(repo_root: Path, target: dict[str, str], response_timeout: float)
             encoding="utf-8",
             errors="replace",
             capture_output=True,
-            timeout=response_timeout + 60,
+            timeout=60,
             check=False,
         )
     except subprocess.TimeoutExpired:
@@ -321,11 +328,13 @@ def run_target(repo_root: Path, target: dict[str, str], response_timeout: float)
 def main() -> int:
     parser = argparse.ArgumentParser(description="Plan or manually run LINE regression targets.")
     parser.add_argument("--repo-root", type=Path, default=Path(__file__).resolve().parents[1])
-    parser.add_argument("--response-timeout", type=float, default=90.0)
+    parser.add_argument("--post-action-wait", type=float, default=5.0)
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--execute", action="store_true", help="Explicitly run the two guarded regression targets.")
     mode.add_argument("--dry-run", action="store_true", help="Check runtime, ADB, LINE, config, and log path without sending.")
     args = parser.parse_args()
+    if not 0 <= args.post_action_wait <= 10:
+        parser.error("--post-action-wait must be between 0 and 10 seconds")
     repo_root = args.repo_root.resolve()
     if args.dry_run:
         dry_run, exit_code = run_dry_run(repo_root)
@@ -343,7 +352,7 @@ def main() -> int:
     if args.execute:
         execution_id = datetime.now().strftime("%H%M%S") + "-" + uuid.uuid4().hex[:8]
         summary["execution_id"] = execution_id
-        summary["targets"] = [run_target(repo_root, target, args.response_timeout) for target in REGRESSION_TARGETS]
+        summary["targets"] = [run_target(repo_root, target, args.post_action_wait) for target in REGRESSION_TARGETS]
         log_paths: set[Path] = set()
         for result in summary["targets"]:
             log_paths.add(append_regression_log(repo_root, execution_id, result))
@@ -355,7 +364,7 @@ def main() -> int:
                 "role": target["role"],
                 "collector_key": target["collector_key"],
                 "line_source_key": target["line_source_key"],
-                "command": build_command(repo_root, target, args.response_timeout),
+                "command": build_command(repo_root, target, args.post_action_wait),
                 "status": "not_run",
             }
             for target in REGRESSION_TARGETS

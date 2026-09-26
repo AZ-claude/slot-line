@@ -1,16 +1,9 @@
 #!/usr/bin/env python3
-"""Run the minimal single-target text-trigger acquisition flow.
+"""Execute one guarded LINE action and persist before/after Android UI captures.
 
-This is intentionally a single-store PoC.  It uses only the mechanisms that
-were verified during Phase 0/1:
-
-* Windows LINE input through UI Automation + a temporary interactive task.
-* Android LINE navigation/reply inspection through adb/uiautomator.
-* LINE's standard image download button, followed by adb pull.
-
-The temporary scheduled task is deleted before the command exits.  No
-persistent task, OCR, Windows LINE database access, or Android Japanese input
-is used.
+Reply semantics intentionally remain in later processing. The temporary
+Windows UI Automation task is removed before exit; this runner uses no OCR,
+fixed screen coordinates, LINE database access, or persistent scheduler.
 """
 
 from __future__ import annotations
@@ -23,7 +16,6 @@ import shutil
 import subprocess
 import time
 import uuid
-from collections import Counter
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -40,9 +32,9 @@ except ModuleNotFoundError:  # Also support importing this runner in unit tests.
 SOURCE = "official_line"
 ADAPTER_TYPE = "text_trigger"
 LINE_PACKAGE = "jp.naver.line.android"
-ANDROID_IMAGE_DIR = "/sdcard/Pictures/LINE"
-REPLY_SETTLE_MAX_SECONDS = 5.0
-REPLY_SETTLE_INTERVAL_SECONDS = 1.0
+DEFAULT_POST_ACTION_WAIT_SECONDS = 5.0
+MAX_POST_ACTION_WAIT_SECONDS = 10.0
+MAX_LOADING_SETTLE_SECONDS = 3.0
 
 
 class PhaseError(RuntimeError):
@@ -56,12 +48,12 @@ class PhaseError(RuntimeError):
 class AndroidContext:
     adb: str
     serial: str
-    gallery_open: bool = False
 
 
 @dataclass(frozen=True)
 class TextTriggerConfig:
     collector_key: str
+    hall_id: str
     target_title: str
     line_source_key: str
     trigger_text: str
@@ -69,6 +61,7 @@ class TextTriggerConfig:
 
 DEFAULT_CONFIG = TextTriggerConfig(
     collector_key="pia_machida",
+    hall_id="hall-pia-machida",
     target_title="PIA町田",
     line_source_key="@030pwlwx",
     trigger_text="".join(chr(codepoint) for codepoint in (0x6700, 0x65B0, 0x60C5, 0x5831)),
@@ -293,6 +286,7 @@ def open_target_via_url(ctx: AndroidContext) -> ElementTree.Element:
     time.sleep(0.8)
     deadline = time.monotonic() + 15
     last_error = "url_target_or_prefill_not_verified"
+    last_code = "target_not_verified"
     while time.monotonic() < deadline:
         try:
             root, _ = dump_ui(ctx, "url")
@@ -309,14 +303,22 @@ def open_target_via_url(ctx: AndroidContext) -> ElementTree.Element:
             raise PhaseError("android_unreachable", "android_secure_lock_or_system_ui")
         if is_prefilled_target_chat(root):
             return root
+        if is_target_chat(root):
+            last_code = "action_not_observed"
+            last_error = "exact_trigger_text_not_prefilled"
+        else:
+            last_code = "target_not_verified"
+            last_error = "exact_target_chat_not_visible"
         time.sleep(0.8)
-    raise PhaseError("trigger_failed", last_error)
+    raise PhaseError(last_code, last_error)
 
 
 def send_prefilled_trigger_android(ctx: AndroidContext) -> str:
     root, _ = dump_ui(ctx, "prefilled")
+    if not is_target_chat(root):
+        raise PhaseError("target_not_verified", "target_chat_changed_before_send")
     if not is_prefilled_target_chat(root):
-        raise PhaseError("trigger_failed", "target_or_prefill_changed_before_send")
+        raise PhaseError("action_not_observed", "trigger_prefill_changed_before_send")
     send_button = find_node(
         root,
         lambda node: resource_id(node) == "jp.naver.line.android:id/chat_ui_send_button_image"
@@ -325,235 +327,96 @@ def send_prefilled_trigger_android(ctx: AndroidContext) -> str:
         and node_attr(node, "content-desc") not in {"", "ボイスメッセージ"},
     )
     if send_button is None:
-        raise PhaseError("trigger_failed", "uiautomator_send_button_not_verified")
+        raise PhaseError("action_not_observed", "uiautomator_send_button_not_verified")
     tap_node(ctx, send_button)
     return utc_now()
 
 
-def focus_latest_message(ctx: AndroidContext, root: ElementTree.Element) -> ElementTree.Element:
-    for _ in range(2):
-        marker = find_node(
-            root,
-            lambda node: resource_id(node) in {
-                "jp.naver.line.android:id/chat_ui_scroll_to_new_message",
-                "jp.naver.line.android:id/chat_ui_new_message_text",
-            }
-            and bool(parse_bounds(node_attr(node, "bounds"))),
-        )
-        if marker is None:
-            return root
-        tap_node(ctx, marker)
-        time.sleep(0.6)
-        root, _ = dump_ui(ctx, "latest")
-    return root
+def loading_present(root: ElementTree.Element) -> bool:
+    for node in root.iter():
+        resource = resource_id(node).lower()
+        label = (node_attr(node, "text") + " " + node_attr(node, "content-desc")).lower()
+        if "progress" in resource or "loading" in resource or "読み込み中" in label:
+            return True
+    return False
 
 
-def extract_message_rows(root: ElementTree.Element) -> list[dict[str, Any]]:
-    rows: list[dict[str, Any]] = []
-    for row in root.iter():
-        if resource_id(row) != "jp.naver.line.android:id/chat_ui_row_swipeable_framelayout":
-            continue
-        descendants = descendant_nodes(row)
-        ids = [resource_id(node) for node in descendants]
-        incoming = any("_receive_" in value for value in ids) or any(
-            resource_id(node) == "jp.naver.line.android:id/chat_ui_row_thumbnail"
-            and bool(node_attr(node, "content-desc"))
-            for node in descendants
-        )
-        kind = None
-        image_node = None
-        if "jp.naver.line.android:id/chat_ui_row_image_balloon_root" in ids:
-            kind = "image"
-            image_node = next(
-                (node for node in descendants if resource_id(node) == "jp.naver.line.android:id/chat_ui_row_image_balloon_root"),
-                None,
-            )
-        elif "jp.naver.line.android:id/chat_ui_row_receive_rich_container" in ids:
-            kind = "rich_card"
-        elif "jp.naver.line.android:id/chat_ui_row_text_message" in ids:
-            kind = "text"
-        if kind is None:
-            continue
-        timestamp_node = next(
-            (node for node in descendants if resource_id(node) == "jp.naver.line.android:id/chat_ui_row_timestamp"),
-            None,
-        )
-        text_values = [
-            node_attr(node, "text")
-            for node in descendants
-            if node is not timestamp_node and node_attr(node, "text")
-        ]
-        desc_values = [node_attr(node, "content-desc") for node in descendants if node_attr(node, "content-desc")]
-        message = {
-            "kind": kind,
-            "incoming": incoming,
-            "timestamp": text_or_desc(timestamp_node) if timestamp_node is not None else None,
-            "bounds": node_attr(row, "bounds"),
-            "image_bounds": node_attr(image_node, "bounds") if image_node is not None else None,
-            "text": text_values,
-            "content_desc": desc_values,
-            "resource_ids": sorted({value for value in ids if value}),
-        }
-        rows.append(message)
-    return rows
-
-
-def row_signature(row: dict[str, Any]) -> tuple[Any, ...]:
-    return (
-        row.get("kind"),
-        row.get("timestamp"),
-        tuple(row.get("text") or []),
-        tuple(row.get("content_desc") or []),
-    )
-
-
-def settled_row_signature(row: dict[str, Any]) -> tuple[Any, ...]:
-    """Include rendering resources so loader and final rich-card rows differ."""
-    return (
-        row.get("kind"),
-        row.get("timestamp"),
-        tuple(row.get("text") or []),
-        tuple(row.get("content_desc") or []),
-        tuple(row.get("resource_ids") or []),
-        row.get("bounds"),
-        row.get("image_bounds"),
-    )
-
-
-def has_reply_progress(rows: list[dict[str, Any]]) -> bool:
-    progress_id = "jp.naver.line.android:id/chat_ui_row_progress"
-    return any(progress_id in (row.get("resource_ids") or []) for row in rows)
-
-
-def incoming_rows_since_baseline(
-    rows: list[dict[str, Any]],
-    baseline_counts: Counter,
-) -> list[dict[str, Any]]:
-    new_rows: list[dict[str, Any]] = []
-    remaining = baseline_counts.copy()
-    for row in rows:
-        signature = row_signature(row)
-        if remaining[signature] > 0:
-            remaining[signature] -= 1
-        else:
-            new_rows.append(row)
-    return [
-        row
-        for row in new_rows
-        if row.get("incoming") and row["kind"] in {"text", "rich_card", "image"}
-    ]
-
-
-def settle_reply_ui(
+def save_screen_capture(
     ctx: AndroidContext,
-    baseline_counts: Counter,
-    initial_rows: list[dict[str, Any]],
-    initial_raw: bytes,
-    *,
-    max_wait_seconds: float = REPLY_SETTLE_MAX_SECONDS,
-) -> tuple[list[dict[str, Any]], bytes]:
-    """Capture two consecutive stable reply signatures without deduplication."""
-    last_rows = initial_rows
-    last_raw = initial_raw
-    previous_signature: tuple[Any, ...] | None = None
-    deadline = time.monotonic() + min(REPLY_SETTLE_MAX_SECONDS, max_wait_seconds)
-
-    # Give LINE one full rendering interval after the first reply boundary.
-    time.sleep(min(REPLY_SETTLE_INTERVAL_SECONDS, max(0.0, deadline - time.monotonic())))
-    while time.monotonic() < deadline:
-        root, raw = dump_ui(ctx, "reply-settle")
-        if is_system_ui(root):
-            raise PhaseError("android_unreachable", "android_locked_during_reply_settle")
-        root = focus_latest_message(ctx, root)
-        root, focused_raw = dump_ui(ctx, "reply-settle-final")
-        rows = incoming_rows_since_baseline(extract_message_rows(root), baseline_counts)
-        if rows:
-            signature = tuple(settled_row_signature(row) for row in rows)
-            last_rows = rows
-            last_raw = focused_raw or raw
-            if signature == previous_signature and not has_reply_progress(rows):
-                return last_rows, last_raw
-            previous_signature = signature
-        time.sleep(min(REPLY_SETTLE_INTERVAL_SECONDS, max(0.0, deadline - time.monotonic())))
-
-    # A reply boundary was already observed. Return the latest capture after
-    # the bounded settle window rather than converting a slow render to a
-    # response timeout or deduplicating any rows.
-    return last_rows, last_raw
-
-
-def wait_for_reply(ctx: AndroidContext, baseline: list[dict[str, Any]], timeout_seconds: float) -> tuple[list[dict[str, Any]], bytes]:
-    baseline_counts = Counter(row_signature(row) for row in baseline)
-    deadline = time.monotonic() + timeout_seconds
-    last_raw = b""
-    while time.monotonic() < deadline:
-        root, raw = dump_ui(ctx, "reply")
-        last_raw = raw
-        if is_system_ui(root):
-            raise PhaseError("android_unreachable", "android_locked_during_reply_wait")
-        root = focus_latest_message(ctx, root)
-        if root is not None:
-            root, focused_raw = dump_ui(ctx, "reply-final")
-            last_raw = focused_raw
-        rows = extract_message_rows(root)
-        # Ignore a possible outgoing trigger text row and return as soon as an
-        # incoming text, rich-card, or image boundary appears.  Images are an
-        # optional part of a successful response and are handled separately.
-        incoming = incoming_rows_since_baseline(rows, baseline_counts)
-        if incoming:
-            return settle_reply_ui(ctx, baseline_counts, incoming, last_raw)
-        time.sleep(1.0)
-    raise PhaseError("response_timeout", f"no_new_target_reply_within_{timeout_seconds:g}s")
-
-
-def list_android_line_files(ctx: AndroidContext) -> set[str]:
-    result = adb_run(ctx, ["shell", "find", ANDROID_IMAGE_DIR, "-type", "f"], timeout=30, check=False)
-    if result.returncode != 0:
-        return set()
-    return {line.strip() for line in result.stdout.splitlines() if line.strip().startswith(ANDROID_IMAGE_DIR + "/")}
-
-
-def save_image_from_line(ctx: AndroidContext, image_row: dict[str, Any], before_files: set[str]) -> str:
-    center = center_of_bounds(image_row.get("image_bounds") or "")
-    if center is None:
-        raise PhaseError("image_save_failed", "image_message_without_bounds")
-    adb_run(ctx, ["shell", "input", "tap", str(center[0]), str(center[1])], timeout=15)
-    ctx.gallery_open = True
-    time.sleep(1.0)
-    gallery_root, _ = dump_ui(ctx, "gallery")
-    download = find_node(
-        gallery_root,
-        lambda node: resource_id(node) == "jp.naver.line.android:id/chat_media_content_download_button"
-        or node_attr(node, "content-desc") == "ダウンロード",
-    )
-    if download is None:
-        raise PhaseError("image_save_failed", "line_download_button_not_found")
-    tap_node(ctx, download)
-    time.sleep(1.5)
-    after_files = list_android_line_files(ctx)
-    new_files = sorted(after_files - before_files)
-    if not new_files:
-        raise PhaseError("image_save_failed", "no_new_file_in_line_picture_directory")
-    # The verified reply contains one image.  If LINE generated more than one
-    # candidate, use the newest lexicographic filename deterministically.
-    return new_files[-1]
-
-
-def pull_image_to_stage(ctx: AndroidContext, android_path: str, raw_store: RawStore, run_id: str) -> Path:
-    stage = raw_store.stage_path(run_id, android_path)
-    pulled = adb_run(ctx, ["pull", android_path, str(stage)], timeout=90, check=False)
-    if pulled.returncode != 0 or not stage.exists():
-        raw_store.cleanup_stage(stage)
-        detail = (pulled.stderr or pulled.stdout).strip().replace("\r", " ").replace("\n", " ")
-        raise PhaseError("pull_failed", detail[:300] or "adb_pull_failed")
-    return stage
-
-
-def save_rendered_screenshot(ctx: AndroidContext, raw_store: RawStore, run_id: str) -> str:
+    raw_store: RawStore,
+    run_id: str,
+    label: str,
+) -> tuple[ElementTree.Element, list[str]]:
+    root, xml_raw = dump_ui(ctx, label)
     screenshot = adb_binary_run(ctx, ["exec-out", "screencap", "-p"], timeout=30)
     if not screenshot.startswith(b"\x89PNG"):
-        raise PhaseError("extraction_failed", "android_screenshot_invalid")
-    return raw_store.save_ui_artifact(screenshot, run_id, "reply_screen", ".png")
+        raise PhaseError("capture_failed", "android_screenshot_invalid")
+    try:
+        xml_ref = raw_store.save_ui_dump(xml_raw, run_id, f"{label}")
+        screenshot_ref = raw_store.save_ui_artifact(screenshot, run_id, f"{label}", ".png")
+    except RawStorageError as exc:
+        raise PhaseError("capture_failed", f"raw_ui_write_failed:{exc}") from exc
+    return root, [xml_ref, screenshot_ref]
+
+
+def save_post_action_capture(
+    ctx: AndroidContext,
+    raw_store: RawStore,
+    run_id: str,
+    initial_wait_seconds: float,
+) -> tuple[ElementTree.Element, list[str], str]:
+    initial_wait = min(max(0.0, initial_wait_seconds), MAX_POST_ACTION_WAIT_SECONDS)
+    time.sleep(initial_wait)
+    root, _ = dump_ui(ctx, "post-action-probe")
+    settled_at = utc_now()
+    if loading_present(root):
+        extra_wait = min(MAX_LOADING_SETTLE_SECONDS, MAX_POST_ACTION_WAIT_SECONDS - initial_wait)
+        if extra_wait > 0:
+            time.sleep(extra_wait)
+            root, _ = dump_ui(ctx, "post-action-settle-probe")
+            settled_at = utc_now()
+    # Keep the authoritative XML/screenshot pair together after the bounded wait.
+    root, refs = save_screen_capture(ctx, raw_store, run_id, "post_action")
+    return root, refs, settled_at
+
+
+def activity_snapshot(ctx: AndroidContext) -> tuple[str | None, str | None]:
+    result = adb_run(ctx, ["shell", "dumpsys", "activity", "activities"], timeout=15, check=False)
+    output = (result.stdout or "") + "\n" + (result.stderr or "")
+    lines = output.splitlines()
+    activity_line = next(
+        (line.strip() for line in lines if "topResumedActivity=" in line or "mResumedActivity:" in line),
+        "",
+    )
+    component_match = re.search(r"\bu\d+\s+([A-Za-z0-9_.]+/[A-Za-z0-9_.$]+)", activity_line)
+    component = component_match.group(1) if component_match else None
+    uri_match = re.search(r"\bdat=(https?://[^\s)}]+)", activity_line, re.IGNORECASE)
+    package = component.split("/", 1)[0] if component else ""
+    if uri_match is None and package in {
+        "com.android.chrome",
+        "com.android.browser",
+        "org.mozilla.firefox",
+        "com.microsoft.emmx",
+        "com.sec.android.app.sbrowser",
+        "com.brave.browser",
+    }:
+        uri_matches = list(re.finditer(r"\bdat=(https?://[^\s)}]+)", output, re.IGNORECASE))
+        uri_match = uri_matches[-1] if uri_matches else None
+    external_url = uri_match.group(1).rstrip("]>,;") if uri_match else None
+    return component, external_url
+
+
+def is_external_web(component: str | None, external_url: str | None) -> bool:
+    browser_packages = {
+        "com.android.chrome",
+        "com.android.browser",
+        "org.mozilla.firefox",
+        "com.microsoft.emmx",
+        "com.sec.android.app.sbrowser",
+        "com.brave.browser",
+    }
+    package = component.split("/", 1)[0] if component else ""
+    return package in browser_packages or bool(external_url and external_url.startswith(("http://", "https://")))
 
 
 def ps_quote(value: str) -> str:
@@ -703,50 +566,22 @@ $result | ConvertTo-Json -Compress | Set-Content -LiteralPath $OutFile -Encoding
                 pass
 
 
-def restore_android(ctx: AndroidContext) -> None:
-    if ctx.gallery_open:
-        adb_run(ctx, ["shell", "input", "keyevent", "KEYCODE_BACK"], timeout=15, check=False)
-        ctx.gallery_open = False
-
-
-def rows_to_messages(rows: list[dict[str, Any]], observed_at: str) -> list[dict[str, Any]]:
-    return [
-        {
-            "message_type": row.get("kind"),
-            "incoming": bool(row.get("incoming")),
-            "line_display_time": row.get("timestamp"),
-            "observed_at": observed_at,
-            "text": row.get("text") or [],
-            "content_desc": row.get("content_desc") or [],
-            "resource_ids": row.get("resource_ids") or [],
-            "image_filename": None,
-            "byte_size": None,
-            "sha256": None,
-            "bounds": row.get("bounds"),
-            "image_bounds": row.get("image_bounds"),
-        }
-        for row in rows
-    ]
-
-
-def delete_android_image(ctx: AndroidContext, android_path: str) -> str | None:
-    result = adb_run(ctx, ["shell", "rm", "-f", android_path], timeout=30, check=False)
-    if result.returncode != 0:
-        detail = (result.stderr or result.stdout).strip().replace("\r", " ").replace("\n", " ")
-        return detail[:300] or "android_image_cleanup_failed"
-    return None
-
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run one configured text-trigger E2E target.")
     parser.add_argument("--repo-root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--collector-key", default=DEFAULT_CONFIG.collector_key)
+    parser.add_argument("--hall-id", default=DEFAULT_CONFIG.hall_id)
     parser.add_argument("--target-title", default=DEFAULT_CONFIG.target_title)
     parser.add_argument("--target-title-codepoints", default=None)
     parser.add_argument("--line-source-key", default=DEFAULT_CONFIG.line_source_key)
     parser.add_argument("--trigger-text", default=DEFAULT_CONFIG.trigger_text)
     parser.add_argument("--trigger-codepoints", default=None)
-    parser.add_argument("--response-timeout", type=float, default=90.0)
+    parser.add_argument(
+        "--post-action-wait",
+        type=float,
+        default=DEFAULT_POST_ACTION_WAIT_SECONDS,
+        help="Seconds to wait after the single action (0-10; default 5).",
+    )
     parser.add_argument(
         "--trigger-mode",
         choices=("url", "windows-uia"),
@@ -754,21 +589,28 @@ def parse_args() -> argparse.Namespace:
         help="Preferred Android oaMessage URL trigger; windows-uia is the verified fallback only.",
     )
     parser.add_argument(
-        "--existing-reply",
-        action="store_true",
-        help="Import the currently visible target reply without sending a trigger; diagnostic only.",
-    )
-    parser.add_argument(
-        "--force-trigger",
-        action="store_true",
-        help="Explicitly allow a new trigger even when today's trigger was already attempted.",
-    )
-    parser.add_argument(
         "--windows-uia-verify-only",
         action="store_true",
         help="Verify the exact Windows LINE target and input without sending or writing RAW.",
     )
-    return parser.parse_args()
+    args = parser.parse_args()
+    if not 0 <= args.post_action_wait <= MAX_POST_ACTION_WAIT_SECONDS:
+        parser.error("--post-action-wait must be between 0 and 10 seconds")
+    return args
+
+
+def active_failure_status(code: str, action_executed: bool) -> str:
+    if code == "target_not_verified":
+        return "target_not_verified"
+    if code == "action_not_observed":
+        return "action_not_observed"
+    if action_executed and code in {"capture_failed", "extraction_failed", "android_unreachable"}:
+        return "capture_failed"
+    if code in {"capture_failed", "extraction_failed"}:
+        return "capture_failed"
+    if code in {"trigger_failed", "line_not_ready"}:
+        return "action_execution_failed"
+    return "unknown"
 
 
 def main() -> int:
@@ -778,6 +620,7 @@ def main() -> int:
     trigger_text = decode_codepoints(args.trigger_codepoints) if args.trigger_codepoints else args.trigger_text
     ACTIVE_CONFIG = TextTriggerConfig(
         collector_key=args.collector_key,
+        hall_id=args.hall_id,
         target_title=target_title,
         line_source_key=args.line_source_key,
         trigger_text=trigger_text,
@@ -806,123 +649,134 @@ def main() -> int:
         run_id,
         started_at,
         {
-            "type": "existing_reply" if args.existing_reply else ADAPTER_TYPE,
-            "text": None if args.existing_reply else ACTIVE_CONFIG.trigger_text,
-            "mode": "existing_reply" if args.existing_reply else args.trigger_mode,
+            "type": ADAPTER_TYPE,
+            "text": ACTIVE_CONFIG.trigger_text,
             "line_id": ACTIVE_CONFIG.line_source_key,
+            "action": "send_text",
+            "result": None,
         },
     )
-    if not args.existing_reply and args.trigger_mode == "url":
+    if args.trigger_mode == "url":
         record["trigger"]["url"] = target_oa_message_url()
         record["trigger"]["intent_action"] = "android.intent.action.VIEW"
         record["trigger"]["intent_package"] = LINE_PACKAGE
     record["line_id"] = ACTIVE_CONFIG.line_source_key
-    record["trigger_mode"] = "existing_reply" if args.existing_reply else args.trigger_mode
-    guard_decision = None
-    if not args.existing_reply:
-        guard_decision = evaluate_trigger_guard(
-            raw_store.load_manifest_records(),
-            ADAPTER_TYPE,
-            ADAPTER_TYPE,
-            force=args.force_trigger,
-        )
+    record["trigger_mode"] = args.trigger_mode
+    record["hall_id"] = ACTIVE_CONFIG.hall_id
+    record["line_source_key"] = ACTIVE_CONFIG.line_source_key
+    record["action_label"] = ACTIVE_CONFIG.trigger_text
+    record["action_kind"] = "text_trigger"
+    record["semantic_interpretation"] = "deferred"
+    record["target_verified"] = False
+    record["action_executed"] = False
+    record["pre_action_capture"] = False
+    record["post_action_capture"] = False
+    record["raw_persisted"] = False
+    record["active_status"] = "unknown"
+    record["pre_action_ui_filenames"] = []
+    record["post_action_ui_filenames"] = []
+    guard_decision = evaluate_trigger_guard(
+        raw_store.load_manifest_records(),
+        ADAPTER_TYPE,
+        ADAPTER_TYPE,
+    )
     if guard_decision is not None:
         record.update(guard_decision)
+        record["active_status"] = "unknown"
         record["stored_message_count_total"] = len(raw_store.load_messages())
         record["finished_at"] = utc_now()
         raw_store.persist_manifest(record)
         print(json.dumps(record, ensure_ascii=False, indent=2))
         return 0
     android: AndroidContext | None = None
-    android_image_path: str | None = None
     storage_finalized = False
     try:
         android = discover_android()
-        if args.existing_reply:
-            root = open_line_and_target_chat(android)
-            root = focus_latest_message(android, root)
-            new_rows = [row for row in extract_message_rows(root) if row.get("incoming")]
-            if not new_rows:
-                raise PhaseError("extraction_failed", "existing_target_reply_not_visible")
-            _, reply_raw = dump_ui(android, "existing-reply")
-        elif args.trigger_mode == "url":
-            # The URL opens the target chat and prefills the text.  The exact
-            # target title and exact input value are checked immediately before
-            # the send-button tap; otherwise the run fails closed.
+        if args.trigger_mode == "url":
+            # Verify the exact chat and prefilled text before saving the screen
+            # pair and before the one permitted send-button tap.
             root = open_target_via_url(android)
-            root = focus_latest_message(android, root)
-            baseline = extract_message_rows(root)
-            triggered_at = send_prefilled_trigger_android(android)
         else:
             root = open_line_and_target_chat(android)
-            root = focus_latest_message(android, root)
-            baseline = extract_message_rows(root)
-            # Windows LINE must expose the verified AutoSuggestTextArea in the
-            # logged-on interactive session.  No message body is copied/read
-            # from Windows; Android is the source of truth for the reply.
-            windows_target = send_trigger_on_windows()
+        if not is_target_chat(root):
+            raise PhaseError("target_not_verified", "target_chat_identity_not_verified")
+        if args.trigger_mode == "url" and not is_prefilled_target_chat(root):
+            raise PhaseError("action_not_observed", "exact_trigger_text_not_prefilled")
+        record["target_verified"] = True
+        _, pre_refs = save_screen_capture(android, raw_store, run_id, "pre_action")
+        record["pre_action_capture"] = True
+        record["pre_action_ui_filenames"] = pre_refs
+        record["ui_filenames"].extend(pre_refs)
+        record["raw_persisted"] = True
+        raw_store.persist_manifest(record)
+
+        if args.trigger_mode == "url":
+            try:
+                triggered_at = send_prefilled_trigger_android(android)
+            except PhaseError as exc:
+                if exc.code == "android_unreachable":
+                    raise PhaseError("trigger_failed", exc.detail) from exc
+                raise
+        else:
+            # Windows LINE verifies the exact target and text before sending.
+            try:
+                windows_target = send_trigger_on_windows()
+            except PhaseError as exc:
+                if exc.code == "android_unreachable":
+                    raise PhaseError("trigger_failed", exc.detail) from exc
+                raise
             record["windows_target_verification"] = windows_target
             triggered_at = str(windows_target.get("sent_at_utc") or utc_now())
-        if not args.existing_reply:
-            record["triggered_at"] = triggered_at
+        record["triggered_at"] = triggered_at
+        record["action_executed"] = True
+        record["trigger"]["result"] = "sent"
+        record["raw_persisted"] = True
+        # Persist the attempt immediately so a crash after sending cannot bypass
+        # the same-day guard on a rerun.
+        raw_store.persist_manifest(record)
 
-        if not args.existing_reply:
-            new_rows, reply_raw = wait_for_reply(android, baseline, args.response_timeout)
-        received_at = utc_now()
-        ui_filename = raw_store.save_ui_dump(reply_raw, run_id, "reply")
-        record["ui_filenames"] = [ui_filename]
-        record["received_at"] = received_at
-
-        messages = rows_to_messages(new_rows, received_at)
-        image_row = next((row for row in reversed(new_rows) if row.get("kind") == "image"), None)
-        if image_row is not None:
-            before_files = list_android_line_files(android)
-            android_image_path = save_image_from_line(android, image_row, before_files)
-            stage = pull_image_to_stage(android, android_image_path, raw_store, run_id)
-            image_info = raw_store.import_image(stage, android_image_path)
-            image_message = next(message for message in messages if message["message_type"] == "image")
-            image_message.update(
-                {
-                    "image_filename": image_info["image_filename"],
-                    "byte_size": image_info["byte_size"],
-                    "sha256": image_info["sha256"],
-                }
-            )
-            record["image_count"] = 1
-            record["deduplicated_images"] = int(image_info["deduplicated"])
-        else:
-            record["image_count"] = 0
-            record["deduplicated_images"] = 0
-            if any(message["message_type"] == "rich_card" for message in messages):
-                try:
-                    record["ui_filenames"].append(save_rendered_screenshot(android, raw_store, run_id))
-                except PhaseError as exc:
-                    record["errors"].append({"code": "screenshot_warning", "detail": exc.detail})
-        merged_messages = raw_store.merge_messages(messages)
-        record["message_count"] = len(messages)
-        record["stored_message_count_total"] = len(merged_messages)
+        _, post_refs, _ = save_post_action_capture(
+            android,
+            raw_store,
+            run_id,
+            args.post_action_wait,
+        )
+        captured_at = utc_now()
+        component, external_url = activity_snapshot(android)
+        external = is_external_web(component, external_url)
+        record["captured_at"] = captured_at
+        record["current_activity"] = component
+        record["external_url"] = external_url
+        record["post_action_capture"] = bool(post_refs)
+        record["post_action_ui_filenames"] = post_refs
+        record["ui_filenames"].extend(post_refs)
+        record["action_result"] = "external_web" if external else "unknown"
+        record["active_status"] = "external_web" if external else "captured"
+        record["message_count"] = 0
+        record["stored_message_count_total"] = len(raw_store.load_messages())
+        record["image_count"] = 0
+        record["deduplicated_images"] = 0
+        record["reply_type"] = None
+        record["message_semantics"] = "not_interpreted"
         record["status"] = "success"
         record["finished_at"] = utc_now()
+        record["raw_persisted"] = True
         raw_store.persist_manifest(record)
         storage_finalized = True
-
-        if android_image_path is not None:
-            cleanup_error = delete_android_image(android, android_image_path)
-            if cleanup_error:
-                record["errors"].append({"code": "cleanup_warning", "detail": cleanup_error})
-                raw_store.persist_manifest(record)
     except PhaseError as exc:
+        record["active_status"] = active_failure_status(exc.code, bool(record.get("action_executed")))
         record["status"] = exc.code
         record["errors"].append({"code": exc.code, "detail": exc.detail})
     except RawStorageError as exc:
+        record["raw_persisted"] = False
+        record["active_status"] = "capture_failed"
         record["status"] = "extraction_failed"
         record["errors"].append({"code": "raw_storage_failed", "detail": str(exc)})
     except Exception as exc:  # Keep the required status vocabulary for operators.
+        record["active_status"] = "capture_failed" if record.get("action_executed") else "unknown"
         record["status"] = "extraction_failed"
         record["errors"].append({"code": "extraction_failed", "detail": f"unexpected:{type(exc).__name__}:{exc}"})
     finally:
-        if android is not None:
-            restore_android(android)
         if not storage_finalized:
             record["finished_at"] = utc_now()
             raw_store.persist_manifest(record)

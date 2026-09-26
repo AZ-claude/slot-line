@@ -22,8 +22,10 @@ class RegressionTargetsTests(unittest.TestCase):
         validate_target_configs()
         by_name = {target["name"]: target for target in REGRESSION_TARGETS}
         self.assertEqual(by_name["pia_machida"]["collector_key"], "pia_machida")
+        self.assertEqual(by_name["pia_machida"]["hall_id"], "hall-pia-machida")
         self.assertEqual(by_name["pia_machida"]["line_source_key"], "@030pwlwx")
         self.assertEqual(by_name["pia-keiky-kawasaki"]["collector_key"], "pia-keiky-kawasaki")
+        self.assertEqual(by_name["pia-keiky-kawasaki"]["hall_id"], "pia-keiky-kawasaki")
         self.assertEqual(by_name["pia-keiky-kawasaki"]["line_source_key"], "@rmh1818e")
         self.assertNotEqual(
             by_name["pia_machida"]["collector_key"],
@@ -37,13 +39,20 @@ class RegressionTargetsTests(unittest.TestCase):
         self.assertTrue(production_collectors.isdisjoint(regression_collectors))
 
     def test_commands_are_source_specific_and_never_force(self):
-        commands = [build_command(Path("/repo"), target, 90) for target in REGRESSION_TARGETS]
+        commands = [build_command(Path("/repo"), target, 5) for target in REGRESSION_TARGETS]
         self.assertEqual(len(commands), 2)
         self.assertNotIn("--force-trigger", commands[0])
         self.assertNotIn("--force-trigger", commands[1])
         self.assertIn("@030pwlwx", commands[0])
         self.assertIn("@rmh1818e", commands[1])
+        self.assertIn("--post-action-wait", commands[0])
+        self.assertNotIn("--response-timeout", commands[0])
+        self.assertIn("hall-pia-machida", commands[0])
         self.assertNotEqual(commands[0][commands[0].index("--collector-key") + 1], commands[1][commands[1].index("--collector-key") + 1])
+
+    def test_wait_is_capped_to_ten_seconds(self):
+        with self.assertRaises(ValueError):
+            build_command(Path("/repo"), REGRESSION_TARGETS[0], 11)
 
     def test_guard_state_is_independent_per_collector_and_source(self):
         with tempfile.TemporaryDirectory() as temporary:

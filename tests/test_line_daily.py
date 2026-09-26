@@ -180,6 +180,20 @@ class LineDailyTests(unittest.TestCase):
             self.assertEqual(result["line_update"], "present")
             self.assertEqual(result["trigger"]["result"], "sent")
 
+    def test_active_capture_defers_semantic_absence_until_later_processing(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            record = self.record("pia-03", "success", triggered_at="2026-09-23T12:00:01+00:00")
+            record["semantic_interpretation"] = "deferred"
+            record["active_status"] = "captured"
+            record["post_action_capture"] = True
+            raw = self.write_raw(root, [record], [])
+            result = convert_raw_directory(raw, repo_root=root)
+            self.assertEqual(result["collection"]["status"], "success")
+            self.assertEqual(result["line_update"], "unknown")
+            self.assertEqual(result["summary"]["status"], "not_applicable")
+            validate_observation(result)
+
     def test_rich_menu_trigger_metadata_is_preserved_without_schema_change(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
