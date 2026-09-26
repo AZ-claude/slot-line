@@ -14,7 +14,8 @@
     "PIA京急川崎"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "pia-keiky-kawasaki"
   },
   {
    "hall_id": "abiba-sh-nandai-ten",
@@ -29,7 +30,8 @@
     "アビバ湘南台店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "abiba-sh-nandai-ten"
   },
   {
    "hall_id": "pachisuroemuandoemu",
@@ -44,7 +46,8 @@
     "パチスロエムアンドエム"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "pachisuroemuandoemu"
   },
   {
    "hall_id": "jiasu-kami-oka",
@@ -59,7 +62,8 @@
     "ジアス上大岡"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "jiasu-kami-oka"
   },
   {
    "hall_id": "123-yokohama-nishiguchi-ten",
@@ -75,7 +79,8 @@
     "１２３横浜西口店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "123-yokohama-nishiguchi-ten"
   },
   {
    "hall_id": "kui-pu-higashitotsuka-ten",
@@ -90,7 +95,8 @@
     "くいーぷ東戸塚店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "kui-pu-higashitotsuka-ten"
   },
   {
    "hall_id": "doki-waku-rando-ch-go-ekimae-ten",
@@ -105,7 +111,8 @@
     "ドキわくランド長後駅前店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "doki-waku-rando-ch-go-ekimae-ten"
   },
   {
    "hall_id": "kik-na-chigasaki-ten",
@@ -120,7 +127,8 @@
     "キコーナ茅ヶ崎店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "kik-na-chigasaki-ten"
   },
   {
    "hall_id": "rakuen-sagamihara-ten",
@@ -135,7 +143,8 @@
     "楽園相模原店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "rakuen-sagamihara-ten"
   },
   {
    "hall_id": "kurie-j-nichi-shij-ten",
@@ -150,7 +159,8 @@
     "クリエ十日市場店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "kurie-j-nichi-shij-ten"
   },
   {
    "hall_id": "kik-na-bakuro-ten",
@@ -165,7 +175,8 @@
     "キコーナ白楽店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "kik-na-bakuro-ten"
   },
   {
    "hall_id": "biggu-pandora-ido-ke-tani-ten-shinkan",
@@ -180,7 +191,8 @@
     "ビッグパンドラ井土ヶ谷店新館"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "biggu-pandora-ido-ke-tani-ten-shinkan"
   },
   {
    "hall_id": "gurando-h-ru-odawara-ten",
@@ -196,7 +208,8 @@
     "グランドホール小田原"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "gurando-h-ru-odawara-ten"
   },
   {
    "hall_id": "nakayama-uno",
@@ -212,7 +225,8 @@
     "中山ＵＮＯ"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "nakayama-uno"
   },
   {
    "hall_id": "kik-na-isezaki-ten",
@@ -227,7 +241,8 @@
     "キコーナ伊勢佐木店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "kik-na-isezaki-ten"
   },
   {
    "hall_id": "kitch-kawasaki-nogawa-ten",
@@ -242,7 +257,8 @@
     "吉兆川崎野川店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "kitch-kawasaki-nogawa-ten"
   },
   {
    "hall_id": "tow-zu-sagamihara-ten",
@@ -257,7 +273,8 @@
     "トワーズ相模原店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "tow-zu-sagamihara-ten"
   },
   {
    "hall_id": "jiasusent-minami",
@@ -273,7 +290,8 @@
     "ジアス　センター南"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "jiasusent-minami"
   },
   {
    "hall_id": "pia-tsunashima",
@@ -288,7 +306,8 @@
     "PIA綱島"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "pia-tsunashima"
   },
   {
    "hall_id": "japan-ny-arufa-kurami-ten",
@@ -304,7 +323,8 @@
     "ジャパンニューアルファ　倉見店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "japan-ny-arufa-kurami-ten"
   },
   {
    "hall_id": "doki-waku-rando-ido-ke-tani-ten",
@@ -319,7 +339,8 @@
     "ドキわくランド井土ヶ谷店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "doki-waku-rando-ido-ke-tani-ten"
   },
   {
    "hall_id": "gaianekusuto-ebina-ekimae-ten",
@@ -334,7 +355,8 @@
     "ガイアネクスト海老名駅前店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "gaianekusuto-ebina-ekimae-ten"
   },
   {
    "hall_id": "p-ku-sagami-no",
@@ -349,7 +371,8 @@
     "ピーアーク相模大野"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "p-ku-sagami-no"
   },
   {
    "hall_id": "p-ru-shoppu-tomo-e-fuchinobe-ten",
@@ -364,7 +387,8 @@
     "パールショップともえ淵野辺店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "p-ru-shoppu-tomo-e-fuchinobe-ten"
   },
   {
    "hall_id": "arrow-hiratsuka-ten",
@@ -380,7 +404,8 @@
     "ＡＲＲＯＷ平塚店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "arrow-hiratsuka-ten"
   },
   {
    "hall_id": "new-garden-totsuka",
@@ -395,7 +420,8 @@
     "新！ガーデン戸塚"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "new-garden-totsuka"
   },
   {
    "hall_id": "nambusen-shitte-ekimae-ten",
@@ -410,7 +436,8 @@
     "南武線尻手駅前店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "nambusen-shitte-ekimae-ten"
   },
   {
    "hall_id": "purego-yugawara-ten",
@@ -425,7 +452,8 @@
     "プレゴ湯河原店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "purego-yugawara-ten"
   },
   {
    "hall_id": "sanrakk-sagamihara-ten",
@@ -440,7 +468,8 @@
     "サンラッキー相模原店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "sanrakk-sagamihara-ten"
   },
   {
    "hall_id": "ginzah-ru-707",
@@ -455,7 +484,8 @@
     "ギンザホール707"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "ginzah-ru-707"
   },
   {
    "hall_id": "ichibankan-sagamihara-ten",
@@ -471,7 +501,8 @@
     "一番舘　相模原店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "ichibankan-sagamihara-ten"
   },
   {
    "hall_id": "gur-n",
@@ -486,7 +517,8 @@
     "グリーン"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "green-fujisawa"
   },
   {
    "hall_id": "japan-ny-arufa-fujisawa-ten",
@@ -502,7 +534,8 @@
     "ジャパンニューアルファ　藤沢店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "hall-5a179ee22ec6db8d"
   },
   {
    "hall_id": "higashiyoko-fesuta-3",
@@ -517,7 +550,8 @@
     "東横フェスタ3"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "higashiyoko-fesuta-3"
   },
   {
    "hall_id": "ja-ran-hiratsuka-ten",
@@ -532,7 +566,8 @@
     "ジャラン平塚店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "ja-ran-hiratsuka-ten"
   },
   {
    "hall_id": "maruhan-hashimotodai-ten",
@@ -547,7 +582,8 @@
     "マルハン橋本台店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "maruhan-hashimotodai-ten"
   },
   {
    "hall_id": "maruhan-atsugi-ten",
@@ -562,7 +598,8 @@
     "マルハン厚木店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "maruhan-atsugi-ten"
   },
   {
    "hall_id": "maruhan-atsugi-kita-ten",
@@ -577,7 +614,8 @@
     "マルハン厚木北店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "maruhan-atsugi-kita-ten"
   },
   {
    "hall_id": "monos-kawasaki",
@@ -593,7 +631,8 @@
     "ＭＯＮＯＳ川崎"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "monos-kawasaki"
   },
   {
    "hall_id": "deizu-shinsugita-ten",
@@ -608,7 +647,8 @@
     "デイズ新杉田店"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "deizu-shinsugita-ten"
   },
   {
    "hall_id": "ny-shatoru",
@@ -623,10 +663,12 @@
     "ニューシャトル"
    ],
    "source": "line_capability_50_live_2026-09-25",
-   "active": true
+   "active": true,
+   "canonical_hall_id": "ny-shatoru"
   },
   {
    "hall_id": "jiasu-k-nandai",
+   "canonical_hall_id": "jiasu-k-nandai",
    "collector_key": "jiasu-k-nandai",
    "line_source_key": "@fap2637x",
    "store_name": "ジアス港南台",
@@ -641,6 +683,7 @@
   },
   {
    "hall_id": "taig-7-tsunashima-ten",
+   "canonical_hall_id": "taig-7-tsunashima-ten",
    "collector_key": "taig-7-tsunashima-ten",
    "line_source_key": "@237gsfjs",
    "store_name": "タイガー7綱島店",
@@ -655,6 +698,7 @@
   },
   {
    "hall_id": "gaia-wada-machi-ten",
+   "canonical_hall_id": "gaia-wada-machi-ten",
    "collector_key": "gaia-wada-machi-ten",
    "line_source_key": "@g-wadamachi",
    "store_name": "ガイア和田町店",
@@ -669,6 +713,7 @@
   },
   {
    "hall_id": "abiba-tsunashima-minami-ten",
+   "canonical_hall_id": "abiba-tsunashima-minami-ten",
    "collector_key": "abiba-tsunashima-minami-ten",
    "line_source_key": "@120gvvvr",
    "store_name": "アビバ綱島南店",
@@ -683,6 +728,7 @@
   },
   {
    "hall_id": "ny-ritchirando",
+   "canonical_hall_id": "ny-ritchirando",
    "collector_key": "ny-ritchirando",
    "line_source_key": "@chi7610e",
    "store_name": "ニューリッチランド",
@@ -697,6 +743,7 @@
   },
   {
    "hall_id": "kik-na-odawara-gimachi-ten",
+   "canonical_hall_id": "kik-na-odawara-gimachi-ten",
    "collector_key": "kik-na-odawara-gimachi-ten",
    "line_source_key": "@hkg7433u",
    "store_name": "キコーナ小田原扇町店",
@@ -711,6 +758,7 @@
   },
   {
    "hall_id": "gaia-higashitotsuka-ten",
+   "canonical_hall_id": "gaia-higashitotsuka-ten",
    "collector_key": "gaia-higashitotsuka-ten",
    "line_source_key": "@pfk1259x",
    "store_name": "ガイア東戸塚店",
@@ -721,6 +769,366 @@
     "ガイア東戸塚店"
    ],
    "source": "line_onboarding_batch00_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "mega-feisu-1180-zama",
+   "canonical_hall_id": "mega-feisu-1180-zama",
+   "collector_key": "mega-feisu-1180-zama",
+   "line_source_key": "@811gyfrr",
+   "store_name": "メガフェイス1180座間",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_owner_confirmed_name",
+   "chat_header_name": "MEGAFACE1180座間",
+   "profile_expected_names": [
+    "メガフェイス1180座間"
+   ],
+   "source": "line_onboarding_batch00_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-551f707a3510d433",
+   "canonical_hall_id": "hall-551f707a3510d433",
+   "collector_key": "hall-551f707a3510d433",
+   "line_source_key": "@yvo4044i",
+   "store_name": "楽園 川崎店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "楽園川崎店",
+   "profile_expected_names": [
+    "楽園 川崎店"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-805189d07028553b",
+   "canonical_hall_id": "hall-805189d07028553b",
+   "collector_key": "hall-805189d07028553b",
+   "line_source_key": "@749fpqte",
+   "store_name": "モナコ二俣川店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "MONACO二俣川店",
+   "profile_expected_names": [
+    "モナコ二俣川店"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "jiasu-bune",
+   "canonical_hall_id": "jiasu-bune",
+   "collector_key": "jiasu-bune",
+   "line_source_key": "@zia_o",
+   "store_name": "ジアス大船",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "ジアス大船",
+   "profile_expected_names": [
+    "ジアス大船"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "rakuen-kaminagaya-ten",
+   "canonical_hall_id": "rakuen-kaminagaya-ten",
+   "collector_key": "rakuen-kaminagaya-ten",
+   "line_source_key": "@vbk8450k",
+   "store_name": "楽園上永谷店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "楽園上永谷店",
+   "profile_expected_names": [
+    "楽園上永谷店"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-79ab16be0b4394fd",
+   "canonical_hall_id": "hall-79ab16be0b4394fd",
+   "collector_key": "hall-79ab16be0b4394fd",
+   "line_source_key": "@683myuzv",
+   "store_name": "ノア上永谷店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "ノア上永谷店",
+   "profile_expected_names": [
+    "ノア上永谷店"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-95195c4b4c0bb303",
+   "canonical_hall_id": "hall-95195c4b4c0bb303",
+   "collector_key": "hall-95195c4b4c0bb303",
+   "line_source_key": "@vrc3112o",
+   "store_name": "ZAP大船店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "ZAP大船店（おおフニャくん）",
+   "profile_expected_names": [
+    "ZAP大船店"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "yokosuka-mabori-mar-n",
+   "canonical_hall_id": "yokosuka-mabori-mar-n",
+   "collector_key": "yokosuka-mabori-mar-n",
+   "line_source_key": "@pje7868p",
+   "store_name": "横須賀・馬堀マリーン",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "横須賀･馬堀マリーン",
+   "profile_expected_names": [
+    "横須賀・馬堀マリーン"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-3c4ffc5ecd159f24",
+   "canonical_hall_id": "hall-3c4ffc5ecd159f24",
+   "collector_key": "hall-3c4ffc5ecd159f24",
+   "line_source_key": "@bjs2804d",
+   "store_name": "ZAP京急久里浜店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "ＺＡＰ京急久里浜店",
+   "profile_expected_names": [
+    "ZAP京急久里浜店"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-c6b84e1256adfaf9",
+   "canonical_hall_id": "hall-c6b84e1256adfaf9",
+   "collector_key": "hall-c6b84e1256adfaf9",
+   "line_source_key": "@gso4796b",
+   "store_name": "デルパラ大和店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "デルパラ大和店",
+   "profile_expected_names": [
+    "デルパラ大和店"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-4b773687726b244a",
+   "canonical_hall_id": "hall-4b773687726b244a",
+   "collector_key": "hall-4b773687726b244a",
+   "line_source_key": "@deluxe7-yokohama",
+   "store_name": "デラックス７ 西横浜",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "デラックスセブン西横浜店",
+   "profile_expected_names": [
+    "デラックス７ 西横浜"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "yokohama-mar-n",
+   "canonical_hall_id": "yokohama-mar-n",
+   "collector_key": "yokohama-mar-n",
+   "line_source_key": "@160jmifm",
+   "store_name": "横浜マリーン",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "横浜マリーン",
+   "profile_expected_names": [
+    "横浜マリーン"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-b369f23a10d47640",
+   "canonical_hall_id": "hall-b369f23a10d47640",
+   "collector_key": "hall-b369f23a10d47640",
+   "line_source_key": "@lhn5178j",
+   "store_name": "ＺＡＰ生麦店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "ZAP生麦店",
+   "profile_expected_names": [
+    "ＺＡＰ生麦店"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "skip-ayase-ten",
+   "canonical_hall_id": "skip-ayase-ten",
+   "collector_key": "skip-ayase-ten",
+   "line_source_key": "@855vckqy",
+   "store_name": "SKIP綾瀬店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "skip綾瀬店",
+   "profile_expected_names": [
+    "SKIP綾瀬店"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "gurando-h-ru-ch-go-ten",
+   "canonical_hall_id": "gurando-h-ru-ch-go-ten",
+   "collector_key": "gurando-h-ru-ch-go-ten",
+   "line_source_key": "@lyp3690t",
+   "store_name": "グランドホール長後店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_name_without_store_suffix",
+   "chat_header_name": "グランドホール長後",
+   "profile_expected_names": [
+    "グランドホール長後店"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "charenj-kan",
+   "canonical_hall_id": "charenj-kan",
+   "collector_key": "charenj-kan",
+   "line_source_key": "@ofi9651u",
+   "store_name": "チャレンジャー遊館",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "チャレンジャー遊館",
+   "profile_expected_names": [
+    "チャレンジャー遊館"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "kurabu-ny-y-ku-tammachi",
+   "canonical_hall_id": "kurabu-ny-y-ku-tammachi",
+   "collector_key": "kurabu-ny-y-ku-tammachi",
+   "line_source_key": "@663rzpio",
+   "store_name": "クラブニューヨーク反町",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "クラブニューヨーク反町",
+   "profile_expected_names": [
+    "クラブニューヨーク反町"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-5f23ce7bab3bec39",
+   "canonical_hall_id": "hall-5f23ce7bab3bec39",
+   "collector_key": "hall-5f23ce7bab3bec39",
+   "line_source_key": "@694ixtwm",
+   "store_name": "PIA大船1店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "PIA大船",
+   "profile_expected_names": [
+    "PIA大船1店"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-c59a3855044451cd",
+   "canonical_hall_id": "hall-c59a3855044451cd",
+   "collector_key": "hall-c59a3855044451cd",
+   "line_source_key": "@450bmepa",
+   "store_name": "SS ZAP京急久里浜店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "SSZAP京急久里浜店",
+   "profile_expected_names": [
+    "SS ZAP京急久里浜店"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "skip-yokohama-ky-ten",
+   "canonical_hall_id": "skip-yokohama-ky-ten",
+   "collector_key": "skip-yokohama-ky-ten",
+   "line_source_key": "@982zhhhh",
+   "store_name": "SKIP横浜橋店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "skip横浜橋店",
+   "profile_expected_names": [
+    "SKIP横浜橋店"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-8c575c49425feb75",
+   "canonical_hall_id": "hall-8c575c49425feb75",
+   "collector_key": "hall-8c575c49425feb75",
+   "line_source_key": "@kicona-hadano",
+   "store_name": "キコーナ秦野店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "キコーナ秦野店",
+   "profile_expected_names": [
+    "キコーナ秦野店"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "zap-prestige",
+   "canonical_hall_id": "zap-prestige",
+   "collector_key": "zap-prestige",
+   "line_source_key": "@622zaycv",
+   "store_name": "ZAP PRESTIGE",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "ZAP PRESTIGE",
+   "profile_expected_names": [
+    "ZAP PRESTIGE"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "yasu-da-yamato-ten",
+   "canonical_hall_id": "yasu-da-yamato-ten",
+   "collector_key": "yasu-da-yamato-ten",
+   "line_source_key": "@364uabgz",
+   "store_name": "やすだ大和店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "やすだ大和店",
+   "profile_expected_names": [
+    "やすだ大和店"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "doki-waku-rando-kitayamata-ten",
+   "canonical_hall_id": "doki-waku-rando-kitayamata-ten",
+   "collector_key": "doki-waku-rando-kitayamata-ten",
+   "line_source_key": "@liv5349g",
+   "store_name": "ドキわくランド北山田店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "ドキわくランド北山田店",
+   "profile_expected_names": [
+    "ドキわくランド北山田店"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
    "active": true
   }
  ]

@@ -1,0 +1,42 @@
+[
+ {
+  "hall_id": "charenj-kan",
+  "line_source_key": "@ofi9651u",
+  "titles": [
+   "チャレンジャー遊館"
+  ],
+  "header_match": true,
+  "rich_menu_node": false,
+  "screenshot": "data/surveys/line_onboarding_batch01_2026-09-26_evidence/absence_recheck/charenj-kan_snap.jpg"
+ },
+ {
+  "hall_id": "hall-4b773687726b244a",
+  "line_source_key": "@deluxe7-yokohama",
+  "titles": [
+   "デラックスセブン西横浜店"
+  ],
+  "header_match": true,
+  "rich_menu_node": false,
+  "screenshot": "data/surveys/line_onboarding_batch01_2026-09-26_evidence/absence_recheck/hall-4b773687726b244a_snap.jpg"
+ },
+ {
+  "hall_id": "hall-95195c4b4c0bb303",
+  "line_source_key": "@vrc3112o",
+  "titles": [
+   "ZAP大船店（おおフニャくん）"
+  ],
+  "header_match": true,
+  "rich_menu_node": false,
+  "screenshot": "data/surveys/line_onboarding_batch01_2026-09-26_evidence/absence_recheck/hall-95195c4b4c0bb303_snap.jpg"
+ },
+ {
+  "hall_id": "hall-b369f23a10d47640",
+  "line_source_key": "@lhn5178j",
+  "titles": [
+   "ZAP生麦店"
+  ],
+  "header_match": true,
+  "rich_menu_node": false,
+  "screenshot": "data/surveys/line_onboarding_batch01_2026-09-26_evidence/absence_recheck/hall-b369f23a10d47640_snap.jpg"
+ }
+]

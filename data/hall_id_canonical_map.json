@@ -1,0 +1,14 @@
+{
+ "schema_version": 1,
+ "canonical_source": "slot-kanagawa-hall-master src/features/hall-registry/halls.csv",
+ "mappings": {
+  "gur-n": {
+   "canonical_hall_id": "green-fujisawa",
+   "evidence": "P-WORLD greenholl.htm (hall master detail URL of green-fujisawa) links lin.ee/qebHd8I, which redirects to line.me/R/ti/p/@629aqwlz, the gur-n LINE source; checked 2026-09-27"
+  },
+  "japan-ny-arufa-fujisawa-ten": {
+   "canonical_hall_id": "hall-5a179ee22ec6db8d",
+   "evidence": "hall master aliases.json maps 'pworld:ジャパンニューアルファ 藤沢店' to hall-5a179ee22ec6db8d; LINE @nxv1359a lists P-WORLD store name ジャパンニューアルファ 藤沢店"
+  }
+ }
+}

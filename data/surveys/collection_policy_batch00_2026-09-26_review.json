@@ -13,8 +13,7 @@
   "consents_granted": 0
  },
  "not_onboarded": {
-  "abiba-zushi-ekimae-ten": "both listed LINE IDs (@aviva-zushi, @344abvxc) show 'not displayable' dialog",
-  "mega-feisu-1180-zama": "profile name MEGAFACE1180座間 does not match hall name メガフェイス1180座間; owner confirmation needed"
+  "abiba-zushi-ekimae-ten": "both listed LINE IDs (@aviva-zushi, @344abvxc) show 'not displayable' dialog"
  },
  "stores": {
   "jiasu-k-nandai": {
@@ -136,6 +135,20 @@
     "data/surveys/line_onboarding_batch00_2026-09-26_evidence/actions/action_results.jsonl#gaia-higashitotsuka-ten"
    ],
    "notes": "Opened the DMMぱちタウン store page in the LINE in-app browser."
+  },
+  "mega-feisu-1180-zama": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "営業案内・店内配置",
+    "X",
+    "LINE入場抽選",
+    "LINE台データ",
+    "漫画読み放題",
+    "Wi-Fi台データ"
+   ],
+   "latest_action_label": null,
+   "notes": "Onboarded after the owner confirmed on 2026-09-27 that LINE profile MEGAFACE1180座間 is this hall."
   }
  }
 }

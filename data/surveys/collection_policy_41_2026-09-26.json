@@ -21,6 +21,7 @@
  "stores": [
   {
    "hall_id": "pia-keiky-kawasaki",
+   "canonical_hall_id": "pia-keiky-kawasaki",
    "line_source_key": "@rmh1818e",
    "store_name": "PIA京急川崎",
    "rich_menu_status": "present",
@@ -50,6 +51,7 @@
   },
   {
    "hall_id": "abiba-sh-nandai-ten",
+   "canonical_hall_id": "abiba-sh-nandai-ten",
    "line_source_key": "@lxh1446l",
    "store_name": "アビバ湘南台店",
    "rich_menu_status": "absent_confirmed",
@@ -79,6 +81,7 @@
   },
   {
    "hall_id": "pachisuroemuandoemu",
+   "canonical_hall_id": "pachisuroemuandoemu",
    "line_source_key": "@mm_mizo",
    "store_name": "パチスロエムアンドエム",
    "rich_menu_status": "present",
@@ -107,6 +110,7 @@
   },
   {
    "hall_id": "jiasu-kami-oka",
+   "canonical_hall_id": "jiasu-kami-oka",
    "line_source_key": "@zia_k",
    "store_name": "ジアス上大岡",
    "rich_menu_status": "present",
@@ -135,6 +139,7 @@
   },
   {
    "hall_id": "123-yokohama-nishiguchi-ten",
+   "canonical_hall_id": "123-yokohama-nishiguchi-ten",
    "line_source_key": "@rvs1554c",
    "store_name": "123横浜西口店",
    "rich_menu_status": "present",
@@ -162,6 +167,7 @@
   },
   {
    "hall_id": "kui-pu-higashitotsuka-ten",
+   "canonical_hall_id": "kui-pu-higashitotsuka-ten",
    "line_source_key": "@gqq6628y",
    "store_name": "くいーぷ東戸塚店",
    "rich_menu_status": "present",
@@ -190,6 +196,7 @@
   },
   {
    "hall_id": "doki-waku-rando-ch-go-ekimae-ten",
+   "canonical_hall_id": "doki-waku-rando-ch-go-ekimae-ten",
    "line_source_key": "@gyf4355o",
    "store_name": "ドキわくランド長後駅前店",
    "rich_menu_status": "present",
@@ -217,6 +224,7 @@
   },
   {
    "hall_id": "kik-na-chigasaki-ten",
+   "canonical_hall_id": "kik-na-chigasaki-ten",
    "line_source_key": "@kicona-chigasaki",
    "store_name": "キコーナ茅ヶ崎店",
    "rich_menu_status": "present",
@@ -244,6 +252,7 @@
   },
   {
    "hall_id": "rakuen-sagamihara-ten",
+   "canonical_hall_id": "rakuen-sagamihara-ten",
    "line_source_key": "@962wucpf",
    "store_name": "楽園相模原店",
    "rich_menu_status": "present",
@@ -276,6 +285,7 @@
   },
   {
    "hall_id": "kurie-j-nichi-shij-ten",
+   "canonical_hall_id": "kurie-j-nichi-shij-ten",
    "line_source_key": "@c0459862933",
    "store_name": "クリエ十日市場店",
    "rich_menu_status": "absent_confirmed",
@@ -304,6 +314,7 @@
   },
   {
    "hall_id": "kik-na-bakuro-ten",
+   "canonical_hall_id": "kik-na-bakuro-ten",
    "line_source_key": "@kicona-hakuraku",
    "store_name": "キコーナ白楽店",
    "rich_menu_status": "present",
@@ -330,6 +341,7 @@
   },
   {
    "hall_id": "biggu-pandora-ido-ke-tani-ten-shinkan",
+   "canonical_hall_id": "biggu-pandora-ido-ke-tani-ten-shinkan",
    "line_source_key": "@949hkhtd",
    "store_name": "ビッグパンドラ井土ヶ谷店新館",
    "rich_menu_status": "present",
@@ -357,6 +369,7 @@
   },
   {
    "hall_id": "gurando-h-ru-odawara-ten",
+   "canonical_hall_id": "gurando-h-ru-odawara-ten",
    "line_source_key": "@354skdpc",
    "store_name": "グランドホール小田原店",
    "rich_menu_status": "present",
@@ -385,6 +398,7 @@
   },
   {
    "hall_id": "nakayama-uno",
+   "canonical_hall_id": "nakayama-uno",
    "line_source_key": "@zwt0488b",
    "store_name": "中山UNO",
    "rich_menu_status": "present",
@@ -417,6 +431,7 @@
   },
   {
    "hall_id": "kik-na-isezaki-ten",
+   "canonical_hall_id": "kik-na-isezaki-ten",
    "line_source_key": "@isezaki",
    "store_name": "キコーナ伊勢佐木店",
    "rich_menu_status": "present",
@@ -446,6 +461,7 @@
   },
   {
    "hall_id": "kitch-kawasaki-nogawa-ten",
+   "canonical_hall_id": "kitch-kawasaki-nogawa-ten",
    "line_source_key": "@565yasud",
    "store_name": "吉兆川崎野川店",
    "rich_menu_status": "present",
@@ -475,6 +491,7 @@
   },
   {
    "hall_id": "tow-zu-sagamihara-ten",
+   "canonical_hall_id": "tow-zu-sagamihara-ten",
    "line_source_key": "@bck0569v",
    "store_name": "トワーズ相模原店",
    "rich_menu_status": "present",
@@ -502,6 +519,7 @@
   },
   {
    "hall_id": "jiasusent-minami",
+   "canonical_hall_id": "jiasusent-minami",
    "line_source_key": "@rbt8267i",
    "store_name": "ジアスセンター南",
    "rich_menu_status": "present",
@@ -531,6 +549,7 @@
   },
   {
    "hall_id": "pia-tsunashima",
+   "canonical_hall_id": "pia-tsunashima",
    "line_source_key": "@pia_tunashima",
    "store_name": "PIA綱島",
    "rich_menu_status": "present",
@@ -581,6 +600,7 @@
   },
   {
    "hall_id": "japan-ny-arufa-kurami-ten",
+   "canonical_hall_id": "japan-ny-arufa-kurami-ten",
    "line_source_key": "@fpu2515q",
    "store_name": "ジャパンニューアルファ倉見店",
    "rich_menu_status": "present",
@@ -607,6 +627,7 @@
   },
   {
    "hall_id": "doki-waku-rando-ido-ke-tani-ten",
+   "canonical_hall_id": "doki-waku-rando-ido-ke-tani-ten",
    "line_source_key": "@mnt5245y",
    "store_name": "ドキわくランド井土ヶ谷店",
    "rich_menu_status": "present",
@@ -633,6 +654,7 @@
   },
   {
    "hall_id": "gaianekusuto-ebina-ekimae-ten",
+   "canonical_hall_id": "gaianekusuto-ebina-ekimae-ten",
    "line_source_key": "@yfg7107w",
    "store_name": "ガイアネクスト海老名駅前店",
    "rich_menu_status": "present",
@@ -660,6 +682,7 @@
   },
   {
    "hall_id": "p-ku-sagami-no",
+   "canonical_hall_id": "p-ku-sagami-no",
    "line_source_key": "@515hybfb",
    "store_name": "ピーアーク相模大野",
    "rich_menu_status": "present",
@@ -693,6 +716,7 @@
   },
   {
    "hall_id": "p-ru-shoppu-tomo-e-fuchinobe-ten",
+   "canonical_hall_id": "p-ru-shoppu-tomo-e-fuchinobe-ten",
    "line_source_key": "@781yaczj",
    "store_name": "パールショップともえ淵野辺店",
    "rich_menu_status": "present",
@@ -720,6 +744,7 @@
   },
   {
    "hall_id": "arrow-hiratsuka-ten",
+   "canonical_hall_id": "arrow-hiratsuka-ten",
    "line_source_key": "@fqp0469n",
    "store_name": "ARROW平塚店",
    "rich_menu_status": "present",
@@ -747,6 +772,7 @@
   },
   {
    "hall_id": "new-garden-totsuka",
+   "canonical_hall_id": "new-garden-totsuka",
    "line_source_key": "@jri9235n",
    "store_name": "新！ガーデン戸塚",
    "rich_menu_status": "present",
@@ -774,6 +800,7 @@
   },
   {
    "hall_id": "nambusen-shitte-ekimae-ten",
+   "canonical_hall_id": "nambusen-shitte-ekimae-ten",
    "line_source_key": "@qqr1482n",
    "store_name": "南武線尻手駅前店",
    "rich_menu_status": "present",
@@ -800,6 +827,7 @@
   },
   {
    "hall_id": "purego-yugawara-ten",
+   "canonical_hall_id": "purego-yugawara-ten",
    "line_source_key": "@232bqwsv",
    "store_name": "プレゴ湯河原店",
    "rich_menu_status": "present",
@@ -829,6 +857,7 @@
   },
   {
    "hall_id": "sanrakk-sagamihara-ten",
+   "canonical_hall_id": "sanrakk-sagamihara-ten",
    "line_source_key": "@628hqwbe",
    "store_name": "サンラッキー相模原店",
    "rich_menu_status": "absent_confirmed",
@@ -856,6 +885,7 @@
   },
   {
    "hall_id": "ginzah-ru-707",
+   "canonical_hall_id": "ginzah-ru-707",
    "line_source_key": "@351eiuvz",
    "store_name": "ギンザホール707",
    "rich_menu_status": "present",
@@ -882,6 +912,7 @@
   },
   {
    "hall_id": "ichibankan-sagamihara-ten",
+   "canonical_hall_id": "ichibankan-sagamihara-ten",
    "line_source_key": "@dse9977u",
    "store_name": "一番舘 相模原店",
    "rich_menu_status": "absent_confirmed",
@@ -906,6 +937,7 @@
   },
   {
    "hall_id": "gur-n",
+   "canonical_hall_id": "green-fujisawa",
    "line_source_key": "@629aqwlz",
    "store_name": "グリーン",
    "rich_menu_status": "present",
@@ -932,6 +964,7 @@
   },
   {
    "hall_id": "japan-ny-arufa-fujisawa-ten",
+   "canonical_hall_id": "hall-5a179ee22ec6db8d",
    "line_source_key": "@nxv1359a",
    "store_name": "ジャパンニューアルファ藤沢店",
    "rich_menu_status": "present",
@@ -961,6 +994,7 @@
   },
   {
    "hall_id": "higashiyoko-fesuta-3",
+   "canonical_hall_id": "higashiyoko-fesuta-3",
    "line_source_key": "@576ncfpf",
    "store_name": "東横フェスタ3",
    "rich_menu_status": "present",
@@ -987,6 +1021,7 @@
   },
   {
    "hall_id": "ja-ran-hiratsuka-ten",
+   "canonical_hall_id": "ja-ran-hiratsuka-ten",
    "line_source_key": "@uvb7365o",
    "store_name": "ジャラン平塚店",
    "rich_menu_status": "present",
@@ -1013,6 +1048,7 @@
   },
   {
    "hall_id": "maruhan-hashimotodai-ten",
+   "canonical_hall_id": "maruhan-hashimotodai-ten",
    "line_source_key": "@bls7088c",
    "store_name": "マルハン橋本台店",
    "rich_menu_status": "present",
@@ -1039,6 +1075,7 @@
   },
   {
    "hall_id": "maruhan-atsugi-ten",
+   "canonical_hall_id": "maruhan-atsugi-ten",
    "line_source_key": "@ggz8372o",
    "store_name": "マルハン厚木店",
    "rich_menu_status": "present",
@@ -1065,6 +1102,7 @@
   },
   {
    "hall_id": "maruhan-atsugi-kita-ten",
+   "canonical_hall_id": "maruhan-atsugi-kita-ten",
    "line_source_key": "@ukw5467h",
    "store_name": "マルハン厚木北店",
    "rich_menu_status": "present",
@@ -1094,6 +1132,7 @@
   },
   {
    "hall_id": "monos-kawasaki",
+   "canonical_hall_id": "monos-kawasaki",
    "line_source_key": "@monoskawasaki",
    "store_name": "MONOS川崎",
    "rich_menu_status": "present",
@@ -1122,6 +1161,7 @@
   },
   {
    "hall_id": "deizu-shinsugita-ten",
+   "canonical_hall_id": "deizu-shinsugita-ten",
    "line_source_key": "@days-shinsugita",
    "store_name": "デイズ新杉田店",
    "rich_menu_status": "present",
@@ -1148,6 +1188,7 @@
   },
   {
    "hall_id": "ny-shatoru",
+   "canonical_hall_id": "ny-shatoru",
    "line_source_key": "@359gpeap",
    "store_name": "ニューシャトル",
    "rich_menu_status": "present",

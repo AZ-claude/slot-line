@@ -1,0 +1,350 @@
+{
+ "schema_version": 1,
+ "review_id": "collection_policy_batch01_2026-09-26_review",
+ "policy_id": "collection_policy_batch01_2026-09-26",
+ "source_onboarding": "data/surveys/line_onboarding_batch01_2026-09-26.json",
+ "reviewed_at": "2026-09-27",
+ "timezone": "Asia/Tokyo",
+ "method": {
+  "menu_label_source": "screenshot_visual_review",
+  "action_policy": "one tap per store on a clear latest-information tile",
+  "menu_taps": 7,
+  "messages_typed": 0,
+  "consents_granted": 0,
+  "absence_rule": "absent_confirmed needs no menu nodes across the onboarding capture plus two settled dumps with the composer visible"
+ },
+ "not_onboarded": {
+  "hall-53398f2bf42df154": "SS ZAP追浜店 and ZAP追浜店 list the same legacy line.naver.jp link (g33TtYWeit), which opened no LINE screen; shared account, owner decision needed",
+  "hall-6de281b6d542b550": "same shared legacy link as SS ZAP追浜店",
+  "hall-9f780a1b45b5d558": "profile name ヒノマル新丸子 vs hall ヒノマル新丸子西口 スロット館; owner confirmation needed",
+  "hall-01bc494aca56f763": "profile name ピーズタウン桜ヶ丘 vs hall Ｐ’Ｓｔｏｗｎ桜ヶ丘 (@349cuepr); second ID @ps-80g0 not displayable; owner confirmation needed",
+  "abiba-yokosuka-ch-ten": "@435bxklk not displayable",
+  "hall-37a22f0aa26ca586": "1ぱちZAP京急久里浜店 @450bmepa opened a chat whose header did not match; not added",
+  "hall-9e82d175822820b7": "ZAP JR久里浜店 lists @bjs2804d, which belongs to ZAP京急久里浜店 (already onboarded); no separate account"
+ },
+ "stores": {
+  "gurando-h-ru-ch-go-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "9月グランド(banner)",
+    "台データ",
+    "フロアマップ",
+    "朝入場"
+   ],
+   "latest_action_label": null
+  },
+  "hall-5f23ce7bab3bec39": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "創業月間(banner)",
+    "フロアマップ",
+    "PIAアプリ",
+    "大船1 P-WORLD",
+    "大船2 P-WORLD"
+   ],
+   "latest_action_label": null
+  },
+  "hall-79ab16be0b4394fd": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "週末(banner)",
+    "台データ",
+    "X",
+    "P-WORLD"
+   ],
+   "latest_action_label": null
+  },
+  "hall-c59a3855044451cd": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "新装開店(banner)",
+    "フロアマップ",
+    "台データ"
+   ],
+   "latest_action_label": null
+  },
+  "hall-c6b84e1256adfaf9": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "新台情報",
+    "要チェック オススメ",
+    "フロアマップ",
+    "アクセス情報",
+    "入場方法",
+    "台データ"
+   ],
+   "latest_action_label": null
+  },
+  "jiasu-bune": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "やっちゃえジアス(banner)",
+    "店長エックス",
+    "台データ",
+    "ホームページ",
+    "公式エックス"
+   ],
+   "latest_action_label": null,
+   "notes": "Menu bar title '最新情報はコチラ' is the open/close toggle, not a tile."
+  },
+  "kurabu-ny-y-ku-tammachi": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "台データ公開中",
+    "各フロアご案内",
+    "ご入場方法"
+   ],
+   "latest_action_label": null
+  },
+  "rakuen-kaminagaya-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "台データ",
+    "スマート会員登録",
+    "要チェック オススメ",
+    "NEXT STAGE(banner)",
+    "入場案内",
+    "フロアMAP",
+    "落とし物"
+   ],
+   "latest_action_label": null
+  },
+  "yasu-da-yamato-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "オンライン抽選",
+    "オンライン抽選説明動画",
+    "会員登録",
+    "台データ",
+    "取材まとめ",
+    "店舗X・店長X"
+   ],
+   "latest_action_label": null
+  },
+  "yokohama-mar-n": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "DMMぱちタウン フロアマップ",
+    "P-WORLD",
+    "X",
+    "Ameba"
+   ],
+   "latest_action_label": null
+  },
+  "yokosuka-mabori-mar-n": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "PAPIMO 台データ",
+    "Ameblo",
+    "X",
+    "P-WORLD 最新の設置情報",
+    "Instagram",
+    "DMM"
+   ],
+   "latest_action_label": null
+  },
+  "charenj-kan": {
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/absence_recheck/charenj-kan_snap.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/absence_recheck/charenj-kan_snap_1.xml",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/absence_recheck/charenj-kan_snap_2.xml"
+   ],
+   "notes": "No rich-menu or menu-bar nodes in the onboarding capture and two later settled dumps; composer visible."
+  },
+  "hall-4b773687726b244a": {
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/absence_recheck/hall-4b773687726b244a_snap.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/absence_recheck/hall-4b773687726b244a_snap_1.xml",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/absence_recheck/hall-4b773687726b244a_snap_2.xml"
+   ],
+   "notes": "No rich-menu or menu-bar nodes in the onboarding capture and two later settled dumps; composer visible."
+  },
+  "hall-95195c4b4c0bb303": {
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/absence_recheck/hall-95195c4b4c0bb303_snap.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/absence_recheck/hall-95195c4b4c0bb303_snap_1.xml",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/absence_recheck/hall-95195c4b4c0bb303_snap_2.xml"
+   ],
+   "notes": "No rich-menu or menu-bar nodes in the onboarding capture and two later settled dumps; composer visible."
+  },
+  "hall-b369f23a10d47640": {
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/absence_recheck/hall-b369f23a10d47640_snap.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/absence_recheck/hall-b369f23a10d47640_snap_1.xml",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/absence_recheck/hall-b369f23a10d47640_snap_2.xml"
+   ],
+   "notes": "No rich-menu or menu-bar nodes in the onboarding capture and two later settled dumps; composer visible."
+  },
+  "hall-3c4ffc5ecd159f24": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T15:33:37.997451+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": true
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-3c4ffc5ecd159f24_pre_action.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-3c4ffc5ecd159f24_post_action.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-3c4ffc5ecd159f24_post_action.xml",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/action_results.jsonl#hall-3c4ffc5ecd159f24"
+   ],
+   "notes": "Message-type action: tapping the tile posted a user-side '最新情報' text bubble and the store replied with a 新台入替 image. Text-trigger equivalence was not tested (sending was not permitted in this session), so text_trigger_verified stays false.",
+   "trigger_text": "最新情報"
+  },
+  "hall-551f707a3510d433": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "要チェック!! 毎日更新",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T15:34:55.101469+00:00",
+    "visible_action_label": "要チェック!! 毎日更新",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-551f707a3510d433_pre_action.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-551f707a3510d433_post_action.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-551f707a3510d433_post_action.xml",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/action_results.jsonl#hall-551f707a3510d433"
+   ],
+   "notes": "Menu expanded first; an オススメ image message appeared after the tap; no user-side text bubble."
+  },
+  "hall-805189d07028553b": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T15:36:06.738804+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-805189d07028553b_pre_action.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-805189d07028553b_post_action.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-805189d07028553b_post_action.xml",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/action_results.jsonl#hall-805189d07028553b"
+   ],
+   "notes": "An image message appeared right after the tap; no user-side text bubble."
+  },
+  "hall-8c575c49425feb75": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "神奈川特設HP LATEST INFORMATION PUSH",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T15:37:10.346289+00:00",
+    "visible_action_label": "神奈川特設HP LATEST INFORMATION PUSH",
+    "action_result": "unknown",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-8c575c49425feb75_pre_action.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-8c575c49425feb75_post_action.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-8c575c49425feb75_post_action.xml",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/action_results.jsonl#hall-8c575c49425feb75"
+   ],
+   "notes": "No visible reply or navigation within 12 seconds of the single tap."
+  },
+  "skip-ayase-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T15:38:25.007564+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/skip-ayase-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/skip-ayase-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/skip-ayase-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/action_results.jsonl#skip-ayase-ten"
+   ],
+   "notes": "Opened the P-WORLD hall page (SKIP綾瀬店) in the LINE in-app browser."
+  },
+  "skip-yokohama-ky-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "NEW 最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T15:39:42.938889+00:00",
+    "visible_action_label": "NEW 最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/skip-yokohama-ky-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/skip-yokohama-ky-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/skip-yokohama-ky-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/action_results.jsonl#skip-yokohama-ky-ten"
+   ],
+   "notes": "Opened the P-WORLD hall page (SKIP横浜橋店) in the LINE in-app browser."
+  },
+  "zap-prestige": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "X 最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T15:41:32.080957+00:00",
+    "visible_action_label": "X 最新情報",
+    "action_result": "external_app",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/zap-prestige_pre_action.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/zap-prestige_post_action.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/zap-prestige_post_action.xml",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/action_results.jsonl#zap-prestige"
+   ],
+   "notes": "Opened the X app (com.twitter.android) on @ZAP_prestige777; not a web or LINE source."
+  }
+ }
+}

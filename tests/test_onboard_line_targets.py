@@ -47,6 +47,10 @@ class OnboardingScreenTests(unittest.TestCase):
         self.assertIsNone(identity({"name": None}, CANDIDATE))
         self.assertEqual(identity({"name": "ガイア東戸塚"}, {"store_name": "ガイア東戸塚店"}), "verified_name_without_store_suffix")
         self.assertIsNone(identity({"name": "MEGAFACE1180座間"}, {"store_name": "メガフェイス1180座間"}))
+        self.assertEqual(
+            identity({"name": "MEGAFACE1180座間"}, {"store_name": "メガフェイス1180座間", "owner_confirmed_profile_names": ["MEGAFACE1180座間"]}),
+            "verified_owner_confirmed_name",
+        )
 
     def test_error_dialog_is_not_a_profile(self):
         screen = classify_screen(

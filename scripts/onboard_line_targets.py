@@ -25,8 +25,16 @@ from xml.etree import ElementTree
 
 ROOT = Path(__file__).resolve().parents[1]
 PWORLD_LIST = ROOT / "kanagawa_pworld_line_x_20260923.md"
+CANONICAL_MAP = ROOT / "data/hall_id_canonical_map.json"
 LINE_PACKAGE = "jp.naver.line.android"
 LINE_ID = f"{LINE_PACKAGE}:id/"
+
+
+def canonical_hall_ids(path: Path = CANONICAL_MAP) -> dict[str, str]:
+    """Legacy slot-line hall_id -> hall-master hall_id (identity only; ids stay as-is)."""
+    if not path.exists():
+        return {}
+    return {legacy: item["canonical_hall_id"] for legacy, item in json.loads(path.read_text(encoding="utf-8"))["mappings"].items()}
 
 
 def normalize_name(value: str) -> str:
@@ -79,6 +87,8 @@ def parse_pworld_line_list(path: Path = PWORLD_LIST) -> dict[str, list[str]]:
 
 def build_candidates(halls_csv: Path, registered: set[str]) -> list[dict[str, Any]]:
     listing = parse_pworld_line_list()
+    canonical = canonical_hall_ids()
+    registered = registered | {canonical.get(hall_id, hall_id) for hall_id in registered}
     rows = []
     with halls_csv.open(encoding="utf-8") as handle:
         for hall in csv.DictReader(handle):
@@ -184,6 +194,8 @@ def identity(screen: dict[str, Any], candidate: dict[str, Any]) -> str | None:
         return "verified_normalized_name"
     if observed.removesuffix("店") == expected.removesuffix("店"):
         return "verified_name_without_store_suffix"
+    if observed in {normalize_name(name) for name in candidate.get("owner_confirmed_profile_names", [])}:
+        return "verified_owner_confirmed_name"
     return None
 
 
@@ -300,6 +312,9 @@ def build_registry(capability: dict[str, Any], onboarding_files: list[Path]) -> 
         for row in capability["records"]
         if row.get("profile_verified") and str(row.get("identity_status", "")).startswith("verified_")
     ]
+    canonical = canonical_hall_ids()
+    for row in targets:
+        row["canonical_hall_id"] = canonical.get(row["hall_id"], row["hall_id"])
     known = {row["hall_id"] for row in targets}
     for path in sorted(onboarding_files):
         for record in json.loads(path.read_text(encoding="utf-8"))["records"]:
@@ -309,6 +324,7 @@ def build_registry(capability: dict[str, Any], onboarding_files: list[Path]) -> 
             targets.append(
                 {
                     "hall_id": record["hall_id"],
+                    "canonical_hall_id": record["hall_id"],
                     "collector_key": record["hall_id"],
                     "line_source_key": record["line_source_key"],
                     "store_name": record["store_name"],
@@ -329,7 +345,7 @@ def main() -> int:
     sub = parser.add_subparsers(dest="command", required=True)
     cand = sub.add_parser("candidates")
     cand.add_argument("--halls-csv", type=Path, required=True)
-    cand.add_argument("--registered", type=Path, required=True, help="collection policy table of registered stores")
+    cand.add_argument("--registered", type=Path, default=ROOT / "data/line_targets.json", help="collector registry (or a policy table) of registered stores")
     cand.add_argument("--output", type=Path, required=True)
     registry = sub.add_parser("registry")
     registry.add_argument("--capability", type=Path, default=ROOT / "data/surveys/line_capability_50_live_2026-09-25.json")
@@ -343,10 +359,13 @@ def main() -> int:
     onboard.add_argument("--adb", default="/tmp/codex-adb-bridge/adb")
     onboard.add_argument("--serial", default="HQ615G150D")
     onboard.add_argument("--retry-failed", action="store_true", help="retry hall_ids whose previous result was not_onboarded")
+    onboard.add_argument("--owner-confirmed-name", action="append", default=[], metavar="HALL_ID=PROFILE_NAME",
+                         help="LINE profile name the owner confirmed as this hall (exact after normalization)")
     args = parser.parse_args()
 
     if args.command == "candidates":
-        registered = {row["hall_id"] for row in json.loads(args.registered.read_text(encoding="utf-8"))["stores"]}
+        source = json.loads(args.registered.read_text(encoding="utf-8"))
+        registered = {row["hall_id"] for row in source.get("targets") or source["stores"]}
         rows = build_candidates(args.halls_csv, registered)
         args.output.write_text(json.dumps({"schema_version": 1, "source_halls_csv": str(args.halls_csv), "source_pworld_list": PWORLD_LIST.name, "candidates": rows}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         counts: dict[str, int] = {}
@@ -365,6 +384,11 @@ def main() -> int:
         return 0
 
     by_id = {row["hall_id"]: row for row in json.loads(args.candidates.read_text(encoding="utf-8"))["candidates"]}
+    for item in args.owner_confirmed_name:
+        hall_id, _, name = item.partition("=")
+        if hall_id not in by_id or not name:
+            parser.error(f"bad --owner-confirmed-name: {item}")
+        by_id[hall_id].setdefault("owner_confirmed_profile_names", []).append(name)
     wanted = [hall_id.strip() for hall_id in args.hall_ids.split(",") if hall_id.strip()]
     missing = [hall_id for hall_id in wanted if hall_id not in by_id or by_id[hall_id]["status"] != "pending"]
     if missing:

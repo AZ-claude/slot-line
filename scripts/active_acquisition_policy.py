@@ -353,7 +353,9 @@ DAILY_POLICY = {
 }
 
 
-def build_policy_row(record: dict[str, Any], review: dict[str, Any] | None) -> dict[str, Any]:
+def build_policy_row(
+    record: dict[str, Any], review: dict[str, Any] | None, canonical: dict[str, str] | None = None
+) -> dict[str, Any]:
     """Merge a classified inventory record with its one-time onboarding review.
 
     A reviewed action only counts when the review saw its result; a missing label or
@@ -406,6 +408,8 @@ def build_policy_row(record: dict[str, Any], review: dict[str, Any] | None) -> d
         confidence, status = ("medium", "owner_confirmed_no_collection_action") if owner_observed else ("medium", "rich_menu_absent_confirmed")
     elif review.get("menu_visual_review_required"):
         confidence, status = "low", "menu_visual_review_required"
+    elif mapping.get("action_result") == "external_app" and mapping.get("content_observed") is True:
+        confidence, status = "medium", "latest_action_external_app"
     elif mapping.get("blocked_by"):
         confidence, status = "low", mapping["blocked_by"]
     elif mapping.get("executed"):
@@ -421,6 +425,7 @@ def build_policy_row(record: dict[str, Any], review: dict[str, Any] | None) -> d
 
     row = {
         "hall_id": record["hall_id"],
+        "canonical_hall_id": (canonical or {}).get(record["hall_id"], record["hall_id"]),
         "line_source_key": record["line_source_key"],
         "store_name": record.get("store_name"),
         "rich_menu_status": menu_status,
@@ -461,12 +466,14 @@ def onboarding_inventory_record(record: dict[str, Any], review: dict[str, Any] |
     }
 
 
-def build_policy_table(inventory: dict[str, Any], review: dict[str, Any]) -> dict[str, Any]:
+def build_policy_table(
+    inventory: dict[str, Any], review: dict[str, Any], canonical: dict[str, str] | None = None
+) -> dict[str, Any]:
     reviews = review.get("stores", {})
     unknown = set(reviews) - {record["hall_id"] for record in inventory["records"]}
     if unknown:
         raise ValueError(f"review_for_unknown_hall:{sorted(unknown)}")
-    rows = [build_policy_row(record, reviews.get(record["hall_id"])) for record in inventory["records"]]
+    rows = [build_policy_row(record, reviews.get(record["hall_id"]), canonical) for record in inventory["records"]]
     counts = Counter(row["collection_type"] for row in rows)
     return {
         "schema_version": 1,
@@ -505,7 +512,13 @@ def main(argv: list[str] | None = None) -> int:
             if record.get("result") == "onboarded":
                 raw_inventory["records"].append(onboarding_inventory_record(record, review.get("stores", {}).get(record["hall_id"])))
     inventory = classify_inventory(raw_inventory)
-    table = build_policy_table(inventory, review)
+    canonical_path = Path(__file__).resolve().parents[1] / "data/hall_id_canonical_map.json"
+    canonical = (
+        {legacy: item["canonical_hall_id"] for legacy, item in json.loads(canonical_path.read_text(encoding="utf-8"))["mappings"].items()}
+        if canonical_path.exists()
+        else {}
+    )
+    table = build_policy_table(inventory, review, canonical)
     args.output.write_text(json.dumps(table, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(json.dumps(table["counts"], ensure_ascii=False))
     return 0

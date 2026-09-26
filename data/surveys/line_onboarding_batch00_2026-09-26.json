@@ -223,11 +223,21 @@
      "profile_xml": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/mega-feisu-1180-zama_profile_0.xml",
      "profile_name": "MEGAFACE1180座間",
      "profile_pworld_path": null,
-     "identity": null,
-     "result": "identity_unverified"
+     "identity": "verified_owner_confirmed_name",
+     "friend_added": true,
+     "chat_header": "MEGAFACE1180座間",
+     "screenshot": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/mega-feisu-1180-zama.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch00_2026-09-26_evidence/mega-feisu-1180-zama.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
     }
    ],
-   "result": "not_onboarded"
+   "result": "onboarded",
+   "line_source_key": "@811gyfrr",
+   "identity_status": "verified_owner_confirmed_name",
+   "friend_added": true,
+   "onboarded_at": "2026-09-26T15:32:27.387689+00:00"
   }
  ]
 }

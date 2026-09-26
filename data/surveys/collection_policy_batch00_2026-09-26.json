@@ -15,12 +15,13 @@
   "type_a_passive": 0,
   "type_b_passive_plus_active": 3,
   "type_c_passive_external_web": 1,
-  "unresolved": 3
+  "unresolved": 4
  },
- "store_count": 7,
+ "store_count": 8,
  "stores": [
   {
    "hall_id": "jiasu-k-nandai",
+   "canonical_hall_id": "jiasu-k-nandai",
    "line_source_key": "@fap2637x",
    "store_name": "ジアス港南台",
    "rich_menu_status": "present",
@@ -47,6 +48,7 @@
   },
   {
    "hall_id": "taig-7-tsunashima-ten",
+   "canonical_hall_id": "taig-7-tsunashima-ten",
    "line_source_key": "@237gsfjs",
    "store_name": "タイガー7綱島店",
    "rich_menu_status": "present",
@@ -77,6 +79,7 @@
   },
   {
    "hall_id": "gaia-wada-machi-ten",
+   "canonical_hall_id": "gaia-wada-machi-ten",
    "line_source_key": "@g-wadamachi",
    "store_name": "ガイア和田町店",
    "rich_menu_status": "present",
@@ -102,6 +105,7 @@
   },
   {
    "hall_id": "abiba-tsunashima-minami-ten",
+   "canonical_hall_id": "abiba-tsunashima-minami-ten",
    "line_source_key": "@120gvvvr",
    "store_name": "アビバ綱島南店",
    "rich_menu_status": "present",
@@ -132,6 +136,7 @@
   },
   {
    "hall_id": "ny-ritchirando",
+   "canonical_hall_id": "ny-ritchirando",
    "line_source_key": "@chi7610e",
    "store_name": "ニューリッチランド",
    "rich_menu_status": "present",
@@ -158,6 +163,7 @@
   },
   {
    "hall_id": "kik-na-odawara-gimachi-ten",
+   "canonical_hall_id": "kik-na-odawara-gimachi-ten",
    "line_source_key": "@hkg7433u",
    "store_name": "キコーナ小田原扇町店",
    "rich_menu_status": "present",
@@ -188,6 +194,7 @@
   },
   {
    "hall_id": "gaia-higashitotsuka-ten",
+   "canonical_hall_id": "gaia-higashitotsuka-ten",
    "line_source_key": "@pfk1259x",
    "store_name": "ガイア東戸塚店",
    "rich_menu_status": "present",
@@ -215,6 +222,33 @@
     "external_url_role": "auxiliary_source"
    },
    "notes": "Opened the DMMぱちタウン store page in the LINE in-app browser."
+  },
+  {
+   "hall_id": "mega-feisu-1180-zama",
+   "canonical_hall_id": "mega-feisu-1180-zama",
+   "line_source_key": "@811gyfrr",
+   "store_name": "メガフェイス1180座間",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/mega-feisu-1180-zama.jpg",
+    "data/surveys/line_onboarding_batch00_2026-09-26_evidence/mega-feisu-1180-zama.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "Onboarded after the owner confirmed on 2026-09-27 that LINE profile MEGAFACE1180座間 is this hall."
   }
  ]
 }
