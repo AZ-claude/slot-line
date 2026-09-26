@@ -1130,6 +1130,51 @@
    ],
    "source": "line_onboarding_batch01_2026-09-26.json",
    "active": true
+  },
+  {
+   "hall_id": "hall-9f780a1b45b5d558",
+   "canonical_hall_id": "hall-9f780a1b45b5d558",
+   "collector_key": "hall-9f780a1b45b5d558",
+   "line_source_key": "@zkx8098z",
+   "store_name": "ヒノマル新丸子西口 スロット館",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_owner_confirmed_name",
+   "chat_header_name": "ヒノマル新丸子",
+   "profile_expected_names": [
+    "ヒノマル新丸子西口 スロット館"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-01bc494aca56f763",
+   "canonical_hall_id": "hall-01bc494aca56f763",
+   "collector_key": "hall-01bc494aca56f763",
+   "line_source_key": "@349cuepr",
+   "store_name": "Ｐ’Ｓｔｏｗｎ桜ヶ丘",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_owner_confirmed_name",
+   "chat_header_name": "ピーズタウン桜ヶ丘",
+   "profile_expected_names": [
+    "Ｐ’Ｓｔｏｗｎ桜ヶ丘"
+   ],
+   "source": "line_onboarding_batch01_2026-09-26.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-31e7a172504fa5e8",
+   "canonical_hall_id": "hall-31e7a172504fa5e8",
+   "collector_key": "hall-31e7a172504fa5e8",
+   "line_source_key": "@kicona-aikawa",
+   "store_name": "キコーナ愛川店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "キコーナ愛川店",
+   "profile_expected_names": [
+    "キコーナ愛川店"
+   ],
+   "source": "line_onboarding_batch02_2026-09-27.json",
+   "active": true
   }
  ]
 }

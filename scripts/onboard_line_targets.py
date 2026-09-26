@@ -108,6 +108,10 @@ def build_candidates(halls_csv: Path, registered: set[str]) -> list[dict[str, An
     return rows
 
 
+class FriendAddBlocked(RuntimeError):
+    """LINE refused a friend-add (typically the account's add-rate limit); stop the batch."""
+
+
 class Device:
     def __init__(self, adb: str, serial: str):
         self.base = [adb, "-s", serial]
@@ -252,6 +256,14 @@ def onboard_one(device: Device, candidate: dict[str, Any], evidence: Path) -> di
                 device.tap(*screen["add"])
                 time.sleep(4)
                 screen = classify_screen(device.dump())
+                if screen["screen"] == "dialog":
+                    attempt["friend_added"] = False
+                    attempt["result"] = "friend_add_failed:" + screen["message"][:80]
+                    if screen.get("ok"):
+                        device.tap(*screen["ok"])
+                    if "友だち追加できません" in screen["message"]:
+                        raise FriendAddBlocked(screen["message"])
+                    continue
                 attempt["friend_added"] = True
             else:
                 attempt["friend_added"] = False
@@ -406,7 +418,11 @@ def main() -> int:
     for hall_id in wanted:
         if hall_id in done:
             continue
-        record = onboard_one(device, by_id[hall_id], args.evidence_dir)
+        try:
+            record = onboard_one(device, by_id[hall_id], args.evidence_dir)
+        except FriendAddBlocked as exc:
+            print(json.dumps({"hall_id": hall_id, "stopped": "friend_add_blocked", "message": str(exc)}, ensure_ascii=False), flush=True)
+            return 2
         output["records"].append(record)
         args.output.write_text(json.dumps(output, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         print(json.dumps({key: record.get(key) for key in ("hall_id", "result", "line_source_key", "identity_status", "friend_added")}, ensure_ascii=False), flush=True)

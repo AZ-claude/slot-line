@@ -14,10 +14,10 @@
  "counts": {
   "type_a_passive": 4,
   "type_b_passive_plus_active": 3,
-  "type_c_passive_external_web": 2,
-  "unresolved": 14
+  "type_c_passive_external_web": 3,
+  "unresolved": 15
  },
- "store_count": 23,
+ "store_count": 25,
  "stores": [
   {
    "hall_id": "hall-551f707a3510d433",
@@ -226,9 +226,9 @@
    "latest_action_label": "最新情報",
    "action_result": "line_reply",
    "collection_type": "type_b_passive_plus_active",
-   "active_method": "rich_menu",
-   "trigger_text": null,
-   "text_trigger_verified": false,
+   "active_method": "text_trigger",
+   "trigger_text": "最新情報",
+   "text_trigger_verified": true,
    "external_url": null,
    "evidence_refs": [
     "data/surveys/line_onboarding_batch01_2026-09-26_evidence/hall-3c4ffc5ecd159f24.jpg",
@@ -236,7 +236,9 @@
     "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-3c4ffc5ecd159f24_pre_action.jpg",
     "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-3c4ffc5ecd159f24_post_action.jpg",
     "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-3c4ffc5ecd159f24_post_action.xml",
-    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/action_results.jsonl#hall-3c4ffc5ecd159f24"
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/action_results.jsonl#hall-3c4ffc5ecd159f24",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/owner_text_trigger/hall-3c4ffc5ecd159f24_snap.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/owner_text_trigger/hall-3c4ffc5ecd159f24_snap_2.xml"
    ],
    "confidence": "high",
    "verification_status": "active_action_verified",
@@ -245,7 +247,7 @@
     "active_trigger": true,
     "external_url_role": null
    },
-   "notes": "Message-type action: tapping the tile posted a user-side '最新情報' text bubble and the store replied with a 新台入替 image. Text-trigger equivalence was not tested (sending was not permitted in this session), so text_trigger_verified stays false."
+   "notes": "Message-type action: the rich-menu tap (00:33 JST) posted '最新情報' and the store replied with a 新台入替 image. The owner sent '最新情報' manually at 00:55 JST and the same image reply followed; equivalence verified from the captured chat."
   },
   {
    "hall_id": "hall-c6b84e1256adfaf9",
@@ -668,6 +670,64 @@
     "active_trigger": false,
     "external_url_role": null
    }
+  },
+  {
+   "hall_id": "hall-9f780a1b45b5d558",
+   "canonical_hall_id": "hall-9f780a1b45b5d558",
+   "line_source_key": "@zkx8098z",
+   "store_name": "ヒノマル新丸子西口 スロット館",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/hall-9f780a1b45b5d558.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/hall-9f780a1b45b5d558.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "Onboarded after owner confirmation of profile name ヒノマル新丸子."
+  },
+  {
+   "hall_id": "hall-01bc494aca56f763",
+   "canonical_hall_id": "hall-01bc494aca56f763",
+   "line_source_key": "@349cuepr",
+   "store_name": "Ｐ’Ｓｔｏｗｎ桜ヶ丘",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "NEW お知らせ",
+   "action_result": "external_web",
+   "collection_type": "type_c_passive_external_web",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/hall-01bc494aca56f763.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/hall-01bc494aca56f763.xml",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-01bc494aca56f763_pre_action.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-01bc494aca56f763_post_action.jpg",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-01bc494aca56f763_post_action.xml",
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/action_results.jsonl#hall-01bc494aca56f763"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": "auxiliary_source"
+   },
+   "notes": "Onboarded after owner confirmation of profile name ピーズタウン桜ヶ丘. 'NEW お知らせ' opened the P-WORLD hall page."
   }
  ]
 }

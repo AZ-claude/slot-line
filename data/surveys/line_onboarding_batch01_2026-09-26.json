@@ -192,23 +192,6 @@
    "result": "not_onboarded"
   },
   {
-   "hall_id": "hall-9f780a1b45b5d558",
-   "store_name": "ヒノマル新丸子西口 スロット館",
-   "attempts": [
-    {
-     "line_source_key": "@zkx8098z",
-     "url": "https://line.me/R/ti/p/%40zkx8098z",
-     "first_screen": "profile",
-     "profile_xml": "data/surveys/line_onboarding_batch01_2026-09-26_evidence/hall-9f780a1b45b5d558_profile_0.xml",
-     "profile_name": "ヒノマル新丸子",
-     "profile_pworld_path": null,
-     "identity": null,
-     "result": "identity_unverified"
-    }
-   ],
-   "result": "not_onboarded"
-  },
-  {
    "hall_id": "yokosuka-mabori-mar-n",
    "store_name": "横須賀・馬堀マリーン",
    "attempts": [
@@ -298,29 +281,6 @@
    "identity_status": "verified_normalized_name",
    "friend_added": true,
    "onboarded_at": "2026-09-26T14:57:40.006767+00:00"
-  },
-  {
-   "hall_id": "hall-01bc494aca56f763",
-   "store_name": "Ｐ’Ｓｔｏｗｎ桜ヶ丘",
-   "attempts": [
-    {
-     "line_source_key": "@349cuepr",
-     "url": "https://line.me/R/ti/p/%40349cuepr",
-     "first_screen": "profile",
-     "profile_xml": "data/surveys/line_onboarding_batch01_2026-09-26_evidence/hall-01bc494aca56f763_profile_0.xml",
-     "profile_name": "ピーズタウン桜ヶ丘",
-     "profile_pworld_path": null,
-     "identity": null,
-     "result": "identity_unverified"
-    },
-    {
-     "line_source_key": "@ps-80g0",
-     "url": "https://line.me/R/ti/p/%40ps-80g0",
-     "first_screen": "dialog",
-     "result": "dialog:LINEの友だちではないユーザー、またはLINEアカウントが違うため表示できません。"
-    }
-   ],
-   "result": "not_onboarded"
   },
   {
    "hall_id": "hall-4b773687726b244a",
@@ -781,6 +741,60 @@
    "identity_status": "verified_pworld_url",
    "friend_added": true,
    "onboarded_at": "2026-09-26T15:29:12.848922+00:00"
+  },
+  {
+   "hall_id": "hall-9f780a1b45b5d558",
+   "store_name": "ヒノマル新丸子西口 スロット館",
+   "attempts": [
+    {
+     "line_source_key": "@zkx8098z",
+     "url": "https://line.me/R/ti/p/%40zkx8098z",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch01_2026-09-26_evidence/hall-9f780a1b45b5d558_profile_0.xml",
+     "profile_name": "ヒノマル新丸子",
+     "profile_pworld_path": null,
+     "identity": "verified_owner_confirmed_name",
+     "friend_added": true,
+     "chat_header": "ヒノマル新丸子",
+     "screenshot": "data/surveys/line_onboarding_batch01_2026-09-26_evidence/hall-9f780a1b45b5d558.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch01_2026-09-26_evidence/hall-9f780a1b45b5d558.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@zkx8098z",
+   "identity_status": "verified_owner_confirmed_name",
+   "friend_added": true,
+   "onboarded_at": "2026-09-26T16:01:02.177373+00:00"
+  },
+  {
+   "hall_id": "hall-01bc494aca56f763",
+   "store_name": "Ｐ’Ｓｔｏｗｎ桜ヶ丘",
+   "attempts": [
+    {
+     "line_source_key": "@349cuepr",
+     "url": "https://line.me/R/ti/p/%40349cuepr",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch01_2026-09-26_evidence/hall-01bc494aca56f763_profile_0.xml",
+     "profile_name": "ピーズタウン桜ヶ丘",
+     "profile_pworld_path": null,
+     "identity": "verified_owner_confirmed_name",
+     "friend_added": true,
+     "chat_header": "ピーズタウン桜ヶ丘",
+     "screenshot": "data/surveys/line_onboarding_batch01_2026-09-26_evidence/hall-01bc494aca56f763.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch01_2026-09-26_evidence/hall-01bc494aca56f763.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@349cuepr",
+   "identity_status": "verified_owner_confirmed_name",
+   "friend_added": true,
+   "onboarded_at": "2026-09-26T16:03:17.229388+00:00"
   }
  ]
 }

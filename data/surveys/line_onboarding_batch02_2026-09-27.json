@@ -1,0 +1,144 @@
+{
+ "schema_version": 1,
+ "records": [
+  {
+   "hall_id": "hall-31e7a172504fa5e8",
+   "store_name": "キコーナ愛川店",
+   "attempts": [
+    {
+     "line_source_key": "@kicona-aikawa",
+     "url": "https://line.me/R/ti/p/%40kicona-aikawa",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-31e7a172504fa5e8_profile_0.xml",
+     "profile_name": "キコーナ愛川店",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "キコーナ愛川店",
+     "screenshot": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-31e7a172504fa5e8.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-31e7a172504fa5e8.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@kicona-aikawa",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-09-26T16:06:02.006298+00:00"
+  },
+  {
+   "hall_id": "skip-surotto-kurabu-sekiuchi-ten",
+   "store_name": "SKIPスロットクラブ関内店",
+   "attempts": [
+    {
+     "line_source_key": "@895hjbia",
+     "url": "https://line.me/R/ti/p/@895hjbia?oat_content=url",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/skip-surotto-kurabu-sekiuchi-ten_profile_0.xml",
+     "profile_name": "skip関内店",
+     "profile_pworld_path": "kanagawa/skip-kannai.htm",
+     "identity": null,
+     "result": "identity_unverified"
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "hall-77a38befe04d1cc6",
+   "store_name": "Ｍ＆Ｍ",
+   "attempts": [
+    {
+     "line_source_key": "@vpress",
+     "url": "https://line.me/R/ti/p/%40vpress",
+     "first_screen": "dialog",
+     "result": "dialog:LINEの友だちではないユーザー、またはLINEアカウントが違うため表示できません。"
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "hall-722fe5252b78b260",
+   "store_name": "パチンココロナ小田原店",
+   "attempts": [
+    {
+     "line_source_key": "@wjp6298j",
+     "url": "https://line.me/R/ti/p/%40wjp6298j",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-722fe5252b78b260_profile_0.xml",
+     "profile_name": "パチンコ コロナ 小田原",
+     "profile_pworld_path": "kanagawa/odawara-korona.htm",
+     "identity": "verified_name_without_store_suffix",
+     "friend_added": null,
+     "result": "friend_add_unconfirmed_rate_limited",
+     "note": "Add was tapped but the chat never opened; the device showed '友だち追加できませんでした' shortly after (LINE add-rate limit). Retry later."
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "hall-d61ce3e0c5a4eac6",
+   "store_name": "ＺＡＰ代官店",
+   "attempts": [
+    {
+     "line_source_key": "@zap-maj1678",
+     "url": "https://line.me/R/ti/p/%40zap-maj1678",
+     "first_screen": "dialog",
+     "result": "dialog:LINEの友だちではないユーザー、またはLINEアカウントが違うため表示できません。"
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "hall-5abd6f0e82dc6445",
+   "store_name": "キングＥＸ",
+   "attempts": [
+    {
+     "line_source_key": "@etp4181w",
+     "url": "https://line.me/R/ti/p/%40etp4181w",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-5abd6f0e82dc6445_profile_0.xml",
+     "profile_name": "キングEX",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": null,
+     "result": "friend_add_unconfirmed_rate_limited",
+     "note": "Add was tapped but the chat never opened; the device showed '友だち追加できませんでした' shortly after (LINE add-rate limit). Retry later."
+    },
+    {
+     "line_source_key": "@anianiex",
+     "url": "https://line.me/R/ti/p/%40anianiex",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-5abd6f0e82dc6445_profile_1.xml",
+     "profile_name": "キングEX",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": null,
+     "result": "friend_add_unconfirmed_rate_limited",
+     "note": "Add was tapped but the chat never opened; the device showed '友だち追加できませんでした' shortly after (LINE add-rate limit). Retry later."
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "maruhan-tsuzuki-ten",
+   "store_name": "マルハン都筑店",
+   "attempts": [
+    {
+     "line_source_key": "@ryy9041d",
+     "url": "https://line.me/R/ti/p/%40ryy9041d",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/maruhan-tsuzuki-ten_profile_0.xml",
+     "profile_name": "マルハン都筑店",
+     "profile_pworld_path": "kanagawa/maruhan-tsuzuki.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": null,
+     "result": "friend_add_unconfirmed_rate_limited",
+     "note": "Add was tapped but the chat never opened; the device showed '友だち追加できませんでした' shortly after (LINE add-rate limit). Retry later."
+    }
+   ],
+   "result": "not_onboarded"
+  }
+ ]
+}

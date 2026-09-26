@@ -1,0 +1,54 @@
+{
+ "schema_version": 1,
+ "policy_id": "collection_policy_batch02_2026-09-27",
+ "source_inventory": null,
+ "source_review": "collection_policy_batch02_2026-09-27_review",
+ "scheduler_modified": false,
+ "passive_collector_modified": false,
+ "daily_policy": {
+  "type_a_passive": "passive scan only",
+  "type_b_passive_plus_active": "passive scan + scheduled active trigger (text trigger when text_trigger_verified, otherwise the verified rich-menu action)",
+  "type_c_passive_external_web": "passive scan only; external_url is an auxiliary source",
+  "unresolved": "passive scan only until evidence is sufficient"
+ },
+ "counts": {
+  "type_a_passive": 0,
+  "type_b_passive_plus_active": 0,
+  "type_c_passive_external_web": 1,
+  "unresolved": 0
+ },
+ "store_count": 1,
+ "stores": [
+  {
+   "hall_id": "hall-31e7a172504fa5e8",
+   "canonical_hall_id": "hall-31e7a172504fa5e8",
+   "line_source_key": "@kicona-aikawa",
+   "store_name": "キコーナ愛川店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "最新情報 PUSH",
+   "action_result": "external_web",
+   "collection_type": "type_c_passive_external_web",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": "https://p-town.dmm.com/shops/kanagawa/12903",
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-31e7a172504fa5e8.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-31e7a172504fa5e8.xml",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-31e7a172504fa5e8_pre_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-31e7a172504fa5e8_post_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-31e7a172504fa5e8_post_action.xml",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#hall-31e7a172504fa5e8"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": "auxiliary_source"
+   },
+   "notes": "Opened the DMMぱちタウン store page in the LINE in-app browser."
+  }
+ ]
+}

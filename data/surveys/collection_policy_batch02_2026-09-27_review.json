@@ -1,0 +1,45 @@
+{
+ "schema_version": 1,
+ "review_id": "collection_policy_batch02_2026-09-27_review",
+ "policy_id": "collection_policy_batch02_2026-09-27",
+ "source_onboarding": "data/surveys/line_onboarding_batch02_2026-09-27.json",
+ "reviewed_at": "2026-09-27",
+ "timezone": "Asia/Tokyo",
+ "status": "partial_stopped_by_line_friend_add_limit",
+ "method": {
+  "menu_label_source": "screenshot_visual_review",
+  "action_policy": "one tap per store on a clear latest-information tile",
+  "messages_typed": 0,
+  "consents_granted": 0
+ },
+ "not_onboarded": {
+  "skip-surotto-kurabu-sekiuchi-ten": "profile skip関内店 shows P-WORLD skip-kannai.htm while hall master has skip-sc.htm; owner confirmation needed",
+  "hall-77a38befe04d1cc6": "Ｍ＆Ｍ @vpress not displayable",
+  "hall-722fe5252b78b260": "パチンココロナ小田原店: identity verified but friend-add refused (LINE add limit); retry",
+  "hall-d61ce3e0c5a4eac6": "ＺＡＰ代官店 @zap-maj1678 not displayable",
+  "hall-5abd6f0e82dc6445": "キングＥＸ: identity verified on @etp4181w and @anianiex but friend-add refused (LINE add limit); retry"
+ },
+ "stores": {
+  "hall-31e7a172504fa5e8": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報 PUSH",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T16:20:40.535797+00:00",
+    "visible_action_label": "最新情報 PUSH",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://p-town.dmm.com/shops/kanagawa/12903",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-31e7a172504fa5e8_pre_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-31e7a172504fa5e8_post_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-31e7a172504fa5e8_post_action.xml",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#hall-31e7a172504fa5e8"
+   ],
+   "notes": "Opened the DMMぱちタウン store page in the LINE in-app browser."
+  }
+ }
+}
