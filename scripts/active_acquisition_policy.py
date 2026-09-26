@@ -328,3 +328,162 @@ def classify_inventory(inventory: dict[str, Any]) -> dict[str, Any]:
     inventory["scheduler_modified"] = False
     inventory["slot_repository_modified"] = False
     return inventory
+
+
+POLICY_ROW_FIELDS = (
+    "hall_id",
+    "line_source_key",
+    "rich_menu_status",
+    "latest_action_label",
+    "action_result",
+    "collection_type",
+    "active_method",
+    "trigger_text",
+    "text_trigger_verified",
+    "external_url",
+    "evidence_refs",
+    "confidence",
+    "verification_status",
+)
+DAILY_POLICY = {
+    "type_a_passive": {"passive_scan": True, "active_trigger": False, "external_url_role": None},
+    "type_b_passive_plus_active": {"passive_scan": True, "active_trigger": True, "external_url_role": None},
+    "type_c_passive_external_web": {"passive_scan": True, "active_trigger": False, "external_url_role": "auxiliary_source"},
+    "unresolved": {"passive_scan": True, "active_trigger": False, "external_url_role": None},
+}
+
+
+def build_policy_row(record: dict[str, Any], review: dict[str, Any] | None) -> dict[str, Any]:
+    """Merge a classified inventory record with its one-time onboarding review.
+
+    A reviewed action only counts when the review saw its result; a missing label or
+    an unexecuted tile never becomes Type A. Rich-menu absence alone is a Type A
+    candidate, per the onboarding policy.
+    """
+    review = review or {}
+    menu_status = record.get("rich_menu_status", "unknown")
+    mapping = review.get("action_mapping") or {}
+    mapped_result = mapping.get("action_result") if mapping.get("content_observed") is True else None
+
+    if record.get("collection_type") in {"type_b_passive_plus_active", "type_c_passive_external_web"}:
+        collection_type = record["collection_type"]
+        action_result = record["action_result"]
+    elif mapped_result == "line_reply":
+        collection_type, action_result = "type_b_passive_plus_active", "line_reply"
+    elif mapped_result == "external_web":
+        collection_type, action_result = "type_c_passive_external_web", "external_web"
+    elif (
+        menu_status == "absent_confirmed"
+        or record.get("no_active_action_confirmed") is True
+        or review.get("no_collection_action_confirmed") is True
+    ):
+        collection_type, action_result = "type_a_passive", "not_applicable"
+    else:
+        collection_type = "unresolved"
+        action_result = mapping.get("action_result") or record.get("action_result") or "unknown"
+
+    text_verified = record.get("text_trigger_verified") is True or review.get("text_trigger_verified") is True
+    if collection_type == "type_b_passive_plus_active":
+        if text_verified or (record.get("active_method") == "text_trigger" and menu_status == "absent_confirmed"):
+            active_method = "text_trigger"
+        else:
+            active_method = "rich_menu"
+    elif collection_type == "type_c_passive_external_web":
+        active_method = "none"
+    elif collection_type == "type_a_passive":
+        active_method = "none"
+    else:
+        active_method = "unknown"
+
+    external_url = mapping.get("external_url") or record.get("external_url")
+    label = review.get("latest_action_label", record.get("trigger_text") if collection_type != "unresolved" else None)
+    refs = list(dict.fromkeys([*record.get("evidence_refs", []), *review.get("evidence_refs", [])]))
+
+    owner_observed = mapping.get("observed_by") == "owner" or review.get("confirmed_by") == "owner"
+    if collection_type in {"type_b_passive_plus_active", "type_c_passive_external_web"}:
+        confidence, status = ("medium", "owner_reported_action_result") if owner_observed else ("high", "active_action_verified")
+    elif collection_type == "type_a_passive":
+        confidence, status = ("medium", "owner_confirmed_no_collection_action") if owner_observed else ("medium", "rich_menu_absent_confirmed")
+    elif review.get("menu_visual_review_required"):
+        confidence, status = "low", "menu_visual_review_required"
+    elif mapping.get("blocked_by"):
+        confidence, status = "low", mapping["blocked_by"]
+    elif mapping.get("executed"):
+        confidence, status = "low", "action_executed_result_unconfirmed"
+    elif review.get("menu_review_status") in {"reviewed_no_latest_label", "latest_like_label_not_executed"}:
+        confidence, status = "low", (
+            "menu_reviewed_no_latest_label"
+            if review["menu_review_status"] == "reviewed_no_latest_label"
+            else "latest_like_label_not_executed"
+        )
+    else:
+        confidence, status = "low", "insufficient_evidence"
+
+    row = {
+        "hall_id": record["hall_id"],
+        "line_source_key": record["line_source_key"],
+        "store_name": record.get("store_name"),
+        "rich_menu_status": menu_status,
+        "menu_visual_review_required": bool(review.get("menu_visual_review_required")),
+        "latest_action_label": label,
+        "action_result": action_result,
+        "collection_type": collection_type,
+        "active_method": active_method,
+        "trigger_text": (review.get("trigger_text") or record.get("trigger_text")) if active_method == "text_trigger" or text_verified else None,
+        "text_trigger_verified": text_verified,
+        "external_url": external_url if collection_type == "type_c_passive_external_web" else None,
+        "evidence_refs": refs,
+        "confidence": confidence,
+        "verification_status": status,
+        "daily_policy": DAILY_POLICY[collection_type],
+    }
+    if review.get("notes"):
+        row["notes"] = review["notes"]
+    return row
+
+
+def build_policy_table(inventory: dict[str, Any], review: dict[str, Any]) -> dict[str, Any]:
+    reviews = review.get("stores", {})
+    unknown = set(reviews) - {record["hall_id"] for record in inventory["records"]}
+    if unknown:
+        raise ValueError(f"review_for_unknown_hall:{sorted(unknown)}")
+    rows = [build_policy_row(record, reviews.get(record["hall_id"])) for record in inventory["records"]]
+    counts = Counter(row["collection_type"] for row in rows)
+    return {
+        "schema_version": 1,
+        "policy_id": review.get("policy_id"),
+        "source_inventory": review.get("source_inventory"),
+        "source_review": review.get("review_id"),
+        "scheduler_modified": False,
+        "passive_collector_modified": False,
+        "daily_policy": {
+            "type_a_passive": "passive scan only",
+            "type_b_passive_plus_active": "passive scan + scheduled active trigger (text trigger when text_trigger_verified, otherwise the verified rich-menu action)",
+            "type_c_passive_external_web": "passive scan only; external_url is an auxiliary source",
+            "unresolved": "passive scan only until evidence is sufficient",
+        },
+        "counts": {key: counts.get(key, 0) for key in ("type_a_passive", "type_b_passive_plus_active", "type_c_passive_external_web", "unresolved")},
+        "store_count": len(rows),
+        "stores": rows,
+    }
+
+
+def main(argv: list[str] | None = None) -> int:
+    import argparse
+    import json
+    from pathlib import Path
+
+    parser = argparse.ArgumentParser(description="Build the permanent per-store collection policy table.")
+    parser.add_argument("--inventory", type=Path, required=True)
+    parser.add_argument("--review", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args(argv)
+    inventory = classify_inventory(json.loads(args.inventory.read_text(encoding="utf-8")))
+    table = build_policy_table(inventory, json.loads(args.review.read_text(encoding="utf-8")))
+    args.output.write_text(json.dumps(table, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    print(json.dumps(table["counts"], ensure_ascii=False))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

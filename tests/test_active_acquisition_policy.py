@@ -1,6 +1,11 @@
 import unittest
 
-from scripts.active_acquisition_policy import classify_inventory, classify_inventory_record
+from scripts.active_acquisition_policy import (
+    build_policy_row,
+    build_policy_table,
+    classify_inventory,
+    classify_inventory_record,
+)
 
 
 def base_record(hall_id="hall-a", menu_status="present"):
@@ -169,6 +174,82 @@ class ActiveAcquisitionPolicyTests(unittest.TestCase):
         self.assertEqual(result["summary"]["active_trigger_target_count"], 0)
         self.assertEqual(result["passive_acceptance"], "pending_real_change_acceptance")
         self.assertTrue(result["summary"]["pending_natural_message_acceptance_preserved"])
+
+
+class PolicyTableTests(unittest.TestCase):
+    def test_absent_confirmed_menu_is_type_a_candidate_in_policy_table(self):
+        row = build_policy_row(classify_inventory_record(base_record(menu_status="absent_confirmed")), None)
+        self.assertEqual(row["collection_type"], "type_a_passive")
+        self.assertEqual(row["active_method"], "none")
+        self.assertEqual(row["verification_status"], "rich_menu_absent_confirmed")
+        self.assertEqual(row["daily_policy"], {"passive_scan": True, "active_trigger": False, "external_url_role": None})
+
+    def test_reviewed_menu_without_latest_label_stays_unresolved(self):
+        review = {"menu_review_status": "reviewed_no_latest_label", "evidence_refs": ["snap.png"]}
+        row = build_policy_row(classify_inventory_record(base_record()), review)
+        self.assertEqual(row["collection_type"], "unresolved")
+        self.assertEqual(row["verification_status"], "menu_reviewed_no_latest_label")
+        self.assertIn("snap.png", row["evidence_refs"])
+
+    def test_observed_line_reply_mapping_promotes_to_type_b_rich_menu(self):
+        review = {
+            "latest_action_label": "最新情報",
+            "action_mapping": {"executed": True, "action_result": "line_reply", "content_observed": True},
+        }
+        row = build_policy_row(classify_inventory_record(base_record()), review)
+        self.assertEqual(row["collection_type"], "type_b_passive_plus_active")
+        self.assertEqual(row["active_method"], "rich_menu")
+        self.assertFalse(row["text_trigger_verified"])
+        self.assertTrue(row["daily_policy"]["active_trigger"])
+
+    def test_external_web_mapping_is_type_c_with_auxiliary_url(self):
+        review = {
+            "latest_action_label": "最新情報",
+            "action_mapping": {
+                "executed": True,
+                "action_result": "external_web",
+                "content_observed": True,
+                "external_url": "https://example.test/hall",
+            },
+        }
+        row = build_policy_row(classify_inventory_record(base_record()), review)
+        self.assertEqual(row["collection_type"], "type_c_passive_external_web")
+        self.assertEqual(row["external_url"], "https://example.test/hall")
+        self.assertEqual(row["daily_policy"]["external_url_role"], "auxiliary_source")
+        self.assertFalse(row["daily_policy"]["active_trigger"])
+
+    def test_executed_action_without_observed_result_stays_unresolved(self):
+        for mapping, status in (
+            ({"executed": True, "action_result": "unknown", "content_observed": False}, "action_executed_result_unconfirmed"),
+            (
+                {"executed": True, "action_result": "unknown", "content_observed": False, "blocked_by": "liff_consent_required"},
+                "liff_consent_required",
+            ),
+            ({"executed": True, "action_result": "line_reply", "content_observed": False}, "action_executed_result_unconfirmed"),
+        ):
+            row = build_policy_row(classify_inventory_record(base_record()), {"action_mapping": mapping})
+            self.assertEqual(row["collection_type"], "unresolved")
+            self.assertEqual(row["verification_status"], status)
+
+    def test_owner_confirmations_are_marked_separately_from_collector_evidence(self):
+        type_a = build_policy_row(
+            classify_inventory_record(base_record()),
+            {"no_collection_action_confirmed": True, "confirmed_by": "owner"},
+        )
+        self.assertEqual(type_a["collection_type"], "type_a_passive")
+        self.assertEqual(type_a["verification_status"], "owner_confirmed_no_collection_action")
+        type_c = build_policy_row(
+            classify_inventory_record(base_record()),
+            {"action_mapping": {"executed": True, "action_result": "external_web", "content_observed": True, "observed_by": "owner"}},
+        )
+        self.assertEqual(type_c["collection_type"], "type_c_passive_external_web")
+        self.assertEqual(type_c["verification_status"], "owner_reported_action_result")
+        self.assertEqual(type_c["confidence"], "medium")
+
+    def test_policy_table_rejects_reviews_for_unknown_halls(self):
+        inventory = classify_inventory({"records": [base_record()]})
+        with self.assertRaises(ValueError):
+            build_policy_table(inventory, {"stores": {"missing-hall": {}}})
 
 
 if __name__ == "__main__":

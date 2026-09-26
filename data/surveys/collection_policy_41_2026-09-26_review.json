@@ -1,0 +1,573 @@
+{
+ "schema_version": 1,
+ "review_id": "collection_policy_41_2026-09-26_review",
+ "policy_id": "collection_policy_41_2026-09-26",
+ "source_inventory": "data/surveys/active_acquisition_inventory_41_2026-09-26.json",
+ "reviewed_at": "2026-09-26",
+ "timezone": "Asia/Tokyo",
+ "method": {
+  "menu_label_source": "screenshot_visual_review (labels read from rich-menu image; Accessibility exposes no per-cell labels)",
+  "device_orientation": "portrait required; landscape captures (including PIA綱島 17:38 JST) hide the rich menu",
+  "action_policy": "one tap per store, only on a clear latest-information tile (plus owner-approved 要チェック毎日更新 and お知らせ); no brute-force taps; LIFF consent never granted",
+  "text_trigger_policy": "text trigger verified only when the rich-menu action visibly emits a text; none observed in this review",
+  "menu_taps": 10,
+  "messages_typed": 0,
+  "consents_granted": 0,
+  "android_settings_modified": false
+ },
+ "stores": {
+  "123-yokohama-nishiguchi-ten": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "新台情報",
+    "入場抽選案内",
+    "P-WORLD",
+    "台データ",
+    "123TV",
+    "フロアMAP"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_acquisition_20_2026-09-25_evidence/123-yokohama-nishiguchi-ten/123-yokohama-nishiguchi-ten_settled.png"
+   ]
+  },
+  "doki-waku-rando-ch-go-ekimae-ten": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "販売会(banner)",
+    "スペシャルアンバサダー(banner)",
+    "駐車場案内",
+    "HP/P-WORLD情報",
+    "台データ情報",
+    "X"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_acquisition_20_2026-09-25_evidence/doki-waku-rando-ch-go-ekimae-ten/doki-waku-rando-ch-go-ekimae-ten_settled.png"
+   ]
+  },
+  "kik-na-chigasaki-ten": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "新台入替(banner)",
+    "特設HP",
+    "P-WORLD",
+    "DMM",
+    "WEB会員登録",
+    "台データ",
+    "店舗公式X"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_acquisition_20_2026-09-25_evidence/kik-na-chigasaki-ten/kik-na-chigasaki-ten_settled.png"
+   ]
+  },
+  "biggu-pandora-ido-ke-tani-ten-shinkan": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "周年月間(banner)",
+    "台データ",
+    "フロアガイド&抽選入場",
+    "オンライン抽選"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_acquisition_20_2026-09-25_evidence/biggu-pandora-ido-ke-tani-ten-shinkan/biggu-pandora-ido-ke-tani-ten-shinkan_settled.png"
+   ]
+  },
+  "gurando-h-ru-odawara-ten": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "SILVER WEEK(banner)",
+    "台データ",
+    "抽選入場",
+    "サンキッチン日替りメニュー"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_acquisition_20_2026-09-25_evidence/gurando-h-ru-odawara-ten/gurando-h-ru-odawara-ten_settled.png"
+   ],
+   "notes": "Earlier latest-information candidate '☆最新情報はこちら☆' is the rich-menu bar title (menu open/close toggle), not a menu action; withdrawn."
+  },
+  "tow-zu-sagamihara-ten": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "DMM台情報(banner)",
+    "加熱式タバコ喫煙可能エリア",
+    "新装開店"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_acquisition_20_2026-09-25_evidence/tow-zu-sagamihara-ten/tow-zu-sagamihara-ten_settled.png"
+   ]
+  },
+  "gaianekusuto-ebina-ekimae-ten": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "創業月間(banner)",
+    "P-WORLD",
+    "DMM",
+    "入場案内",
+    "フロアマップ",
+    "台データ",
+    "X"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_acquisition_20_2026-09-25_evidence/gaianekusuto-ebina-ekimae-ten/gaianekusuto-ebina-ekimae-ten_settled.png"
+   ]
+  },
+  "arrow-hiratsuka-ten": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "総台数745台(banner)",
+    "新規カード会員様募集中",
+    "データ公開"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_acquisition_20_2026-09-25_evidence/arrow-hiratsuka-ten/arrow-hiratsuka-ten_settled.png"
+   ]
+  },
+  "monos-kawasaki": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "データ公開",
+    "DMM",
+    "X"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_acquisition_20_2026-09-25_evidence/monos-kawasaki/monos-kawasaki_expanded.png"
+   ]
+  },
+  "purego-yugawara-ten": {
+   "menu_review_status": "latest_like_label_not_executed",
+   "visible_menu_labels": [
+    "(mascot)",
+    "お知らせ",
+    "新台情報",
+    "台データ",
+    "入場案内",
+    "フロアマップ"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_acquisition_20_2026-09-25_evidence/purego-yugawara-ten/purego-yugawara-ten_expanded.png"
+   ],
+   "notes": "Owner confirmed on 2026-09-26 that 'お知らせ' only covers new-machine replacement; not a collection action. Passive only.",
+   "no_collection_action_confirmed": true,
+   "confirmed_by": "owner"
+  },
+  "kik-na-bakuro-ten": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "SINCE 2020(banner)",
+    "神奈川キコーナ特設サイト",
+    "台データ",
+    "P-WORLD",
+    "X",
+    "フロアマップ"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/kik-na-bakuro-ten_snap.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/kik-na-bakuro-ten_snap_2.xml"
+   ]
+  },
+  "japan-ny-arufa-kurami-ten": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "台データ無料公開",
+    "X"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/japan-ny-arufa-kurami-ten_snap.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/japan-ny-arufa-kurami-ten_snap_2.xml"
+   ]
+  },
+  "doki-waku-rando-ido-ke-tani-ten": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "CHANGEドキわく(banner)",
+    "ドキわくランド",
+    "データ公開",
+    "遊技台情報",
+    "店舗情報",
+    "WEB入会",
+    "ランチ",
+    "フロアマップ"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/doki-waku-rando-ido-ke-tani-ten_snap.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/doki-waku-rando-ido-ke-tani-ten_snap_2.xml"
+   ]
+  },
+  "new-garden-totsuka": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "公式X情報 19時更新!",
+    "店長X",
+    "フロアマップ",
+    "入場君オンライン",
+    "台データ",
+    "出玉ランキング"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/new-garden-totsuka_snap.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/new-garden-totsuka_snap_2.xml"
+   ],
+   "notes": "'公式X情報 19時更新' points to X, not a LINE latest-information action."
+  },
+  "nambusen-shitte-ekimae-ten": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "Long Vacation(banner)",
+    "台データ",
+    "入場案内",
+    "P-world"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/nambusen-shitte-ekimae-ten_snap.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/nambusen-shitte-ekimae-ten_snap_2.xml"
+   ]
+  },
+  "ginzah-ru-707": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "事前会員登録",
+    "楽しい週末の入り口(banner)",
+    "フロアマップ",
+    "777CON-PASS入場順抽選",
+    "LINE OPENCHAT",
+    "X"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/ginzah-ru-707_snap.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/ginzah-ru-707_snap_2.xml"
+   ]
+  },
+  "higashiyoko-fesuta-3": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "台データ公開中(banner)"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/higashiyoko-fesuta-3_snap.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/higashiyoko-fesuta-3_snap_2.xml"
+   ]
+  },
+  "ja-ran-hiratsuka-ten": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "抽選案内",
+    "P-WORLD",
+    "フロアマップ"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/ja-ran-hiratsuka-ten_snap.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/ja-ran-hiratsuka-ten_snap_2.xml"
+   ]
+  },
+  "deizu-shinsugita-ten": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "出玉公開",
+    "新台情報",
+    "フロアマップ",
+    "アクセス"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/deizu-shinsugita-ten_snap.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/deizu-shinsugita-ten_snap_2.xml"
+   ]
+  },
+  "gur-n": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "取材(banner)",
+    "X",
+    "出玉情報",
+    "DMM/フロアマップ",
+    "提携駐車場"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/gur-n_snap.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/gur-n_snap_2.xml"
+   ]
+  },
+  "maruhan-hashimotodai-ten": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "SNSまとめサイト",
+    "フロアマップ",
+    "マルハンアプリ",
+    "アクセス"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/maruhan-hashimotodai-ten_snap.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/maruhan-hashimotodai-ten_snap_2.xml"
+   ]
+  },
+  "maruhan-atsugi-ten": {
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "Destiny(banner)",
+    "フロアマップ",
+    "マルハンアプリ",
+    "アクセス"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/maruhan-atsugi-ten_snap.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/maruhan-atsugi-ten_snap_2.xml"
+   ]
+  },
+  "p-ru-shoppu-tomo-e-fuchinobe-ten": {
+   "menu_review_status": "menu_not_displayed",
+   "menu_visual_review_required": true,
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/p-ru-shoppu-tomo-e-fuchinobe-ten_snap.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/p-ru-shoppu-tomo-e-fuchinobe-ten_snap_2.xml"
+   ],
+   "notes": "2026-09-26 chat showed the composer without a rich-menu toggle while the 2026-09-25 survey recorded present; conflicting, not treated as absent."
+  },
+  "kurie-j-nichi-shij-ten": {
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_acquisition_20_2026-09-25_evidence/kurie-j-nichi-shij-ten/kurie-j-nichi-shij-ten_settled.png"
+   ],
+   "notes": "Keyword auto-reply bot advertised ('新台' keyword); 最新情報 text trigger not tested."
+  },
+  "sanrakk-sagamihara-ten": {
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_acquisition_20_2026-09-25_evidence/sanrakk-sagamihara-ten/sanrakk-sagamihara-ten_settled.png"
+   ]
+  },
+  "p-ku-sagami-no": {
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報21時更新 PUSH",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T13:25:32.914623+00:00",
+    "visible_action_label": "最新情報21時更新 PUSH",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/p-ku-sagami-no_pre_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/p-ku-sagami-no_post_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/p-ku-sagami-no_post_action.xml",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/action_results.jsonl#p-ku-sagami-no",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/p-ku-sagami-no_recheck.jpg"
+   ],
+   "notes": "Reply at 22:25 JST: image plus carousel (carousel images still unloaded at recheck). No user-side text bubble; postback-style action."
+  },
+  "pia-tsunashima": {
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "PUSH 毎日21時更新 最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T13:29:10.406977+00:00",
+    "visible_action_label": "PUSH 毎日21時更新 最新情報",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/pia-tsunashima_pre_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/pia-tsunashima_post_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/pia-tsunashima_post_action.xml",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/action_results.jsonl#pia-tsunashima",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/pia-tsunashima_recheck_scrolled.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/pia-tsunashima_snap.jpg"
+   ],
+   "notes": "Rich-menu tap at 22:29 JST returned multiple image messages. Promoted to Type B via rich_menu. The 17:38 JST text-trigger capture remains semantically unverified; no emitted menu text observed, so text_trigger_verified stays false."
+  },
+  "rakuen-sagamihara-ten": {
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "要チェック!! 毎日更新",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T13:34:48.719729+00:00",
+    "visible_action_label": "要チェック!! 毎日更新",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/rakuen-sagamihara-ten_pre_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/rakuen-sagamihara-ten_post_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/rakuen-sagamihara-ten_post_action.xml",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/action_results.jsonl#rakuen-sagamihara-ten"
+   ],
+   "notes": "Reply at 22:34 JST with promotional image messages. No user-side text bubble observed."
+  },
+  "japan-ny-arufa-fujisawa-ten": {
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "NEW 最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T13:30:49.847977+00:00",
+    "visible_action_label": "NEW 最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://p-town.dmm.com/shops/kanagawa/4805",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/japan-ny-arufa-fujisawa-ten_pre_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/japan-ny-arufa-fujisawa-ten_post_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/japan-ny-arufa-fujisawa-ten_post_action.xml",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/action_results.jsonl#japan-ny-arufa-fujisawa-ten"
+   ],
+   "notes": "Opened in LINE in-app browser on the DMMぱちタウン store page (最新情報 tab)."
+  },
+  "maruhan-atsugi-kita-ten": {
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報 INFORMATION",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T13:32:01.788177+00:00",
+    "visible_action_label": "最新情報 INFORMATION",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/maruhan-atsugi-kita-ten_pre_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/maruhan-atsugi-kita-ten_post_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/maruhan-atsugi-kita-ten_post_action.xml",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/action_results.jsonl#maruhan-atsugi-kita-ten"
+   ],
+   "notes": "Opened P-WORLD hall page for マルハン厚木北店; visible URL lacks the hall parameter."
+  },
+  "ny-shatoru": {
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T13:33:08.637119+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://p-town.dmm.com/shops/kanagawa/4624",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/ny-shatoru_pre_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/ny-shatoru_post_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/ny-shatoru_post_action.xml",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/action_results.jsonl#ny-shatoru"
+   ],
+   "notes": "Opened in LINE in-app browser on the DMMぱちタウン store page."
+  },
+  "kik-na-isezaki-ten": {
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T13:26:55.354087+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "unknown",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/kik-na-isezaki-ten_pre_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/kik-na-isezaki-ten_post_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/kik-na-isezaki-ten_post_action.xml",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/action_results.jsonl#kik-na-isezaki-ten"
+   ],
+   "notes": "No visible reply or navigation within 12 seconds of the single tap."
+  },
+  "nakayama-uno": {
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "お知らせ 詳細はタップ",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T13:35:51.190653+00:00",
+    "visible_action_label": "お知らせ 詳細はタップ",
+    "action_result": "unknown",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/nakayama-uno_pre_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/nakayama-uno_post_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/nakayama-uno_post_action.xml",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/action_results.jsonl#nakayama-uno"
+   ],
+   "notes": "No visible reply or navigation within 12 seconds of the single tap."
+  },
+  "jiasusent-minami": {
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報はコチラから PUSH",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T13:28:15.815162+00:00",
+    "visible_action_label": "最新情報はコチラから PUSH",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false,
+    "observed_by": "owner",
+    "owner_followup": "Owner granted the LIFF consent manually on 2026-09-26; the action only redirects to P-WORLD. Exact destination URL not captured."
+   },
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/jiasusent-minami_pre_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/jiasusent-minami_post_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/jiasusent-minami_post_action.xml",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/action_results.jsonl#jiasusent-minami"
+   ],
+   "notes": "Tap opened a LINE LIFF consent screen (provider 株式会社SUISHAYA). Consent was not granted; dismissed with Back. Owner follow-up: after manual consent the action redirects to P-WORLD; owner chose passive-only collection."
+  },
+  "kitch-kawasaki-nogawa-ten": {
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "NEW 最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-26T13:38:03.448880+00:00",
+    "visible_action_label": "NEW 最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false,
+    "observed_by": "owner",
+    "owner_followup": "Owner granted the LIFF consent manually on 2026-09-26; the action only redirects to P-WORLD. Exact destination URL not captured."
+   },
+   "evidence_refs": [
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/kitch-kawasaki-nogawa-ten_pre_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/kitch-kawasaki-nogawa-ten_post_action.jpg",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/kitch-kawasaki-nogawa-ten_post_action.xml",
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/action_results.jsonl#kitch-kawasaki-nogawa-ten"
+   ],
+   "notes": "Menu bar expanded first. Tap opened a LINE LIFF consent screen (provider 吉兆川崎野川店). Consent was not granted; dismissed with Back. Owner follow-up: after manual consent the action redirects to P-WORLD; owner chose passive-only collection."
+  },
+  "abiba-sh-nandai-ten": {
+   "latest_action_label": null,
+   "notes": "No rich menu; the verified active route is the 最新情報 text trigger itself (text_trigger_verified=false because there is no rich-menu action to prove equivalence)."
+  }
+ }
+}

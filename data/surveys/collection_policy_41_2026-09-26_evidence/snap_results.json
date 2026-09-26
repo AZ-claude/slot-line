@@ -1,0 +1,221 @@
+[
+ {
+  "hall_id": "kik-na-bakuro-ten",
+  "line_source_key": "@kicona-hakuraku",
+  "titles": [
+   "",
+   "キコーナ白楽店"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/kik-na-bakuro-ten_snap.jpg"
+ },
+ {
+  "hall_id": "kik-na-isezaki-ten",
+  "line_source_key": "@isezaki",
+  "titles": [
+   "",
+   "キコーナ伊勢佐木店"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/kik-na-isezaki-ten_snap.jpg"
+ },
+ {
+  "hall_id": "kitch-kawasaki-nogawa-ten",
+  "line_source_key": "@565yasud",
+  "titles": [
+   "吉兆川崎野川店"
+  ],
+  "header_match": true,
+  "rich_menu_node": false,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/kitch-kawasaki-nogawa-ten_snap.jpg"
+ },
+ {
+  "hall_id": "jiasusent-minami",
+  "line_source_key": "@rbt8267i",
+  "titles": [
+   "ジアスセンター南"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/jiasusent-minami_snap.jpg"
+ },
+ {
+  "hall_id": "pia-tsunashima",
+  "line_source_key": "@pia_tunashima",
+  "titles": [
+   "PIA綱島"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/pia-tsunashima_snap.jpg"
+ },
+ {
+  "hall_id": "japan-ny-arufa-kurami-ten",
+  "line_source_key": "@fpu2515q",
+  "titles": [
+   "ジャパンニューアルファ倉見店"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/japan-ny-arufa-kurami-ten_snap.jpg"
+ },
+ {
+  "hall_id": "doki-waku-rando-ido-ke-tani-ten",
+  "line_source_key": "@mnt5245y",
+  "titles": [
+   "ドキわくランド井土ヶ谷店"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/doki-waku-rando-ido-ke-tani-ten_snap.jpg"
+ },
+ {
+  "hall_id": "p-ru-shoppu-tomo-e-fuchinobe-ten",
+  "line_source_key": "@781yaczj",
+  "titles": [
+   "パールショップともえ淵野辺店"
+  ],
+  "header_match": true,
+  "rich_menu_node": false,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/p-ru-shoppu-tomo-e-fuchinobe-ten_snap.jpg"
+ },
+ {
+  "hall_id": "new-garden-totsuka",
+  "line_source_key": "@jri9235n",
+  "titles": [
+   "",
+   "新！ガーデン戸塚",
+   "Web content"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/new-garden-totsuka_snap.jpg"
+ },
+ {
+  "hall_id": "nambusen-shitte-ekimae-ten",
+  "line_source_key": "@qqr1482n",
+  "titles": [
+   "南武線尻手駅前店"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/nambusen-shitte-ekimae-ten_snap.jpg"
+ },
+ {
+  "hall_id": "ginzah-ru-707",
+  "line_source_key": "@351eiuvz",
+  "titles": [
+   "ギンザホール707"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/ginzah-ru-707_snap.jpg"
+ },
+ {
+  "hall_id": "japan-ny-arufa-fujisawa-ten",
+  "line_source_key": "@nxv1359a",
+  "titles": [
+   "ジャパンニューアルファ藤沢店"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/japan-ny-arufa-fujisawa-ten_snap.jpg"
+ },
+ {
+  "hall_id": "higashiyoko-fesuta-3",
+  "line_source_key": "@576ncfpf",
+  "titles": [
+   "",
+   "東横フェスタ3"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/higashiyoko-fesuta-3_snap.jpg"
+ },
+ {
+  "hall_id": "ja-ran-hiratsuka-ten",
+  "line_source_key": "@uvb7365o",
+  "titles": [
+   "ジャラン平塚店"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/ja-ran-hiratsuka-ten_snap.jpg"
+ },
+ {
+  "hall_id": "maruhan-atsugi-kita-ten",
+  "line_source_key": "@ukw5467h",
+  "titles": [
+   "",
+   "マルハン厚木北店"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/maruhan-atsugi-kita-ten_snap.jpg"
+ },
+ {
+  "hall_id": "deizu-shinsugita-ten",
+  "line_source_key": "@days-shinsugita",
+  "titles": [
+   "デイズ新杉田店"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/deizu-shinsugita-ten_snap.jpg"
+ },
+ {
+  "hall_id": "ny-shatoru",
+  "line_source_key": "@359gpeap",
+  "titles": [
+   "ニューシャトル"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/ny-shatoru_snap.jpg"
+ },
+ {
+  "hall_id": "gur-n",
+  "line_source_key": "@629aqwlz",
+  "titles": [
+   "グリーン"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/gur-n_snap.jpg"
+ },
+ {
+  "hall_id": "maruhan-hashimotodai-ten",
+  "line_source_key": "@bls7088c",
+  "titles": [
+   "",
+   "マルハン橋本台店"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/maruhan-hashimotodai-ten_snap.jpg"
+ },
+ {
+  "hall_id": "maruhan-atsugi-ten",
+  "line_source_key": "@ggz8372o",
+  "titles": [
+   "",
+   "マルハン厚木店"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/maruhan-atsugi-ten_snap.jpg"
+ },
+ {
+  "hall_id": "p-ku-sagami-no",
+  "line_source_key": "@515hybfb",
+  "titles": [
+   "",
+   "ピーアーク相模大野"
+  ],
+  "header_match": true,
+  "rich_menu_node": true,
+  "png": "data/surveys/collection_policy_41_2026-09-26_evidence/p-ku-sagami-no_snap.jpg"
+ }
+]

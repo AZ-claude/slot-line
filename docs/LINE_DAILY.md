@@ -100,3 +100,27 @@ python3 scripts/line_daily.py not-checked \
 | `abiba-tsunashima-taru-machi-ten` | `@vbv7336k` | 1 |
 
 M&M溝口のcanonical RAWはMac checkoutにないため、実データfixtureを捏造していない。Windows/Android実機から正本RAWとslot側source metadataが揃った時点で同じconverterを実行する。
+
+## 店舗別collection policy
+
+正本は`data/surveys/collection_policy_41_2026-09-26.json`で、`data/surveys/collection_policy_41_2026-09-26_review.json`（目視レビューと1回限りのaction mapping）とinventoryから生成する。
+
+```
+python3 -m scripts.active_acquisition_policy \
+  --inventory data/surveys/active_acquisition_inventory_41_2026-09-26.json \
+  --review data/surveys/collection_policy_41_2026-09-26_review.json \
+  --output data/surveys/collection_policy_41_2026-09-26.json
+```
+
+| collection_type | 日次運用 |
+| --- | --- |
+| Type A `type_a_passive` | passive scanのみ |
+| Type B `type_b_passive_plus_active` | passive scan + 定期active trigger。`text_trigger_verified=true`ならtext trigger、それ以外はverified rich-menu action |
+| Type C `type_c_passive_external_web` | passive scanのみ。`external_url`は補助source |
+| `unresolved` | passive scanのみ。証拠が揃うまで分類しない |
+
+- rich menu labelはAccessibilityに出ないため、スクリーンショットの目視で読む。端末が横向きだとrich menuが表示されないので、縦向きで撮影する。
+- Type Aは`absent_confirmed`か、収集用active actionがないことを実観測した店舗だけ。menuを読んで最新情報系ラベルがなくても`menu_reviewed_no_latest_label`の`unresolved`に留める。
+- action mappingは明確な最新情報系タイルに1店舗1回だけ実行し、結果を見た場合のみ`line_reply`/`external_web`とする。LIFF同意画面は許可せず`liff_consent_required`として残す。
+- rich menu tapで送信文字列が見えない（postback型）店舗は、text triggerの同等性を検証しない。
+- ownerが手動で確認した結果（LIFF同意後の遷移先、ラベル内容の判断）は`owner_reported_action_result`/`owner_confirmed_no_collection_action`としてcollector観測と区別し、confidenceは`medium`に留める。
