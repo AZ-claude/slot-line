@@ -99,7 +99,12 @@
     "data/raw/2026-09-26/pia-tsunashima/ui/164640-e6732cd7_post-timeout.xml",
     "data/raw/2026-09-26/pia-tsunashima/ui/164640-e6732cd7_post-timeout.png",
     "data/raw/2026-09-26/pia-tsunashima/android_intent_log_excerpt.txt",
-    "data/raw/2026-09-26/pia-tsunashima/164640-pia-acceptance.log"
+    "data/raw/2026-09-26/pia-tsunashima/164640-pia-acceptance.log",
+    "data/raw/2026-09-26/pia-tsunashima/manifest.json#173811-0d99ffe4",
+    "data/raw/2026-09-26/pia-tsunashima/ui/173811-0d99ffe4_pre_action.xml",
+    "data/raw/2026-09-26/pia-tsunashima/ui/173811-0d99ffe4_pre_action.png",
+    "data/raw/2026-09-26/pia-tsunashima/ui/173811-0d99ffe4_post_action.xml",
+    "data/raw/2026-09-26/pia-tsunashima/ui/173811-0d99ffe4_post_action.png"
   ],
   "same_day_guard_after": {
     "status": "skipped_already_attempted",
@@ -108,5 +113,55 @@
     "previous_status": "response_timeout",
     "previous_triggered_at_utc": "2026-09-26T07:46:49.061615+00:00",
     "followup_action_performed": false
-  }
+  },
+  "current_trigger_guard_policy": {
+    "status": "pass",
+    "cooldown_seconds": 600,
+    "same_identity_same_action_previous_triggered_at": "2026-09-26T07:46:49.061615+00:00",
+    "elapsed_since_previous_trigger_seconds": 3095,
+    "retry_after_cooldown_allowed": true,
+    "force_trigger_used": false
+  },
+  "collector_capture_acceptance": {
+    "status": "passed",
+    "run_id": "173811-0d99ffe4",
+    "collector_key": "pia-tsunashima",
+    "hall_id": "pia-tsunashima",
+    "line_source_key": "@pia_tunashima",
+    "target_verified": true,
+    "chat_header": "PIA綱島",
+    "action_executed": true,
+    "action_kind": "text_trigger",
+    "action_id": "latest_information",
+    "action_label": null,
+    "trigger_text": "最新情報",
+    "triggered_at": "2026-09-26T08:38:24.365052+00:00",
+    "received_at": null,
+    "captured_at": "2026-09-26T08:38:36.259865+00:00",
+    "action_result": "unknown",
+    "reply_type": null,
+    "message_semantics": "not_interpreted",
+    "semantic_interpretation": "deferred",
+    "pre_action_capture": true,
+    "post_action_capture": true,
+    "raw_persisted": true,
+    "current_activity": "jp.naver.line.android/.activity.chathistory.ChatHistoryActivity",
+    "external_url": null,
+    "text_trigger_candidate": true,
+    "text_trigger_verified": false,
+    "rich_menu_text_equivalence": "unknown",
+    "rich_menu": {
+      "historical_status": "present",
+      "current_status": "not_observed",
+      "latest_information_action_observed": false
+    },
+    "raw_refs": [
+      "data/raw/2026-09-26/pia-tsunashima/manifest.json#173811-0d99ffe4",
+      "data/raw/2026-09-26/pia-tsunashima/ui/173811-0d99ffe4_pre_action.xml",
+      "data/raw/2026-09-26/pia-tsunashima/ui/173811-0d99ffe4_pre_action.png",
+      "data/raw/2026-09-26/pia-tsunashima/ui/173811-0d99ffe4_post_action.xml",
+      "data/raw/2026-09-26/pia-tsunashima/ui/173811-0d99ffe4_post_action.png"
+    ]
+  },
+  "superseded_same_day_guard_note": "The older same-day retry fields above describe the earlier OA-message reply-semantic acceptance. The current active collector uses the identity/action-scoped 10-minute cooldown recorded here."
 }

@@ -1,11 +1,12 @@
 import json
 import tempfile
 import unittest
+from datetime import datetime
 from pathlib import Path
 from unittest.mock import patch
 
 from scripts.line_daily import convert_raw_directory, observation_filename
-from scripts.raw_storage import RawStore, evaluate_trigger_guard
+from scripts.raw_storage import RawStore, evaluate_trigger_cooldown
 from scripts.run_daily import ADAPTERS
 from scripts.run_regression_targets import (
     REGRESSION_TARGETS,
@@ -63,15 +64,40 @@ class RegressionTargetsTests(unittest.TestCase):
             ]
             for store in stores:
                 store.initialize()
-            record = stores[0].new_manifest_record("machida-success", "2026-09-24T00:00:00+00:00", {"type": "text_trigger"})
-            record.update({"status": "success", "triggered_at": "2026-09-24T00:00:01+00:00"})
+            record = stores[0].new_manifest_record(
+                "machida-success",
+                "2026-09-24T00:00:00+00:00",
+                {"type": "text_trigger", "text": "最新情報", "action_id": "latest_information"},
+            )
+            record.update({
+                "hall_id": "hall-pia-machida",
+                "line_source_key": "@030pwlwx",
+                "status": "success",
+                "triggered_at": "2026-09-24T00:00:01+00:00",
+            })
             stores[0].persist_manifest(record)
             self.assertEqual(
-                evaluate_trigger_guard(stores[0].load_manifest_records(), "text_trigger", "text_trigger")["status"],
-                "skipped_already_successful",
+                evaluate_trigger_cooldown(
+                    stores[0].load_manifest_records(),
+                    hall_id="hall-pia-machida",
+                    collector_key="pia_machida",
+                    line_source_key="@030pwlwx",
+                    trigger_key="latest_information",
+                    trigger_text="最新情報",
+                    now=datetime.fromisoformat("2026-09-24T00:05:00+00:00"),
+                )["status"],
+                "skipped_cooldown",
             )
             self.assertIsNone(
-                evaluate_trigger_guard(stores[1].load_manifest_records(), "text_trigger", "text_trigger")
+                evaluate_trigger_cooldown(
+                    stores[1].load_manifest_records(),
+                    hall_id="pia-keiky-kawasaki",
+                    collector_key="pia-keiky-kawasaki",
+                    line_source_key="@rmh1818e",
+                    trigger_key="latest_information",
+                    trigger_text="最新情報",
+                    now=datetime.fromisoformat("2026-09-24T00:05:00+00:00"),
+                )
             )
             self.assertTrue((stores[0].root / "manifest.json").parent.name == "pia_machida")
             self.assertTrue((stores[1].root / "manifest.json").parent.name == "pia-keiky-kawasaki")

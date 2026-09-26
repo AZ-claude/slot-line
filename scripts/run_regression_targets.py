@@ -3,8 +3,8 @@
 
 This runner is intentionally separate from ``run_daily.py``.  It has no
 Task Scheduler integration and defaults to a no-send plan.  ``--execute`` is
-required before either target process can be started; each child keeps its
-own collector directory and same-day trigger guard.
+required before either target process can be started; each child uses the
+identity-scoped active-trigger cooldown.
 """
 
 from __future__ import annotations
@@ -373,7 +373,7 @@ def main() -> int:
     print(json.dumps(summary, ensure_ascii=False, indent=2))
     if not args.execute:
         return 0
-    success_like = {"success", "skipped_already_successful"}
+    success_like = {"success", "skipped_already_successful", "skipped_cooldown"}
     return 0 if all(item.get("status") in success_like for item in summary["targets"]) else 1
 
 

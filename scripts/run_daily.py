@@ -272,8 +272,8 @@ def run_adapter(repo_root: Path, adapter: dict[str, str], timeout: float) -> dic
 
 
 def determine_overall_status(health_status: str, adapters: list[dict[str, Any]]) -> str:
-    """Keep an attempted-but-skipped trigger visible as a partial failure."""
-    success_like = {"success", "skipped_already_successful"}
+    """Treat a live identity/action cooldown as a successful no-op."""
+    success_like = {"success", "skipped_already_successful", "skipped_cooldown"}
     if health_status == "success" and all(item["status"] in success_like for item in adapters):
         return "success"
     if any(item["status"] in success_like or item["status"] == "skipped_already_attempted" for item in adapters):

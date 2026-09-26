@@ -39,9 +39,9 @@ python scripts\run_regression_targets.py --execute
 
 通常runの最終summaryは、同日複数回でも上書きせず、`data/logs/run_daily_YYYY-MM-DD.log`へ1実行1 JSON行で追記します。各Adapterの`run_id`、RAW path、前回trigger情報、`process_exit_code`も記録します。
 
-PIA regression targetは各`collector_key`ディレクトリで同日guardを独立評価します。当日すでに正常な`text_trigger` runがある場合は`skipped_already_successful`、送信済みで成功していない場合は`skipped_already_attempted`として再送しません。regression runnerには`--force-trigger`を用意していません。
+PIA active triggerは`hall_id`・`line_source_key`・`latest_information` actionごとの10分cooldownで制御します。cooldown中は`skipped_cooldown`として操作をskipし、10分経過後は再実行可能です。現在日と前日manifestを確認して日付境界をまたぐcooldownも適用します。`--force-trigger`はありません。
 
-処理は、各targetのsource keyと店舗タイトルを完全一致確認してからAndroid LINE URLで送信します。対象確認できない場合は送信せず終了します。返信は`uiautomator`で検知し、LINE標準のダウンロード操作、`adb pull`、SHA-256/byte size記録までを行います。
+Active collectorはtargetのsource keyと店舗タイトルを完全一致確認してから1回だけactionを実行し、実行前後のUI XMLとスクリーンショットをRAW保存します。外部Webへ移動した場合はURLとActivityも保存します。返信の新規行・rich card更新などの意味判定は後段へ委ね、`captured`はtarget確認・action実行・post-action capture・RAW保存の成功を示します。
 
 旧方式のWindows UI Automation送信は、明示的に `--trigger-mode windows-uia` を指定した場合だけdebug/fallbackとして使用します。現在開いているWindowsトークへの盲目的送信は本番方式ではありません。
 
@@ -89,7 +89,7 @@ python scripts\run_m_and_m_mizoguchi.py
 - timeout: 15分
 - 重複起動: `IgnoreNew`
 - `WakeToRun=false`, `StartWhenAvailable=false`
-- PIA町田・PIA京急川崎を順番に実行。同日guardにより成功済み・trigger済み失敗runは再送しない
+- PIA町田・PIA京急川崎を順番に実行。identity-scoped 10分cooldown中は再送しない
 - 既存の`SlotLineDaily`は変更しない。登録後はdry-runだけ実施し、登録直後のtrigger手動実行は行わない
 
 2026-09-21の実機確認では、ADB論理再接続、LINE強制終了後のADB起動、画面OFF後のADB復帰、物理USB再接続が成立しました。Windows再起動はユーザーによるWindows再起動後に復帰確認、Android本体再起動はキーガード解除後に復帰確認となり、完全無人復旧は未成立です。画面ロック方式やセキュリティ設定は変更していません。

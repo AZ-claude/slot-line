@@ -27,6 +27,7 @@ KNOWN_FAILURE_CODES = {
     "image_save_failed",
     "pull_failed",
     "skipped_already_attempted",
+    "skipped_cooldown",
 }
 
 
@@ -263,7 +264,9 @@ def _failure_code(records: list[dict[str, Any]]) -> str | None:
         return None
     latest = max(records, key=_record_order)
     status = _status(latest)
-    if status == "skipped_already_attempted":
+    if status in {"skipped_already_attempted", "skipped_cooldown"}:
+        if status == "skipped_cooldown":
+            return str(latest.get("skip_reason") or status)
         previous = latest.get("previous_status")
         if isinstance(previous, str) and previous in KNOWN_FAILURE_CODES:
             return previous
@@ -336,7 +339,7 @@ def _convert_records(
         collection_status = "not_checked"
     elif statuses & SUCCESS_STATUSES:
         collection_status = "success"
-    elif "skipped_already_attempted" in statuses or "partial" in statuses:
+    elif statuses & {"skipped_already_attempted", "skipped_cooldown", "partial"}:
         collection_status = "partial"
     else:
         collection_status = "failed"

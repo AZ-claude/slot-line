@@ -6,7 +6,7 @@ import hashlib
 import json
 import os
 import uuid
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -84,6 +84,7 @@ class RawStore:
         adapter_type: str,
         line_source_key: str | None = None,
     ):
+        self.date_text = date_text
         # ``store_id`` is retained as a backwards-compatible collector key
         # argument.  It is never promoted to normalized hall identity.
         self.root = repo_root / "data" / "raw" / date_text / store_id
@@ -139,6 +140,22 @@ class RawStore:
 
     def load_manifest_records(self) -> list[dict[str, Any]]:
         return _load_json_list(self.manifest_path)
+
+    def load_recent_manifest_records(self, day_count: int = 2) -> list[dict[str, Any]]:
+        """Load recent manifests across collectors for a cross-midnight cooldown."""
+        try:
+            current_date = date.fromisoformat(self.date_text)
+        except ValueError as exc:
+            raise RawStorageError(f"invalid_raw_date:{self.date_text}") from exc
+        raw_root = self.root.parent.parent
+        records: list[dict[str, Any]] = []
+        for offset in range(max(1, day_count)):
+            day_dir = raw_root / (current_date - timedelta(days=offset)).isoformat()
+            if not day_dir.is_dir():
+                continue
+            for manifest_path in sorted(day_dir.glob("*/manifest.json")):
+                records.extend(_load_json_list(manifest_path))
+        return records
 
     def load_messages(self) -> list[dict[str, Any]]:
         return _load_json_list(self.messages_path)
@@ -223,52 +240,68 @@ class RawStore:
             pass
 
 
-def evaluate_trigger_guard(
+def evaluate_trigger_cooldown(
     records: Iterable[dict[str, Any]],
-    adapter_type: str,
-    trigger_type: str,
     *,
-    force: bool = False,
+    hall_id: str,
+    collector_key: str,
+    line_source_key: str,
+    trigger_key: str,
+    trigger_text: str,
+    now: datetime | None = None,
+    cooldown_seconds: int = 600,
 ) -> dict[str, Any] | None:
-    """Return a same-day trigger skip decision, or ``None`` when sending is allowed.
+    """Skip only an identical, same-identity action attempted inside cooldown."""
+    if cooldown_seconds < 0:
+        raise ValueError("cooldown_seconds_must_be_nonnegative")
+    current_time = now or datetime.now(timezone.utc)
+    if current_time.tzinfo is None:
+        current_time = current_time.replace(tzinfo=timezone.utc)
 
-    ``records`` is scoped to one date/store directory, so the date boundary is
-    represented by the caller's RawStore.  A normal trigger attempt is any
-    matching record with a non-empty ``triggered_at``.  This intentionally
-    treats response timeouts and later extraction failures as attempts, while
-    ignoring diagnostics such as ``existing_reply`` and failures that happened
-    before the trigger was sent.
-    """
-    if force:
+    matching: list[tuple[datetime, dict[str, Any]]] = []
+    for record in records:
+        if record.get("line_source_key") != line_source_key:
+            continue
+        record_hall = record.get("hall_id")
+        # Old manifests lack hall_id; bind those only to the same explicit
+        # collector directory and exact source key, never by display-name match.
+        same_identity = record_hall == hall_id if record_hall else (
+            (record.get("collector_key") or record.get("store_id")) == collector_key
+        )
+        if not same_identity:
+            continue
+        trigger = record.get("trigger")
+        if not isinstance(trigger, dict):
+            continue
+        action_id = trigger.get("action_id") or record.get("trigger_key")
+        same_trigger = action_id == trigger_key if action_id else (
+            trigger.get("text") == trigger_text or trigger.get("action") == trigger_key
+        )
+        if not same_trigger:
+            continue
+        timestamp = record.get("triggered_at")
+        if not isinstance(timestamp, str) or not timestamp:
+            continue
+        try:
+            parsed = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=timezone.utc)
+        matching.append((parsed.astimezone(timezone.utc), record))
+
+    if not matching:
         return None
-
-    matching = [
-        record
-        for record in records
-        if record.get("adapter_type") == adapter_type
-        and isinstance(record.get("trigger"), dict)
-        and record["trigger"].get("type") == trigger_type
-    ]
-    successful = [record for record in matching if record.get("status") == "success"]
-    if successful:
-        previous = successful[-1]
-        return {
-            "status": "skipped_already_successful",
-            "skip_reason": "successful_text_trigger_exists_today",
-            "previous_run_id": previous.get("run_id"),
-            "previous_status": previous.get("status"),
-            "previous_triggered_at": previous.get("triggered_at"),
-        }
-
-    attempted = [record for record in matching if record.get("triggered_at")]
-    if attempted:
-        previous = attempted[-1]
-        return {
-            "status": "skipped_already_attempted",
-            "skip_reason": "text_trigger_already_attempted_today",
-            "previous_run_id": previous.get("run_id"),
-            "previous_status": previous.get("status"),
-            "previous_triggered_at": previous.get("triggered_at"),
-        }
-
-    return None
+    previous_at, previous = max(matching, key=lambda item: item[0])
+    age_seconds = (current_time.astimezone(timezone.utc) - previous_at).total_seconds()
+    if age_seconds > cooldown_seconds:
+        return None
+    return {
+        "status": "skipped_cooldown",
+        "skip_reason": "active_trigger_cooldown",
+        "previous_run_id": previous.get("run_id"),
+        "previous_status": previous.get("status"),
+        "previous_triggered_at": previous.get("triggered_at"),
+        "cooldown_seconds": cooldown_seconds,
+        "cooldown_remaining_seconds": max(0, int(cooldown_seconds - age_seconds)),
+    }

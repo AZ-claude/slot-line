@@ -113,5 +113,67 @@
       "result_classification": "unknown",
       "note": "No reply was observed within the 120-second collector wait. This does not establish that the action is invalid."
     }
+  },
+  {
+    "store_id": "pia-tsunashima",
+    "collector_key": "pia-tsunashima",
+    "source": "official_line",
+    "adapter_type": "text_trigger",
+    "run_id": "173811-0d99ffe4",
+    "started_at": "2026-09-26T08:38:11.121114+00:00",
+    "finished_at": "2026-09-26T08:38:36.370907+00:00",
+    "trigger": {
+      "type": "text_trigger",
+      "text": "最新情報",
+      "line_id": "@pia_tunashima",
+      "action": "send_text",
+      "result": "sent",
+      "action_id": "latest_information",
+      "url": "https://line.me/R/oaMessage/%40pia_tunashima/?%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1",
+      "intent_action": "android.intent.action.VIEW",
+      "intent_package": "jp.naver.line.android"
+    },
+    "triggered_at": "2026-09-26T08:38:24.365052+00:00",
+    "received_at": null,
+    "status": "success",
+    "errors": [],
+    "messages_filename": "messages.json",
+    "ui_filenames": [
+      "ui\\173811-0d99ffe4_pre_action.xml",
+      "ui\\173811-0d99ffe4_pre_action.png",
+      "ui\\173811-0d99ffe4_post_action.xml",
+      "ui\\173811-0d99ffe4_post_action.png"
+    ],
+    "message_count": 0,
+    "stored_message_count_total": 0,
+    "image_count": 0,
+    "deduplicated_images": 0,
+    "line_source_key": "@pia_tunashima",
+    "line_id": "@pia_tunashima",
+    "trigger_mode": "url",
+    "hall_id": "pia-tsunashima",
+    "action_label": "最新情報",
+    "action_kind": "text_trigger",
+    "semantic_interpretation": "deferred",
+    "target_verified": true,
+    "action_executed": true,
+    "pre_action_capture": true,
+    "post_action_capture": true,
+    "raw_persisted": true,
+    "active_status": "captured",
+    "pre_action_ui_filenames": [
+      "ui\\173811-0d99ffe4_pre_action.xml",
+      "ui\\173811-0d99ffe4_pre_action.png"
+    ],
+    "post_action_ui_filenames": [
+      "ui\\173811-0d99ffe4_post_action.xml",
+      "ui\\173811-0d99ffe4_post_action.png"
+    ],
+    "captured_at": "2026-09-26T08:38:36.259865+00:00",
+    "current_activity": "jp.naver.line.android/.activity.chathistory.ChatHistoryActivity",
+    "external_url": null,
+    "action_result": "unknown",
+    "reply_type": null,
+    "message_semantics": "not_interpreted"
   }
 ]

@@ -24,9 +24,9 @@ from urllib.parse import quote
 from xml.etree import ElementTree
 
 try:
-    from raw_storage import RawStorageError, RawStore, evaluate_trigger_guard
+    from raw_storage import RawStorageError, RawStore, evaluate_trigger_cooldown
 except ModuleNotFoundError:  # Also support importing this runner in unit tests.
-    from scripts.raw_storage import RawStorageError, RawStore, evaluate_trigger_guard
+    from scripts.raw_storage import RawStorageError, RawStore, evaluate_trigger_cooldown
 
 
 SOURCE = "official_line"
@@ -656,6 +656,7 @@ def main() -> int:
             "result": None,
         },
     )
+    record["trigger"]["action_id"] = "latest_information"
     if args.trigger_mode == "url":
         record["trigger"]["url"] = target_oa_message_url()
         record["trigger"]["intent_action"] = "android.intent.action.VIEW"
@@ -675,13 +676,17 @@ def main() -> int:
     record["active_status"] = "unknown"
     record["pre_action_ui_filenames"] = []
     record["post_action_ui_filenames"] = []
-    guard_decision = evaluate_trigger_guard(
-        raw_store.load_manifest_records(),
-        ADAPTER_TYPE,
-        ADAPTER_TYPE,
+    guard_decision = evaluate_trigger_cooldown(
+        raw_store.load_recent_manifest_records(),
+        hall_id=ACTIVE_CONFIG.hall_id,
+        collector_key=ACTIVE_CONFIG.collector_key,
+        line_source_key=ACTIVE_CONFIG.line_source_key,
+        trigger_key="latest_information",
+        trigger_text=ACTIVE_CONFIG.trigger_text,
     )
     if guard_decision is not None:
         record.update(guard_decision)
+        record["trigger"]["result"] = "skipped_cooldown"
         record["active_status"] = "unknown"
         record["stored_message_count_total"] = len(raw_store.load_messages())
         record["finished_at"] = utc_now()
@@ -730,9 +735,10 @@ def main() -> int:
         record["triggered_at"] = triggered_at
         record["action_executed"] = True
         record["trigger"]["result"] = "sent"
+        record["trigger"]["action_id"] = "latest_information"
         record["raw_persisted"] = True
         # Persist the attempt immediately so a crash after sending cannot bypass
-        # the same-day guard on a rerun.
+        # the cooldown guard on a rerun.
         raw_store.persist_manifest(record)
 
         _, post_refs, _ = save_post_action_capture(
@@ -782,7 +788,7 @@ def main() -> int:
             raw_store.persist_manifest(record)
 
     print(json.dumps(record, ensure_ascii=False, indent=2))
-    return 0 if record["status"] == "success" else 1
+    return 0 if record["status"] in {"success", "skipped_cooldown"} else 1
 
 
 if __name__ == "__main__":

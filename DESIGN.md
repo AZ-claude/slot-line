@@ -74,9 +74,9 @@ Windows版LINEデスクトップは通常運用のランタイム依存にしな
 
 Macは開発用とし、実運用・E2EはWindowsで確認する。
 
-Phase 1では`passive`（エムアンドエム溝口）をproduction adapterとして採用し、PIA町田（東京都）とPIA京急川崎（神奈川県）は`text_trigger`の手動regression targetとして保持する。`scripts/run_daily.py`はproduction adapterだけを実行し、PIA targetは含めない。PIA targetは`scripts/run_regression_targets.py`でのみ、`--execute`を明示した手動実行として扱う。targetごとに異なるcollector key/source keyのRAW directoryと同日trigger guardを持ち、Task Schedulerの登録・変更は行わない。`--dry-run`または引数なしのplanはAdapterとLINE triggerを実行しない。
+Phase 1では`passive`（エムアンドエム溝口）をproduction adapterとして採用し、PIA町田（東京都）とPIA京急川崎（神奈川県）は`text_trigger`の手動regression targetとして保持する。`scripts/run_daily.py`はproduction adapterだけを実行し、PIA targetは含めない。PIA targetは`scripts/run_regression_targets.py`でのみ、`--execute`を明示した手動実行として扱う。targetごとに異なるcollector key/source keyのRAW directoryと10分cooldownを持ち、Task Schedulerの登録・変更は行わない。`--dry-run`または引数なしのplanはAdapterとLINE triggerを実行しない。
 
-PIAの`text_trigger`は送信側も冪等にする。当日manifestに正常な`text_trigger` runが存在する場合は送信せず、`skipped_already_successful`を返す。当日に通常triggerが実際に送信されており`triggered_at`があるが成功していない場合も送信せず、前回run情報を付けた`skipped_already_attempted`を返す。`existing_reply`診断や、送信前に失敗して`triggered_at`がない`trigger_failed`はtrigger試行に数えない。regression runnerからの強制再送経路は設けない。`skipped_already_attempted`は取得成功へ変換せず、regression summaryでは失敗扱いを維持する。M&Mの`passive`にはこのguardを適用しない。
+Active triggerは`hall_id`・`line_source_key`・action ID単位で10分cooldownを適用する。直近10分以内に同じactionが実行済みなら`skipped_cooldown`を返し、10分を超えれば再実行可能にする。cooldown判定は現在日と前日のRAW manifestを参照して日付境界をまたぐ。送信前に失敗して`triggered_at`がないrunはcooldown対象にしない。`--force-trigger`は設けない。passive collectorにはcooldownを適用しない。
 
 ---
 
