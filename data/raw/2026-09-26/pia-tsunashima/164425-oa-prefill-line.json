@@ -1,0 +1,22 @@
+{
+    "exact_url":  "https://line.me/R/oaMessage/%40pia_tunashima/?%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1",
+    "percent_encoded_line_id":  "%40pia_tunashima",
+    "slash_query_separator":  "/?",
+    "percent_encoded_trigger":  "%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1",
+    "powershell_url_value":  "https://line.me/R/oaMessage/%40pia_tunashima/?%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1",
+    "adb_shell_argument_url":  "https://line.me/R/oaMessage/%40pia_tunashima/?%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1",
+    "intent_action":  "android.intent.action.VIEW",
+    "explicit_package":  "jp.naver.line.android",
+    "line_package_resolution":  "jp.naver.line.android/.activity.schemeservice.LineSchemeServiceActivity",
+    "line_package_resolved":  true,
+    "am_start_command":  "adb shell am start -W -a android.intent.action.VIEW -d \u003cexact_url\u003e -p jp.naver.line.android",
+    "am_start_output":  "Starting: Intent { act=android.intent.action.VIEW dat=https://line.me/... pkg=jp.naver.line.android }\nStatus: ok\nLaunchState: WARM\nActivity: jp.naver.line.android/.activity.chathistory.ChatHistoryActivity\nTotalTime: 2013\nWaitTime: 2040\nComplete",
+    "am_start_performed":  true,
+    "resumed_activity_output":  "    topResumedActivity=ActivityRecord{203ca94 u0 jp.naver.line.android/.activity.chathistory.ChatHistoryActivity} t1097}",
+    "ui_dump_output":  "UI hierchary dumped to: /sdcard/slot-line-164425-oa-prefill-line.xml",
+    "ui_xml_ref":  "ui/164425-oa-prefill-line.xml",
+    "screenshot_ref":  "ui/164425-oa-prefill-line.png",
+    "triggered_at":  null,
+    "actual_send_count":  0,
+    "recorded_at":  "2026-09-26T16:44:36.3860683+09:00"
+}

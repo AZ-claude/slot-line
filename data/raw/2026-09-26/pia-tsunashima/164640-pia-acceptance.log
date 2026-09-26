@@ -1,0 +1,36 @@
+{
+  "store_id": "pia-tsunashima",
+  "collector_key": "pia-tsunashima",
+  "source": "official_line",
+  "adapter_type": "text_trigger",
+  "run_id": "164640-e6732cd7",
+  "started_at": "2026-09-26T07:46:40.871202+00:00",
+  "finished_at": "2026-09-26T07:48:51.692936+00:00",
+  "trigger": {
+    "type": "text_trigger",
+    "text": "最新情報",
+    "mode": "url",
+    "line_id": "@pia_tunashima",
+    "url": "https://line.me/R/oaMessage/%40pia_tunashima/?%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1",
+    "intent_action": "android.intent.action.VIEW",
+    "intent_package": "jp.naver.line.android"
+  },
+  "triggered_at": "2026-09-26T07:46:49.061615+00:00",
+  "received_at": null,
+  "status": "response_timeout",
+  "errors": [
+    {
+      "code": "response_timeout",
+      "detail": "no_new_target_reply_within_120s"
+    }
+  ],
+  "messages_filename": "messages.json",
+  "ui_filenames": [],
+  "message_count": 0,
+  "stored_message_count_total": 0,
+  "image_count": 0,
+  "deduplicated_images": 0,
+  "line_source_key": "@pia_tunashima",
+  "line_id": "@pia_tunashima",
+  "trigger_mode": "url"
+}

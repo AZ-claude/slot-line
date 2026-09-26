@@ -1,0 +1,3 @@
+09-26 16:44:25.121 I/ActivityTaskManager: START u0 {act=android.intent.action.VIEW dat=https://line.me/... flg=0x10000000 pkg=jp.naver.line.android cmp=jp.naver.line.android/.activity.schemeservice.LineSchemeServiceActivity} from uid 2000
+09-26 16:46:40.184 I/ActivityTaskManager: START u0 {act=android.intent.action.VIEW dat=https://line.me/... flg=0x10000000 pkg=jp.naver.line.android cmp=jp.naver.line.android/.activity.schemeservice.LineSchemeServiceActivity} from uid 2000
+Android ActivityTaskManager redacts the URL path/query in this log; exact URL string is stored in the prefill probe JSON and collector manifest.

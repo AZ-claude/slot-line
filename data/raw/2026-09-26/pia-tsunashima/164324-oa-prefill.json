@@ -1,0 +1,23 @@
+{
+    "exact_url":  "https://line.me/R/oaMessage/%40pia_tunashima/?%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1",
+    "url_checks":  {
+                       "line_id_percent_encoded":  true,
+                       "slash_query_separator":  true,
+                       "trigger_utf8_percent_encoded":  true,
+                       "no_line_scheme":  true
+                   },
+    "powershell_url_value":  "https://line.me/R/oaMessage/%40pia_tunashima/?%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1",
+    "adb_argument_url":  "https://line.me/R/oaMessage/%40pia_tunashima/?%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1",
+    "intent_action":  "android.intent.action.VIEW",
+    "intent_resolution":  "priority=0 preferredOrder=0 match=0x0 specificIndex=-1 isDefault=false\nandroid/com.android.internal.app.ResolverActivity",
+    "line_package_resolved":  false,
+    "am_start_output":  "",
+    "am_start_performed":  false,
+    "resumed_activity_output":  "    topResumedActivity=ActivityRecord{6888024 u0 jp.naver.line.android/.activity.chathistory.ChatHistoryActivity} t1097}",
+    "ui_dump_output":  "",
+    "ui_xml_ref":  null,
+    "screenshot_ref":  null,
+    "triggered_at":  null,
+    "actual_send_count":  0,
+    "recorded_at":  "2026-09-26T16:43:24.6811887+09:00"
+}

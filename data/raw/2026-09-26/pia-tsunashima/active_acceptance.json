@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "acceptance_id": "pia-tsunashima-oa-message-text-trigger-2026-09-26",
+  "hall_id": "pia-tsunashima",
+  "store_name": "PIA綱島",
+  "identity": {
+    "status": "pass",
+    "collector_verified": true,
+    "chat_header": "PIA綱島",
+    "chat_header_resource_id": "jp.naver.line.android:id/header_title",
+    "official_line_id_used": "@pia_tunashima",
+    "collector_run_source_key": "@pia_tunashima"
+  },
+  "exact_url_used": "https://line.me/R/oaMessage/%40pia_tunashima/?%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1",
+  "url_string_validation": {
+    "line_id_percent_encoded": "%40pia_tunashima",
+    "trigger_utf8_percent_encoded": "%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1",
+    "oa_message_path_separator": "/?",
+    "line_scheme_used": false,
+    "powershell_variable_value": "https://line.me/R/oaMessage/%40pia_tunashima/?%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1",
+    "adb_shell_data_argument": "https://line.me/R/oaMessage/%40pia_tunashima/?%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1"
+  },
+  "intent": {
+    "action": "android.intent.action.VIEW",
+    "default_resolution_probe": "android/com.android.internal.app.ResolverActivity",
+    "default_resolution_handlers": [
+      "jp.naver.line.android/.activity.schemeservice.LineSchemeServiceActivity",
+      "com.android.chrome/com.google.android.apps.chrome.IntentDispatcher"
+    ],
+    "browser_launched": false,
+    "package_scoped_resolution": "jp.naver.line.android/.activity.schemeservice.LineSchemeServiceActivity",
+    "package_scoped_launch_activity": "jp.naver.line.android/.activity.chathistory.ChatHistoryActivity",
+    "start_status": "ok",
+    "android_activity_log_uri_redacted": true,
+    "line_intent_verified": true
+  },
+  "prefill": {
+    "collector_observed": true,
+    "header_verified": "PIA綱島",
+    "header_matches": true,
+    "input_verified": "最新情報",
+    "input_matches": true,
+    "send_button_pressed_during_prefill_probe": false,
+    "ui_xml_ref": "data/raw/2026-09-26/pia-tsunashima/ui/164425-oa-prefill-line.xml",
+    "screenshot_ref": "data/raw/2026-09-26/pia-tsunashima/ui/164425-oa-prefill-line.png",
+    "probe_json_ref": "data/raw/2026-09-26/pia-tsunashima/164425-oa-prefill-line.json"
+  },
+  "same_day_guard_before_send": {
+    "status": "pass",
+    "matching_previous_triggered_at": null,
+    "prior_attempts_had_triggered_at": false,
+    "force_trigger_used": false
+  },
+  "send": {
+    "executed": true,
+    "count": 1,
+    "trigger_text": "最新情報",
+    "triggered_at_utc": "2026-09-26T07:46:49.061615+00:00",
+    "triggered_at_jst": "2026-09-26T16:46:49.061615+09:00",
+    "collector_run_id": "164640-e6732cd7",
+    "second_send_executed": false
+  },
+  "reply": {
+    "received_at": null,
+    "result": "unknown",
+    "reply_type": "unknown",
+    "message_count": 0,
+    "wait_seconds": 120,
+    "status": "response_timeout",
+    "no_effect_asserted": false,
+    "post_timeout_ui_xml_ref": "data/raw/2026-09-26/pia-tsunashima/ui/ui/164640-e6732cd7_post-timeout.xml",
+    "post_timeout_screenshot_ref": "data/raw/2026-09-26/pia-tsunashima/ui/ui/164640-e6732cd7_post-timeout.png",
+    "post_timeout_comparison": {
+      "prefill_visible_incoming_rows": 1,
+      "post_timeout_visible_incoming_rows": 1,
+      "accessibility_row_signature_changed": false,
+      "rendered_card_pixels_changed": true,
+      "interpretation": "The XML exposes the same single incoming rich-card row at both captures. Its artwork differs in screenshots, but no distinct new row or reply content is accessible; this is inconclusive and is not counted as a reply."
+    }
+  },
+  "text_trigger_verified": false,
+  "text_trigger_verification_reason": "The exact text was prefilled and one send was recorded, but no LINE reply arrived within the collector wait; retrieval is not verified.",
+  "rich_menu": {
+    "historical_status": "present",
+    "current_status": "not_observed",
+    "latest_information_action_currently_observed": false,
+    "rich_menu_text_equivalence": "unknown",
+    "menu_action_executed_this_acceptance": false
+  },
+  "passive_acceptance": "pending_real_change_acceptance",
+  "same_day_retry_allowed": false,
+  "raw_refs": [
+    "data/raw/2026-09-26/pia-tsunashima/active_acceptance.json",
+    "data/raw/2026-09-26/pia-tsunashima/manifest.json#164640-e6732cd7",
+    "data/raw/2026-09-26/pia-tsunashima/164324-oa-prefill.json",
+    "data/raw/2026-09-26/pia-tsunashima/164425-oa-prefill-line.json",
+    "data/raw/2026-09-26/pia-tsunashima/ui/164425-oa-prefill-line.xml",
+    "data/raw/2026-09-26/pia-tsunashima/ui/164425-oa-prefill-line.png",
+    "data/raw/2026-09-26/pia-tsunashima/ui/164640-e6732cd7_post-timeout.xml",
+    "data/raw/2026-09-26/pia-tsunashima/ui/164640-e6732cd7_post-timeout.png",
+    "data/raw/2026-09-26/pia-tsunashima/android_intent_log_excerpt.txt",
+    "data/raw/2026-09-26/pia-tsunashima/164640-pia-acceptance.log"
+  ],
+  "same_day_guard_after": {
+    "status": "skipped_already_attempted",
+    "skip_reason": "text_trigger_already_attempted_today",
+    "previous_run_id": "164640-e6732cd7",
+    "previous_status": "response_timeout",
+    "previous_triggered_at_utc": "2026-09-26T07:46:49.061615+00:00",
+    "followup_action_performed": false
+  }
+}

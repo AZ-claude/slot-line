@@ -287,7 +287,7 @@ def open_target_via_url(ctx: AndroidContext) -> ElementTree.Element:
     adb_run(ctx, ["shell", "input", "keyevent", "KEYCODE_WAKEUP"], timeout=15)
     adb_run(
         ctx,
-        ["shell", "am", "start", "-a", "android.intent.action.VIEW", "-d", url],
+        ["shell", "am", "start", "-W", "-a", "android.intent.action.VIEW", "-d", url, "-p", LINE_PACKAGE],
         timeout=30,
     )
     time.sleep(0.8)
@@ -812,6 +812,10 @@ def main() -> int:
             "line_id": ACTIVE_CONFIG.line_source_key,
         },
     )
+    if not args.existing_reply and args.trigger_mode == "url":
+        record["trigger"]["url"] = target_oa_message_url()
+        record["trigger"]["intent_action"] = "android.intent.action.VIEW"
+        record["trigger"]["intent_package"] = LINE_PACKAGE
     record["line_id"] = ACTIVE_CONFIG.line_source_key
     record["trigger_mode"] = "existing_reply" if args.existing_reply else args.trigger_mode
     guard_decision = None
