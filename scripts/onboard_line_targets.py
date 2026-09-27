@@ -254,8 +254,16 @@ def onboard_one(device: Device, candidate: dict[str, Any], evidence: Path) -> di
                 continue
             if screen.get("add"):
                 device.tap(*screen["add"])
-                time.sleep(4)
-                screen = classify_screen(device.dump())
+                # The refusal dialog can close by itself, so poll right after the tap.
+                for _ in range(5):
+                    time.sleep(0.8)
+                    screen = classify_screen(device.dump())
+                    if screen["screen"] == "dialog" or (screen["screen"] == "profile" and screen.get("talk")) or screen["screen"] == "chat":
+                        break
+                if screen["screen"] == "profile" and screen.get("add") and not screen.get("talk"):
+                    attempt["friend_added"] = False
+                    attempt["result"] = "friend_add_not_confirmed"
+                    raise FriendAddBlocked("add button still shown after tapping it")
                 if screen["screen"] == "dialog":
                     attempt["friend_added"] = False
                     attempt["result"] = "friend_add_failed:" + screen["message"][:80]
@@ -278,6 +286,8 @@ def onboard_one(device: Device, candidate: dict[str, Any], evidence: Path) -> di
             continue
         if screen["screen"] != "chat":
             attempt["result"] = "chat_not_reached"
+            if attempt.get("friend_added"):
+                raise FriendAddBlocked("chat not reached after friend-add")
             continue
         if not attempt.get("identity"):
             attempt["identity"] = identity(screen, candidate)
