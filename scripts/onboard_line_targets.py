@@ -347,7 +347,7 @@ def build_registry(capability: dict[str, Any], onboarding_files: list[Path]) -> 
         for record in json.loads(path.read_text(encoding="utf-8"))["records"]:
             if record.get("result") != "onboarded" or record["hall_id"] in known:
                 continue
-            attempt = next(item for item in record["attempts"] if item.get("result") == "onboarded")
+            attempt = [item for item in record["attempts"] if item.get("result") == "onboarded"][-1]
             targets.append(
                 {
                     "hall_id": record["hall_id"],

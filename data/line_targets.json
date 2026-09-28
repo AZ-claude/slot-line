@@ -1300,7 +1300,7 @@
    "hall_id": "dainamu-sagamihara-ten",
    "canonical_hall_id": "dainamu-sagamihara-ten",
    "collector_key": "dainamu-sagamihara-ten",
-   "line_source_key": "@fxl9564y",
+   "line_source_key": "@320qwyfb",
    "store_name": "ダイナム相模原店",
    "prefecture": "神奈川県",
    "identity_status": "verified_pworld_url",
@@ -1442,6 +1442,21 @@
    "chat_header_name": "バンバンポラリス",
    "profile_expected_names": [
     "バンバンポラリス"
+   ],
+   "source": "line_onboarding_batch02_2026-09-27.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-53654a43dbfae2a3",
+   "canonical_hall_id": "hall-53654a43dbfae2a3",
+   "collector_key": "hall-53654a43dbfae2a3",
+   "line_source_key": "@gzi8123r",
+   "store_name": "Ｄ’station上永谷店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_owner_confirmed_name",
+   "chat_header_name": "D'station上永谷店",
+   "profile_expected_names": [
+    "Ｄ’station上永谷店"
    ],
    "source": "line_onboarding_batch02_2026-09-27.json",
    "active": true

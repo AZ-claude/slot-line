@@ -449,7 +449,7 @@ def build_policy_row(
 
 def onboarding_inventory_record(record: dict[str, Any], review: dict[str, Any] | None) -> dict[str, Any]:
     """Inventory-shaped record for a newly onboarded store; menu status comes from the review."""
-    attempt = next(item for item in record["attempts"] if item.get("result") == "onboarded")
+    attempt = [item for item in record["attempts"] if item.get("result") == "onboarded"][-1]
     menu_status = (review or {}).get("rich_menu_status", "not_observed")
     return {
         "hall_id": record["hall_id"],

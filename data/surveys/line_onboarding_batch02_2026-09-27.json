@@ -259,23 +259,6 @@
    "onboarded_at": "2026-09-28T08:30:14.639584+00:00"
   },
   {
-   "hall_id": "hall-53654a43dbfae2a3",
-   "store_name": "Ｄ’station上永谷店",
-   "attempts": [
-    {
-     "line_source_key": "@gzi8123r",
-     "url": "https://line.me/R/ti/p/%40gzi8123r",
-     "first_screen": "profile",
-     "profile_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-53654a43dbfae2a3_profile_0.xml",
-     "profile_name": "D'station上永谷店",
-     "profile_pworld_path": null,
-     "identity": null,
-     "result": "identity_unverified"
-    }
-   ],
-   "result": "not_onboarded"
-  },
-  {
    "hall_id": "gaia-kawasaki-surotto-semmon-ten",
    "store_name": "ガイア川崎スロット専門店",
    "attempts": [
@@ -320,14 +303,32 @@
      "ui_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/dainamu-sagamihara-ten.xml",
      "rich_menu_node": true,
      "bottom_bar": true,
-     "result": "onboarded"
+     "result": "onboarded_superseded"
+    },
+    {
+     "line_source_key": "@320qwyfb",
+     "url": "rich-menu banner '登録はこちら' on @fxl9564y",
+     "first_screen": "profile",
+     "profile_name": "ダイナム相模原店",
+     "profile_pworld_path": "kanagawa/dynam-sagamihara.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "ダイナム相模原店",
+     "profile_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/dainamu-sagamihara-ten_new_account_profile.xml",
+     "screenshot": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/dainamu-sagamihara-ten_new_account.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/dainamu-sagamihara-ten_new_account.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded",
+     "note": "Old account's menu says information moved to a new account since July. The banner opened this profile; lin.ee/oxd7Fzb (P-WORLD list) resolves to @320qwyfb, the second ID listed for this hall. Owner approved switching on 2026-09-29."
     }
    ],
    "result": "onboarded",
-   "line_source_key": "@fxl9564y",
+   "line_source_key": "@320qwyfb",
    "identity_status": "verified_pworld_url",
    "friend_added": true,
-   "onboarded_at": "2026-09-28T08:36:35.707906+00:00"
+   "onboarded_at": "2026-09-28T20:43:44.649462+00:00",
+   "superseded_line_source_key": "@fxl9564y"
   },
   {
    "hall_id": "doki-waku-rando-ky-honten",
@@ -615,6 +616,33 @@
    "identity_status": "verified_normalized_name",
    "friend_added": true,
    "onboarded_at": "2026-09-28T08:57:50.469398+00:00"
+  },
+  {
+   "hall_id": "hall-53654a43dbfae2a3",
+   "store_name": "Ｄ’station上永谷店",
+   "attempts": [
+    {
+     "line_source_key": "@gzi8123r",
+     "url": "https://line.me/R/ti/p/%40gzi8123r",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-53654a43dbfae2a3_profile_0.xml",
+     "profile_name": "D'station上永谷店",
+     "profile_pworld_path": null,
+     "identity": "verified_owner_confirmed_name",
+     "friend_added": true,
+     "chat_header": "D'station上永谷店",
+     "screenshot": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-53654a43dbfae2a3.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-53654a43dbfae2a3.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@gzi8123r",
+   "identity_status": "verified_owner_confirmed_name",
+   "friend_added": true,
+   "onboarded_at": "2026-09-28T20:37:11.561574+00:00"
   }
  ]
 }

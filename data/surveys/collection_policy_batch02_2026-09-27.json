@@ -14,10 +14,10 @@
  "counts": {
   "type_a_passive": 0,
   "type_b_passive_plus_active": 2,
-  "type_c_passive_external_web": 5,
+  "type_c_passive_external_web": 6,
   "unresolved": 12
  },
- "store_count": 19,
+ "store_count": 20,
  "stores": [
   {
    "hall_id": "hall-31e7a172504fa5e8",
@@ -283,7 +283,7 @@
   {
    "hall_id": "dainamu-sagamihara-ten",
    "canonical_hall_id": "dainamu-sagamihara-ten",
-   "line_source_key": "@fxl9564y",
+   "line_source_key": "@320qwyfb",
    "store_name": "ダイナム相模原店",
    "rich_menu_status": "present",
    "menu_visual_review_required": false,
@@ -295,8 +295,8 @@
    "text_trigger_verified": false,
    "external_url": null,
    "evidence_refs": [
-    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/dainamu-sagamihara-ten.jpg",
-    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/dainamu-sagamihara-ten.xml"
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/dainamu-sagamihara-ten_new_account.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/dainamu-sagamihara-ten_new_account.xml"
    ],
    "confidence": "low",
    "verification_status": "menu_reviewed_no_latest_label",
@@ -305,7 +305,7 @@
     "active_trigger": false,
     "external_url_role": null
    },
-   "notes": "Rich menu says info moved to a new LINE account since July; this account may be dormant. Owner decision needed on onboarding the new account."
+   "notes": "Switched to the new account @320qwyfb (owner approved 2026-09-29). The old account @fxl9564y stays friended with the same display name, which the talk-list collector cannot tell apart; owner action needed."
   },
   {
    "hall_id": "doki-waku-rando-ky-honten",
@@ -455,9 +455,9 @@
    "rich_menu_status": "present",
    "menu_visual_review_required": false,
    "latest_action_label": "NEW 最新情報",
-   "action_result": "unknown",
-   "collection_type": "unresolved",
-   "active_method": "unknown",
+   "action_result": "external_web",
+   "collection_type": "type_c_passive_external_web",
+   "active_method": "none",
    "trigger_text": null,
    "text_trigger_verified": false,
    "external_url": null,
@@ -469,14 +469,14 @@
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/kitch-yokohama-komaoka-ten_post_action.xml",
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#kitch-yokohama-komaoka-ten"
    ],
-   "confidence": "low",
-   "verification_status": "liff_consent_required",
+   "confidence": "medium",
+   "verification_status": "owner_reported_action_result",
    "daily_policy": {
     "passive_scan": true,
     "active_trigger": false,
-    "external_url_role": null
+    "external_url_role": "auxiliary_source"
    },
-   "notes": "Opened a LINE LIFF consent screen (provider 株式会社キャスメディア); not granted. Same pattern as 吉兆川崎野川店, which the owner found redirects to P-WORLD."
+   "notes": "Opened a LINE LIFF consent screen (provider 株式会社キャスメディア); not granted. Same pattern as 吉兆川崎野川店, which the owner found redirects to P-WORLD. Owner confirmed on 2026-09-29 to treat it like 吉兆川崎野川店 (P-WORLD redirect): passive only."
   },
   {
    "hall_id": "abiba-minamiashigara-ten",
@@ -561,6 +561,33 @@
     "external_url_role": null
    },
    "notes": "No rich menu in the onboarding capture; single capture only, not enough for absent_confirmed."
+  },
+  {
+   "hall_id": "hall-53654a43dbfae2a3",
+   "canonical_hall_id": "hall-53654a43dbfae2a3",
+   "line_source_key": "@gzi8123r",
+   "store_name": "Ｄ’station上永谷店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-53654a43dbfae2a3.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-53654a43dbfae2a3.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "Onboarded after the owner confirmed profile D'station上永谷店 is this hall."
   }
  ]
 }

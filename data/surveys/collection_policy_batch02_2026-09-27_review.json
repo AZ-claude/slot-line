@@ -17,7 +17,6 @@
   "skip-surotto-kurabu-sekiuchi-ten": "duplicate hall-master row for SKIP関内 (skip-sc.htm); its LINE @895hjbia is registered under hall-ee471f0e0e99e2a4 (skip-kannai.htm)",
   "hall-77a38befe04d1cc6": "Ｍ＆Ｍ @vpress not displayable",
   "hall-d61ce3e0c5a4eac6": "ＺＡＰ代官店 @zap-maj1678 not displayable",
-  "hall-53654a43dbfae2a3": "profile name D'station上永谷店 vs hall Ｄ’station上永谷店 (apostrophe variant); owner confirmation needed",
   "daigakuin": "listed link kwwIwhZBVR opened no LINE screen"
  },
  "stores": {
@@ -176,11 +175,11 @@
     "executed": true,
     "executed_at": "2026-09-28T09:23:10.988721+00:00",
     "visible_action_label": "NEW 最新情報",
-    "action_result": "unknown",
-    "content_observed": false,
+    "action_result": "external_web",
+    "content_observed": true,
     "external_url": null,
     "rich_menu_emitted_text_observed": false,
-    "blocked_by": "liff_consent_required"
+    "observed_by": "owner"
    },
    "evidence_refs": [
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/kitch-yokohama-komaoka-ten_pre_action.jpg",
@@ -188,7 +187,7 @@
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/kitch-yokohama-komaoka-ten_post_action.xml",
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#kitch-yokohama-komaoka-ten"
    ],
-   "notes": "Opened a LINE LIFF consent screen (provider 株式会社キャスメディア); not granted. Same pattern as 吉兆川崎野川店, which the owner found redirects to P-WORLD."
+   "notes": "Opened a LINE LIFF consent screen (provider 株式会社キャスメディア); not granted. Same pattern as 吉兆川崎野川店, which the owner found redirects to P-WORLD. Owner confirmed on 2026-09-29 to treat it like 吉兆川崎野川店 (P-WORLD redirect): passive only."
   },
   "abiba-minamiashigara-ten": {
    "rich_menu_status": "present",
@@ -251,10 +250,17 @@
    "rich_menu_status": "present",
    "menu_review_status": "reviewed_no_latest_label",
    "visible_menu_labels": [
-    "LINEが新アカウントへ変わります 登録はこちら"
+    "台データ",
+    "フロアマップ",
+    "X",
+    "9月も全72店舗オススメ(banner)"
    ],
    "latest_action_label": null,
-   "notes": "Rich menu says info moved to a new LINE account since July; this account may be dormant. Owner decision needed on onboarding the new account."
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/dainamu-sagamihara-ten_new_account.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/dainamu-sagamihara-ten_new_account.xml"
+   ],
+   "notes": "Switched to the new account @320qwyfb (owner approved 2026-09-29). The old account @fxl9564y stays friended with the same display name, which the talk-list collector cannot tell apart; owner action needed."
   },
   "doki-waku-rando-ky-honten": {
    "rich_menu_status": "present",
@@ -313,6 +319,18 @@
    "menu_visual_review_required": true,
    "latest_action_label": null,
    "notes": "No rich menu in the onboarding capture; single capture only, not enough for absent_confirmed."
+  },
+  "hall-53654a43dbfae2a3": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "Thank you(banner)",
+    "店舗情報",
+    "X",
+    "入場抽選受付"
+   ],
+   "latest_action_label": null,
+   "notes": "Onboarded after the owner confirmed profile D'station上永谷店 is this hall."
   }
  }
 }
