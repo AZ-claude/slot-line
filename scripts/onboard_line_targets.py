@@ -117,7 +117,12 @@ class Device:
         self.base = [adb, "-s", serial]
 
     def run(self, *args: str, timeout: int = 60, binary: bool = False) -> Any:
-        proc = subprocess.run([*self.base, *args], capture_output=True, timeout=timeout)
+        try:
+            proc = subprocess.run([*self.base, *args], capture_output=True, timeout=timeout)
+        except subprocess.TimeoutExpired:
+            # The SSH->ADB bridge occasionally stalls; one retry is enough in practice.
+            time.sleep(3)
+            proc = subprocess.run([*self.base, *args], capture_output=True, timeout=timeout)
         return proc.stdout if binary else proc.stdout.decode("utf-8", "replace")
 
     def dump(self) -> str:
