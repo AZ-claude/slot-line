@@ -1460,6 +1460,186 @@
    ],
    "source": "line_onboarding_batch02_2026-09-27.json",
    "active": true
+  },
+  {
+   "hall_id": "hall-29a4eae243ef947f",
+   "canonical_hall_id": "hall-29a4eae243ef947f",
+   "collector_key": "hall-29a4eae243ef947f",
+   "line_source_key": "@549mafuw",
+   "store_name": "モナコ桜木町本店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "MONACO桜木町店",
+   "profile_expected_names": [
+    "モナコ桜木町本店"
+   ],
+   "source": "line_onboarding_batch02_2026-09-27.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-bbd8368f83485942",
+   "canonical_hall_id": "hall-bbd8368f83485942",
+   "collector_key": "hall-bbd8368f83485942",
+   "line_source_key": "@147qaktr",
+   "store_name": "PIA伊勢佐木3丁目",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "PIA伊勢佐木3丁目",
+   "profile_expected_names": [
+    "PIA伊勢佐木3丁目"
+   ],
+   "source": "line_onboarding_batch02_2026-09-27.json",
+   "active": true
+  },
+  {
+   "hall_id": "pia-isezaki-machi",
+   "canonical_hall_id": "pia-isezaki-machi",
+   "collector_key": "pia-isezaki-machi",
+   "line_source_key": "@020yawaw",
+   "store_name": "PIA伊勢佐木町",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "PIA伊勢佐木町",
+   "profile_expected_names": [
+    "PIA伊勢佐木町"
+   ],
+   "source": "line_onboarding_batch02_2026-09-27.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-30397a9696f2e0cb",
+   "canonical_hall_id": "hall-30397a9696f2e0cb",
+   "collector_key": "hall-30397a9696f2e0cb",
+   "line_source_key": "@778sbcki",
+   "store_name": "PIA横須賀中央",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "PIA横須賀中央店",
+   "profile_expected_names": [
+    "PIA横須賀中央"
+   ],
+   "source": "line_onboarding_batch02_2026-09-27.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-b8c21b0b4bda81d9",
+   "canonical_hall_id": "hall-b8c21b0b4bda81d9",
+   "collector_key": "hall-b8c21b0b4bda81d9",
+   "line_source_key": "@224onuqw",
+   "store_name": "PIA川崎新川通り店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "PIA川崎新川通り店",
+   "profile_expected_names": [
+    "PIA川崎新川通り店"
+   ],
+   "source": "line_onboarding_batch02_2026-09-27.json",
+   "active": true
+  },
+  {
+   "hall_id": "hinomaru-muk-gaoka-y-en-ten",
+   "canonical_hall_id": "hinomaru-muk-gaoka-y-en-ten",
+   "collector_key": "hinomaru-muk-gaoka-y-en-ten",
+   "line_source_key": "@cfu1692p",
+   "store_name": "ヒノマル向ヶ丘遊園店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "ヒノマル向ヶ丘遊園店",
+   "profile_expected_names": [
+    "ヒノマル向ヶ丘遊園店"
+   ],
+   "source": "line_onboarding_batch03_2026-09-29.json",
+   "active": true
+  },
+  {
+   "hall_id": "komparu-hashimoto",
+   "canonical_hall_id": "komparu-hashimoto",
+   "collector_key": "komparu-hashimoto",
+   "line_source_key": "@aht9625w",
+   "store_name": "コンパル橋本",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "コンパル橋本店",
+   "profile_expected_names": [
+    "コンパル橋本"
+   ],
+   "source": "line_onboarding_batch03_2026-09-29.json",
+   "active": true
+  },
+  {
+   "hall_id": "sukuramburu-taya-ten",
+   "canonical_hall_id": "sukuramburu-taya-ten",
+   "collector_key": "sukuramburu-taya-ten",
+   "line_source_key": "@xrj2329j",
+   "store_name": "スクランブル田谷店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "スクランブル田谷店",
+   "profile_expected_names": [
+    "スクランブル田谷店"
+   ],
+   "source": "line_onboarding_batch03_2026-09-29.json",
+   "active": true
+  },
+  {
+   "hall_id": "maruhan-kawasaki-sakura-honten",
+   "canonical_hall_id": "maruhan-kawasaki-sakura-honten",
+   "collector_key": "maruhan-kawasaki-sakura-honten",
+   "line_source_key": "@qvq4128s",
+   "store_name": "マルハン川崎桜本店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "マルハン川崎桜本店",
+   "profile_expected_names": [
+    "マルハン川崎桜本店"
+   ],
+   "source": "line_onboarding_batch03_2026-09-29.json",
+   "active": true
+  },
+  {
+   "hall_id": "maruhan-sagamihara-ten",
+   "canonical_hall_id": "maruhan-sagamihara-ten",
+   "collector_key": "maruhan-sagamihara-ten",
+   "line_source_key": "@ojc7047i",
+   "store_name": "マルハン相模原店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "マルハン相模原店",
+   "profile_expected_names": [
+    "マルハン相模原店"
+   ],
+   "source": "line_onboarding_batch03_2026-09-29.json",
+   "active": true
+  },
+  {
+   "hall_id": "tow-zu-atsugi-ten",
+   "canonical_hall_id": "tow-zu-atsugi-ten",
+   "collector_key": "tow-zu-atsugi-ten",
+   "line_source_key": "@fbf2322z",
+   "store_name": "トワーズ厚木店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "トワーズ厚木店",
+   "profile_expected_names": [
+    "トワーズ厚木店"
+   ],
+   "source": "line_onboarding_batch03_2026-09-29.json",
+   "active": true
+  },
+  {
+   "hall_id": "abiba-ebina-ten",
+   "canonical_hall_id": "abiba-ebina-ten",
+   "collector_key": "abiba-ebina-ten",
+   "line_source_key": "@743tmazu",
+   "store_name": "アビバ海老名店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "アビバ海老名店",
+   "profile_expected_names": [
+    "アビバ海老名店"
+   ],
+   "source": "line_onboarding_batch03_2026-09-29.json",
+   "active": true
   }
  ]
 }

@@ -127,6 +127,8 @@ python3 -m scripts.active_acquisition_policy \
 
 ## 対象店舗の拡大（onboarding）
 
+作業手順の詳細（禁止事項・画像レビュー・review記入・引き継ぎ）は [LINE_ONBOARDING_MANUAL.md](LINE_ONBOARDING_MANUAL.md) を参照。
+
 候補は`slot-kanagawa-hall-master`の`halls.csv`とP-WORLD LINE一覧を店名で結合して作る（`data/surveys/line_target_candidates_kanagawa_2026-09-26.json`）。
 
 ```

@@ -643,6 +643,174 @@
    "identity_status": "verified_owner_confirmed_name",
    "friend_added": true,
    "onboarded_at": "2026-09-28T20:37:11.561574+00:00"
+  },
+  {
+   "hall_id": "hall-b3957f942700482c",
+   "store_name": "PIA大船2店",
+   "attempts": [
+    {
+     "line_source_key": "@694ixtwm",
+     "url": "https://line.me/R/ti/p/@694ixtwm?oat_content=url&ts=07011627",
+     "first_screen": "chat",
+     "identity": null,
+     "friend_added": false,
+     "already_friend": true,
+     "result": "identity_unverified"
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "hall-29a4eae243ef947f",
+   "store_name": "モナコ桜木町本店",
+   "attempts": [
+    {
+     "line_source_key": "@549mafuw",
+     "url": "https://line.me/R/ti/p/@549mafuw?oat_content=url&ts=04011359",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-29a4eae243ef947f_profile_0.xml",
+     "profile_name": "MONACO桜木町店",
+     "profile_pworld_path": "kanagawa/the-monaco.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "MONACO桜木町店",
+     "screenshot": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-29a4eae243ef947f.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-29a4eae243ef947f.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@549mafuw",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-09-28T21:57:33.908740+00:00"
+  },
+  {
+   "hall_id": "hall-bbd8368f83485942",
+   "store_name": "PIA伊勢佐木3丁目",
+   "attempts": [
+    {
+     "line_source_key": "@147qaktr",
+     "url": "https://line.me/R/ti/p/%40147qaktr",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-bbd8368f83485942_profile_0.xml",
+     "profile_name": "PIA伊勢佐木3丁目",
+     "profile_pworld_path": "kanagawa/santrope.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "PIA伊勢佐木3丁目",
+     "screenshot": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-bbd8368f83485942.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-bbd8368f83485942.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@147qaktr",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-09-28T22:00:19.711915+00:00"
+  },
+  {
+   "hall_id": "pia-isezaki-machi",
+   "store_name": "PIA伊勢佐木町",
+   "attempts": [
+    {
+     "line_source_key": "@020yawaw",
+     "url": "https://line.me/R/ti/p/%40020yawaw",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/pia-isezaki-machi_profile_0.xml",
+     "profile_name": "PIA伊勢佐木町",
+     "profile_pworld_path": "kanagawa/pia-isezaki.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "PIA伊勢佐木町",
+     "screenshot": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/pia-isezaki-machi.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/pia-isezaki-machi.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@020yawaw",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-09-28T22:02:46.384375+00:00"
+  },
+  {
+   "hall_id": "hall-30397a9696f2e0cb",
+   "store_name": "PIA横須賀中央",
+   "attempts": [
+    {
+     "line_source_key": "@778sbcki",
+     "url": "https://line.me/R/ti/p/%40778sbcki",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-30397a9696f2e0cb_profile_0.xml",
+     "profile_name": "PIA横須賀中央店",
+     "profile_pworld_path": "kanagawa/pia-y-c.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "PIA横須賀中央店",
+     "screenshot": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-30397a9696f2e0cb.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-30397a9696f2e0cb.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@778sbcki",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-09-28T22:04:08.028318+00:00"
+  },
+  {
+   "hall_id": "hall-b8c21b0b4bda81d9",
+   "store_name": "PIA川崎新川通り店",
+   "attempts": [
+    {
+     "line_source_key": "@224onuqw",
+     "url": "https://line.me/R/ti/p/@224onuqw",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-b8c21b0b4bda81d9_profile_0.xml",
+     "profile_name": "PIA川崎新川通り店",
+     "profile_pworld_path": "kanagawa/ropestation2.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "PIA川崎新川通り店",
+     "screenshot": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-b8c21b0b4bda81d9.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-b8c21b0b4bda81d9.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@224onuqw",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-09-28T22:05:29.867463+00:00"
+  },
+  {
+   "hall_id": "hall-43832bf3d34f5004",
+   "store_name": "PREST 弥生台店",
+   "attempts": [
+    {
+     "line_source_key": "@zat7734l",
+     "url": "https://line.me/R/ti/p/%40zat7734l",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-43832bf3d34f5004_profile_0.xml",
+     "profile_name": "プレスト弥生台",
+     "profile_pworld_path": null,
+     "identity": null,
+     "result": "identity_unverified"
+    }
+   ],
+   "result": "not_onboarded"
   }
  ]
 }
