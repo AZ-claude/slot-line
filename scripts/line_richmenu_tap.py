@@ -10,8 +10,10 @@ Guards before the tap (any failure = no tap, logged as guard_failed):
   - the tap point is inside the rich-menu image
   - the store has no earlier "executed" row in action_results.jsonl
 
-Each target is "hall_id|line_source_key|chat header name|x|y|label[|row_x,row_y]".
-row_x,row_y is the talk-list row to tap when the name search cannot find it.
+Each target is "hall_id|line_source_key|chat header name|x|y|label".
+Run with --dry-run first: it opens the chat, checks the guards and saves
+<hall_id>_dryrun.jpg with the menu bounds, but does not tap. If the chat is
+not found in the talk list, stop and report; never open rows by coordinates.
 """
 
 from __future__ import annotations
@@ -119,6 +121,7 @@ def main() -> int:
     parser.add_argument("--out", type=Path, required=True, help="evidence folder, e.g. data/surveys/line_onboarding_batch03_<date>_evidence/actions")
     parser.add_argument("--adb", default="/tmp/codex-adb-bridge/adb")
     parser.add_argument("--serial", default="HQ615G150D")
+    parser.add_argument("--dry-run", action="store_true", help="open and check only; never tap the menu")
     parser.add_argument("targets", nargs="+")
     args = parser.parse_args()
     out = args.out
@@ -146,13 +149,10 @@ def main() -> int:
         if not device.portrait():
             print("STOP: device is not portrait")
             return 2
-        if len(parts) > 6:
-            device.open_talk_list()
-            device.scroll_to_top()
-            rx, ry = parts[6].split(",")
-            device.tap(int(rx), int(ry))
-            time.sleep(4)
-        elif not device.open_chat_by_name(name):
+        if len(parts) != 6:
+            print(json.dumps({"hall_id": hall, "error": "target needs exactly 6 fields"}, ensure_ascii=False))
+            return 2
+        if not device.open_chat_by_name(name):
             write(record | {"status": "guard_failed", "reason": "chat_not_found_in_talk_list"})
             continue
         pre = device.dump(device.scratch / "pre_action.xml")
@@ -172,11 +172,18 @@ def main() -> int:
                 record["menu_expanded_before_action"] = True
         titles = re.findall(r'text="([^"]+)"[^>]*resource-id="jp.naver.line.android:id/\w*title', pre)
         menu = re.search(r'oa_richmenu_imageview"[^>]*bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', pre)
-        device.screenshot(out / f"{hall}_pre_action")
         title_ok = any(norm(t) == norm(name) for t in titles)
         tap_ok = bool(menu) and int(menu[1]) <= x <= int(menu[3]) and int(menu[2]) <= y <= int(menu[4])
+        if args.dry_run:
+            shot = device.screenshot(out / f"{hall}_dryrun")
+            print(json.dumps(record | {"status": "dry_run", "header_ok": title_ok, "tap_inside_menu": tap_ok,
+                                        "menu_bounds": f"[{menu[1]},{menu[2]}][{menu[3]},{menu[4]}]" if menu else None, "screenshot": str(shot)}, ensure_ascii=False), flush=True)
+            device.run("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(1)
+            continue
+        device.screenshot(out / f"{hall}_pre_action")
         if not (title_ok and tap_ok):
-            write(record | {"status": "guard_failed", "titles": titles, "menu_bounds": menu.group(0) if menu else None})
+            write(record | {"status": "guard_failed", "titles": titles, "menu_bounds": f"[{menu[1]},{menu[2]}][{menu[3]},{menu[4]}]" if menu else None})
             continue
         record["triggered_at"] = datetime.now(timezone.utc).isoformat()
         device.tap(x, y)

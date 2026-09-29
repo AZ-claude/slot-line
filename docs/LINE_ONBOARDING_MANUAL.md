@@ -48,8 +48,10 @@ AIでも人でも、このページだけ読めば作業できるように書い
 | 端末の設定変更（自動回転など） | ownerの端末設定。向きがおかしければownerに頼む |
 | 1日に20件を超える新規追加、LINE IDでプロフィールを何度も開くこと | LINEの「検索回数の上限」に達し、丸1日以上追加できなくなる（実際に起きた） |
 | passive collector や Scheduler の変更 | このマニュアルの範囲外 |
+| `adb … input tap` などで画面を手で押す（スクリプトを使わない操作） | 座標がずれると別のトーク（個人の会話）を開く。**実際に起きた。** 端末操作はこのマニュアルのスクリプトだけで行う。例外は §3-3 の点灯と、Back キーだけ |
+| スクショの座標でトーク一覧の行を開く | 一覧は新着順に動くので、古いスクショの座標は別の人のトークを指す |
 | 店舗以外のトーク（個人・グループ）の画面を保存・commitする | **このリポジトリは公開**。個人の会話が世界中に見えてしまう。間違って開いたらすぐBackで閉じ、何も保存しない（スクリプトは店名が違えば保存しない） |
-| トーク一覧の画面（`_chatlist.xml` やスクリーンショット）を証拠フォルダに置く | 一覧には個人の連絡先が写る。行の位置を読むための一覧スクショは `/tmp` に置き、commitしない |
+| トーク一覧の画面（`_chatlist.xml` やスクリーンショット）を証拠フォルダに置く | 一覧には個人の連絡先が写る。スクリプトは一覧を一時フォルダにしか保存しない。自分で一覧のスクショを撮らない |
 
 ---
 
@@ -182,36 +184,65 @@ python3 scripts/line_chat_snapshot.py --out data/surveys/line_onboarding_batchNN
 
 ### Step 4：「最新情報」ボタンを1回だけ押す
 
-**押す座標の決め方：** 画像は横720×縦1496ピクセルです。押したいボタンの**真ん中あたり**の座標を画像から読みます。
-メニューの範囲は、同じ名前の `.xml` の中にある `oa_richmenu_imageview` の `bounds` で確認できます（例：`[0,869][720,1355]`）。この範囲の外の座標はスクリプトが拒否します。
+必ず **4-1 → 4-2 → 4-3 → 4-4** の順で行います。4-1 を飛ばさないでください。
+
+#### 4-1：押す位置を決める
+
+`..._evidence/<hall_id>.jpg`（Step 2 で撮った画像）を開き、「最新情報」ボタンの**真ん中**の座標を読みます。
+
+- 画像は横720 × 縦1496 ピクセルです。左上が (0,0) です。
+- メニューは画面の下の方（だいたい y=870〜1355）にあります。
+- 大きいボタンでも、端ではなく中央を選びます。
+
+#### 4-2：押さずに確認する（dry-run）
+
+```bash
+python3 scripts/line_richmenu_tap.py --dry-run --out /tmp/slot-line-dryrun \
+  "<hall_id>|<LINE ID>|<トーク画面の店名>|<x>|<y>|<ボタンに書いてある文字>"
+```
+
+- 店名は、トーク画面の上に出ている名前をそのまま書きます（例：`ＺＡＰ 舟倉店` のように全角・空白も同じに）。
+- 出力の `header_ok` と `tap_inside_menu` が**両方 `true`** であることを確認します。
+- `/tmp/slot-line-dryrun/<hall_id>_dryrun.jpg` を開き、次の2点を**目で確認**します。
+  1. 正しい店舗のトーク画面である
+  2. 決めた (x, y) の位置に「最新情報」ボタンがある（x は左から、y は上からのピクセル）
+- `chat_not_found_in_talk_list` が出たら**そこで止めて報告**します。座標でトーク一覧の行を開こうとしないでください。
+- dry-run の画像は `/tmp` に置いたままにし、commit しません。
+
+#### 4-3：本番（1回だけ押す）
+
+4-2 と**同じ文字列**で、`--dry-run` を外して実行します。
 
 ```bash
 python3 scripts/line_richmenu_tap.py --out data/surveys/line_onboarding_batchNN_<日付>_evidence/actions \
   "<hall_id>|<LINE ID>|<トーク画面の店名>|<x>|<y>|<ボタンに書いてある文字>"
 ```
 
-- 店名はトーク画面上部に出ている名前をそのまま書きます（例：`ＺＡＰ 舟倉店` のように全角・空白も同じに）。
-- 店舗はトーク一覧から探して開きます。LINE IDでは開かないので、検索回数を使いません。
-- 一覧で見つからないときは `chat_not_found_in_talk_list` になります。そのときはトーク一覧のスクリーンショットを撮って行の位置を読み、末尾に `|行のx,行のy` を足して再実行します。
+同じ店舗を2回実行しても、2回目は `already_executed` になって押されません（`action_results.jsonl` で管理しています）。
 
-```bash
-/tmp/codex-adb-bridge/adb -s HQ615G150D exec-out screencap -p > /tmp/talklist.png
-```
+#### 4-4：結果を判定する
 
-（このスクショは個人の連絡先が写るので、`/tmp` に置いたままにして、リポジトリに入れないこと）
-
-押した後、`actions/<hall_id>_post_action.jpg` を見て結果を決めます。
+`actions/<hall_id>_post_action.jpg` を開いて判定します。
 
 | 押した後の画面 | action_result | 分類 |
 | --- | --- | --- |
 | トークに店舗から画像やメッセージが届いた | `line_reply` | **Type B** |
-| P-WORLD、DMMぱちタウン、店舗サイトなどが開いた | `external_web` | **Type C**（URLは `.xml` の `https://…` を記録） |
-| Xアプリなど別アプリが開いた | `external_app` | unresolved |
+| P-WORLD、DMMぱちタウン、店舗サイトなどが開いた | `external_web` | **Type C**（URLは `post_action.xml` の `https://…` を記録） |
+| Xアプリなど別アプリが開いた（`other_app` に名前が出る） | `external_app` | unresolved |
 | 「認証」「許可する」の画面が出た | `unknown`（`blocked_by: liff_consent_required`） | unresolved。**押さずに閉じる**。ownerに報告 |
-| 何も変わらない | `unknown` | unresolved |
-| くるくる（読み込み中）のまま | まだ決めない | 数分後に `line_chat_snapshot.py` で撮り直す（押し直さない）。店舗の画像が届いていれば `line_reply` |
+| くるくる（読み込み中）のまま | **まだ決めない** | 下の「読み込み中だったとき」を行う |
+| 何も変わらない（読み込み中でもない） | `unknown` | unresolved |
 
-**Type B で、自分側（右側・緑）の吹き出しに文字が出た場合**（例「最新情報」）は、文字送信でも同じ返信が来る可能性があります。**自分で送らず**、ownerに「〇〇店に『最新情報』と1回送ってみてください」と頼み、同じ返信が来たら `text_trigger_verified: true` にします。
+**読み込み中だったとき：** 2〜5分待ってから、押さずに撮り直します。
+
+```bash
+python3 scripts/line_chat_snapshot.py --out data/surveys/line_onboarding_batchNN_<日付>_evidence/reply_recheck \
+  "<hall_id>|<トーク画面の店名>"
+```
+
+店舗の画像やメッセージが写っていれば `line_reply` です。`reply_recheck` の画像も `evidence_refs` に入れます。それでも何もなければ `unknown` にします。
+
+**Type B で、自分側（右側・緑）の吹き出しに文字が出た場合**（例「最新情報」）は、文字送信でも同じ返信が来る可能性があります。**自分で送らず**、ownerに「〇〇店に『最新情報』と1回送ってみてください」と頼みます。同じ返信が来たら `text_trigger_verified: true` にします。
 
 ### Step 5：review ファイルに書く
 
@@ -297,6 +328,28 @@ python3 scripts/line_richmenu_tap.py --out data/surveys/line_onboarding_batchNN_
 ```
 
 **(5) ownerが判断した場合**：`action_mapping` に `"observed_by": "owner"` を足すか、Type Aなら `"no_collection_action_confirmed": true, "confirmed_by": "owner"` を書きます。`notes` に「owner が〇月〇日に△△と判断」と残してください。
+
+### Step 5.5：commit 前の自己チェック（必須）
+
+review を書き終えたら、店舗ごとに次の表を作り、作業報告に貼ります。**1つでも「いいえ」があれば直してから進みます。**
+
+| hall_id | 分類 | 根拠の画像（パス） | その画像で結果が見えるか | 押した回数 |
+| --- | --- | --- | --- | --- |
+
+チェック項目：
+
+- [ ] Type B の店舗：`post_action.jpg` または `reply_recheck` の画像に、店舗からの返信が**写っている**
+- [ ] Type C の店舗：`post_action.jpg` に外部サイトが写っていて、`external_url` が入っている
+- [ ] unresolved の店舗：理由（`verification_status` / `notes`）が書いてある
+- [ ] Type A の店舗：メニューなしの確認が3回そろっている（登録時＋`absence_recheck` 2回）
+- [ ] 押した回数はどの店舗も 0 か 1
+- [ ] 証拠フォルダに、店舗以外のトーク画面・トーク一覧の画面・`_chatlist.xml`・`_dryrun.jpg` が**入っていない**
+
+```bash
+git status --short data/surveys | grep -E "_chatlist|_dryrun|talklist" && echo "NG: 入れてはいけないファイルがある" || echo OK
+```
+
+- [ ] `action_results.jsonl` に店舗以外の名前が残っていない
 
 ### Step 6：policy表と collector 登録リストを作り直す
 
@@ -385,43 +438,49 @@ git push origin HEAD
 
 ---
 
-## 8. 引き継ぎ（2026-09-30時点）
+## 8. 引き継ぎ（2026-09-30 05:00 時点）
 
-- **collector登録店舗：110**（`data/line_targets.json`、registry実行済み）
+- **collector登録店舗：110**（`data/line_targets.json`）
 - **まだ追加していない候補：147店舗**（Step 1のスクリプトで確認）
-- **分類済みのpolicy表：** 既存41店舗、batch00〜02、batch03（`collection_policy_batch03_2026-09-29.json`）
-- **LINE ID検索の使用：** 2026-09-30 は4回使用済み（3店舗追加＋1回再試行）。同じ日にStep 2を行う場合の残り目安は15件
+- **分類済みのpolicy表：** 既存41店舗、batch00〜03（`collection_policy_batch0*_*.json`）
+  - batch02：Type A 0 / B 6 / C 6 / unresolved 14（MONACO桜木町・PIA横須賀中央は撮り直しで返信を確認し Type B に訂正済み）
+  - batch03：Type A 0 / B 1 / C 0 / unresolved 9
+- **LINE ID検索の使用：** 2026-09-30 は4回使用済み
 
-### 途中の作業（2026-09-30対応済み）
+### 次の人がやること（新規追加はしない）
 
-batch02・batch03の画像レビュー、対象ボタンの1回操作、review作成、policy生成、registry更新まで完了した。
-文字送信は0回、LIFFの認証・許可は0回、ブロック・トーク削除・端末設定変更は行っていない。
+どれも友だち追加済みなので、LINE ID検索は使いません。
 
-| バッチ | 結果 | 件数 |
-| --- | --- | ---: |
-| batch02 | Type A / Type B / Type C / unresolved | 0 / 4 / 6 / 16 |
-| batch03 | Type A / Type B / Type C / unresolved | 0 / 1 / 0 / 9 |
+**1. ボタン押下の再試行（3店舗）**
 
-batch02の個別結果：`hall-bbd8368f83485942` と `pia-isezaki-machi` はLINE返信、`hall-29a4eae243ef947f` と `hall-30397a9696f2e0cb` はタップ後もローディング表示で返信・外部遷移を確認できずunresolved。
-`hall-b8c21b0b4bda81d9` と `hall-43832bf3d34f5004` は最新情報系ボタンなし（後者はowner確認済み）。
+前回は、スクリプトの不具合でトーク一覧から見つけられず、押せていません。不具合は直り、2026-09-30 に dry-run で3店舗とも `header_ok` / `tap_inside_menu` が true になることを確認済みです。
+Step 4 の 4-2 → 4-3 → 4-4 を行い、`collection_policy_batch03_2026-09-29_review.json` の該当店舗を書き換えます。
 
-batch03の個別結果：`abiba-ebina-ten` はLINE返信。`sukuramburu-taya-ten`、`maruhan-sagamihara-ten`、`kik-na-totsuka-ten` はトーク一覧の店名行を確認できず安全ガード失敗で、ボタンは押していない。
-`maruhan-kawasaki-sakura-honten` は追加撮影を試みたが店名行を確認できず、メニューなし3回確認に未到達。その他の店舗は最新情報系ボタンなし（owner確認分を含む）。
+| hall_id | トーク画面の店名 | ボタン | 座標（dry-run確認済み） |
+| --- | --- | --- | --- |
+| sukuramburu-taya-ten | スクランブル田谷店 | 最新情報はここからチェック! | 360, 1215 |
+| maruhan-sagamihara-ten | マルハン相模原店 | 最新情報 | 185, 995 |
+| kik-na-totsuka-ten | キコーナ戸塚店 | 最新情報 | 240, 995 |
 
-**batch03で追加できなかった店舗（reviewの`not_onboarded`に記録）**
+LINE ID の欄は `data/line_targets.json` の `line_source_key` を使います（マルハン相模原店も同じ）。
 
-- `hall-06c31ec72212e8d7` ザ シティ/ベルシティ元住吉店：リンクが開けない
-- `niraku-hiratsuka-kurobeoka-ten` ニラク平塚黒部丘店：短縮リンク先のプロフィールで名前が読めず、本人確認できない
-- `abiba-shinsugita-ten` アビバ新杉田店：IDが「表示できません」
+**2. マルハン川崎桜本店のメニュー再確認**
 
-**ownerに確認したいこと**
+Step 3-2 の `line_chat_snapshot.py` を実行します（トーク画面の店名は `マルハン川崎桜本店`）。
 
-- ニラク平塚黒部丘店のLINEプロフィールが対象店舗と同一か
-- 最新情報ボタンは確認できたがトーク一覧行を取得できなかった3店舗（スクランブル田谷、マルハン相模原、キコーナ戸塚）の再試行可否または行座標
-- タップ後ローディングのまま終わったMONACO桜木町店・PIA横須賀中央店をunresolvedのままとするか
-- マルハン川崎桜本店のトーク一覧行を取得できるか（メニューなし再確認用）
+- 登録時と合わせて3回ともメニューがなければ `absent_confirmed`（Type A）
+- 1回でもメニューが写れば、画像を見て Step 3 の振り分けをやり直す
 
-ダイナム相模原店の旧アカウント `@fxl9564y` が友だちに残っていて同じ店名のトークが2つある件は、owner判断（配信が来ないならそのままでよい）のまま。
+**3. Step 5.5 の自己チェック → Step 6 → Step 7**
+
+### ownerの確認待ち
+
+- ニラク平塚黒部丘店：短縮リンク先のプロフィールで店名が読み取れず、本人確認できていない。ownerがLINE上の名前を確認できたら `--owner-confirmed-name` で追加する
+- ダイナム相模原店の旧アカウント `@fxl9564y`：ownerの判断で、そのまま残す
+
+### 追加できなかった店舗（記録済み）
+
+- batch03：ザ シティ/ベルシティ元住吉店（リンクが開けない）、アビバ新杉田店（IDが「表示できません」）
 
 ## 9. 関係するファイル
 
