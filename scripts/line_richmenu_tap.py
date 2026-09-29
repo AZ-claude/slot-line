@@ -20,6 +20,7 @@ import argparse
 import json
 import re
 import subprocess
+import tempfile
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -35,6 +36,8 @@ class Device:
     def __init__(self, adb: str, serial: str, out: Path):
         self.base = [adb, "-s", serial]
         self.out = out
+        # Talk-list dumps show other (personal) chats: keep them out of the evidence folder.
+        self.scratch = Path(tempfile.mkdtemp(prefix="slot-line-chatlist-"))
 
     def run(self, *args: str, timeout: int = 120, binary: bool = False):
         proc = subprocess.run([*self.base, *args], capture_output=True, timeout=timeout)
@@ -73,7 +76,7 @@ class Device:
         time.sleep(4)
         # LINE resumes the last open screen (a chat, browser or dialog); back out to the talk list.
         for _ in range(4):
-            xml = self.dump(self.out / "_chatlist.xml")
+            xml = self.dump(self.scratch / "chatlist.xml")
             if "header_title" not in xml and 'text="トーク"' in xml:
                 return
             self.run("shell", "input", "keyevent", "KEYCODE_BACK")
@@ -84,7 +87,7 @@ class Device:
     def open_chat_by_name(self, name: str, pages: int = 8) -> bool:
         self.open_talk_list()
         for _ in range(pages):
-            xml = self.dump(self.out / "_chatlist.xml")
+            xml = self.dump(self.scratch / "chatlist.xml")
             for m in re.finditer(r'text="([^"]+)"[^>]*bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', xml):
                 if norm(m[1]) == norm(name) and 420 < int(m[3]) < 1340:
                     self.tap((int(m[2]) + int(m[4])) // 2, (int(m[3]) + int(m[5])) // 2)
@@ -139,7 +142,14 @@ def main() -> int:
         elif not device.open_chat_by_name(name):
             write(record | {"status": "guard_failed", "reason": "chat_not_found_in_talk_list"})
             continue
-        pre = device.dump(out / f"{hall}_pre_action.xml")
+        pre = device.dump(device.scratch / "pre_action.xml")
+        titles = re.findall(r'text="([^"]+)"[^>]*resource-id="jp.naver.line.android:id/\w*title', pre)
+        if not any(norm(t) == norm(name) for t in titles):
+            # Wrong chat (possibly a personal one): save nothing from it and do not tap.
+            write(record | {"status": "guard_failed", "reason": "chat_header_mismatch"})
+            device.run("shell", "input", "keyevent", "KEYCODE_BACK")
+            continue
+        (out / f"{hall}_pre_action.xml").write_text(pre, encoding="utf-8")
         if "oa_richmenu_imageview" not in pre:
             bar = re.search(r'chat_ui_oa_bottombar_menu_text"[^>]*bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', pre)
             if bar:

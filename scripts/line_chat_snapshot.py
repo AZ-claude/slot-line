@@ -36,6 +36,11 @@ def main() -> int:
         if not device.open_chat_by_name(name):
             print(json.dumps({"hall_id": hall, "status": "chat_not_found_in_talk_list"}, ensure_ascii=False))
             continue
+        probe = device.dump(device.scratch / "probe.xml")
+        if not any(norm(t) == norm(name) for t in re.findall(r'text="([^"]+)"[^>]*resource-id="jp.naver.line.android:id/\w*title', probe)):
+            print(json.dumps({"hall_id": hall, "status": "chat_header_mismatch_nothing_saved"}, ensure_ascii=False))
+            device.run("shell", "input", "keyevent", "KEYCODE_BACK")
+            continue
         first = device.dump(args.out / f"{hall}_snap_1.xml")
         time.sleep(1.5)
         second = device.dump(args.out / f"{hall}_snap_2.xml")

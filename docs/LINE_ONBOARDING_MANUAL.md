@@ -48,6 +48,8 @@ AIでも人でも、このページだけ読めば作業できるように書い
 | 端末の設定変更（自動回転など） | ownerの端末設定。向きがおかしければownerに頼む |
 | 1日に20件を超える新規追加、LINE IDでプロフィールを何度も開くこと | LINEの「検索回数の上限」に達し、丸1日以上追加できなくなる（実際に起きた） |
 | passive collector や Scheduler の変更 | このマニュアルの範囲外 |
+| 店舗以外のトーク（個人・グループ）の画面を保存・commitする | **このリポジトリは公開**。個人の会話が世界中に見えてしまう。間違って開いたらすぐBackで閉じ、何も保存しない（スクリプトは店名が違えば保存しない） |
+| トーク一覧の画面（`_chatlist.xml` やスクリーンショット）を証拠フォルダに置く | 一覧には個人の連絡先が写る。行の位置を読むための一覧スクショは `/tmp` に置き、commitしない |
 
 ---
 
@@ -195,6 +197,8 @@ python3 scripts/line_richmenu_tap.py --out data/surveys/line_onboarding_batchNN_
 ```bash
 /tmp/codex-adb-bridge/adb -s HQ615G150D exec-out screencap -p > /tmp/talklist.png
 ```
+
+（このスクショは個人の連絡先が写るので、`/tmp` に置いたままにして、リポジトリに入れないこと）
 
 押した後、`actions/<hall_id>_post_action.jpg` を見て結果を決めます。
 
