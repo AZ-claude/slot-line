@@ -84,8 +84,20 @@ class Device:
         self.run("shell", "monkey", "-p", LINE_PACKAGE, "-c", "android.intent.category.LAUNCHER", "1")
         time.sleep(3)
 
-    def open_chat_by_name(self, name: str, pages: int = 8) -> bool:
+    def scroll_to_top(self) -> None:
+        # LINE keeps the talk list's last scroll position; newer stores sit at the top.
+        # The Talk tab has a トーク/友だち toggle at the top-left; make sure トーク is shown.
+        xml = self.dump(self.scratch / "chatlist.xml")
+        if 'text="グループ"' in xml or 'text="30日以内の予定"' in xml:
+            self.tap(80, 102)
+            time.sleep(1.5)
+        for _ in range(4):
+            self.run("shell", "input", "swipe", "360", "450", "360", "1300", "400")
+            time.sleep(0.8)
+
+    def open_chat_by_name(self, name: str, pages: int = 12) -> bool:
         self.open_talk_list()
+        self.scroll_to_top()
         for _ in range(pages):
             xml = self.dump(self.scratch / "chatlist.xml")
             for m in re.finditer(r'text="([^"]+)"[^>]*bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', xml):
@@ -136,6 +148,7 @@ def main() -> int:
             return 2
         if len(parts) > 6:
             device.open_talk_list()
+            device.scroll_to_top()
             rx, ry = parts[6].split(",")
             device.tap(int(rx), int(ry))
             time.sleep(4)

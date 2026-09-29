@@ -13,9 +13,9 @@
  },
  "counts": {
   "type_a_passive": 0,
-  "type_b_passive_plus_active": 4,
+  "type_b_passive_plus_active": 6,
   "type_c_passive_external_web": 6,
-  "unresolved": 16
+  "unresolved": 14
  },
  "store_count": 26,
  "stores": [
@@ -597,9 +597,9 @@
    "rich_menu_status": "present",
    "menu_visual_review_required": false,
    "latest_action_label": "最新情報",
-   "action_result": "unknown",
-   "collection_type": "unresolved",
-   "active_method": "unknown",
+   "action_result": "line_reply",
+   "collection_type": "type_b_passive_plus_active",
+   "active_method": "rich_menu",
    "trigger_text": null,
    "text_trigger_verified": false,
    "external_url": null,
@@ -609,16 +609,18 @@
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-29a4eae243ef947f_pre_action.jpg",
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-29a4eae243ef947f_post_action.jpg",
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-29a4eae243ef947f_post_action.xml",
-    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#hall-29a4eae243ef947f"
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#hall-29a4eae243ef947f",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/reply_recheck/hall-29a4eae243ef947f_snap.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/reply_recheck/hall-29a4eae243ef947f_snap_2.xml"
    ],
-   "confidence": "low",
-   "verification_status": "action_executed_result_unconfirmed",
+   "confidence": "high",
+   "verification_status": "active_action_verified",
    "daily_policy": {
     "passive_scan": true,
-    "active_trigger": false,
+    "active_trigger": true,
     "external_url_role": null
    },
-   "notes": "The tap left the chat showing a loading spinner; no reply or external destination was observed."
+   "notes": "Tap at 03:20 JST left a loading spinner; the talk list then showed a 03:20 store message (【近日導入】Re:ゼロ…) and a re-snapshot on 2026-09-30 04:28 (no further tap) shows the 10/5 NEW MACHINE DEBUT image reply."
   },
   {
    "hall_id": "hall-bbd8368f83485942",
@@ -690,9 +692,9 @@
    "rich_menu_status": "present",
    "menu_visual_review_required": false,
    "latest_action_label": "PUSH 毎日21時更新 最新情報",
-   "action_result": "unknown",
-   "collection_type": "unresolved",
-   "active_method": "unknown",
+   "action_result": "line_reply",
+   "collection_type": "type_b_passive_plus_active",
+   "active_method": "rich_menu",
    "trigger_text": null,
    "text_trigger_verified": false,
    "external_url": null,
@@ -702,16 +704,18 @@
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-30397a9696f2e0cb_pre_action.jpg",
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-30397a9696f2e0cb_post_action.jpg",
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-30397a9696f2e0cb_post_action.xml",
-    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#hall-30397a9696f2e0cb"
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#hall-30397a9696f2e0cb",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/reply_recheck/hall-30397a9696f2e0cb_snap.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/reply_recheck/hall-30397a9696f2e0cb_snap_2.xml"
    ],
-   "confidence": "low",
-   "verification_status": "action_executed_result_unconfirmed",
+   "confidence": "high",
+   "verification_status": "active_action_verified",
    "daily_policy": {
     "passive_scan": true,
-    "active_trigger": false,
+    "active_trigger": true,
     "external_url_role": null
    },
-   "notes": "The tap left the chat showing a loading spinner; no reply or external destination was observed."
+   "notes": "Tap at 03:25 JST left a loading spinner; a re-snapshot on 2026-09-30 04:30 (no further tap) shows the 9.28–10.4 オススメ image reply."
   },
   {
    "hall_id": "hall-b8c21b0b4bda81d9",

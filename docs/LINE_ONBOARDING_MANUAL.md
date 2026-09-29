@@ -209,6 +209,7 @@ python3 scripts/line_richmenu_tap.py --out data/surveys/line_onboarding_batchNN_
 | Xアプリなど別アプリが開いた | `external_app` | unresolved |
 | 「認証」「許可する」の画面が出た | `unknown`（`blocked_by: liff_consent_required`） | unresolved。**押さずに閉じる**。ownerに報告 |
 | 何も変わらない | `unknown` | unresolved |
+| くるくる（読み込み中）のまま | まだ決めない | 数分後に `line_chat_snapshot.py` で撮り直す（押し直さない）。店舗の画像が届いていれば `line_reply` |
 
 **Type B で、自分側（右側・緑）の吹き出しに文字が出た場合**（例「最新情報」）は、文字送信でも同じ返信が来る可能性があります。**自分で送らず**、ownerに「〇〇店に『最新情報』と1回送ってみてください」と頼み、同じ返信が来たら `text_trigger_verified: true` にします。
 

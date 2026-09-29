@@ -341,8 +341,8 @@
     "executed": true,
     "executed_at": "2026-09-29T18:20:08.096602+00:00",
     "visible_action_label": "最新情報",
-    "action_result": "unknown",
-    "content_observed": false,
+    "action_result": "line_reply",
+    "content_observed": true,
     "external_url": null,
     "rich_menu_emitted_text_observed": false
    },
@@ -350,9 +350,11 @@
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-29a4eae243ef947f_pre_action.jpg",
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-29a4eae243ef947f_post_action.jpg",
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-29a4eae243ef947f_post_action.xml",
-    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#hall-29a4eae243ef947f"
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#hall-29a4eae243ef947f",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/reply_recheck/hall-29a4eae243ef947f_snap.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/reply_recheck/hall-29a4eae243ef947f_snap_2.xml"
    ],
-   "notes": "The tap left the chat showing a loading spinner; no reply or external destination was observed."
+   "notes": "Tap at 03:20 JST left a loading spinner; the talk list then showed a 03:20 store message (【近日導入】Re:ゼロ…) and a re-snapshot on 2026-09-30 04:28 (no further tap) shows the 10/5 NEW MACHINE DEBUT image reply."
   },
   "hall-bbd8368f83485942": {
    "rich_menu_status": "present",
@@ -404,8 +406,8 @@
     "executed": true,
     "executed_at": "2026-09-29T18:25:19.127677+00:00",
     "visible_action_label": "PUSH 毎日21時更新 最新情報",
-    "action_result": "unknown",
-    "content_observed": false,
+    "action_result": "line_reply",
+    "content_observed": true,
     "external_url": null,
     "rich_menu_emitted_text_observed": false
    },
@@ -413,9 +415,11 @@
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-30397a9696f2e0cb_pre_action.jpg",
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-30397a9696f2e0cb_post_action.jpg",
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-30397a9696f2e0cb_post_action.xml",
-    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#hall-30397a9696f2e0cb"
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#hall-30397a9696f2e0cb",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/reply_recheck/hall-30397a9696f2e0cb_snap.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/reply_recheck/hall-30397a9696f2e0cb_snap_2.xml"
    ],
-   "notes": "The tap left the chat showing a loading spinner; no reply or external destination was observed."
+   "notes": "Tap at 03:25 JST left a loading spinner; a re-snapshot on 2026-09-30 04:30 (no further tap) shows the 9.28–10.4 オススメ image reply."
   },
   "hall-b8c21b0b4bda81d9": {
    "rich_menu_status": "present",
