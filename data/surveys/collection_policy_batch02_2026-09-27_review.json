@@ -17,7 +17,8 @@
   "skip-surotto-kurabu-sekiuchi-ten": "duplicate hall-master row for SKIP関内 (skip-sc.htm); its LINE @895hjbia is registered under hall-ee471f0e0e99e2a4 (skip-kannai.htm)",
   "hall-77a38befe04d1cc6": "Ｍ＆Ｍ @vpress not displayable",
   "hall-d61ce3e0c5a4eac6": "ＺＡＰ代官店 @zap-maj1678 not displayable",
-  "daigakuin": "listed link kwwIwhZBVR opened no LINE screen"
+  "daigakuin": "listed link kwwIwhZBVR opened no LINE screen",
+  "hall-b3957f942700482c": "owner decision 2026-09-30: no dedicated LINE (listed @694ixtwm belongs to PIA大船1店, already registered)"
  },
  "stores": {
   "hall-31e7a172504fa5e8": {
@@ -332,5 +333,6 @@
    "latest_action_label": null,
    "notes": "Onboarded after the owner confirmed profile D'station上永谷店 is this hall."
   }
- }
+ },
+ "pending_review": []
 }

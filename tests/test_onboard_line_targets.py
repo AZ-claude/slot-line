@@ -38,6 +38,17 @@ class OnboardingScreenTests(unittest.TestCase):
         self.assertEqual(screen["pworld_path"], "kanagawa/ziath-k.htm")
         self.assertEqual(screen["add"], (143, 858))
 
+    def test_unverified_badge_is_not_taken_as_the_profile_name(self):
+        screen = classify_screen(
+            hierarchy(
+                node("パサージュ弘明寺駅前店", bounds="[195,190][600,240]"),
+                node("未認証", bounds="[195,245][270,285]"),
+                node("友だち 828", bounds="[195,290][335,325]"),
+                node("友だち追加", bounds="[30,388][256,462]"),
+            )
+        )
+        self.assertEqual(screen["name"], "パサージュ弘明寺駅前店")
+
     def test_pworld_page_verifies_identity_before_name(self):
         self.assertEqual(identity(classify_screen(PROFILE), CANDIDATE), "verified_pworld_url")
 

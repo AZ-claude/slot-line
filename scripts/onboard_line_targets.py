@@ -182,7 +182,8 @@ def classify_screen(xml: str) -> dict[str, Any]:
     if header and any(item["id"].startswith("chat_ui") for item in items):
         return {"screen": "chat", "name": header, "rich_menu": any("oa_richmenu" in item["id"] for item in items)}
     add = next((item for item in items if item["text"] == "友だち追加" and item["visible"]), None)
-    text_items = [item for item in items if item["text"]]
+    # Unverified accounts show a "未認証" badge between the name and the friend count.
+    text_items = [item for item in items if item["text"] and item["text"] not in {"未認証", "認証済"}]
     count_index = next((i for i, item in enumerate(text_items) if re.fullmatch(r"友だち\s*[\d,]+", item["text"])), None)
     talk = next((item for item in items if item["text"] == "トーク" and item["visible"]), None)
     pworld = next((pworld_path(value) for value in texts + [item["desc"] for item in items] if pworld_path(value)), None)

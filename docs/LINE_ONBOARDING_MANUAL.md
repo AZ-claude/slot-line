@@ -2,6 +2,7 @@
 
 パチンコ店の公式LINEを専用Android端末で友だち追加し、各店舗の「最新情報」の取り方を分類するための手順書です。
 AIでも人でも、このページだけ読めば作業できるように書いています。**迷ったら止めて、ownerに聞いてください。**
+他のAIに作業を依頼するときの文面は [LINE_ONBOARDING_AGENT_PROMPT.md](LINE_ONBOARDING_AGENT_PROMPT.md) にあります。
 
 ---
 
@@ -381,53 +382,60 @@ git push origin HEAD
 
 ## 8. 引き継ぎ（2026-09-30時点）
 
-- **collector登録店舗：106**（`data/line_targets.json`）
+- **collector登録店舗：110**（`data/line_targets.json`）
 - **まだ追加していない候補：約147店舗**（Step 1のスクリプトで確認）
 - **分類済みのpolicy表：**
   - 既存41店舗：`collection_policy_41_2026-09-26.json`
   - batch00〜02：`collection_policy_batch00〜02_*.json`
+- **LINE ID検索の使用：** 2026-09-30 は 4回使用済み（3店舗追加＋1回再試行）。同じ日にStep 2をやるなら残り15件程度まで
 
 ### 途中の作業（次の人がやること）
 
-2026-09-29 に友だち追加まで済み、Step 3〜6（画像レビュー・ボタン押下・review記入）が残っている店舗です。
+友だち追加まで済み、Step 3〜6（画像レビュー・ボタン押下・review記入）が残っている店舗です。
+画像レビューは済んでいて、結果は下の表のとおりです。次の人がやるのは次の3つです。
 
-**batch02の残り**（`line_onboarding_batch02_2026-09-27.json` に記録済み。review は未記入）
+1. 「押す」と書いた店舗で Step 4 を実行する
+2. Step 5 の review を書く
+3. Step 6〜7 を実行する
 
-| hall_id | 店舗 | メニュー（画像で確認済み） | 次の作業 |
+**batch02**（記録：`line_onboarding_batch02_2026-09-27.json`、review：`collection_policy_batch02_2026-09-27_review.json` に追記）
+
+| hall_id | トーク画面の店名 | メニュー | 次の作業 |
 | --- | --- | --- | --- |
-| hall-29a4eae243ef947f | MONACO桜木町店 | 左下「最新情報」 | 押す（例：x=120, y=1230） |
+| hall-29a4eae243ef947f | MONACO桜木町店 | 左下「最新情報」 | 押す（目安 x=120, y=1230） |
 | hall-bbd8368f83485942 | PIA伊勢佐木3丁目 | 右下「PUSH 毎日21時更新 最新情報」 | 押す（x=600, y=1233） |
 | pia-isezaki-machi | PIA伊勢佐木町 | 右下「PUSH 毎日21時更新 最新情報」 | 押す（x=600, y=1233） |
 | hall-30397a9696f2e0cb | PIA横須賀中央店 | 右下「PUSH 毎日21時更新 最新情報」 | 押す（x=600, y=1233） |
-| hall-b8c21b0b4bda81d9 | PIA川崎新川通り店 | フロアマップ・機種情報・入場案内のみ | reviewed_no_latest_label |
+| hall-b8c21b0b4bda81d9 | PIA川崎新川通り店 | フロアマップ・機種情報・入場案内 | reviewed_no_latest_label |
+| hall-43832bf3d34f5004 | プレスト弥生台 | 演者来店(banner)・台データ・X（「最新情報はこちら」はX行き） | reviewed_no_latest_label。owner確認で追加（notesに記載） |
 
-**batch03（1日目）**（`line_onboarding_batch03_2026-09-29.json`）
+**batch03**（記録：`line_onboarding_batch03_2026-09-29.json`、review：新規に `collection_policy_batch03_2026-09-29_review.json` を作る）
 
-| hall_id | 店舗 | メニュー | 次の作業 |
+| hall_id | トーク画面の店名 | メニュー | 次の作業 |
 | --- | --- | --- | --- |
-| hinomaru-muk-gaoka-y-en-ten | ヒノマル向ヶ丘遊園店 | 遊技台データ・抽選案内・新台情報など | reviewed_no_latest_label |
+| hinomaru-muk-gaoka-y-en-ten | ヒノマル向ヶ丘遊園店 | 遊技台データ・抽選案内・新台情報・出玉ランキング・X・グループ特別取材 | reviewed_no_latest_label |
 | komparu-hashimoto | コンパル橋本店 | 会員事前申込・抽選入場方法・出玉データ・フロアマップ | reviewed_no_latest_label |
 | sukuramburu-taya-ten | スクランブル田谷店 | 中央下「最新情報はここからチェック!」 | 押す（x=360, y=1215） |
 | maruhan-kawasaki-sakura-honten | マルハン川崎桜本店 | メニュー未表示 | Step 3-2 で再確認 |
 | maruhan-sagamihara-ten | マルハン相模原店 | 左上「最新情報」 | 押す（x=185, y=995） |
 | tow-zu-atsugi-ten | トワーズ厚木店 | 新装情報・P-WORLD・DMM・Twitter・配置図・入場方法 | reviewed_no_latest_label |
 | abiba-ebina-ten | アビバ海老名店 | 左上「PUSH 最新情報」 | 押す（x=125, y=940） |
+| kik-na-totsuka-ten | キコーナ戸塚店 | 左上「最新情報」欄（中身は9/7新台入替バナー） | 押す（x=240, y=995）。2026-09-30に追加済みを確認し記録修正済み |
+| tow-zu-yamato-fukami-ten-1120 | トワーズ大和深見店 | DMM・P-WORLD・X | reviewed_no_latest_label。owner確認で追加 |
+| hall-75c652995806ad35 | パサージュ弘明寺駅前店 | 新台入替(banner)・P-WORLD・台データ・X | reviewed_no_latest_label。owner確認で追加。未認証アカウント |
 
-座標は目安です。押す前に `.jpg` と `.xml` の `bounds` で確認してください。
+座標は目安です。押す前に、その店舗の `.jpg` と `.xml` の `bounds` で確認してください。
+トーク画面の店名は、Step 4 の3番目の欄にそのまま入れてください。
 
-**ownerの確認待ち（Step 2で追加できなかった店舗）**
+**batch03 で追加できなかった店舗（review の `not_onboarded` に書く）**
 
-- PIA大船2店：載っているID `@694ixtwm` は PIA大船1店（登録済み）と同じ。「専用LINEなし」扱いでよいか確認
-- PREST 弥生台店：LINE上は「プレスト弥生台」。同じ店舗か確認
-- トワーズ大和深見店1120：LINE上は「トワーズ大和深見店」。同じ店舗か確認
-- PASSAGE 弘明寺駅前店：LINE上は「パサージュ弘明寺駅前店」。同じ店舗か確認
-- キコーナ戸塚店：記録上は `chat_not_reached` だが、トーク一覧にウェルカムメッセージが届いている（追加済みの可能性が高い）。追加済みかどうかをトーク一覧で確かめてから、記録を直す（ID検索は使わない）
+- `hall-06c31ec72212e8d7` ザ シティ/ベルシティ元住吉店：リンクが開けない
+- `niraku-hiratsuka-kurobeoka-ten` ニラク平塚黒部丘店：短縮リンク先のプロフィールで名前が読めず、本人確認できない。ownerに確認
+- `abiba-shinsugita-ten` アビバ新杉田店：IDが「表示できません」
 
 **ownerに対応をお願いしていること**
 
-- ダイナム相模原店の旧アカウント `@fxl9564y` が友だちに残っていて、同じ店名のトークが2つある
-
----
+- ダイナム相模原店の旧アカウント `@fxl9564y` が友だちに残っていて、同じ店名のトークが2つある（ownerは「配信が来ないならそのままでよい」との判断）
 
 ## 9. 関係するファイル
 

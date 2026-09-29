@@ -1537,6 +1537,21 @@
    "active": true
   },
   {
+   "hall_id": "hall-43832bf3d34f5004",
+   "canonical_hall_id": "hall-43832bf3d34f5004",
+   "collector_key": "hall-43832bf3d34f5004",
+   "line_source_key": "@zat7734l",
+   "store_name": "PREST 弥生台店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_owner_confirmed_name",
+   "chat_header_name": "プレスト弥生台",
+   "profile_expected_names": [
+    "PREST 弥生台店"
+   ],
+   "source": "line_onboarding_batch02_2026-09-27.json",
+   "active": true
+  },
+  {
    "hall_id": "hinomaru-muk-gaoka-y-en-ten",
    "canonical_hall_id": "hinomaru-muk-gaoka-y-en-ten",
    "collector_key": "hinomaru-muk-gaoka-y-en-ten",
@@ -1562,6 +1577,21 @@
    "chat_header_name": "コンパル橋本店",
    "profile_expected_names": [
     "コンパル橋本"
+   ],
+   "source": "line_onboarding_batch03_2026-09-29.json",
+   "active": true
+  },
+  {
+   "hall_id": "kik-na-totsuka-ten",
+   "canonical_hall_id": "kik-na-totsuka-ten",
+   "collector_key": "kik-na-totsuka-ten",
+   "line_source_key": "@zag6537r",
+   "store_name": "キコーナ戸塚店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "キコーナ戸塚店",
+   "profile_expected_names": [
+    "キコーナ戸塚店"
    ],
    "source": "line_onboarding_batch03_2026-09-29.json",
    "active": true
@@ -1637,6 +1667,36 @@
    "chat_header_name": "アビバ海老名店",
    "profile_expected_names": [
     "アビバ海老名店"
+   ],
+   "source": "line_onboarding_batch03_2026-09-29.json",
+   "active": true
+  },
+  {
+   "hall_id": "tow-zu-yamato-fukami-ten-1120",
+   "canonical_hall_id": "tow-zu-yamato-fukami-ten-1120",
+   "collector_key": "tow-zu-yamato-fukami-ten-1120",
+   "line_source_key": "@pmp6295m",
+   "store_name": "トワーズ大和深見店1120",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_owner_confirmed_name",
+   "chat_header_name": "トワーズ大和深見店",
+   "profile_expected_names": [
+    "トワーズ大和深見店1120"
+   ],
+   "source": "line_onboarding_batch03_2026-09-29.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-75c652995806ad35",
+   "canonical_hall_id": "hall-75c652995806ad35",
+   "collector_key": "hall-75c652995806ad35",
+   "line_source_key": "@pasa7",
+   "store_name": "PASSAGE 弘明寺駅前店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_owner_confirmed_name",
+   "chat_header_name": "パサージュ弘明寺駅前店",
+   "profile_expected_names": [
+    "PASSAGE 弘明寺駅前店"
    ],
    "source": "line_onboarding_batch03_2026-09-29.json",
    "active": true

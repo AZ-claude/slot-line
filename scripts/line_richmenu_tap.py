@@ -71,6 +71,15 @@ class Device:
         time.sleep(1)
         self.run("shell", "monkey", "-p", LINE_PACKAGE, "-c", "android.intent.category.LAUNCHER", "1")
         time.sleep(4)
+        # LINE resumes the last open screen (a chat, browser or dialog); back out to the talk list.
+        for _ in range(4):
+            xml = self.dump(self.out / "_chatlist.xml")
+            if "header_title" not in xml and 'text="トーク"' in xml:
+                return
+            self.run("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(1.2)
+        self.run("shell", "monkey", "-p", LINE_PACKAGE, "-c", "android.intent.category.LAUNCHER", "1")
+        time.sleep(3)
 
     def open_chat_by_name(self, name: str, pages: int = 8) -> bool:
         self.open_talk_list()

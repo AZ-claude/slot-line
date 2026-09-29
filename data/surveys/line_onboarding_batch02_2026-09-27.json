@@ -806,11 +806,21 @@
      "profile_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-43832bf3d34f5004_profile_0.xml",
      "profile_name": "プレスト弥生台",
      "profile_pworld_path": null,
-     "identity": null,
-     "result": "identity_unverified"
+     "identity": "verified_owner_confirmed_name",
+     "friend_added": true,
+     "chat_header": "プレスト弥生台",
+     "screenshot": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-43832bf3d34f5004.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-43832bf3d34f5004.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
     }
    ],
-   "result": "not_onboarded"
+   "result": "onboarded",
+   "line_source_key": "@zat7734l",
+   "identity_status": "verified_owner_confirmed_name",
+   "friend_added": true,
+   "onboarded_at": "2026-09-29T18:03:27.142573+00:00"
   }
  ]
 }

@@ -94,12 +94,31 @@
      "profile_name": "キコーナ戸塚店",
      "profile_pworld_path": null,
      "identity": "verified_normalized_name",
-     "friend_added": false,
+     "friend_added": true,
      "already_friend": true,
-     "result": "chat_not_reached"
+     "result": "chat_not_reached",
+     "result_before_check": "chat_not_reached"
+    },
+    {
+     "line_source_key": "@zag6537r",
+     "url": "talk list (no ID search)",
+     "first_screen": "chat",
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "キコーナ戸塚店",
+     "screenshot": "data/surveys/line_onboarding_batch03_2026-09-29_evidence/kicona_totsuka_check/kik-na-totsuka-ten_menu.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch03_2026-09-29_evidence/kicona_totsuka_check/kik-na-totsuka-ten_menu.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded",
+     "note": "2026-09-29 run tapped add but did not reach the chat; on 2026-09-30 the chat was found in the talk list with the verified badge and store deliveries (19:39), so the add had succeeded."
     }
    ],
-   "result": "not_onboarded"
+   "result": "onboarded",
+   "line_source_key": "@zag6537r",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-09-29T18:15:18.811305+00:00"
   },
   {
    "hall_id": "sukuramburu-taya-ten",
@@ -127,50 +146,6 @@
    "identity_status": "verified_pworld_url",
    "friend_added": true,
    "onboarded_at": "2026-09-28T22:11:41.541519+00:00"
-  },
-  {
-   "hall_id": "tow-zu-yamato-fukami-ten-1120",
-   "store_name": "トワーズ大和深見店1120",
-   "attempts": [
-    {
-     "line_source_key": "@pmp6295m",
-     "url": "https://line.me/R/ti/p/%40pmp6295m",
-     "first_screen": "profile",
-     "profile_xml": "data/surveys/line_onboarding_batch03_2026-09-29_evidence/tow-zu-yamato-fukami-ten-1120_profile_0.xml",
-     "profile_name": "トワーズ大和深見店",
-     "profile_pworld_path": null,
-     "identity": null,
-     "result": "identity_unverified"
-    },
-    {
-     "line_source_key": "@tw_fukami",
-     "url": "https://line.me/R/ti/p/%40tw_fukami",
-     "first_screen": "profile",
-     "profile_xml": "data/surveys/line_onboarding_batch03_2026-09-29_evidence/tow-zu-yamato-fukami-ten-1120_profile_1.xml",
-     "profile_name": "トワーズ大和深見店",
-     "profile_pworld_path": null,
-     "identity": null,
-     "result": "identity_unverified"
-    }
-   ],
-   "result": "not_onboarded"
-  },
-  {
-   "hall_id": "hall-75c652995806ad35",
-   "store_name": "PASSAGE 弘明寺駅前店",
-   "attempts": [
-    {
-     "line_source_key": "@pasa7",
-     "url": "https://line.me/R/ti/p/%40pasa7",
-     "first_screen": "profile",
-     "profile_xml": "data/surveys/line_onboarding_batch03_2026-09-29_evidence/hall-75c652995806ad35_profile_0.xml",
-     "profile_name": "パサージュ弘明寺駅前店",
-     "profile_pworld_path": null,
-     "identity": null,
-     "result": "identity_unverified"
-    }
-   ],
-   "result": "not_onboarded"
   },
   {
    "hall_id": "niraku-hiratsuka-kurobeoka-ten",
@@ -309,6 +284,60 @@
     }
    ],
    "result": "not_onboarded"
+  },
+  {
+   "hall_id": "tow-zu-yamato-fukami-ten-1120",
+   "store_name": "トワーズ大和深見店1120",
+   "attempts": [
+    {
+     "line_source_key": "@pmp6295m",
+     "url": "https://line.me/R/ti/p/%40pmp6295m",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch03_2026-09-29_evidence/tow-zu-yamato-fukami-ten-1120_profile_0.xml",
+     "profile_name": "トワーズ大和深見店",
+     "profile_pworld_path": null,
+     "identity": "verified_owner_confirmed_name",
+     "friend_added": true,
+     "chat_header": "トワーズ大和深見店",
+     "screenshot": "data/surveys/line_onboarding_batch03_2026-09-29_evidence/tow-zu-yamato-fukami-ten-1120.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch03_2026-09-29_evidence/tow-zu-yamato-fukami-ten-1120.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@pmp6295m",
+   "identity_status": "verified_owner_confirmed_name",
+   "friend_added": true,
+   "onboarded_at": "2026-09-29T18:05:35.781912+00:00"
+  },
+  {
+   "hall_id": "hall-75c652995806ad35",
+   "store_name": "PASSAGE 弘明寺駅前店",
+   "attempts": [
+    {
+     "line_source_key": "@pasa7",
+     "url": "https://line.me/R/ti/p/%40pasa7",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch03_2026-09-29_evidence/hall-75c652995806ad35_profile_0.xml",
+     "profile_name": "パサージュ弘明寺駅前店",
+     "profile_pworld_path": null,
+     "identity": "verified_owner_confirmed_name",
+     "friend_added": true,
+     "chat_header": "パサージュ弘明寺駅前店",
+     "screenshot": "data/surveys/line_onboarding_batch03_2026-09-29_evidence/hall-75c652995806ad35.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch03_2026-09-29_evidence/hall-75c652995806ad35.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@pasa7",
+   "identity_status": "verified_owner_confirmed_name",
+   "friend_added": true,
+   "onboarded_at": "2026-09-29T18:09:03.260949+00:00"
   }
  ]
 }
