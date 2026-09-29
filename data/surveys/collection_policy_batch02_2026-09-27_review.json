@@ -332,6 +332,111 @@
    ],
    "latest_action_label": null,
    "notes": "Onboarded after the owner confirmed profile D'station上永谷店 is this hall."
+  },
+  "hall-29a4eae243ef947f": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-29T18:20:08.096602+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "unknown",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-29a4eae243ef947f_pre_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-29a4eae243ef947f_post_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-29a4eae243ef947f_post_action.xml",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#hall-29a4eae243ef947f"
+   ],
+   "notes": "The tap left the chat showing a loading spinner; no reply or external destination was observed."
+  },
+  "hall-bbd8368f83485942": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "PUSH 毎日21時更新 最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-29T18:22:00.194301+00:00",
+    "visible_action_label": "PUSH 毎日21時更新 最新情報",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-bbd8368f83485942_pre_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-bbd8368f83485942_post_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-bbd8368f83485942_post_action.xml",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#hall-bbd8368f83485942"
+   ],
+   "notes": "A store reply message and image appeared after the tap."
+  },
+  "pia-isezaki-machi": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "PUSH 毎日21時更新 最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-29T18:23:31.288774+00:00",
+    "visible_action_label": "PUSH 毎日21時更新 最新情報",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/pia-isezaki-machi_pre_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/pia-isezaki-machi_post_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/pia-isezaki-machi_post_action.xml",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#pia-isezaki-machi"
+   ],
+   "notes": "A store reply message appeared after the tap."
+  },
+  "hall-30397a9696f2e0cb": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "PUSH 毎日21時更新 最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-29T18:25:19.127677+00:00",
+    "visible_action_label": "PUSH 毎日21時更新 最新情報",
+    "action_result": "unknown",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-30397a9696f2e0cb_pre_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-30397a9696f2e0cb_post_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-30397a9696f2e0cb_post_action.xml",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#hall-30397a9696f2e0cb"
+   ],
+   "notes": "The tap left the chat showing a loading spinner; no reply or external destination was observed."
+  },
+  "hall-b8c21b0b4bda81d9": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "フロアマップ",
+    "機種情報",
+    "入場案内"
+   ],
+   "latest_action_label": null
+  },
+  "hall-43832bf3d34f5004": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "演者来店(banner)",
+    "台データ",
+    "X"
+   ],
+   "latest_action_label": null,
+   "notes": "「最新情報はこちら」はX公式に遷移する行のため押下しない。owner確認済み。"
   }
  },
  "pending_review": []

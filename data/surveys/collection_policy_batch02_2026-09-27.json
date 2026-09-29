@@ -13,11 +13,11 @@
  },
  "counts": {
   "type_a_passive": 0,
-  "type_b_passive_plus_active": 2,
+  "type_b_passive_plus_active": 4,
   "type_c_passive_external_web": 6,
-  "unresolved": 12
+  "unresolved": 16
  },
- "store_count": 20,
+ "store_count": 26,
  "stores": [
   {
    "hall_id": "hall-31e7a172504fa5e8",
@@ -588,6 +588,183 @@
     "external_url_role": null
    },
    "notes": "Onboarded after the owner confirmed profile D'station上永谷店 is this hall."
+  },
+  {
+   "hall_id": "hall-29a4eae243ef947f",
+   "canonical_hall_id": "hall-29a4eae243ef947f",
+   "line_source_key": "@549mafuw",
+   "store_name": "モナコ桜木町本店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "最新情報",
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-29a4eae243ef947f.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-29a4eae243ef947f.xml",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-29a4eae243ef947f_pre_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-29a4eae243ef947f_post_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-29a4eae243ef947f_post_action.xml",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#hall-29a4eae243ef947f"
+   ],
+   "confidence": "low",
+   "verification_status": "action_executed_result_unconfirmed",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "The tap left the chat showing a loading spinner; no reply or external destination was observed."
+  },
+  {
+   "hall_id": "hall-bbd8368f83485942",
+   "canonical_hall_id": "hall-bbd8368f83485942",
+   "line_source_key": "@147qaktr",
+   "store_name": "PIA伊勢佐木3丁目",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "PUSH 毎日21時更新 最新情報",
+   "action_result": "line_reply",
+   "collection_type": "type_b_passive_plus_active",
+   "active_method": "rich_menu",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-bbd8368f83485942.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-bbd8368f83485942.xml",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-bbd8368f83485942_pre_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-bbd8368f83485942_post_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-bbd8368f83485942_post_action.xml",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#hall-bbd8368f83485942"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": true,
+    "external_url_role": null
+   },
+   "notes": "A store reply message and image appeared after the tap."
+  },
+  {
+   "hall_id": "pia-isezaki-machi",
+   "canonical_hall_id": "pia-isezaki-machi",
+   "line_source_key": "@020yawaw",
+   "store_name": "PIA伊勢佐木町",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "PUSH 毎日21時更新 最新情報",
+   "action_result": "line_reply",
+   "collection_type": "type_b_passive_plus_active",
+   "active_method": "rich_menu",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/pia-isezaki-machi.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/pia-isezaki-machi.xml",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/pia-isezaki-machi_pre_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/pia-isezaki-machi_post_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/pia-isezaki-machi_post_action.xml",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#pia-isezaki-machi"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": true,
+    "external_url_role": null
+   },
+   "notes": "A store reply message appeared after the tap."
+  },
+  {
+   "hall_id": "hall-30397a9696f2e0cb",
+   "canonical_hall_id": "hall-30397a9696f2e0cb",
+   "line_source_key": "@778sbcki",
+   "store_name": "PIA横須賀中央",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "PUSH 毎日21時更新 最新情報",
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-30397a9696f2e0cb.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-30397a9696f2e0cb.xml",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-30397a9696f2e0cb_pre_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-30397a9696f2e0cb_post_action.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/hall-30397a9696f2e0cb_post_action.xml",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/actions/action_results.jsonl#hall-30397a9696f2e0cb"
+   ],
+   "confidence": "low",
+   "verification_status": "action_executed_result_unconfirmed",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "The tap left the chat showing a loading spinner; no reply or external destination was observed."
+  },
+  {
+   "hall_id": "hall-b8c21b0b4bda81d9",
+   "canonical_hall_id": "hall-b8c21b0b4bda81d9",
+   "line_source_key": "@224onuqw",
+   "store_name": "PIA川崎新川通り店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-b8c21b0b4bda81d9.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-b8c21b0b4bda81d9.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   }
+  },
+  {
+   "hall_id": "hall-43832bf3d34f5004",
+   "canonical_hall_id": "hall-43832bf3d34f5004",
+   "line_source_key": "@zat7734l",
+   "store_name": "PREST 弥生台店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-43832bf3d34f5004.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-43832bf3d34f5004.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "「最新情報はこちら」はX公式に遷移する行のため押下しない。owner確認済み。"
   }
  ]
 }

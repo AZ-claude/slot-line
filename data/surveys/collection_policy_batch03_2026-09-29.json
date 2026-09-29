@@ -1,0 +1,297 @@
+{
+ "schema_version": 1,
+ "policy_id": "collection_policy_batch03_2026-09-29",
+ "source_inventory": null,
+ "source_review": "collection_policy_batch03_2026-09-29_review",
+ "scheduler_modified": false,
+ "passive_collector_modified": false,
+ "daily_policy": {
+  "type_a_passive": "passive scan only",
+  "type_b_passive_plus_active": "passive scan + scheduled active trigger (text trigger when text_trigger_verified, otherwise the verified rich-menu action)",
+  "type_c_passive_external_web": "passive scan only; external_url is an auxiliary source",
+  "unresolved": "passive scan only until evidence is sufficient"
+ },
+ "counts": {
+  "type_a_passive": 0,
+  "type_b_passive_plus_active": 1,
+  "type_c_passive_external_web": 0,
+  "unresolved": 9
+ },
+ "store_count": 10,
+ "stores": [
+  {
+   "hall_id": "hinomaru-muk-gaoka-y-en-ten",
+   "canonical_hall_id": "hinomaru-muk-gaoka-y-en-ten",
+   "line_source_key": "@cfu1692p",
+   "store_name": "ヒノマル向ヶ丘遊園店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/hinomaru-muk-gaoka-y-en-ten.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/hinomaru-muk-gaoka-y-en-ten.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   }
+  },
+  {
+   "hall_id": "komparu-hashimoto",
+   "canonical_hall_id": "komparu-hashimoto",
+   "line_source_key": "@aht9625w",
+   "store_name": "コンパル橋本",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/komparu-hashimoto.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/komparu-hashimoto.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   }
+  },
+  {
+   "hall_id": "kik-na-totsuka-ten",
+   "canonical_hall_id": "kik-na-totsuka-ten",
+   "line_source_key": "@zag6537r",
+   "store_name": "キコーナ戸塚店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "最新情報",
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/kicona_totsuka_check/kik-na-totsuka-ten_menu.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/kicona_totsuka_check/kik-na-totsuka-ten_menu.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/action_results.jsonl#kik-na-totsuka-ten"
+   ],
+   "confidence": "low",
+   "verification_status": "latest_like_label_not_executed",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "トーク一覧の店名行を確認できず、ガード失敗。ボタンは押していない。"
+  },
+  {
+   "hall_id": "sukuramburu-taya-ten",
+   "canonical_hall_id": "sukuramburu-taya-ten",
+   "line_source_key": "@xrj2329j",
+   "store_name": "スクランブル田谷店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "最新情報はここからチェック!",
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/sukuramburu-taya-ten.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/sukuramburu-taya-ten.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/action_results.jsonl#sukuramburu-taya-ten"
+   ],
+   "confidence": "low",
+   "verification_status": "latest_like_label_not_executed",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "トーク一覧の店名行を確認できず、ガード失敗。ボタンは押していない。"
+  },
+  {
+   "hall_id": "maruhan-kawasaki-sakura-honten",
+   "canonical_hall_id": "maruhan-kawasaki-sakura-honten",
+   "line_source_key": "@qvq4128s",
+   "store_name": "マルハン川崎桜本店",
+   "rich_menu_status": "not_observed",
+   "menu_visual_review_required": true,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-kawasaki-sakura-honten.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-kawasaki-sakura-honten.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_visual_review_required",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "追加撮影を試みたがトーク一覧で店名行を確認できず、メニューなしの3回確認には未到達。"
+  },
+  {
+   "hall_id": "maruhan-sagamihara-ten",
+   "canonical_hall_id": "maruhan-sagamihara-ten",
+   "line_source_key": "@ojc7047i",
+   "store_name": "マルハン相模原店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "最新情報",
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-sagamihara-ten.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-sagamihara-ten.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/action_results.jsonl#maruhan-sagamihara-ten"
+   ],
+   "confidence": "low",
+   "verification_status": "latest_like_label_not_executed",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "トーク一覧の店名行を確認できず、ガード失敗。ボタンは押していない。"
+  },
+  {
+   "hall_id": "tow-zu-atsugi-ten",
+   "canonical_hall_id": "tow-zu-atsugi-ten",
+   "line_source_key": "@fbf2322z",
+   "store_name": "トワーズ厚木店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/tow-zu-atsugi-ten.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/tow-zu-atsugi-ten.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   }
+  },
+  {
+   "hall_id": "abiba-ebina-ten",
+   "canonical_hall_id": "abiba-ebina-ten",
+   "line_source_key": "@743tmazu",
+   "store_name": "アビバ海老名店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "PUSH 最新情報",
+   "action_result": "line_reply",
+   "collection_type": "type_b_passive_plus_active",
+   "active_method": "rich_menu",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/abiba-ebina-ten.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/abiba-ebina-ten.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/abiba-ebina-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/abiba-ebina-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/abiba-ebina-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/action_results.jsonl#abiba-ebina-ten"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": true,
+    "external_url_role": null
+   },
+   "notes": "タップ後に店舗から画像メッセージが届いた。"
+  },
+  {
+   "hall_id": "tow-zu-yamato-fukami-ten-1120",
+   "canonical_hall_id": "tow-zu-yamato-fukami-ten-1120",
+   "line_source_key": "@pmp6295m",
+   "store_name": "トワーズ大和深見店1120",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/tow-zu-yamato-fukami-ten-1120.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/tow-zu-yamato-fukami-ten-1120.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "owner確認で最新情報ボタンなしとして追加。"
+  },
+  {
+   "hall_id": "hall-75c652995806ad35",
+   "canonical_hall_id": "hall-75c652995806ad35",
+   "line_source_key": "@pasa7",
+   "store_name": "PASSAGE 弘明寺駅前店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/hall-75c652995806ad35.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/hall-75c652995806ad35.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "owner確認で最新情報ボタンなしとして追加。未認証アカウント。"
+  }
+ ]
+}

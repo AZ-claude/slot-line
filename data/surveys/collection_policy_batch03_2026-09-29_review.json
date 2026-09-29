@@ -1,0 +1,154 @@
+{
+ "schema_version": 1,
+ "review_id": "collection_policy_batch03_2026-09-29_review",
+ "policy_id": "collection_policy_batch03_2026-09-29",
+ "source_onboarding": "data/surveys/line_onboarding_batch03_2026-09-29.json",
+ "reviewed_at": "2026-09-30",
+ "timezone": "Asia/Tokyo",
+ "status": "batch03_review_completed",
+ "method": {
+  "menu_label_source": "screenshot_visual_review",
+  "action_policy": "one tap per store on a clear latest-information tile; guard failures were not tapped",
+  "messages_typed": 0,
+  "consents_granted": 0,
+  "chat_open_route": "talk-list rows (no LINE ID search) for rich-menu taps"
+ },
+ "not_onboarded": {
+  "hall-06c31ec72212e8d7": "ザ シティ/ベルシティ元住吉店: listed link could not be opened",
+  "niraku-hiratsuka-kurobeoka-ten": "ニラク平塚黒部丘店: short-link profile name was unreadable, so identity could not be verified; owner confirmation needed",
+  "abiba-shinsugita-ten": "アビバ新杉田店: LINE ID was not displayable"
+ },
+ "stores": {
+  "hinomaru-muk-gaoka-y-en-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": ["遊技台データ", "抽選案内", "新台情報", "出玉ランキング", "X", "グループ特別取材"],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/hinomaru-muk-gaoka-y-en-ten.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/hinomaru-muk-gaoka-y-en-ten.xml"
+   ]
+  },
+  "komparu-hashimoto": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": ["会員事前申込", "抽選入場方法", "出玉データ", "フロアマップ"],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/komparu-hashimoto.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/komparu-hashimoto.xml"
+   ]
+  },
+  "kik-na-totsuka-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_like_label_not_executed",
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": false,
+    "action_result": "unknown",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/kicona_totsuka_check/kik-na-totsuka-ten_menu.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/kicona_totsuka_check/kik-na-totsuka-ten_menu.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/action_results.jsonl#kik-na-totsuka-ten"
+   ],
+   "notes": "トーク一覧の店名行を確認できず、ガード失敗。ボタンは押していない。"
+  },
+  "sukuramburu-taya-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_like_label_not_executed",
+   "latest_action_label": "最新情報はここからチェック!",
+   "action_mapping": {
+    "executed": false,
+    "action_result": "unknown",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/sukuramburu-taya-ten.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/sukuramburu-taya-ten.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/action_results.jsonl#sukuramburu-taya-ten"
+   ],
+   "notes": "トーク一覧の店名行を確認できず、ガード失敗。ボタンは押していない。"
+  },
+  "maruhan-kawasaki-sakura-honten": {
+   "rich_menu_status": "not_observed",
+   "menu_review_status": "menu_not_displayed",
+   "menu_visual_review_required": true,
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-kawasaki-sakura-honten.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-kawasaki-sakura-honten.xml"
+   ],
+   "notes": "追加撮影を試みたがトーク一覧で店名行を確認できず、メニューなしの3回確認には未到達。"
+  },
+  "maruhan-sagamihara-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_like_label_not_executed",
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": false,
+    "action_result": "unknown",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-sagamihara-ten.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-sagamihara-ten.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/action_results.jsonl#maruhan-sagamihara-ten"
+   ],
+   "notes": "トーク一覧の店名行を確認できず、ガード失敗。ボタンは押していない。"
+  },
+  "tow-zu-atsugi-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": ["新装情報", "P-WORLD", "DMM", "Twitter", "配置図", "入場方法"],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/tow-zu-atsugi-ten.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/tow-zu-atsugi-ten.xml"
+   ]
+  },
+  "abiba-ebina-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "PUSH 最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-09-29T18:37:18.218452+00:00",
+    "visible_action_label": "PUSH 最新情報",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/abiba-ebina-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/abiba-ebina-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/abiba-ebina-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/action_results.jsonl#abiba-ebina-ten"
+   ],
+   "notes": "タップ後に店舗から画像メッセージが届いた。"
+  },
+  "tow-zu-yamato-fukami-ten-1120": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": ["DMM", "P-WORLD", "X"],
+   "latest_action_label": null,
+   "notes": "owner確認で最新情報ボタンなしとして追加。"
+  },
+  "hall-75c652995806ad35": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": ["新台入替(banner)", "P-WORLD", "台データ", "X"],
+   "latest_action_label": null,
+   "notes": "owner確認で最新情報ボタンなしとして追加。未認証アカウント。"
+  }
+ },
+ "pending_review": []
+}

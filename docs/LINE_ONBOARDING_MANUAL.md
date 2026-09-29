@@ -382,60 +382,41 @@ git push origin HEAD
 
 ## 8. 引き継ぎ（2026-09-30時点）
 
-- **collector登録店舗：110**（`data/line_targets.json`）
-- **まだ追加していない候補：約147店舗**（Step 1のスクリプトで確認）
-- **分類済みのpolicy表：**
-  - 既存41店舗：`collection_policy_41_2026-09-26.json`
-  - batch00〜02：`collection_policy_batch00〜02_*.json`
-- **LINE ID検索の使用：** 2026-09-30 は 4回使用済み（3店舗追加＋1回再試行）。同じ日にStep 2をやるなら残り15件程度まで
+- **collector登録店舗：110**（`data/line_targets.json`、registry実行済み）
+- **まだ追加していない候補：147店舗**（Step 1のスクリプトで確認）
+- **分類済みのpolicy表：** 既存41店舗、batch00〜02、batch03（`collection_policy_batch03_2026-09-29.json`）
+- **LINE ID検索の使用：** 2026-09-30 は4回使用済み（3店舗追加＋1回再試行）。同じ日にStep 2を行う場合の残り目安は15件
 
-### 途中の作業（次の人がやること）
+### 途中の作業（2026-09-30対応済み）
 
-友だち追加まで済み、Step 3〜6（画像レビュー・ボタン押下・review記入）が残っている店舗です。
-画像レビューは済んでいて、結果は下の表のとおりです。次の人がやるのは次の3つです。
+batch02・batch03の画像レビュー、対象ボタンの1回操作、review作成、policy生成、registry更新まで完了した。
+文字送信は0回、LIFFの認証・許可は0回、ブロック・トーク削除・端末設定変更は行っていない。
 
-1. 「押す」と書いた店舗で Step 4 を実行する
-2. Step 5 の review を書く
-3. Step 6〜7 を実行する
+| バッチ | 結果 | 件数 |
+| --- | --- | ---: |
+| batch02 | Type A / Type B / Type C / unresolved | 0 / 4 / 6 / 16 |
+| batch03 | Type A / Type B / Type C / unresolved | 0 / 1 / 0 / 9 |
 
-**batch02**（記録：`line_onboarding_batch02_2026-09-27.json`、review：`collection_policy_batch02_2026-09-27_review.json` に追記）
+batch02の個別結果：`hall-bbd8368f83485942` と `pia-isezaki-machi` はLINE返信、`hall-29a4eae243ef947f` と `hall-30397a9696f2e0cb` はタップ後もローディング表示で返信・外部遷移を確認できずunresolved。
+`hall-b8c21b0b4bda81d9` と `hall-43832bf3d34f5004` は最新情報系ボタンなし（後者はowner確認済み）。
 
-| hall_id | トーク画面の店名 | メニュー | 次の作業 |
-| --- | --- | --- | --- |
-| hall-29a4eae243ef947f | MONACO桜木町店 | 左下「最新情報」 | 押す（目安 x=120, y=1230） |
-| hall-bbd8368f83485942 | PIA伊勢佐木3丁目 | 右下「PUSH 毎日21時更新 最新情報」 | 押す（x=600, y=1233） |
-| pia-isezaki-machi | PIA伊勢佐木町 | 右下「PUSH 毎日21時更新 最新情報」 | 押す（x=600, y=1233） |
-| hall-30397a9696f2e0cb | PIA横須賀中央店 | 右下「PUSH 毎日21時更新 最新情報」 | 押す（x=600, y=1233） |
-| hall-b8c21b0b4bda81d9 | PIA川崎新川通り店 | フロアマップ・機種情報・入場案内 | reviewed_no_latest_label |
-| hall-43832bf3d34f5004 | プレスト弥生台 | 演者来店(banner)・台データ・X（「最新情報はこちら」はX行き） | reviewed_no_latest_label。owner確認で追加（notesに記載） |
+batch03の個別結果：`abiba-ebina-ten` はLINE返信。`sukuramburu-taya-ten`、`maruhan-sagamihara-ten`、`kik-na-totsuka-ten` はトーク一覧の店名行を確認できず安全ガード失敗で、ボタンは押していない。
+`maruhan-kawasaki-sakura-honten` は追加撮影を試みたが店名行を確認できず、メニューなし3回確認に未到達。その他の店舗は最新情報系ボタンなし（owner確認分を含む）。
 
-**batch03**（記録：`line_onboarding_batch03_2026-09-29.json`、review：新規に `collection_policy_batch03_2026-09-29_review.json` を作る）
-
-| hall_id | トーク画面の店名 | メニュー | 次の作業 |
-| --- | --- | --- | --- |
-| hinomaru-muk-gaoka-y-en-ten | ヒノマル向ヶ丘遊園店 | 遊技台データ・抽選案内・新台情報・出玉ランキング・X・グループ特別取材 | reviewed_no_latest_label |
-| komparu-hashimoto | コンパル橋本店 | 会員事前申込・抽選入場方法・出玉データ・フロアマップ | reviewed_no_latest_label |
-| sukuramburu-taya-ten | スクランブル田谷店 | 中央下「最新情報はここからチェック!」 | 押す（x=360, y=1215） |
-| maruhan-kawasaki-sakura-honten | マルハン川崎桜本店 | メニュー未表示 | Step 3-2 で再確認 |
-| maruhan-sagamihara-ten | マルハン相模原店 | 左上「最新情報」 | 押す（x=185, y=995） |
-| tow-zu-atsugi-ten | トワーズ厚木店 | 新装情報・P-WORLD・DMM・Twitter・配置図・入場方法 | reviewed_no_latest_label |
-| abiba-ebina-ten | アビバ海老名店 | 左上「PUSH 最新情報」 | 押す（x=125, y=940） |
-| kik-na-totsuka-ten | キコーナ戸塚店 | 左上「最新情報」欄（中身は9/7新台入替バナー） | 押す（x=240, y=995）。2026-09-30に追加済みを確認し記録修正済み |
-| tow-zu-yamato-fukami-ten-1120 | トワーズ大和深見店 | DMM・P-WORLD・X | reviewed_no_latest_label。owner確認で追加 |
-| hall-75c652995806ad35 | パサージュ弘明寺駅前店 | 新台入替(banner)・P-WORLD・台データ・X | reviewed_no_latest_label。owner確認で追加。未認証アカウント |
-
-座標は目安です。押す前に、その店舗の `.jpg` と `.xml` の `bounds` で確認してください。
-トーク画面の店名は、Step 4 の3番目の欄にそのまま入れてください。
-
-**batch03 で追加できなかった店舗（review の `not_onboarded` に書く）**
+**batch03で追加できなかった店舗（reviewの`not_onboarded`に記録）**
 
 - `hall-06c31ec72212e8d7` ザ シティ/ベルシティ元住吉店：リンクが開けない
-- `niraku-hiratsuka-kurobeoka-ten` ニラク平塚黒部丘店：短縮リンク先のプロフィールで名前が読めず、本人確認できない。ownerに確認
+- `niraku-hiratsuka-kurobeoka-ten` ニラク平塚黒部丘店：短縮リンク先のプロフィールで名前が読めず、本人確認できない
 - `abiba-shinsugita-ten` アビバ新杉田店：IDが「表示できません」
 
-**ownerに対応をお願いしていること**
+**ownerに確認したいこと**
 
-- ダイナム相模原店の旧アカウント `@fxl9564y` が友だちに残っていて、同じ店名のトークが2つある（ownerは「配信が来ないならそのままでよい」との判断）
+- ニラク平塚黒部丘店のLINEプロフィールが対象店舗と同一か
+- 最新情報ボタンは確認できたがトーク一覧行を取得できなかった3店舗（スクランブル田谷、マルハン相模原、キコーナ戸塚）の再試行可否または行座標
+- タップ後ローディングのまま終わったMONACO桜木町店・PIA横須賀中央店をunresolvedのままとするか
+- マルハン川崎桜本店のトーク一覧行を取得できるか（メニューなし再確認用）
+
+ダイナム相模原店の旧アカウント `@fxl9564y` が友だちに残っていて同じ店名のトークが2つある件は、owner判断（配信が来ないならそのままでよい）のまま。
 
 ## 9. 関係するファイル
 
