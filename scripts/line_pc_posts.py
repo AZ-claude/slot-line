@@ -168,6 +168,62 @@ def hamming(a: str, b: str) -> int:
     return bin(int(a, 16) ^ int(b, 16)).count("1")
 
 
+CAROUSEL_STEP = 632  # one ">" click moves a carousel by the view width minus an 8 px overlap
+
+
+def carousel_panorama(bands: list[Image.Image]) -> Image.Image:
+    """Join the band screenshots of one carousel side by side.
+
+    Each ">" normally moves the row by CAROUSEL_STEP; the last click can move
+    less (the row stops at its end), so the step is measured from the overlap
+    and falls back to CAROUSEL_STEP when the overlap is too thin to measure.
+    """
+    arrays = [np.asarray(b.convert("RGB")) for b in bands]
+    height = min(a.shape[0] for a in arrays)
+    width = arrays[0].shape[1]
+    offsets = [0]
+    for previous, current in zip(arrays, arrays[1:]):
+        step, best = CAROUSEL_STEP, None
+        prev_gray = previous[:height, :CONTENT_WIDTH].mean(axis=2)
+        cur_gray = current[:height, :CONTENT_WIDTH].mean(axis=2)
+        for dx in range(80, CONTENT_WIDTH - 60):  # overlaps of at least 60 px can be measured
+            overlap = CONTENT_WIDTH - dx
+            diff = float(np.abs(prev_gray[:, dx:dx + overlap] - cur_gray[:, :overlap]).mean())
+            if best is None or diff < best:
+                best, step = diff, dx
+        if best is None or best > 12:
+            step = CAROUSEL_STEP
+        offsets.append(offsets[-1] + step)
+    panorama = np.full((height, offsets[-1] + width, 3), 255, dtype=np.uint8)
+    for array, left in zip(arrays, offsets):
+        panorama[:, left:left + width] = array[:height]
+    # later bands are painted over earlier ones; that is fine because shared columns match
+    return Image.fromarray(panorama[:, :offsets[-1] + CONTENT_WIDTH])
+
+
+def split_cards(band: Image.Image) -> list[Image.Image]:
+    """Cut a carousel band screenshot into the cards that are wholly visible.
+
+    Cards are separated by white columns; a card touching the left or right
+    edge is cut off and is left for the band where it is fully shown.
+    """
+    pixels = np.asarray(band.convert("RGB"))
+    right_edge = pixels.shape[1]
+    content = ((pixels.min(axis=2) < 250).sum(axis=0) > pixels.shape[0] * 0.2)
+    cards, start = [], None
+    for x, value in enumerate(list(content) + [False]):
+        if value and start is None:
+            start = x
+        elif not value and start is not None:
+            if x - start >= 200 and start > 2 and x < right_edge - 2:
+                column = pixels[:, start:x]
+                rows = np.where((column.min(axis=2) < 250).sum(axis=1) > (x - start) * 0.2)[0]
+                if len(rows):
+                    cards.append(Image.fromarray(pixels[rows[0]:rows[-1] + 1, start:x]))
+            start = None
+    return cards
+
+
 def is_same_post(fp: str, when: str, seen_entry: str) -> bool:
     """Same image and same (or unknown) posting time. Daily template banners look alike
     from day to day, so an identical image on another day is a different post."""
@@ -355,12 +411,16 @@ def process(dates: list[str]) -> dict[str, Any]:
                         seen.append(f"{fp}|{when}")
                         post_id = hashlib.sha1(f"{hall}:{fp}:{run_id}:{post['y0']}".encode()).hexdigest()[:16]
                         crop.save(target / f"{post_id}.jpg", quality=85)
-                        cards = []
-                        for number, card in enumerate(post.get("cards", []), 1):
-                            source = folder / card
-                            if source.exists():
-                                name = f"{post_id}_card_{number:02d}.jpg"
-                                Image.open(source).convert("RGB").save(target / name, quality=85)
+                        cards, card_prints = [], []
+                        bands = [Image.open(folder / b) for b in post.get("cards", []) if (folder / b).exists()]
+                        if bands:
+                            for card in split_cards(carousel_panorama(bands)):
+                                card_fp = fingerprint(card)
+                                if any(hamming(card_fp, old) <= DUPLICATE_BITS for old in card_prints):
+                                    continue  # the same card is fully visible on two consecutive bands
+                                card_prints.append(card_fp)
+                                name = f"{post_id}_card_{len(cards) + 1:02d}.jpg"
+                                card.convert("RGB").save(target / name, quality=85)
                                 cards.append(name)
                         record = {"post_id": post_id, "hall_id": hall, "run_id": run_id, "capture_date": day,
                                   "posted_date": post["posted_date"], "posted_time": post["posted_time"],

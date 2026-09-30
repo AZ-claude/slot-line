@@ -219,6 +219,21 @@ class LinePC:
             win32api.mouse_event(MOUSEEVENTF_HWHEEL, 0, 0, 120 if notches > 0 else -120, 0)
             time.sleep(0.05)
 
+    def shift_wheel(self, x: int, y: int, notches: int) -> None:
+        """Shift + vertical wheel over (x, y): horizontal scrolling in many Qt views."""
+        import win32api
+        import win32con
+
+        left, top, _, _ = self.rect()
+        win32api.SetCursorPos((left + x, top + y))
+        win32api.keybd_event(win32con.VK_SHIFT, 0, 0, 0)
+        try:
+            for _ in range(abs(notches)):
+                win32api.mouse_event(win32con.MOUSEEVENTF_WHEEL, 0, 0, -120 if notches > 0 else 120, 0)
+                time.sleep(0.05)
+        finally:
+            win32api.keybd_event(win32con.VK_SHIFT, 0, win32con.KEYEVENTF_KEYUP, 0)
+
     def paste(self, text: str) -> None:
         import win32clipboard
         import win32con
@@ -273,6 +288,8 @@ def run_actions(actions: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 entry.update(pc.prepare())
             elif do == "click":
                 pc.click(action["x"], action["y"], action.get("double", False))
+            elif do == "shiftwheel":
+                pc.shift_wheel(action["x"], action["y"], action["notches"])
             elif do == "hscroll":
                 pc.hscroll(action["x"], action["y"], action["notches"])
             elif do == "move":

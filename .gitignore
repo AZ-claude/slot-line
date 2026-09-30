@@ -36,3 +36,4 @@ data/raw/**/reply_uiautomator.xml
 # LINE PC captures synced from Windows and the posts cut from them (screenshots of chats; never publish).
 data/line_pc_raw/
 data/line_pc_posts/
+data/line_pc_site/
