@@ -56,11 +56,23 @@ def norm(text: str) -> str:
     return "".join(unicodedata.normalize("NFKC", text).split()).lower()
 
 
+# Windows OCR confuses these in store names (ＵＮＯ -> LJN0, I -> |).
+OCR_CONFUSABLE = (("lj", "u"), ("ij", "u"), ("|", "l"), ("i", "l"), ("0", "o"), ("ブ", "プ"), ("ベ", "ペ"))
+
+
+def ocr_fold(text: str) -> str:
+    folded = norm(text)
+    for src, dst in OCR_CONFUSABLE:
+        folded = folded.replace(src, dst)
+    return folded
+
+
 def similarity(a: str, b: str) -> float:
-    return difflib.SequenceMatcher(None, norm(a), norm(b)).ratio()
+    return difflib.SequenceMatcher(None, ocr_fold(a), ocr_fold(b)).ratio()
 
 
-NOISE_RE = __import__("re").compile(r"^(既読\d*|今日|昨日|(午前|午後)\d{1,2}:\d{2}|\d{1,2}月\d{1,2}日.*|[0-9:]+)$")
+NOISE_RE = __import__("re").compile(
+    r"^(既読\d*|今日|昨日|[〒午前後]*\d{1,2}[:：]?\d{2}|\d{1,2}月\d{1,2}日.*|[0-9:]+|保存.*|.*転送)$")
 
 
 def is_message_line(line: str) -> bool:
@@ -121,9 +133,13 @@ class Collector:
         pc.key("ctrl+a")
         pc.paste(name)
         time.sleep(2.0)
-        results = pc.shot(self.tmp / "results.png", RESULTS_BOX)
-        result_lines = ocr_lines(results)
-        best = max((similarity(line["text"], name) for line in result_lines), default=0.0)
+        best = 0.0
+        for _ in range(3):  # the result list can take a moment to appear
+            results = pc.shot(self.tmp / "results.png", RESULTS_BOX)
+            best = max((similarity(line["text"], name) for line in ocr_lines(results)), default=0.0)
+            if best >= HEADER_MIN_SIMILARITY:
+                break
+            time.sleep(1.5)
         if best < HEADER_MIN_SIMILARITY:
             return {"ok": False, "reason": "no_matching_search_result", "best_result_similarity": round(best, 2)}
         pc.click(*FIRST_RESULT)

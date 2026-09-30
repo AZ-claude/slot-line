@@ -33,13 +33,15 @@ class CollectionPlanTests(unittest.TestCase):
 
 class OcrHelpersTests(unittest.TestCase):
     def test_read_receipts_times_and_dates_are_not_replies(self):
-        for noise in ("既読", "既読 2", "午後 5:26", "今日", "昨日", "9月30日(水)"):
+        for noise in ("既読", "既読 2", "午後 5:26", "今日", "昨日", "9月30日(水)", "〒930", "午後932", "保存"):
             self.assertFalse(is_message_line(noise), noise)
         self.assertTrue(is_message_line("新台入替のお知らせ"))
 
     def test_header_similarity_tolerates_ocr_noise(self):
         self.assertGreaterEqual(similarity("スクランプル田谷店", "スクランブル田谷店"), 0.6)
         self.assertLess(similarity("Eita", "スクランブル田谷店"), 0.6)
+        self.assertGreaterEqual(similarity("中山LJN0", "中山ＵＮＯ"), 0.6)
+        self.assertLess(similarity("中山LJN0", "中山競馬"), 0.6)
 
 
 if __name__ == "__main__":

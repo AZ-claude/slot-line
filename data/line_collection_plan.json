@@ -952,7 +952,7 @@
    "line_source_key": "@ojc7047i",
    "search_name": "マルハン相模原店",
    "collection_type": "type_b_passive_plus_active",
-   "text_trigger": "verify_once",
+   "text_trigger": "daily",
    "trigger_text": "最新情報",
    "policy_file": "collection_policy_batch03_2026-09-29.json"
   },

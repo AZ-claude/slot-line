@@ -1,0 +1,11 @@
+{
+ "schema_version": 1,
+ "stores": {
+  "maruhan-sagamihara-ten": {
+   "result": "reply",
+   "sent_at": "2026-09-30T12:32:29+00:00",
+   "evidence": "Windows RAW data/raw/2026-09-30/maruhan-sagamihara-ten/line_pc/20260930T213001_p00.jpg: image replies at 21:32 JST right after the 21:32 send",
+   "checked_by": "claude"
+  }
+ }
+}
