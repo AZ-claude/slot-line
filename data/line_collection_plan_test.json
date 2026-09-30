@@ -1,0 +1,52 @@
+{
+ "schema_version": 1,
+ "trigger_text": "最新情報",
+ "stores": [
+  {
+   "hall_id": "nakayama-uno",
+   "line_source_key": "@zwt0488b",
+   "search_name": "中山ＵＮＯ",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_41_2026-09-26.json"
+  },
+  {
+   "hall_id": "pia-keiky-kawasaki",
+   "line_source_key": "@rmh1818e",
+   "search_name": "PIA 京急川崎",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "daily",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_41_2026-09-26.json"
+  },
+  {
+   "hall_id": "sukuramburu-taya-ten",
+   "line_source_key": "@xrj2329j",
+   "search_name": "スクランブル田谷店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch03_2026-09-29.json"
+  },
+  {
+   "hall_id": "maruhan-sagamihara-ten",
+   "line_source_key": "@ojc7047i",
+   "search_name": "マルハン相模原店",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch03_2026-09-29.json"
+  },
+  {
+   "hall_id": "jiasu-kami-oka",
+   "line_source_key": "@zia_k",
+   "search_name": "ジアス上大岡",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_41_2026-09-26.json"
+  }
+ ],
+ "note": "2026-09-30 evening test subset (owner request: 中山UNO, a PIA store and a few others)"
+}

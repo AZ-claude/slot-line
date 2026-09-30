@@ -155,6 +155,13 @@ class LinePC:
             win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
             time.sleep(0.08)
 
+    def move(self, x: int, y: int) -> None:
+        import win32api
+
+        left, top, _, _ = self.rect()
+        win32api.SetCursorPos((left + x, top + y))
+        time.sleep(0.6)
+
     def scroll(self, x: int, y: int, notches: int) -> None:
         """Positive notches scroll up (older messages), negative scroll down."""
         import win32api
@@ -164,6 +171,17 @@ class LinePC:
         win32api.SetCursorPos((left + x, top + y))
         for _ in range(abs(notches)):
             win32api.mouse_event(win32con.MOUSEEVENTF_WHEEL, 0, 0, 120 if notches > 0 else -120, 0)
+            time.sleep(0.05)
+
+    def hscroll(self, x: int, y: int, notches: int) -> None:
+        """Horizontal wheel over (x, y); positive scrolls right. Never clicks."""
+        import win32api
+
+        MOUSEEVENTF_HWHEEL = 0x01000
+        left, top, _, _ = self.rect()
+        win32api.SetCursorPos((left + x, top + y))
+        for _ in range(abs(notches)):
+            win32api.mouse_event(MOUSEEVENTF_HWHEEL, 0, 0, 120 if notches > 0 else -120, 0)
             time.sleep(0.05)
 
     def paste(self, text: str) -> None:
@@ -220,6 +238,10 @@ def run_actions(actions: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 entry.update(pc.prepare())
             elif do == "click":
                 pc.click(action["x"], action["y"], action.get("double", False))
+            elif do == "hscroll":
+                pc.hscroll(action["x"], action["y"], action["notches"])
+            elif do == "move":
+                pc.move(action["x"], action["y"])
             elif do == "scroll":
                 pc.scroll(action["x"], action["y"], action["notches"])
             elif do == "paste":

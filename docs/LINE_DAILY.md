@@ -165,4 +165,10 @@ Android より軽い Windows の PC版LINE で、登録店舗（`data/line_targe
 
 - 実行中はPC版LINEのウィンドウを操作するので、PCを触らない・画面をロックしない。
 - RAWには画面の切り抜きが入る。店舗のトーク以外は保存しない作りだが、RAWはWindows側だけに置き、公開リポジトリにcommitしない。
-- 横スクロールのカルーセル画像は、最初の1枚分しか写らない。
+- 横スクロールのカルーセル（右端で切れたカード行）は、「<」で先頭まで戻してから「>」を押して1枚ずつ `…_pNN_cK_MM.jpg` に保存し、「もっと見る」か変化なしで止める。押した結果別ウィンドウが開いたらEscで閉じて止める。
+
+### スケジュール（Windows タスク `SlotLineLinePc`）
+
+- 毎日 21:30、ログイン中のセッションで `scripts\run_line_pc_collect.cmd --send --verify --plan <plan>` を実行する。
+- 2026-09-30 は owner の指示でテスト用の5店舗（`data/line_collection_plan_test.json`）に絞っている。結果確認後に `data/line_collection_plan.json`（全店舗）へ切り替える。
+- 旧タスク `SlotLineDaily`（21:05、Android の M&M 単独取得）は owner の指示で 2026-09-30 に削除した。
