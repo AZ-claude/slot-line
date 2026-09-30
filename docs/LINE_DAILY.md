@@ -211,3 +211,5 @@ python3 scripts/line_pc_sync.py                 # Windows → data/line_pc_raw/<
 5. 64bit の画像指紋（dHash）が店舗内の既存投稿とほぼ同じ（6bit以内）なら重複として捨てる
 
 日付は区切りの帯から、時刻は右下の小さな文字のOCRから取る。OCRが崩れると `posted_date` / `posted_time` は null になる。
+
+一覧で見る：`.venv/bin/python scripts/line_pc_gallery.py [--since YYYY-MM-DD]` で `data/line_pc_posts/gallery.html`（店舗ごと・新しい順、画像埋め込みの1ファイル）を作る。店名・OCR文字で絞り込める。
