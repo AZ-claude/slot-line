@@ -44,7 +44,7 @@ HEADER_BOX = (460, 78, 1000, 124)
 MESSAGES_BOX = (456, 126, 1096, 826)
 MESSAGES_ANCHOR = (770, 470)
 INPUT_BOX = (770, 872)
-SCROLL_NOTCHES = 5
+SCROLL_NOTCHES = 3  # ~342 px: every ~340 px carousel row is wholly visible on some page
 CAROUSEL_MAX_CLICKS = 9
 CAROUSEL_CARD_HALF = 168  # carousel cards are ~337 px tall; the ">" sits at mid-height
 CAROUSEL_ARROW_X = 597  # message-area x of the ">" button on a horizontal card carousel
@@ -230,8 +230,20 @@ class Collector:
                 stop = "reached_previous_checkpoint"
                 break
             pc.scroll(*MESSAGES_ANCHOR, SCROLL_NOTCHES)
-            time.sleep(1.2)
+            self.wait_until_still()
         return {"pages": pages, "stop": stop}
+
+    def wait_until_still(self, timeout: float = 4.0) -> None:
+        """Wait for the smooth-scroll animation to finish (two identical frames)."""
+        time.sleep(0.5)
+        previous = None
+        deadline = time.monotonic() + timeout
+        while time.monotonic() < deadline:
+            digest = file_hash(self.pc.shot(self.tmp / "still.png", MESSAGES_BOX))
+            if digest == previous:
+                return
+            previous = digest
+            time.sleep(0.35)
 
     def capture_carousels(self, page: Path, store_dir: Path, stem: str) -> list[dict[str, Any]]:
         """Click each carousel's ">" and save every further card; never clicks elsewhere."""
@@ -240,7 +252,7 @@ class Collector:
         pc = self.pc
         results = []
         for number, (y0, y1) in enumerate(find_carousels(page)):
-            if y1 - 2 * CAROUSEL_CARD_HALF < 5 or y1 > MESSAGES_BOX[3] - MESSAGES_BOX[1] - 25:
+            if y1 - 2 * CAROUSEL_CARD_HALF < 2 or y1 > MESSAGES_BOX[3] - MESSAGES_BOX[1] - 10:
                 continue  # partly off-screen; it will be complete on the next page
             y_center = MESSAGES_BOX[1] + y1 - CAROUSEL_CARD_HALF  # the bottom edge is detected reliably
             y0 = max(0, y1 - 2 * CAROUSEL_CARD_HALF)
@@ -272,8 +284,9 @@ class Collector:
                 pc.click(MESSAGES_BOX[0] + CAROUSEL_ARROW_X, y_center)
                 time.sleep(1.2)
                 if win32gui.GetForegroundWindow() != pc.hwnd:
-                    pc.key("esc")  # an image viewer or browser opened: close it and stop
-                    time.sleep(0.8)
+                    if not pc.close_dialogs():
+                        pc.key("esc")  # an image viewer or browser opened: close it and stop
+                        time.sleep(0.8)
                     pc.prepare()
                     stop = "left_the_chat_window"
                     break
@@ -296,6 +309,8 @@ class Collector:
         hall = store["hall_id"]
         record: dict[str, Any] = {"hall_id": hall, "search_name": store["search_name"],
                                   "text_trigger": store["text_trigger"]}
+        record["dialogs_closed"] = self.pc.close_dialogs()
+        self.pc.prepare()  # re-assert position, foreground and top-most for every store
         opened = self.open_chat(store["search_name"], hall)
         record["open"] = opened
         if not opened["ok"]:
@@ -370,6 +385,8 @@ def main() -> int:
     run_id = datetime.now(JST).strftime("%Y%m%dT%H%M%S")
     log: list[dict] = []
     collector = Collector(repo, run_id, args.send, args.verify, args.max_pages, log)
+    LinePC.hide_own_console()
+    time.sleep(1.5)  # a console opened by the task launcher may still be appearing
     prepared = collector.pc.prepare()
     manifest = {"run_id": run_id, "started_at": datetime.now(timezone.utc).isoformat(), "send": args.send,
                 "verify": args.verify, "window": prepared, "stores": []}
@@ -387,6 +404,7 @@ def main() -> int:
         manifest["stores"].append(record)
         manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")
         state_path.write_text(json.dumps(state, ensure_ascii=False, indent=1), encoding="utf-8")
+    collector.pc.release()
     manifest["finished_at"] = datetime.now(timezone.utc).isoformat()
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")
     counts: dict[str, int] = {}

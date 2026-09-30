@@ -39,7 +39,8 @@ RAW = ROOT / "data" / "line_pc_raw"
 OUT = ROOT / "data" / "line_pc_posts"
 
 CONTENT_WIDTH = 626          # the scrollbar and floating "↓" button live to the right
-BLANK_LEVEL = 245            # a row is blank when every pixel is at least this bright
+BLANK_LEVEL = 245            # used when trimming a post's own edges
+INK_LEVEL = 225              # darker than this counts as drawn content
 GAP_SPLIT = 12               # blank rows that separate two posts (consecutive images sit 17 px apart)
 FINE_GAP = 5                 # blank rows that separate parts of a post (image, time stamp, pill)
 DEFAULT_SHIFT = 570          # 5 wheel notches
@@ -124,8 +125,18 @@ def merge_ocr(groups: list[list[dict[str, Any]]]) -> list[dict[str, Any]]:
 
 
 # ---------------------------------------------------------------- blocks
+def ink(strip: np.ndarray) -> np.ndarray:
+    """True where a pixel is clearly drawn (JPEG ringing around text stays above INK_LEVEL)."""
+    return strip[:, :CONTENT_WIDTH].min(axis=2) < INK_LEVEL
+
+
+def blank_rows(strip: np.ndarray) -> np.ndarray:
+    """Rows of pure background. Bubble fills (~240) count as content; JPEG ringing is only a few pixels."""
+    return (strip[:, :CONTENT_WIDTH].min(axis=2) < 250).sum(axis=1) <= 8
+
+
 def split_blocks(strip: np.ndarray, gap: int = 18) -> list[tuple[int, int]]:
-    blank = strip[:, :CONTENT_WIDTH].min(axis=(1, 2)) >= BLANK_LEVEL
+    blank = blank_rows(strip)
     blocks, start, gap_run = [], None, 0
     for y, is_blank in enumerate(list(blank) + [True] * (gap + 1)):
         if not is_blank:
@@ -155,6 +166,21 @@ def fingerprint(image: Image.Image) -> str:
 
 def hamming(a: str, b: str) -> int:
     return bin(int(a, 16) ^ int(b, 16)).count("1")
+
+
+def is_same_post(fp: str, when: str, seen_entry: str) -> bool:
+    """Same image and same (or unknown) posting time. Daily template banners look alike
+    from day to day, so an identical image on another day is a different post."""
+    old_fp, _, old_when = seen_entry.partition("|")
+    if hamming(fp, old_fp) > DUPLICATE_BITS:
+        return False
+    if not old_when:
+        return True
+    new_day, new_time = when.split(" ")
+    old_day, old_time = old_when.split(" ")
+    day_ok = "?" in (new_day, old_day) or new_day == old_day
+    time_ok = "?" in (new_time, old_time) or new_time == old_time
+    return day_ok and time_ok
 
 
 def parse_date(text: str, capture: date) -> str | None:
@@ -206,7 +232,7 @@ def cut_run(hall_id: str, run_id: str, capture_day: date, pages: list[Path], sto
     current_date: str | None = None
 
     def emit(a: int, b: int, time_text: str | None) -> None:
-        rows = np.where(strip[a:b + 1, :CONTENT_WIDTH].min(axis=(1, 2)) < BLANK_LEVEL)[0]
+        rows = np.where(~blank_rows(strip[a:b + 1]))[0]
         if len(rows) == 0:
             return
         a, b = a + int(rows[0]), a + int(rows[-1])
@@ -226,8 +252,10 @@ def cut_run(hall_id: str, run_id: str, capture_day: date, pages: list[Path], sto
     open_end = 0
     open_time: str | None = None
     for a, b in split_blocks(strip, gap=FINE_GAP):
-        dark_cols = np.where((strip[a:b + 1, :CONTENT_WIDTH].min(axis=2) < BLANK_LEVEL).any(axis=0))[0]
-        x_min, x_max = int(dark_cols.min()), int(dark_cols.max())
+        dark_cols = np.where(ink(strip[a:b + 1]).sum(axis=0) > 0)[0]
+        if len(dark_cols) == 0:  # only a faint fill (e.g. an empty bubble edge)
+            dark_cols = np.where((strip[a:b + 1, :CONTENT_WIDTH].min(axis=2) < 250).any(axis=0))[0]
+        x_min, x_max = (int(dark_cols.min()), int(dark_cols.max())) if len(dark_cols) else (0, CONTENT_WIDTH)
         height = b - a + 1
         inside = [l for l in ocr if l["box"][1] >= a - 3 and l["box"][3] <= b + 3]
         text = "".join(norm(l["text"]) for l in inside)
@@ -235,8 +263,12 @@ def cut_run(hall_id: str, run_id: str, capture_day: date, pages: list[Path], sto
             if open_start is not None:
                 emit(open_start, open_end, open_time)
                 open_start, open_time = None, None
-            if DATE_RE.match(text):
-                current_date = parse_date(text, capture_day) or current_date
+            # overlapping pages OCR the same pill twice ("926(土)" and "9.26(土)"): read lines one by one
+            for candidate in (norm(l["text"]) for l in inside):
+                parsed = parse_date(candidate, capture_day) if DATE_RE.match(candidate) else None
+                if parsed:
+                    current_date = parsed
+                    break
             continue
         if height <= 22 and x_min >= 380:  # right-aligned grey time stamp: ends the post above
             if open_start is not None:
@@ -265,8 +297,8 @@ def cut_run(hall_id: str, run_id: str, capture_day: date, pages: list[Path], sto
         for carousel in page_info.get("carousels", []):
             y_mid = offsets[index] + (carousel["span"][0] + carousel["span"][1]) // 2
             for post in posts:
-                if post["y0"] <= y_mid <= post["y1"]:
-                    post.setdefault("cards", []).extend(carousel["cards"])
+                if post["y0"] <= y_mid <= post["y1"] and not post.get("cards"):
+                    post["cards"] = list(carousel["cards"])  # the same row may be seen on overlapping pages
     return [dict(p, strip=strip) for p in posts]
 
 
@@ -275,10 +307,12 @@ def process(dates: list[str]) -> dict[str, Any]:
     index_path = OUT / "index.json"
     index: dict[str, list[str]] = json.loads(index_path.read_text(encoding="utf-8")) if index_path.exists() else {}
     done_runs = set(index.get("_runs", []))
-    summary = {"runs": 0, "new_posts": 0, "duplicates": 0, "own_messages": 0, "partial_skipped": 0, "errors": []}
+    full_history: set[str] = set(index.get("_full_history", []))  # stores already read back to the first message
+    summary = {"runs": 0, "new_posts": 0, "duplicates": 0, "own_messages": 0, "partial_skipped": 0, "superseded_runs": 0, "errors": []}
     with (OUT / "posts.jsonl").open("a", encoding="utf-8") as sink:
-        for day in dates:
-            for manifest_path in sorted((RAW / day).glob("line_pc_run_*.json")):
+        for day in sorted(dates, reverse=True):
+            # newest run first: later captures use the better tooling and win de-duplication
+            for manifest_path in sorted((RAW / day).glob("line_pc_run_*.json"), reverse=True):
                 manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
                 run_id = manifest["run_id"]
                 for store in manifest["stores"]:
@@ -286,6 +320,13 @@ def process(dates: list[str]) -> dict[str, Any]:
                     if store.get("status") != "captured" or key in done_runs:
                         continue
                     hall = store["hall_id"]
+                    if hall in full_history and (store.get("capture") or {}).get("stop") != "reached_previous_checkpoint":
+                        # a newer run already read this store's whole history with the current tooling;
+                        # older full reads are superseded (only incremental runs add anything)
+                        if run_id < index.get("_full_history_run", {}).get(hall, ""):
+                            done_runs.add(key)
+                            summary["superseded_runs"] += 1
+                            continue
                     folder = RAW / day / hall / "line_pc"
                     pages = sorted(p for p in folder.glob(f"{run_id}_p[0-9][0-9].*") if p.suffix in {".jpg", ".png"})
                     if not pages:
@@ -307,10 +348,11 @@ def process(dates: list[str]) -> dict[str, Any]:
                             continue
                         crop = Image.fromarray(post["strip"][post["y0"]:post["y1"] + 1])
                         fp = fingerprint(crop)
-                        if any(hamming(fp, old) <= DUPLICATE_BITS for old in seen):
+                        when = f"{post['posted_date'] or '?'} {post['posted_time'] or '?'}"
+                        if any(is_same_post(fp, when, old) for old in seen):
                             summary["duplicates"] += 1
                             continue
-                        seen.append(fp)
+                        seen.append(f"{fp}|{when}")
                         post_id = hashlib.sha1(f"{hall}:{fp}:{run_id}:{post['y0']}".encode()).hexdigest()[:16]
                         crop.save(target / f"{post_id}.jpg", quality=85)
                         cards = []
@@ -329,7 +371,11 @@ def process(dates: list[str]) -> dict[str, Any]:
                         summary["new_posts"] += 1
                     done_runs.add(key)
                     summary["runs"] += 1
+                    if (store.get("capture") or {}).get("stop") == "top_of_history" and hall not in full_history:
+                        full_history.add(hall)
+                        index.setdefault("_full_history_run", {})[hall] = run_id
     index["_runs"] = sorted(done_runs)
+    index["_full_history"] = sorted(full_history)
     index_path.write_text(json.dumps(index, ensure_ascii=False, indent=1), encoding="utf-8")
     return summary
 

@@ -67,6 +67,13 @@ class LinePcPostsTests(unittest.TestCase):
         self.assertEqual(offsets, [570, 0])
         self.assertTrue((strip == base).all())
 
+    def test_same_banner_on_another_day_is_a_new_post(self):
+        fp = "0f0f0f0f0f0f0f0f"
+        self.assertTrue(self.m.is_same_post(fp, "2026-09-27 20:00", f"{fp}|2026-09-27 20:00"))
+        self.assertTrue(self.m.is_same_post(fp, "? 20:00", f"{fp}|2026-09-27 20:00"))
+        self.assertFalse(self.m.is_same_post(fp, "2026-09-28 20:00", f"{fp}|2026-09-27 20:00"))
+        self.assertFalse(self.m.is_same_post("f0f0f0f0f0f0f0f0", "2026-09-27 20:00", f"{fp}|2026-09-27 20:00"))
+
     def test_fingerprint_ignores_recompression(self):
         from PIL import Image
         import io

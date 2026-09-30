@@ -115,8 +115,27 @@ class LinePC:
         win32gui.EnumWindows(visit, None)
         if not found:
             raise RuntimeError("LINE_window_not_found")
-        self.hwnd = found[0]
+
+        def area(hwnd: int) -> int:
+            left, top, right, bottom = win32gui.GetWindowRect(hwnd)
+            return (right - left) * (bottom - top)
+
+        # LINE's modal dialogs are also titled "LINE"; the main window is the biggest one
+        self.hwnd = max(found, key=area)
+        self.dialogs = [h for h in found if h != self.hwnd and area(h) < 500 * 300]
         return self.hwnd
+
+    def close_dialogs(self) -> int:
+        """Close LINE's small modal dialogs (e.g. "スマートフォンでのみ確認可能なメッセージです")."""
+        import win32con
+        import win32gui
+
+        self.find_window()
+        for hwnd in self.dialogs:
+            win32gui.PostMessage(hwnd, win32con.WM_CLOSE, 0, 0)
+        if self.dialogs:
+            time.sleep(0.8)
+        return len(self.dialogs)
 
     def prepare(self) -> dict[str, Any]:
         """Restore, bring to front and give the LINE window a fixed size and place."""
@@ -133,9 +152,25 @@ class LinePC:
             win32gui.SetForegroundWindow(hwnd)
         except Exception:
             pass
-        win32gui.MoveWindow(hwnd, WINDOW_X, WINDOW_Y, WINDOW_W, WINDOW_H, True)
+        # keep LINE above every other window while we screenshot it (undone by release())
+        win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, WINDOW_X, WINDOW_Y, WINDOW_W, WINDOW_H, 0)
         time.sleep(0.8)
         return {"rect": self.rect(), "foreground": win32gui.GetForegroundWindow() == hwnd}
+
+    def release(self) -> None:
+        import win32con
+        import win32gui
+
+        if self.hwnd:
+            win32gui.SetWindowPos(self.hwnd, win32con.HWND_NOTOPMOST, 0, 0, 0, 0,
+                                  win32con.SWP_NOMOVE | win32con.SWP_NOSIZE)
+
+    @staticmethod
+    def hide_own_console() -> None:
+        """Minimise the console this script runs in, so it cannot cover LINE."""
+        console = ctypes.windll.kernel32.GetConsoleWindow()
+        if console:
+            ctypes.windll.user32.ShowWindow(console, 6)  # SW_MINIMIZE
 
     def rect(self) -> tuple[int, int, int, int]:
         import win32gui
@@ -250,6 +285,21 @@ def run_actions(actions: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 pc.key(action["key"])
             elif do == "wait":
                 time.sleep(action["s"])
+            elif do == "fgshot":
+                # screenshot whatever window is in front (e.g. LINE's image viewer)
+                import win32gui
+                from PIL import ImageGrab
+                hwnd = win32gui.GetForegroundWindow()
+                rect = win32gui.GetWindowRect(hwnd)
+                ImageGrab.grab(bbox=rect, all_screens=True).save(action["path"])
+                entry.update(path=action["path"], title=win32gui.GetWindowText(hwnd), rect=list(rect),
+                             is_line_main=hwnd == pc.hwnd)
+            elif do == "screen":
+                from PIL import ImageGrab
+                ImageGrab.grab(all_screens=True).save(action["path"])
+                entry["path"] = action["path"]
+            elif do == "close_dialogs":
+                entry["closed"] = pc.close_dialogs()
             elif do == "shot":
                 png = pc.shot(Path(action["path"]), tuple(action["box"]) if action.get("box") else None)
                 entry["path"] = str(png)
