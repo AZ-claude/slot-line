@@ -181,3 +181,33 @@ Android より軽い Windows の PC版LINE で、登録店舗（`data/line_targe
 - 毎日 21:30、ログイン中のセッションで `scripts\run_line_pc_collect.cmd --send --verify --plan <plan>` を実行する。
 - 2026-09-30 は5店舗（`data/line_collection_plan_test.json`）でテストし、2026-10-01 から全店舗（`data/line_collection_plan.json`）で実行している。
 - 旧タスク `SlotLineDaily`（21:05、Android の M&M 単独取得）と `SlotLineRegression`（21:25、Android の回帰テスト）は owner の指示で 2026-09-30 に削除した。
+
+## Mac側：投稿ごとの切り分けと重複除去（LLMなし）
+
+Windows の取得結果を Mac に取り込み、投稿1件ずつの画像にする。LLMは使わない。画面の切り抜き（個人情報を含みうる）なので、`data/line_pc_raw/` と `data/line_pc_posts/` は git 対象外。
+
+```
+python3 scripts/line_pc_sync.py                 # Windows → data/line_pc_raw/<date>/（直近3日）
+.venv/bin/python scripts/line_pc_posts.py       # → data/line_pc_posts/
+```
+
+`.venv` は `python3 -m venv .venv && .venv/bin/pip install pillow numpy` で作る（Pillow と numpy が必要）。
+
+出力：
+
+| パス | 中身 |
+| --- | --- |
+| `data/line_pc_posts/<hall_id>/<post_id>.jpg` | 投稿1件の画像（複数枚を1度に送った投稿は縦に並んだまま1件） |
+| `data/line_pc_posts/<hall_id>/<post_id>_card_MM.jpg` | 横並びカルーセルの各カード |
+| `data/line_pc_posts/posts.jsonl` | 1行1投稿：`post_id, hall_id, run_id, capture_date, posted_date, posted_time, image, cards, height, ocr_text, fingerprint, source_pages` |
+| `data/line_pc_posts/index.json` | 店舗ごとの指紋（重複判定用）と処理済みrun |
+
+切り方：
+
+1. 撮影ページを1本の縦長画像につなぐ（1ページ約570px上へずれる。重なりの一致で正確な量を求め、重なりの中央でつなぐ）
+2. 5px以上の余白で部品に分け、部品の形で判定する：中央の小さな灰色の帯＝日付区切り（「今日」「9.25(金)」）、右寄せの低い行＝投稿時刻（投稿の終わり）、緑＝自分の送信（投稿にしない）、マウスを乗せたときの「保存｜転送」帯＝無視
+3. 12px以上の余白か時刻の行で投稿を区切る（同じ分に続けて届いた画像は17px間隔で時刻が最後の1枚にしか付かない）
+4. 縦長画像の上端20px以内で始まる投稿は途中で切れている可能性があるので捨てる（履歴の最上部まで撮れたときを除く）
+5. 64bit の画像指紋（dHash）が店舗内の既存投稿とほぼ同じ（6bit以内）なら重複として捨てる
+
+日付は区切りの帯から、時刻は右下の小さな文字のOCRから取る。OCRが崩れると `posted_date` / `posted_time` は null になる。
