@@ -142,3 +142,27 @@ python3 scripts/collect_passive_incremental.py --target-set registry --run-id <i
 - `lin.ee`短縮URLはMac側でリダイレクト先に解決してから開く。「表示できません」ダイアログのIDは無効として記録する。
 - 端末は縦向き・画面点灯が前提（onboardは消灯時にWAKEUPし、横向きなら中断する）。
 - registryモードは`data/line_targets.json`を読み、checkpointにない店舗は初回観測として基準化する。20/41の固定モードは変更しない。
+
+## Windows PC版LINEでの日次取得（line_pc_collect）
+
+Android より軽い Windows の PC版LINE で、登録店舗（`data/line_targets.json`）のトークを毎日取得する。PC版LINEは UI Automation に文字を出さないため、ウィンドウの撮影と Windows 標準の日本語OCRで読む。LINEのローカルデータファイルは読まない。
+
+| ファイル | 役割 |
+| --- | --- |
+| `scripts/build_line_collection_plan.py` | policy表から `data/line_collection_plan.json` を作る（店舗ごとの検索名・分類・文字送信の要否） |
+| `scripts/line_pc.py` | PC版LINEの操作部品（ウィンドウ固定、クリック、貼り付け、キー、撮影、OCR）。Windows上で動く |
+| `scripts/line_pc_collect.py` | 日次取得の本体。Windows上で動く |
+| `scripts/run_line_pc_collect.cmd` | タスクスケジューラから呼ぶ起動用バッチ（ログイン中のセッションで実行） |
+
+1店舗ごとの流れ：
+
+1. チャット検索に店名を貼り付けて先頭の結果を開き、ヘッダーをOCRで照合する（類似度0.6未満なら何もしない・何も保存しない）
+2. `--send` のときだけ、`text_trigger=daily` の店舗に「最新情報」を送る（1日1回）。`--verify` を付けると `verify_once` の店舗に**生涯1回だけ**送り、返信の有無を記録する
+3. トークの一番下から上へ撮影し、前回の最後の行（`data/line_pc_state.json`）に届くか、最上部か、`--max-pages` で止める
+4. `data/raw/<日付>/<hall_id>/line_pc/<run>_pNN.jpg`（画面の切り抜き）と `…_pNN.json`（OCR行）を保存し、`data/raw/<日付>/line_pc_run_<run>.json` に結果をまとめる
+
+文字送信の確認結果は `data/line_text_trigger_results.json`（`{"stores": {"<hall_id>": {"result": "reply" | "no_reply"}}}`）に書き、`build_line_collection_plan.py` を再実行すると `daily` / `off` に切り替わる。
+
+- 実行中はPC版LINEのウィンドウを操作するので、PCを触らない・画面をロックしない。
+- RAWには画面の切り抜きが入る。店舗のトーク以外は保存しない作りだが、RAWはWindows側だけに置き、公開リポジトリにcommitしない。
+- 横スクロールのカルーセル画像は、最初の1枚分しか写らない。
