@@ -179,5 +179,5 @@ Android より軽い Windows の PC版LINE で、登録店舗（`data/line_targe
 ### スケジュール（Windows タスク `SlotLineLinePc`）
 
 - 毎日 21:30、ログイン中のセッションで `scripts\run_line_pc_collect.cmd --send --verify --plan <plan>` を実行する。
-- 2026-09-30 は owner の指示でテスト用の5店舗（`data/line_collection_plan_test.json`）に絞っている。結果確認後に `data/line_collection_plan.json`（全店舗）へ切り替える。
+- 2026-09-30 は5店舗（`data/line_collection_plan_test.json`）でテストし、2026-10-01 から全店舗（`data/line_collection_plan.json`）で実行している。
 - 旧タスク `SlotLineDaily`（21:05、Android の M&M 単独取得）と `SlotLineRegression`（21:25、Android の回帰テスト）は owner の指示で 2026-09-30 に削除した。
