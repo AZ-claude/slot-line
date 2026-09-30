@@ -444,34 +444,13 @@ git push origin HEAD
 - **まだ追加していない候補：147店舗**（Step 1のスクリプトで確認）
 - **分類済みのpolicy表：** 既存41店舗、batch00〜03（`collection_policy_batch0*_*.json`）
   - batch02：Type A 0 / B 6 / C 6 / unresolved 14（MONACO桜木町・PIA横須賀中央は撮り直しで返信を確認し Type B に訂正済み）
-  - batch03：Type A 0 / B 1 / C 0 / unresolved 9
+  - batch03：Type A 1 / B 2 / C 0 / unresolved 7
 - **LINE ID検索の使用：** 2026-09-30 は4回使用済み
 
-### 次の人がやること（新規追加はしない）
+### 次の人がやること
 
-どれも友だち追加済みなので、LINE ID検索は使いません。
-
-**1. ボタン押下の再試行（3店舗）**
-
-前回は、スクリプトの不具合でトーク一覧から見つけられず、押せていません。不具合は直り、2026-09-30 に dry-run で3店舗とも `header_ok` / `tap_inside_menu` が true になることを確認済みです。
-Step 4 の 4-2 → 4-3 → 4-4 を行い、`collection_policy_batch03_2026-09-29_review.json` の該当店舗を書き換えます。
-
-| hall_id | トーク画面の店名 | ボタン | 座標（dry-run確認済み） |
-| --- | --- | --- | --- |
-| sukuramburu-taya-ten | スクランブル田谷店 | 最新情報はここからチェック! | 360, 1215 |
-| maruhan-sagamihara-ten | マルハン相模原店 | 最新情報 | 185, 995 |
-| kik-na-totsuka-ten | キコーナ戸塚店 | 最新情報 | 240, 995 |
-
-LINE ID の欄は `data/line_targets.json` の `line_source_key` を使います（マルハン相模原店も同じ）。
-
-**2. マルハン川崎桜本店のメニュー再確認**
-
-Step 3-2 の `line_chat_snapshot.py` を実行します（トーク画面の店名は `マルハン川崎桜本店`）。
-
-- 登録時と合わせて3回ともメニューがなければ `absent_confirmed`（Type A）
-- 1回でもメニューが写れば、画像を見て Step 3 の振り分けをやり直す
-
-**3. Step 5.5 の自己チェック → Step 6 → Step 7**
+2026-09-30 に §8 の4件はすべて完了しました（スクランブル田谷店・キコーナ戸塚店は押しても反応がなく unresolved、マルハン相模原店は Type B、マルハン川崎桜本店は Type A）。
+新規追加は owner の指示で一時停止中です。再開するときは Step 1 から行います。
 
 ### ownerの確認待ち
 

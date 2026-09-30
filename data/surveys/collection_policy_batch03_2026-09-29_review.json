@@ -22,7 +22,14 @@
   "hinomaru-muk-gaoka-y-en-ten": {
    "rich_menu_status": "present",
    "menu_review_status": "reviewed_no_latest_label",
-   "visible_menu_labels": ["遊技台データ", "抽選案内", "新台情報", "出玉ランキング", "X", "グループ特別取材"],
+   "visible_menu_labels": [
+    "遊技台データ",
+    "抽選案内",
+    "新台情報",
+    "出玉ランキング",
+    "X",
+    "グループ特別取材"
+   ],
    "latest_action_label": null,
    "evidence_refs": [
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/hinomaru-muk-gaoka-y-en-ten.jpg",
@@ -32,7 +39,12 @@
   "komparu-hashimoto": {
    "rich_menu_status": "present",
    "menu_review_status": "reviewed_no_latest_label",
-   "visible_menu_labels": ["会員事前申込", "抽選入場方法", "出玉データ", "フロアマップ"],
+   "visible_menu_labels": [
+    "会員事前申込",
+    "抽選入場方法",
+    "出玉データ",
+    "フロアマップ"
+   ],
    "latest_action_label": null,
    "evidence_refs": [
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/komparu-hashimoto.jpg",
@@ -41,73 +53,95 @@
   },
   "kik-na-totsuka-ten": {
    "rich_menu_status": "present",
-   "menu_review_status": "latest_like_label_not_executed",
+   "menu_review_status": "latest_label_observed",
    "latest_action_label": "最新情報",
    "action_mapping": {
-    "executed": false,
+    "executed": true,
+    "executed_at": "2026-09-30T07:02:05.836447+00:00",
+    "visible_action_label": "最新情報",
     "action_result": "unknown",
     "content_observed": false,
     "external_url": null,
     "rich_menu_emitted_text_observed": false
    },
    "evidence_refs": [
-    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/kicona_totsuka_check/kik-na-totsuka-ten_menu.jpg",
-    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/kicona_totsuka_check/kik-na-totsuka-ten_menu.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/kik-na-totsuka-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/kik-na-totsuka-ten_pre_action.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/kik-na-totsuka-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/kik-na-totsuka-ten_post_action.xml",
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/action_results.jsonl#kik-na-totsuka-ten"
    ],
-   "notes": "トーク一覧の店名行を確認できず、ガード失敗。ボタンは押していない。"
+   "notes": "The 最新情報 block is a new-machine banner; tapping it at 16:02 JST produced no reply or navigation."
   },
   "sukuramburu-taya-ten": {
    "rich_menu_status": "present",
-   "menu_review_status": "latest_like_label_not_executed",
+   "menu_review_status": "latest_label_observed",
    "latest_action_label": "最新情報はここからチェック!",
    "action_mapping": {
-    "executed": false,
+    "executed": true,
+    "executed_at": "2026-09-30T06:56:52+00:00",
+    "visible_action_label": "最新情報はここからチェック!",
     "action_result": "unknown",
     "content_observed": false,
     "external_url": null,
     "rich_menu_emitted_text_observed": false
    },
    "evidence_refs": [
-    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/sukuramburu-taya-ten.jpg",
-    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/sukuramburu-taya-ten.xml",
-    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/action_results.jsonl#sukuramburu-taya-ten"
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/sukuramburu-taya-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/sukuramburu-taya-ten_pre_action.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/action_results.jsonl#sukuramburu-taya-ten",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/reply_recheck/sukuramburu-taya-ten_snap.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/reply_recheck/sukuramburu-taya-ten_snap_2.xml"
    ],
-   "notes": "トーク一覧の店名行を確認できず、ガード失敗。ボタンは押していない。"
+   "notes": "Single tap at ~15:56 JST (guards passed; the post-tap capture timed out). A re-snapshot at 16:07 without tapping shows no new store message (latest 20:00 the previous day); an external page may have opened and been closed. Not re-tapped."
   },
   "maruhan-kawasaki-sakura-honten": {
-   "rich_menu_status": "not_observed",
-   "menu_review_status": "menu_not_displayed",
-   "menu_visual_review_required": true,
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "menu_visual_review_required": false,
    "latest_action_label": null,
    "evidence_refs": [
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-kawasaki-sakura-honten.jpg",
-    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-kawasaki-sakura-honten.xml"
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-kawasaki-sakura-honten.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/absence_recheck/maruhan-kawasaki-sakura-honten_snap.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/absence_recheck/maruhan-kawasaki-sakura-honten_snap_1.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/absence_recheck/maruhan-kawasaki-sakura-honten_snap_2.xml"
    ],
-   "notes": "追加撮影を試みたがトーク一覧で店名行を確認できず、メニューなしの3回確認には未到達。"
+   "notes": "No rich menu or menu bar in the onboarding capture (09-29) and two settled dumps on 09-30 with the composer visible."
   },
   "maruhan-sagamihara-ten": {
    "rich_menu_status": "present",
-   "menu_review_status": "latest_like_label_not_executed",
+   "menu_review_status": "latest_label_observed",
    "latest_action_label": "最新情報",
    "action_mapping": {
-    "executed": false,
-    "action_result": "unknown",
-    "content_observed": false,
+    "executed": true,
+    "executed_at": "2026-09-30T07:10:02.717952+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "line_reply",
+    "content_observed": true,
     "external_url": null,
     "rich_menu_emitted_text_observed": false
    },
    "evidence_refs": [
-    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-sagamihara-ten.jpg",
-    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-sagamihara-ten.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/maruhan-sagamihara-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/maruhan-sagamihara-ten_pre_action.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/maruhan-sagamihara-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/maruhan-sagamihara-ten_post_action.xml",
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/action_results.jsonl#maruhan-sagamihara-ten"
    ],
-   "notes": "トーク一覧の店名行を確認できず、ガード失敗。ボタンは押していない。"
+   "notes": "Tap at 16:10 JST; the store replied with image messages at 16:10 (9.30 新台 banner, LINE抽選 flyer)."
   },
   "tow-zu-atsugi-ten": {
    "rich_menu_status": "present",
    "menu_review_status": "reviewed_no_latest_label",
-   "visible_menu_labels": ["新装情報", "P-WORLD", "DMM", "Twitter", "配置図", "入場方法"],
+   "visible_menu_labels": [
+    "新装情報",
+    "P-WORLD",
+    "DMM",
+    "Twitter",
+    "配置図",
+    "入場方法"
+   ],
    "latest_action_label": null,
    "evidence_refs": [
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/tow-zu-atsugi-ten.jpg",
@@ -138,14 +172,23 @@
   "tow-zu-yamato-fukami-ten-1120": {
    "rich_menu_status": "present",
    "menu_review_status": "reviewed_no_latest_label",
-   "visible_menu_labels": ["DMM", "P-WORLD", "X"],
+   "visible_menu_labels": [
+    "DMM",
+    "P-WORLD",
+    "X"
+   ],
    "latest_action_label": null,
    "notes": "owner確認で最新情報ボタンなしとして追加。"
   },
   "hall-75c652995806ad35": {
    "rich_menu_status": "present",
    "menu_review_status": "reviewed_no_latest_label",
-   "visible_menu_labels": ["新台入替(banner)", "P-WORLD", "台データ", "X"],
+   "visible_menu_labels": [
+    "新台入替(banner)",
+    "P-WORLD",
+    "台データ",
+    "X"
+   ],
    "latest_action_label": null,
    "notes": "owner確認で最新情報ボタンなしとして追加。未認証アカウント。"
   }

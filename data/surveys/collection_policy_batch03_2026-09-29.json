@@ -12,10 +12,10 @@
   "unresolved": "passive scan only until evidence is sufficient"
  },
  "counts": {
-  "type_a_passive": 0,
-  "type_b_passive_plus_active": 1,
+  "type_a_passive": 1,
+  "type_b_passive_plus_active": 2,
   "type_c_passive_external_web": 0,
-  "unresolved": 9
+  "unresolved": 7
  },
  "store_count": 10,
  "stores": [
@@ -88,16 +88,20 @@
    "evidence_refs": [
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/kicona_totsuka_check/kik-na-totsuka-ten_menu.jpg",
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/kicona_totsuka_check/kik-na-totsuka-ten_menu.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/kik-na-totsuka-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/kik-na-totsuka-ten_pre_action.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/kik-na-totsuka-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/kik-na-totsuka-ten_post_action.xml",
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/action_results.jsonl#kik-na-totsuka-ten"
    ],
    "confidence": "low",
-   "verification_status": "latest_like_label_not_executed",
+   "verification_status": "action_executed_result_unconfirmed",
    "daily_policy": {
     "passive_scan": true,
     "active_trigger": false,
     "external_url_role": null
    },
-   "notes": "トーク一覧の店名行を確認できず、ガード失敗。ボタンは押していない。"
+   "notes": "The 最新情報 block is a new-machine banner; tapping it at 16:02 JST produced no reply or navigation."
   },
   {
    "hall_id": "sukuramburu-taya-ten",
@@ -116,43 +120,50 @@
    "evidence_refs": [
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/sukuramburu-taya-ten.jpg",
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/sukuramburu-taya-ten.xml",
-    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/action_results.jsonl#sukuramburu-taya-ten"
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/sukuramburu-taya-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/sukuramburu-taya-ten_pre_action.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/action_results.jsonl#sukuramburu-taya-ten",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/reply_recheck/sukuramburu-taya-ten_snap.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/reply_recheck/sukuramburu-taya-ten_snap_2.xml"
    ],
    "confidence": "low",
-   "verification_status": "latest_like_label_not_executed",
+   "verification_status": "action_executed_result_unconfirmed",
    "daily_policy": {
     "passive_scan": true,
     "active_trigger": false,
     "external_url_role": null
    },
-   "notes": "トーク一覧の店名行を確認できず、ガード失敗。ボタンは押していない。"
+   "notes": "Single tap at ~15:56 JST (guards passed; the post-tap capture timed out). A re-snapshot at 16:07 without tapping shows no new store message (latest 20:00 the previous day); an external page may have opened and been closed. Not re-tapped."
   },
   {
    "hall_id": "maruhan-kawasaki-sakura-honten",
    "canonical_hall_id": "maruhan-kawasaki-sakura-honten",
    "line_source_key": "@qvq4128s",
    "store_name": "マルハン川崎桜本店",
-   "rich_menu_status": "not_observed",
-   "menu_visual_review_required": true,
+   "rich_menu_status": "absent_confirmed",
+   "menu_visual_review_required": false,
    "latest_action_label": null,
-   "action_result": "unknown",
-   "collection_type": "unresolved",
-   "active_method": "unknown",
+   "action_result": "not_applicable",
+   "collection_type": "type_a_passive",
+   "active_method": "none",
    "trigger_text": null,
    "text_trigger_verified": false,
    "external_url": null,
    "evidence_refs": [
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-kawasaki-sakura-honten.jpg",
-    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-kawasaki-sakura-honten.xml"
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-kawasaki-sakura-honten.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/absence_recheck/maruhan-kawasaki-sakura-honten_snap.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/absence_recheck/maruhan-kawasaki-sakura-honten_snap_1.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/absence_recheck/maruhan-kawasaki-sakura-honten_snap_2.xml"
    ],
-   "confidence": "low",
-   "verification_status": "menu_visual_review_required",
+   "confidence": "medium",
+   "verification_status": "rich_menu_absent_confirmed",
    "daily_policy": {
     "passive_scan": true,
     "active_trigger": false,
     "external_url_role": null
    },
-   "notes": "追加撮影を試みたがトーク一覧で店名行を確認できず、メニューなしの3回確認には未到達。"
+   "notes": "No rich menu or menu bar in the onboarding capture (09-29) and two settled dumps on 09-30 with the composer visible."
   },
   {
    "hall_id": "maruhan-sagamihara-ten",
@@ -162,25 +173,29 @@
    "rich_menu_status": "present",
    "menu_visual_review_required": false,
    "latest_action_label": "最新情報",
-   "action_result": "unknown",
-   "collection_type": "unresolved",
-   "active_method": "unknown",
+   "action_result": "line_reply",
+   "collection_type": "type_b_passive_plus_active",
+   "active_method": "rich_menu",
    "trigger_text": null,
    "text_trigger_verified": false,
    "external_url": null,
    "evidence_refs": [
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-sagamihara-ten.jpg",
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/maruhan-sagamihara-ten.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/maruhan-sagamihara-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/maruhan-sagamihara-ten_pre_action.xml",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/maruhan-sagamihara-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/maruhan-sagamihara-ten_post_action.xml",
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/action_results.jsonl#maruhan-sagamihara-ten"
    ],
-   "confidence": "low",
-   "verification_status": "latest_like_label_not_executed",
+   "confidence": "high",
+   "verification_status": "active_action_verified",
    "daily_policy": {
     "passive_scan": true,
-    "active_trigger": false,
+    "active_trigger": true,
     "external_url_role": null
    },
-   "notes": "トーク一覧の店名行を確認できず、ガード失敗。ボタンは押していない。"
+   "notes": "Tap at 16:10 JST; the store replied with image messages at 16:10 (9.30 新台 banner, LINE抽選 flyer)."
   },
   {
    "hall_id": "tow-zu-atsugi-ten",

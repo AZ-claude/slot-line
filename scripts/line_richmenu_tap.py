@@ -93,21 +93,30 @@ class Device:
         if 'text="グループ"' in xml or 'text="30日以内の予定"' in xml:
             self.tap(80, 102)
             time.sleep(1.5)
-        for _ in range(4):
-            self.run("shell", "input", "swipe", "360", "450", "360", "1300", "400")
-            time.sleep(0.8)
+        # Fast flings until the search box at the very top of the list is visible.
+        for _ in range(12):
+            self.run("shell", "input", "swipe", "360", "450", "360", "1300", "80")
+            time.sleep(0.7)
+            xml = self.dump(self.scratch / "chatlist.xml")
+            if re.search(r'text="検索"[^>]*bounds="\[\d+,1[5-9]\d\]', xml):
+                return
 
-    def open_chat_by_name(self, name: str, pages: int = 12) -> bool:
+    def open_chat_by_name(self, name: str, pages: int = 60) -> bool:
         self.open_talk_list()
         self.scroll_to_top()
+        previous = None
         for _ in range(pages):
             xml = self.dump(self.scratch / "chatlist.xml")
             for m in re.finditer(r'text="([^"]+)"[^>]*bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', xml):
-                if norm(m[1]) == norm(name) and 420 < int(m[3]) < 1340:
+                if norm(m[1]) == norm(name) and 420 < int(m[3]) < 1300:
                     self.tap((int(m[2]) + int(m[4])) // 2, (int(m[3]) + int(m[5])) // 2)
                     time.sleep(4)
                     return True
-            self.run("shell", "input", "swipe", "360", "1200", "360", "500", "400")
+            names = re.findall(r'text="([^"]+)"', xml)
+            if names and names == previous:
+                return False  # reached the end of the talk list
+            previous = names
+            self.run("shell", "input", "swipe", "360", "1200", "360", "600", "500")
             time.sleep(1.2)
         return False
 
@@ -130,7 +139,7 @@ def main() -> int:
     done = set()
     if log.exists():
         done = {json.loads(line)["hall_id"] for line in log.read_text(encoding="utf-8").splitlines()
-                if json.loads(line).get("status") == "executed"}
+                if json.loads(line).get("status") in {"executed", "tapped_capture_pending"}}
     device = Device(args.adb, args.serial, out)
 
     def write(record: dict) -> None:
@@ -187,6 +196,8 @@ def main() -> int:
             continue
         record["triggered_at"] = datetime.now(timezone.utc).isoformat()
         device.tap(x, y)
+        # Log the tap before capturing: a capture failure must never lead to a second tap.
+        write(record | {"status": "tapped_capture_pending"})
         time.sleep(12)
         post = device.dump(out / f"{hall}_post_action.xml")
         device.screenshot(out / f"{hall}_post_action")
