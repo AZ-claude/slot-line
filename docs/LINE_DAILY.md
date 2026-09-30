@@ -161,6 +161,15 @@ Android より軽い Windows の PC版LINE で、登録店舗（`data/line_targe
 3. トークの一番下から上へ撮影し、前回の最後の行（`data/line_pc_state.json`）に届くか、最上部か、`--max-pages` で止める
 4. `data/raw/<日付>/<hall_id>/line_pc/<run>_pNN.jpg`（画面の切り抜き）と `…_pNN.json`（OCR行）を保存し、`data/raw/<日付>/line_pc_run_<run>.json` に結果をまとめる
 
+### LLM なしで回すための仕組み
+
+日次取得は LLM を使わない（Python・pywin32・Windows 標準OCRのみ）。人やAIの判断が要らないよう、次を自動で行う。
+
+- **返信の自動判定：** 送信の前後でトーク最下部を撮り、自分の緑の吹き出し（RGB 195,246,157）より下の左端に店舗の投稿（画像・アイコン・吹き出し）があれば返信ありとする。吹き出しが見えず画面が変わっていれば、返信で押し上げられたとみなす。画面が変わらなければ送信未確認。
+- **確認送信の自動切替：** `verify_once` の店舗は1回だけ送り、結果を Windows の `data/line_pc_state.json` と `data/line_text_trigger_results.json` に書く。次回から「返信あり」は毎日送信、「返信なし」は送信しない（プランを作り直さなくても切り替わる）。
+- **失敗の通知：** 取得できなかった店舗を毎回 `data/line_pc_alerts.log` に1行で追記し、3店舗以上失敗した日は Windows のトースト通知を出す。manifest の `summary.failed` にも理由つきで残る。
+- **OCR の読み違いへの対応：** 店名照合で外れる店舗は、コードを直さず `data/line_ocr_aliases.json` の `stores` に `"<hall_id>": ["OCRでの読み"]` を足す（例：`"nakayama-uno": ["中山LJN0"]`）。
+
 文字送信の確認結果は `data/line_text_trigger_results.json`（`{"stores": {"<hall_id>": {"result": "reply" | "no_reply"}}}`）に書き、`build_line_collection_plan.py` を再実行すると `daily` / `off` に切り替わる。
 
 - 実行中はPC版LINEのウィンドウを操作するので、PCを触らない・画面をロックしない。

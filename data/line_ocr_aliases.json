@@ -1,0 +1,5 @@
+{
+    "schema_version": 1,
+    "note": "Extra names (as Windows OCR reads them) accepted when matching a store chat. Edit this file instead of the code when a store is skipped with no_matching_search_result / chat_header_mismatch.",
+    "stores": {}
+}

@@ -108,6 +108,32 @@ def find_carousels(image_path: Path) -> list[tuple[int, int]]:
     return spans
 
 
+OWN_BUBBLE_RGB = (195, 246, 157)  # LINE PC's green for messages we sent
+
+
+def detect_store_reply(image_path: Path) -> dict[str, Any]:
+    """Decide from a bottom-of-chat screenshot whether the store posted after our message.
+
+    Our own bubble is green on the right. Store posts (images, avatar, bubbles)
+    start at the left edge, so non-white content in columns 12-100 below the
+    lowest green bubble means a reply. If no green bubble is visible, replies
+    have pushed it off the top of the view.
+    """
+    import numpy as np
+    from PIL import Image
+
+    pixels = np.asarray(Image.open(image_path).convert("RGB")).astype(int)
+    green = (np.abs(pixels - np.array(OWN_BUBBLE_RGB)).sum(axis=2) < 24)[:, 300:]
+    own_rows = np.where(green.sum(axis=1) >= 20)[0]
+    if len(own_rows) == 0:
+        return {"reply": True, "reason": "own_message_scrolled_out_by_newer_posts"}
+    own_bottom = int(own_rows.max())
+    below = pixels[own_bottom + 5:, 12:100]
+    content_rows = int(((below.min(axis=2) < 225).sum(axis=1) >= 3).sum())
+    return {"reply": content_rows >= 25, "reason": "store_content_below_own_message" if content_rows >= 25
+            else "nothing_below_own_message", "own_bubble_bottom": own_bottom, "content_rows_below": content_rows}
+
+
 def file_hash(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -122,10 +148,18 @@ class Collector:
         self.max_pages = max_pages
         self.log = log
         self.today = datetime.now(JST).strftime("%Y-%m-%d")
+        self.verify_results: dict[str, dict] = {}
+        aliases_path = repo / "data" / "line_ocr_aliases.json"
+        self.aliases: dict[str, list[str]] = (json.loads(aliases_path.read_text(encoding="utf-8"))["stores"]
+                                              if aliases_path.exists() else {})
         self.tmp = repo / "data" / "tmp_line_pc"
         self.tmp.mkdir(parents=True, exist_ok=True)
 
-    def open_chat(self, name: str) -> dict[str, Any]:
+    def names_for(self, hall: str, name: str) -> list[str]:
+        return [name, *self.aliases.get(hall, [])]
+
+    def open_chat(self, name: str, hall: str = "") -> dict[str, Any]:
+        names = self.names_for(hall, name)
         pc = self.pc
         pc.click(*CHATS_TAB)
         time.sleep(0.8)
@@ -136,7 +170,7 @@ class Collector:
         best = 0.0
         for _ in range(3):  # the result list can take a moment to appear
             results = pc.shot(self.tmp / "results.png", RESULTS_BOX)
-            best = max((similarity(line["text"], name) for line in ocr_lines(results)), default=0.0)
+            best = max((similarity(line["text"], n) for line in ocr_lines(results) for n in names), default=0.0)
             if best >= HEADER_MIN_SIMILARITY:
                 break
             time.sleep(1.5)
@@ -146,7 +180,7 @@ class Collector:
         time.sleep(2.5)
         header = pc.shot(self.tmp / "header.png", HEADER_BOX)
         header_text = "".join(line["text"] for line in ocr_lines(header))
-        score = similarity(header_text, name)
+        score = max(similarity(header_text, n) for n in names)
         if score < HEADER_MIN_SIMILARITY:
             return {"ok": False, "reason": "chat_header_mismatch", "header_similarity": round(score, 2)}
         return {"ok": True, "header_ocr": header_text, "header_similarity": round(score, 2)}
@@ -262,15 +296,22 @@ class Collector:
         hall = store["hall_id"]
         record: dict[str, Any] = {"hall_id": hall, "search_name": store["search_name"],
                                   "text_trigger": store["text_trigger"]}
-        opened = self.open_chat(store["search_name"])
+        opened = self.open_chat(store["search_name"], hall)
         record["open"] = opened
         if not opened["ok"]:
             record["status"] = "skipped"
             return record
         hall_state = state.setdefault(hall, {})
         before = self.bottom_lines()
-        verify_now = self.verify and store["text_trigger"] == "verify_once" and not hall_state.get("verify_sent_at")
-        want_send = store["text_trigger"] == "daily" or verify_now
+        before_hash = file_hash(self.tmp / "bottom.png")
+        mode = store["text_trigger"]
+        if mode == "verify_once" and hall_state.get("verify_result") == "reply":
+            mode = "daily"  # verified by an earlier run on this machine
+        elif mode == "verify_once" and hall_state.get("verify_result") == "no_reply":
+            mode = "off"
+        record["text_trigger_effective"] = mode
+        verify_now = self.verify and mode == "verify_once" and not hall_state.get("verify_sent_at")
+        want_send = mode == "daily" or verify_now
         if want_send and self.send:
             if hall_state.get("last_trigger_date") == self.today:
                 record["trigger"] = {"status": "skipped_already_sent_today"}
@@ -283,9 +324,16 @@ class Collector:
                 after = self.bottom_lines()
                 new_lines = [line for line in after if line not in before and is_message_line(line)
                              and norm(line) != norm(store["trigger_text"])]
+                reply = detect_store_reply(self.tmp / "bottom.png")
+                if file_hash(self.tmp / "bottom.png") == before_hash:
+                    reply = {"reply": False, "reason": "screen_unchanged_send_not_confirmed"}
                 record["trigger"] = {"status": "sent", "sent_at": sent_at, "text": store["trigger_text"],
                                      "new_lines_after_send": new_lines[:20],
-                                     "reply_observed": bool(new_lines)}
+                                     "reply_observed": reply["reply"], "reply_check": reply}
+                if verify_now:
+                    hall_state["verify_result"] = "reply" if reply["reply"] else "no_reply"
+                    self.verify_results[hall] = {"result": hall_state["verify_result"], "sent_at": sent_at,
+                                                 "reply_check": reply, "checked_by": "line_pc_collect"}
         elif want_send:
             record["trigger"] = {"status": "not_sent_without_--send"}
         store_dir = self.repo / "data" / "raw" / self.today / hall / "line_pc"
@@ -344,8 +392,49 @@ def main() -> int:
     counts: dict[str, int] = {}
     for record in manifest["stores"]:
         counts[record["status"]] = counts.get(record["status"], 0) + 1
-    print(json.dumps({"manifest": str(manifest_path), "status": counts}, ensure_ascii=False))
+    failed = [{"hall_id": r["hall_id"], "status": r["status"],
+               "reason": r.get("error") or (r.get("open") or {}).get("reason")}
+              for r in manifest["stores"] if r["status"] != "captured"]
+    manifest["summary"] = {"status": counts, "failed": failed}
+    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")
+    if collector.verify_results:
+        results_path = repo / "data" / "line_text_trigger_results.json"
+        results = json.loads(results_path.read_text(encoding="utf-8")) if results_path.exists() else {"schema_version": 1, "stores": {}}
+        results["stores"].update(collector.verify_results)
+        results_path.write_text(json.dumps(results, ensure_ascii=False, indent=1), encoding="utf-8")
+    write_alert(repo, manifest_path, len(stores), failed)
+    print(json.dumps({"manifest": str(manifest_path), "status": counts, "failed": len(failed)}, ensure_ascii=False))
     return 0
+
+
+ALERT_MIN_FAILED = 3
+
+
+def write_alert(repo: Path, manifest_path: Path, total: int, failed: list[dict]) -> None:
+    """Append failures to data/line_pc_alerts.log and pop a Windows toast when many stores failed."""
+    import subprocess
+
+    stamp = datetime.now(JST).strftime("%Y-%m-%d %H:%M")
+    line = f"{stamp} failed {len(failed)}/{total} manifest={manifest_path.name}"
+    if failed:
+        line += " " + ", ".join(f"{f['hall_id']}({f['reason']})" for f in failed)
+    with (repo / "data" / "line_pc_alerts.log").open("a", encoding="utf-8") as handle:
+        handle.write(line + "\n")
+    if len(failed) < ALERT_MIN_FAILED:
+        return
+    title = "slot-line LINE取得"
+    body = f"{len(failed)}/{total} 店舗が取得できませんでした。data\\line_pc_alerts.log を確認してください。"
+    script = (
+        "[Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] | Out-Null;"
+        "$t = [Windows.UI.Notifications.ToastNotificationManager]::GetTemplateContent([Windows.UI.Notifications.ToastTemplateType]::ToastText02);"
+        f"$n = $t.GetElementsByTagName('text'); $n.Item(0).InnerText = '{title}'; $n.Item(1).InnerText = '{body}';"
+        "$toast = [Windows.UI.Notifications.ToastNotification]::new($t);"
+        "[Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier('Windows PowerShell').Show($toast)"
+    )
+    try:
+        subprocess.run(["powershell", "-NoProfile", "-Command", script], timeout=30, capture_output=True)
+    except Exception:
+        pass
 
 
 if __name__ == "__main__":

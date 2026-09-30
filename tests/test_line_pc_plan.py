@@ -1,3 +1,4 @@
+import importlib.util
 import unittest
 
 from scripts.build_line_collection_plan import build_plan
@@ -29,6 +30,35 @@ class CollectionPlanTests(unittest.TestCase):
 
     def test_inactive_targets_are_left_out(self):
         self.assertEqual(build_plan([target("a") | {"active": False}], {}, {}), [])
+
+
+@unittest.skipUnless(importlib.util.find_spec("PIL") and importlib.util.find_spec("numpy"), "needs Pillow and numpy (Windows)")
+class ReplyDetectionTests(unittest.TestCase):
+    def _image(self, own_rows=None, store_rows=None):
+        import tempfile
+        from pathlib import Path
+        from PIL import Image, ImageDraw
+
+        image = Image.new("RGB", (640, 700), (255, 255, 255))
+        draw = ImageDraw.Draw(image)
+        if own_rows:
+            draw.rectangle((500, own_rows[0], 620, own_rows[1]), fill=(195, 246, 157))
+        if store_rows:
+            draw.rectangle((12, store_rows[0], 400, store_rows[1]), fill=(40, 40, 40))
+        path = Path(tempfile.mkdtemp()) / "bottom.png"
+        image.save(path)
+        return path
+
+    def test_store_post_below_own_message_is_a_reply(self):
+        from scripts.line_pc_collect import detect_store_reply
+
+        self.assertTrue(detect_store_reply(self._image(own_rows=(300, 340), store_rows=(360, 600)))["reply"])
+
+    def test_nothing_below_own_message_is_not_a_reply(self):
+        from scripts.line_pc_collect import detect_store_reply
+
+        result = detect_store_reply(self._image(own_rows=(620, 670), store_rows=(100, 500)))
+        self.assertFalse(result["reply"])
 
 
 class OcrHelpersTests(unittest.TestCase):
