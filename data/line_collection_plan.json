@@ -1050,9 +1050,9 @@
    "hall_id": "hall-a74d0d3c82098cbb",
    "line_source_key": "@eyr1996q",
    "search_name": "スーパーハリウッド伊勢佐木",
-   "collection_type": "unresolved",
-   "text_trigger": "off",
-   "trigger_text": null,
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
    "policy_file": "collection_policy_batch04_2026-10-01.json"
   },
   {
@@ -1123,6 +1123,42 @@
    "line_source_key": "@park.sagamihara",
    "search_name": "ピーアーク相模原",
    "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "hall-96bfe9c243f3186d",
+   "line_source_key": "@fuji-isehara",
+   "search_name": "FUJI伊勢原店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "hall-a6cdb078a0523b40",
+   "line_source_key": "@sxb3947f",
+   "search_name": "MQ上川井店",
+   "collection_type": "type_a_passive",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "hall-c438b4e1226058fb",
+   "line_source_key": "XCtIF6jUFn",
+   "search_name": "ピカデリー",
+   "collection_type": "type_a_passive",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "maruko",
+   "line_source_key": "OpBrNI0R_g",
+   "search_name": "マルコ",
+   "collection_type": "type_c_passive_external_web",
    "text_trigger": "off",
    "trigger_text": null,
    "policy_file": "collection_policy_batch04_2026-10-01.json"

@@ -120,33 +120,6 @@
    "onboarded_at": "2026-10-01T02:28:56.121582+00:00"
   },
   {
-   "hall_id": "hall-96bfe9c243f3186d",
-   "store_name": "パチンコＦＵＪＩ伊勢原店",
-   "attempts": [
-    {
-     "line_source_key": "@jxd6147v",
-     "url": "https://line.me/R/ti/p/%40jxd6147v",
-     "first_screen": "profile",
-     "profile_xml": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-96bfe9c243f3186d_profile_0.xml",
-     "profile_name": "FUJI伊勢原店",
-     "profile_pworld_path": null,
-     "identity": null,
-     "result": "identity_unverified"
-    },
-    {
-     "line_source_key": "@fuji-isehara",
-     "url": "https://line.me/R/ti/p/%40fuji-isehara",
-     "first_screen": "profile",
-     "profile_xml": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-96bfe9c243f3186d_profile_1.xml",
-     "profile_name": "FUJI伊勢原店",
-     "profile_pworld_path": null,
-     "identity": null,
-     "result": "identity_unverified"
-    }
-   ],
-   "result": "not_onboarded"
-  },
-  {
    "hall_id": "hall-03bf109cd8acde55",
    "store_name": "くいーぷ",
    "attempts": [
@@ -282,23 +255,6 @@
    "onboarded_at": "2026-10-01T02:39:09.934758+00:00"
   },
   {
-   "hall_id": "hall-c438b4e1226058fb",
-   "store_name": "ピカデリー",
-   "attempts": [
-    {
-     "line_source_key": "XCtIF6jUFn",
-     "url": "https://line.me/R/ti/p/XCtIF6jUFn",
-     "first_screen": "profile",
-     "profile_xml": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-c438b4e1226058fb_profile_0.xml",
-     "profile_name": null,
-     "profile_pworld_path": null,
-     "identity": null,
-     "result": "identity_unverified"
-    }
-   ],
-   "result": "not_onboarded"
-  },
-  {
    "hall_id": "gurando-h-ru-kaneme-ten",
    "store_name": "グランドホール金目店",
    "attempts": [
@@ -380,23 +336,6 @@
    "onboarded_at": "2026-10-01T02:44:55.691884+00:00"
   },
   {
-   "hall_id": "hall-a6cdb078a0523b40",
-   "store_name": "ＭＱ（三益球殿） 上川井店",
-   "attempts": [
-    {
-     "line_source_key": "@sxb3947f",
-     "url": "https://line.me/R/ti/p/@sxb3947f",
-     "first_screen": "profile",
-     "profile_xml": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-a6cdb078a0523b40_profile_0.xml",
-     "profile_name": "MQ上川井店",
-     "profile_pworld_path": null,
-     "identity": null,
-     "result": "identity_unverified"
-    }
-   ],
-   "result": "not_onboarded"
-  },
-  {
    "hall_id": "hall-648452fa6516a3fd",
    "store_name": "ＳＫＩＰ小田原ダイヤ街店",
    "attempts": [
@@ -422,23 +361,6 @@
    "identity_status": "verified_pworld_url",
    "friend_added": true,
    "onboarded_at": "2026-10-01T02:47:10.722473+00:00"
-  },
-  {
-   "hall_id": "maruko",
-   "store_name": "マルコ",
-   "attempts": [
-    {
-     "line_source_key": "OpBrNI0R_g",
-     "url": "https://line.me/R/ti/p/OpBrNI0R_g",
-     "first_screen": "profile",
-     "profile_xml": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/maruko_profile_0.xml",
-     "profile_name": null,
-     "profile_pworld_path": null,
-     "identity": null,
-     "result": "identity_unverified"
-    }
-   ],
-   "result": "not_onboarded"
   },
   {
    "hall_id": "higashiyoko-fesuta-5",
@@ -520,6 +442,129 @@
    "identity_status": "verified_pworld_url",
    "friend_added": true,
    "onboarded_at": "2026-10-01T02:52:37.406347+00:00"
+  },
+  {
+   "hall_id": "hall-96bfe9c243f3186d",
+   "store_name": "パチンコＦＵＪＩ伊勢原店",
+   "attempts": [
+    {
+     "line_source_key": "@jxd6147v",
+     "url": "https://line.me/R/ti/p/%40jxd6147v",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-96bfe9c243f3186d_profile_0.xml",
+     "profile_name": "FUJI伊勢原店",
+     "profile_pworld_path": null,
+     "identity": "verified_owner_confirmed_name",
+     "friend_added": false,
+     "already_friend": true,
+     "result": "chat_not_reached"
+    },
+    {
+     "line_source_key": "@fuji-isehara",
+     "url": "https://line.me/R/ti/p/%40fuji-isehara",
+     "first_screen": "chat",
+     "identity": "verified_owner_confirmed_name",
+     "friend_added": false,
+     "already_friend": true,
+     "chat_header": "FUJI伊勢原店",
+     "menu_expanded": true,
+     "screenshot": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-96bfe9c243f3186d.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-96bfe9c243f3186d.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@fuji-isehara",
+   "identity_status": "verified_owner_confirmed_name",
+   "friend_added": false,
+   "onboarded_at": "2026-10-01T13:40:21.708665+00:00"
+  },
+  {
+   "hall_id": "hall-a6cdb078a0523b40",
+   "store_name": "ＭＱ（三益球殿） 上川井店",
+   "attempts": [
+    {
+     "line_source_key": "@sxb3947f",
+     "url": "https://line.me/R/ti/p/@sxb3947f",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-a6cdb078a0523b40_profile_0.xml",
+     "profile_name": "MQ上川井店",
+     "profile_pworld_path": null,
+     "identity": "verified_owner_confirmed_name",
+     "friend_added": true,
+     "chat_header": "MQ上川井店",
+     "screenshot": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-a6cdb078a0523b40.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-a6cdb078a0523b40.xml",
+     "rich_menu_node": false,
+     "bottom_bar": false,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@sxb3947f",
+   "identity_status": "verified_owner_confirmed_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-01T13:42:02.815205+00:00"
+  },
+  {
+   "hall_id": "hall-c438b4e1226058fb",
+   "store_name": "ピカデリー",
+   "attempts": [
+    {
+     "line_source_key": "XCtIF6jUFn",
+     "url": "https://line.me/R/ti/p/XCtIF6jUFn",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-c438b4e1226058fb_profile_0.xml",
+     "profile_name": "ピカデリー",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "ピカデリー",
+     "screenshot": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-c438b4e1226058fb.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-c438b4e1226058fb.xml",
+     "rich_menu_node": false,
+     "bottom_bar": false,
+     "result": "onboarded",
+     "chat_header_seen": "MQ上川井店",
+     "evidence_note": "The compact add sheet closed back onto the previously open chat (MQ上川井店); the friend-add was confirmed and the chat screen re-captured from the talk list with scripts/line_chat_snapshot.py (no ID search)."
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "XCtIF6jUFn",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-01T13:46:24.677393+00:00"
+  },
+  {
+   "hall_id": "maruko",
+   "store_name": "マルコ",
+   "attempts": [
+    {
+     "line_source_key": "OpBrNI0R_g",
+     "url": "https://line.me/R/ti/p/OpBrNI0R_g",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/maruko_profile_0.xml",
+     "profile_name": "マルコ",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "マルコ",
+     "screenshot": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/maruko.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/maruko.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded",
+     "chat_header_seen": "MQ上川井店",
+     "evidence_note": "The compact add sheet closed back onto the previously open chat (MQ上川井店); the friend-add was confirmed and the chat screen re-captured from the talk list with scripts/line_chat_snapshot.py (no ID search)."
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "OpBrNI0R_g",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-01T13:47:29.620937+00:00"
   }
  ]
 }

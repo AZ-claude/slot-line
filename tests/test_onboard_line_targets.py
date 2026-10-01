@@ -109,3 +109,16 @@ class RegistryTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CompactAddSheetTests(unittest.TestCase):
+    def test_short_link_sheet_gives_name_and_buttons(self):
+        from scripts.onboard_line_targets import classify_screen
+
+        xml = ('<hierarchy><node text="友だちを追加" resource-id="" content-desc="" bounds="[0,300][720,360]" />'
+               '<node text="マルコ" resource-id="jp.naver.line.android:id/addfriend_name" content-desc="" bounds="[0,440][720,496]" />'
+               '<node text="追加" resource-id="jp.naver.line.android:id/addfriend_button" content-desc="" bounds="[210,519][510,581]" />'
+               '<node text="トーク" resource-id="jp.naver.line.android:id/addfriend_chat_button" content-desc="" bounds="[210,590][510,652]" />'
+               '</hierarchy>')
+        screen = classify_screen(xml)
+        self.assertEqual((screen["screen"], screen["name"], screen["add"], screen["talk"]), ("profile", "マルコ", (360, 550), (360, 621)))

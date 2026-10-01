@@ -12,12 +12,12 @@
   "unresolved": "passive scan only until evidence is sufficient"
  },
  "counts": {
-  "type_a_passive": 2,
-  "type_b_passive_plus_active": 3,
-  "type_c_passive_external_web": 3,
+  "type_a_passive": 4,
+  "type_b_passive_plus_active": 4,
+  "type_c_passive_external_web": 4,
   "unresolved": 7
  },
- "store_count": 15,
+ "store_count": 19,
  "stores": [
   {
    "hall_id": "hall-44ff247e6a80abd3",
@@ -136,7 +136,7 @@
     "active_trigger": false,
     "external_url_role": null
    },
-   "notes": "No rich menu or menu bar at onboarding and in two re-check captures; only the message composer is shown."
+   "notes": "No rich menu or menu bar at onboarding and in two re-check captures; only the message composer is shown. Owner confirmed this is くいーぷ鶴ヶ峰 (2026-10-01)."
   },
   {
    "hall_id": "noa-kusu",
@@ -203,25 +203,29 @@
    "store_name": "スーパーハリウッド",
    "rich_menu_status": "present",
    "menu_visual_review_required": false,
-   "latest_action_label": null,
-   "action_result": "unknown",
-   "collection_type": "unresolved",
-   "active_method": "unknown",
+   "latest_action_label": "9/28~10/4 オススメ 推",
+   "action_result": "line_reply",
+   "collection_type": "type_b_passive_plus_active",
+   "active_method": "rich_menu",
    "trigger_text": null,
    "text_trigger_verified": false,
    "external_url": null,
    "evidence_refs": [
     "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-a74d0d3c82098cbb.jpg",
-    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-a74d0d3c82098cbb.xml"
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-a74d0d3c82098cbb.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/hall-a74d0d3c82098cbb_pre_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/hall-a74d0d3c82098cbb_post_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/hall-a74d0d3c82098cbb_post_action.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/action_results.jsonl#hall-a74d0d3c82098cbb"
    ],
-   "confidence": "low",
-   "verification_status": "menu_reviewed_no_latest_label",
+   "confidence": "high",
+   "verification_status": "active_action_verified",
    "daily_policy": {
     "passive_scan": true,
-    "active_trigger": false,
+    "active_trigger": true,
     "external_url_role": null
    },
-   "notes": "A weekly オススメ banner tile exists but is not a 最新情報 label; not tapped (owner may decide)."
+   "notes": "Owner approved tapping the weekly オススメ banner (2026-10-01). A 9/28~10/4 オススメ image (recommended machines) arrived in the chat; no user-side text bubble."
   },
   {
    "hall_id": "hall-50b3144563516470",
@@ -449,6 +453,124 @@
     "active_trigger": false,
     "external_url_role": null
    }
+  },
+  {
+   "hall_id": "hall-96bfe9c243f3186d",
+   "canonical_hall_id": "hall-96bfe9c243f3186d",
+   "line_source_key": "@fuji-isehara",
+   "store_name": "パチンコＦＵＪＩ伊勢原店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-96bfe9c243f3186d.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-96bfe9c243f3186d.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "Owner confirmed LINE name FUJI伊勢原店 = パチンコＦＵＪＩ伊勢原店 (2026-10-01)."
+  },
+  {
+   "hall_id": "hall-a6cdb078a0523b40",
+   "canonical_hall_id": "hall-a6cdb078a0523b40",
+   "line_source_key": "@sxb3947f",
+   "store_name": "ＭＱ（三益球殿） 上川井店",
+   "rich_menu_status": "absent_confirmed",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "not_applicable",
+   "collection_type": "type_a_passive",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-a6cdb078a0523b40.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-a6cdb078a0523b40.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-a6cdb078a0523b40_snap.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-a6cdb078a0523b40_snap_1.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-a6cdb078a0523b40_snap_2.xml"
+   ],
+   "confidence": "medium",
+   "verification_status": "rich_menu_absent_confirmed",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "Owner confirmed LINE name MQ上川井店 = ＭＱ（三益球殿） 上川井店 (2026-10-01). No rich menu at onboarding and in two re-check captures."
+  },
+  {
+   "hall_id": "hall-c438b4e1226058fb",
+   "canonical_hall_id": "hall-c438b4e1226058fb",
+   "line_source_key": "XCtIF6jUFn",
+   "store_name": "ピカデリー",
+   "rich_menu_status": "absent_confirmed",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "not_applicable",
+   "collection_type": "type_a_passive",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-c438b4e1226058fb.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-c438b4e1226058fb.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-c438b4e1226058fb_snap.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-c438b4e1226058fb_snap_1.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-c438b4e1226058fb_snap_2.xml"
+   ],
+   "confidence": "medium",
+   "verification_status": "rich_menu_absent_confirmed",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "No rich menu in the talk-list capture after the friend-add and in a second re-check capture; only the message composer is shown."
+  },
+  {
+   "hall_id": "maruko",
+   "canonical_hall_id": "maruko",
+   "line_source_key": "OpBrNI0R_g",
+   "store_name": "マルコ",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "最新情報",
+   "action_result": "external_web",
+   "collection_type": "type_c_passive_external_web",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/maruko.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/maruko.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/maruko_pre_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/maruko_post_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/maruko_post_action.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/action_results.jsonl#maruko"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": "auxiliary_source"
+   },
+   "notes": "Opened the P-WORLD hall page (マルコ, 横浜市緑区)."
   }
  ]
 }

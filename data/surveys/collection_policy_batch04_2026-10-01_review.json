@@ -14,11 +14,7 @@
   "chat_open_route": "talk-list rows (no LINE ID search) for rich-menu taps"
  },
  "not_onboarded": {
-  "hall-e7472263f7fa35af": "identity_unverified: the line.me/R/ti/p link opened a profile whose name could not be read; owner to confirm the LINE name",
-  "hall-96bfe9c243f3186d": "identity_unverified: LINE profile name FUJI伊勢原店 vs hall パチンコＦＵＪＩ伊勢原店; owner to confirm",
-  "hall-c438b4e1226058fb": "identity_unverified: the line.me/R/ti/p link opened a profile whose name could not be read; owner to confirm the LINE name",
-  "hall-a6cdb078a0523b40": "identity_unverified: LINE profile name MQ上川井店 vs hall ＭＱ（三益球殿） 上川井店; owner to confirm",
-  "maruko": "identity_unverified: the line.me/R/ti/p link opened a profile whose name could not be read; owner to confirm the LINE name"
+  "hall-e7472263f7fa35af": "identity_unverified: LINE profile name スーパースロットクラブZ vs hall Super Slot Club Z; owner to confirm"
  },
  "stores": {
   "hall-44ff247e6a80abd3": {
@@ -175,7 +171,8 @@
   },
   "hall-a74d0d3c82098cbb": {
    "rich_menu_status": "present",
-   "menu_review_status": "reviewed_no_latest_label",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "9/28~10/4 オススメ 推",
    "visible_menu_labels": [
     "15周年 (banner)",
     "9/28~10/4 オススメ 推 (banner)",
@@ -183,8 +180,22 @@
     "データ公開",
     "X"
    ],
-   "latest_action_label": null,
-   "notes": "A weekly オススメ banner tile exists but is not a 最新情報 label; not tapped (owner may decide)."
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-01T13:36:58.536057+00:00",
+    "visible_action_label": "9/28~10/4 オススメ 推",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/hall-a74d0d3c82098cbb_pre_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/hall-a74d0d3c82098cbb_post_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/hall-a74d0d3c82098cbb_post_action.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/action_results.jsonl#hall-a74d0d3c82098cbb"
+   ],
+   "notes": "Owner approved tapping the weekly オススメ banner (2026-10-01). A 9/28~10/4 オススメ image (recommended machines) arrived in the chat; no user-side text bubble."
   },
   "hall-50b3144563516470": {
    "rich_menu_status": "present",
@@ -239,7 +250,7 @@
     "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-03bf109cd8acde55_snap_1.xml",
     "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-03bf109cd8acde55_snap_2.xml"
    ],
-   "notes": "No rich menu or menu bar at onboarding and in two re-check captures; only the message composer is shown."
+   "notes": "No rich menu or menu bar at onboarding and in two re-check captures; only the message composer is shown. Owner confirmed this is くいーぷ鶴ヶ峰 (2026-10-01)."
   },
   "gurando-h-ru-kaneme-ten": {
    "rich_menu_status": "absent_confirmed",
@@ -253,6 +264,71 @@
     "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/gurando-h-ru-kaneme-ten_snap_2.xml"
    ],
    "notes": "No rich menu or menu bar at onboarding and in two re-check captures; only the message composer is shown."
+  },
+  "hall-96bfe9c243f3186d": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "HAPPY HALLOWEEN 10月もフジで遊ぼう!! (banner)",
+    "データ",
+    "マップ",
+    "DMM"
+   ],
+   "latest_action_label": null,
+   "notes": "Owner confirmed LINE name FUJI伊勢原店 = パチンコＦＵＪＩ伊勢原店 (2026-10-01)."
+  },
+  "hall-a6cdb078a0523b40": {
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-a6cdb078a0523b40.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-a6cdb078a0523b40.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-a6cdb078a0523b40_snap.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-a6cdb078a0523b40_snap_1.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-a6cdb078a0523b40_snap_2.xml"
+   ],
+   "notes": "Owner confirmed LINE name MQ上川井店 = ＭＱ（三益球殿） 上川井店 (2026-10-01). No rich menu at onboarding and in two re-check captures."
+  },
+  "maruko": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報",
+   "visible_menu_labels": [
+    "RENEWAL OPEN 10月10日 (banner)",
+    "最新情報",
+    "台データ",
+    "フロアマップ"
+   ],
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-01T13:57:15.434952+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/maruko_pre_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/maruko_post_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/maruko_post_action.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/action_results.jsonl#maruko"
+   ],
+   "notes": "Opened the P-WORLD hall page (マルコ, 横浜市緑区)."
+  },
+  "hall-c438b4e1226058fb": {
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-c438b4e1226058fb.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-c438b4e1226058fb.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-c438b4e1226058fb_snap.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-c438b4e1226058fb_snap_1.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-c438b4e1226058fb_snap_2.xml"
+   ],
+   "notes": "No rich menu in the talk-list capture after the friend-add and in a second re-check capture; only the message composer is shown."
   }
  }
 }

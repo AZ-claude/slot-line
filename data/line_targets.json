@@ -1925,6 +1925,66 @@
    ],
    "source": "line_onboarding_batch04_2026-10-01.json",
    "active": true
+  },
+  {
+   "hall_id": "hall-96bfe9c243f3186d",
+   "canonical_hall_id": "hall-96bfe9c243f3186d",
+   "collector_key": "hall-96bfe9c243f3186d",
+   "line_source_key": "@fuji-isehara",
+   "store_name": "パチンコＦＵＪＩ伊勢原店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_owner_confirmed_name",
+   "chat_header_name": "FUJI伊勢原店",
+   "profile_expected_names": [
+    "パチンコＦＵＪＩ伊勢原店"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-a6cdb078a0523b40",
+   "canonical_hall_id": "hall-a6cdb078a0523b40",
+   "collector_key": "hall-a6cdb078a0523b40",
+   "line_source_key": "@sxb3947f",
+   "store_name": "ＭＱ（三益球殿） 上川井店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_owner_confirmed_name",
+   "chat_header_name": "MQ上川井店",
+   "profile_expected_names": [
+    "ＭＱ（三益球殿） 上川井店"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-c438b4e1226058fb",
+   "canonical_hall_id": "hall-c438b4e1226058fb",
+   "collector_key": "hall-c438b4e1226058fb",
+   "line_source_key": "XCtIF6jUFn",
+   "store_name": "ピカデリー",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "ピカデリー",
+   "profile_expected_names": [
+    "ピカデリー"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
+  },
+  {
+   "hall_id": "maruko",
+   "canonical_hall_id": "maruko",
+   "collector_key": "maruko",
+   "line_source_key": "OpBrNI0R_g",
+   "store_name": "マルコ",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "マルコ",
+   "profile_expected_names": [
+    "マルコ"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
   }
  ]
 }

@@ -426,6 +426,8 @@ git push origin HEAD
 
 ## 7. 困ったとき
 
+短縮リンク（`line.me/R/ti/p/<英数字>`）は小さな「友だちを追加」画面で開く。スクリプトはこの画面の店名も読む。追加後に元のトークへ戻ることがあるので、トーク画面の店名がプロフィール名と違えば `chat_header_mismatch` として保存しない。その場合は `line_chat_snapshot.py` でトーク一覧から開き直して撮る。
+
 | 症状 | 原因と対処 |
 | --- | --- |
 | `friend_add_blocked`／「友だち追加できませんでした」 | LINEのID検索回数の上限。**その日は終了。** 24時間以上あけ、翌日まず1件だけ試す |
@@ -438,15 +440,15 @@ git push origin HEAD
 
 ---
 
-## 8. 引き継ぎ（2026-10-01 12:40 時点）
+## 8. 引き継ぎ（2026-10-01 23:00 時点）
 
-- **collector登録店舗：125**（`data/line_targets.json`）
-- **まだ追加していない候補：127店舗**（Step 1のスクリプトで確認。batch04で本人確認できなかった5店舗を除く）
+- **collector登録店舗：129**（`data/line_targets.json`）
+- **まだ追加していない候補：127店舗**（Step 1のスクリプトで確認）
 - **分類済みのpolicy表：** 既存41店舗、batch00〜04（`collection_policy_batch0*_*.json`）
   - batch02：Type A 0 / B 6 / C 6 / unresolved 14（MONACO桜木町・PIA横須賀中央は撮り直しで返信を確認し Type B に訂正済み）
   - batch03：Type A 1 / B 2 / C 0 / unresolved 7
-  - batch04：Type A 2 / B 3 / C 3 / unresolved 7（20件を試し15件追加）
-- **LINE ID検索の使用：** 2026-10-01 は約22回使用済み（その日はこれ以上の新規追加をしない）
+  - batch04：Type A 4 / B 4 / C 4 / unresolved 7（20件を試し19件追加。スーパーハリウッドは owner 了承のうえ「オススメ」画像を押して Type B）
+- **LINE ID検索の使用：** 2026-10-01 は約27回使用済み（その日はこれ以上の新規追加をしない）
 
 ### 次の人がやること
 
@@ -454,7 +456,8 @@ git push origin HEAD
 
 ### ownerの確認待ち
 
-- batch04 で本人確認できず追加していない5店舗：パチンコＦＵＪＩ伊勢原店（LINE名「FUJI伊勢原店」）、ＭＱ（三益球殿） 上川井店（LINE名「MQ上川井店」）、Super Slot Club Z・ピカデリー・マルコ（短縮リンク先のプロフィール名が読めない）
+- Super Slot Club Z（hall-e7472263f7fa35af）：LINE名「スーパースロットクラブZ」。同じ店か owner の確認待ち
+- owner の方針（2026-10-01）：「最新情報」以外でも、おすすめ・取材・イベントなど気になるボタンは1回押してよい
 
 - ニラク平塚黒部丘店：短縮リンク先のプロフィールで店名が読み取れず、本人確認できていない。ownerがLINE上の名前を確認できたら `--owner-confirmed-name` で追加する
 - ダイナム相模原店の旧アカウント `@fxl9564y`：ownerの判断で、そのまま残す

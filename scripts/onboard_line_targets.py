@@ -181,14 +181,16 @@ def classify_screen(xml: str) -> dict[str, Any]:
     header = next((item["text"] for item in items if item["id"] in {"chat_ui_title", "header_title"} and item["text"]), None)
     if header and any(item["id"].startswith("chat_ui") for item in items):
         return {"screen": "chat", "name": header, "rich_menu": any("oa_richmenu" in item["id"] for item in items)}
-    add = next((item for item in items if item["text"] == "友だち追加" and item["visible"]), None)
+    # Short links (line.me/R/ti/p/<code>) open a compact "友だちを追加" sheet with its own ids.
+    sheet_name = next((item["text"] for item in items if item["id"] == "addfriend_name" and item["text"]), None)
+    add = next((item for item in items if (item["text"] == "友だち追加" or item["id"] == "addfriend_button") and item["visible"]), None)
     # Unverified accounts show a "未認証" badge between the name and the friend count.
     text_items = [item for item in items if item["text"] and item["text"] not in {"未認証", "認証済"}]
     count_index = next((i for i, item in enumerate(text_items) if re.fullmatch(r"友だち\s*[\d,]+", item["text"])), None)
     talk = next((item for item in items if item["text"] == "トーク" and item["visible"]), None)
     pworld = next((pworld_path(value) for value in texts + [item["desc"] for item in items] if pworld_path(value)), None)
     if add or talk:
-        name = text_items[count_index - 1]["text"] if count_index else None
+        name = sheet_name or (text_items[count_index - 1]["text"] if count_index else None)
         return {"screen": "profile", "name": name, "pworld_path": pworld, "add": add["center"] if add else None, "talk": talk["center"] if talk else None}
     return {"screen": "unknown", "texts": texts[:12]}
 
@@ -264,9 +266,10 @@ def onboard_one(device: Device, candidate: dict[str, Any], evidence: Path) -> di
                 for _ in range(5):
                     time.sleep(0.8)
                     screen = classify_screen(device.dump())
-                    if screen["screen"] == "dialog" or (screen["screen"] == "profile" and screen.get("talk")) or screen["screen"] == "chat":
+                    # the compact sheet shows "トーク" next to "追加" from the start, so wait for "追加" to go
+                    if screen["screen"] in {"dialog", "chat"} or (screen["screen"] == "profile" and screen.get("talk") and not screen.get("add")):
                         break
-                if screen["screen"] == "profile" and screen.get("add") and not screen.get("talk"):
+                if screen["screen"] == "profile" and screen.get("add"):
                     attempt["friend_added"] = False
                     attempt["result"] = "friend_add_not_confirmed"
                     raise FriendAddBlocked("add button still shown after tapping it")
@@ -299,6 +302,11 @@ def onboard_one(device: Device, candidate: dict[str, Any], evidence: Path) -> di
             attempt["identity"] = identity(screen, candidate)
         if not attempt["identity"]:
             attempt["result"] = "identity_unverified"
+            continue
+        if attempt.get("profile_name") and normalize_name(screen["name"]) != normalize_name(attempt["profile_name"]):
+            # the compact add sheet can close back onto whatever chat was open before
+            attempt["result"] = "chat_header_mismatch"
+            attempt["chat_header_seen"] = screen["name"]
             continue
         attempt["chat_header"] = screen["name"]
         time.sleep(2)
