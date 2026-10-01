@@ -1,0 +1,454 @@
+{
+ "schema_version": 1,
+ "policy_id": "collection_policy_batch04_2026-10-01",
+ "source_inventory": null,
+ "source_review": "collection_policy_batch04_2026-10-01_review",
+ "scheduler_modified": false,
+ "passive_collector_modified": false,
+ "daily_policy": {
+  "type_a_passive": "passive scan only",
+  "type_b_passive_plus_active": "passive scan + scheduled active trigger (text trigger when text_trigger_verified, otherwise the verified rich-menu action)",
+  "type_c_passive_external_web": "passive scan only; external_url is an auxiliary source",
+  "unresolved": "passive scan only until evidence is sufficient"
+ },
+ "counts": {
+  "type_a_passive": 2,
+  "type_b_passive_plus_active": 3,
+  "type_c_passive_external_web": 3,
+  "unresolved": 7
+ },
+ "store_count": 15,
+ "stores": [
+  {
+   "hall_id": "hall-44ff247e6a80abd3",
+   "canonical_hall_id": "hall-44ff247e6a80abd3",
+   "line_source_key": "@yumekyuden",
+   "store_name": "夢球殿",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "新着情報",
+   "action_result": "line_reply",
+   "collection_type": "type_b_passive_plus_active",
+   "active_method": "rich_menu",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-44ff247e6a80abd3.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-44ff247e6a80abd3.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/hall-44ff247e6a80abd3_pre_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/hall-44ff247e6a80abd3_post_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/hall-44ff247e6a80abd3_post_action.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/action_results.jsonl#hall-44ff247e6a80abd3",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/reply_recheck/hall-44ff247e6a80abd3_snap.jpg"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": true,
+    "external_url_role": null
+   },
+   "notes": "A carousel reply (新台導入 cards) arrived in the chat after the tap; cards had loaded in the re-check capture. No user-side text bubble."
+  },
+  {
+   "hall_id": "hall-6d3dcf249959a4cd",
+   "canonical_hall_id": "hall-6d3dcf249959a4cd",
+   "line_source_key": "@yps1547g",
+   "store_name": "グランド アクア",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-6d3dcf249959a4cd.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-6d3dcf249959a4cd.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   }
+  },
+  {
+   "hall_id": "sunsun-kusu-hommoku-ten",
+   "canonical_hall_id": "sunsun-kusu-hommoku-ten",
+   "line_source_key": "@255hlwby",
+   "store_name": "SUNSUNアークス本牧店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "最新情報",
+   "action_result": "line_reply",
+   "collection_type": "type_b_passive_plus_active",
+   "active_method": "rich_menu",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/sunsun-kusu-hommoku-ten.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/sunsun-kusu-hommoku-ten.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/sunsun-kusu-hommoku-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/sunsun-kusu-hommoku-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/sunsun-kusu-hommoku-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/action_results.jsonl#sunsun-kusu-hommoku-ten"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": true,
+    "external_url_role": null
+   },
+   "notes": "A store text reply (seasonal greeting) appeared after the tap; no user-side text bubble."
+  },
+  {
+   "hall_id": "hall-03bf109cd8acde55",
+   "canonical_hall_id": "hall-03bf109cd8acde55",
+   "line_source_key": "@082vrhpq",
+   "store_name": "くいーぷ",
+   "rich_menu_status": "absent_confirmed",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "not_applicable",
+   "collection_type": "type_a_passive",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-03bf109cd8acde55.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-03bf109cd8acde55.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-03bf109cd8acde55_snap.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-03bf109cd8acde55_snap_1.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-03bf109cd8acde55_snap_2.xml"
+   ],
+   "confidence": "medium",
+   "verification_status": "rich_menu_absent_confirmed",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "No rich menu or menu bar at onboarding and in two re-check captures; only the message composer is shown."
+  },
+  {
+   "hall_id": "noa-kusu",
+   "canonical_hall_id": "noa-kusu",
+   "line_source_key": "@379gwnyf",
+   "store_name": "ノアアークス",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "NEW 最新情報",
+   "action_result": "line_reply",
+   "collection_type": "type_b_passive_plus_active",
+   "active_method": "rich_menu",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/noa-kusu.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/noa-kusu.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/noa-kusu_pre_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/noa-kusu_post_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/noa-kusu_post_action.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/action_results.jsonl#noa-kusu"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": true,
+    "external_url_role": null
+   },
+   "notes": "A store image reply (e東京喰種 machine banner) appeared after the tap; no user-side text bubble."
+  },
+  {
+   "hall_id": "hall-70484ca736a3a65e",
+   "canonical_hall_id": "hall-70484ca736a3a65e",
+   "line_source_key": "@489thdnz",
+   "store_name": "ノア 溝口店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-70484ca736a3a65e.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-70484ca736a3a65e.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "The welcome message says the buttons show 最新情報, but no button is labelled as such; not tapped."
+  },
+  {
+   "hall_id": "hall-a74d0d3c82098cbb",
+   "canonical_hall_id": "hall-a74d0d3c82098cbb",
+   "line_source_key": "@eyr1996q",
+   "store_name": "スーパーハリウッド",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-a74d0d3c82098cbb.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-a74d0d3c82098cbb.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "A weekly オススメ banner tile exists but is not a 最新情報 label; not tapped (owner may decide)."
+  },
+  {
+   "hall_id": "hall-50b3144563516470",
+   "canonical_hall_id": "hall-50b3144563516470",
+   "line_source_key": "@sunlucky-rinkan",
+   "store_name": "サンラッキー 中央林間店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-50b3144563516470.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-50b3144563516470.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   }
+  },
+  {
+   "hall_id": "gurando-h-ru-kaneme-ten",
+   "canonical_hall_id": "gurando-h-ru-kaneme-ten",
+   "line_source_key": "@gh-kaname",
+   "store_name": "グランドホール金目店",
+   "rich_menu_status": "absent_confirmed",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "not_applicable",
+   "collection_type": "type_a_passive",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/gurando-h-ru-kaneme-ten.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/gurando-h-ru-kaneme-ten.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/gurando-h-ru-kaneme-ten_snap.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/gurando-h-ru-kaneme-ten_snap_1.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/gurando-h-ru-kaneme-ten_snap_2.xml"
+   ],
+   "confidence": "medium",
+   "verification_status": "rich_menu_absent_confirmed",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "No rich menu or menu bar at onboarding and in two re-check captures; only the message composer is shown."
+  },
+  {
+   "hall_id": "p-r-fi-re-tama-pur-za",
+   "canonical_hall_id": "p-r-fi-re-tama-pur-za",
+   "line_source_key": "@yev3377o",
+   "store_name": "パーラーフィオーレたまプラーザ",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/p-r-fi-re-tama-pur-za.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/p-r-fi-re-tama-pur-za.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   }
+  },
+  {
+   "hall_id": "kurie-sh-nandai-ten",
+   "canonical_hall_id": "kurie-sh-nandai-ten",
+   "line_source_key": "@yim9148v",
+   "store_name": "クリエ湘南台店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/kurie-sh-nandai-ten.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/kurie-sh-nandai-ten.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   }
+  },
+  {
+   "hall_id": "hall-648452fa6516a3fd",
+   "canonical_hall_id": "hall-648452fa6516a3fd",
+   "line_source_key": "@706vdbqq",
+   "store_name": "ＳＫＩＰ小田原ダイヤ街店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "NEW 最新情報",
+   "action_result": "external_web",
+   "collection_type": "type_c_passive_external_web",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-648452fa6516a3fd.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-648452fa6516a3fd.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/hall-648452fa6516a3fd_pre_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/hall-648452fa6516a3fd_post_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/hall-648452fa6516a3fd_post_action.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/action_results.jsonl#hall-648452fa6516a3fd"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": "auxiliary_source"
+   },
+   "notes": "Opened the P-WORLD hall page (SKIP小田原ダイヤ街店)."
+  },
+  {
+   "hall_id": "higashiyoko-fesuta-5",
+   "canonical_hall_id": "higashiyoko-fesuta-5",
+   "line_source_key": "@477cfcve",
+   "store_name": "東横フェスタ5",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "最新情報 NEW INFORMATION",
+   "action_result": "external_web",
+   "collection_type": "type_c_passive_external_web",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": "https://p-town.dmm.com/shops/kanagawa/4530",
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/higashiyoko-fesuta-5.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/higashiyoko-fesuta-5.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/higashiyoko-fesuta-5_pre_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/higashiyoko-fesuta-5_post_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/higashiyoko-fesuta-5_post_action.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/action_results.jsonl#higashiyoko-fesuta-5"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": "auxiliary_source"
+   },
+   "notes": "Opened the DMMぱちタウン store page (東横フェスタ5)."
+  },
+  {
+   "hall_id": "japanny-arufat-muzu",
+   "canonical_hall_id": "japanny-arufat-muzu",
+   "line_source_key": "@jsy8709u",
+   "store_name": "ジャパンニューアルファテームズ",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "DMMぱちタウン 最新情報はコチラ!!",
+   "action_result": "external_web",
+   "collection_type": "type_c_passive_external_web",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": "https://p-town.dmm.com/shops/kanagawa/4910",
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/japanny-arufat-muzu.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/japanny-arufat-muzu.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/japanny-arufat-muzu_pre_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/japanny-arufat-muzu_post_action.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/japanny-arufat-muzu_post_action.xml",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/actions/action_results.jsonl#japanny-arufat-muzu"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": "auxiliary_source"
+   },
+   "notes": "Opened the DMMぱちタウン store page (ジャパンニューアルファ テームズ)."
+  },
+  {
+   "hall_id": "p-ku-sagamihara",
+   "canonical_hall_id": "p-ku-sagamihara",
+   "line_source_key": "@park.sagamihara",
+   "store_name": "ピーアーク相模原",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/p-ku-sagamihara.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/p-ku-sagamihara.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   }
+  }
+ ]
+}

@@ -438,21 +438,23 @@ git push origin HEAD
 
 ---
 
-## 8. 引き継ぎ（2026-09-30 05:00 時点）
+## 8. 引き継ぎ（2026-10-01 12:40 時点）
 
-- **collector登録店舗：110**（`data/line_targets.json`）
-- **まだ追加していない候補：147店舗**（Step 1のスクリプトで確認）
-- **分類済みのpolicy表：** 既存41店舗、batch00〜03（`collection_policy_batch0*_*.json`）
+- **collector登録店舗：125**（`data/line_targets.json`）
+- **まだ追加していない候補：127店舗**（Step 1のスクリプトで確認。batch04で本人確認できなかった5店舗を除く）
+- **分類済みのpolicy表：** 既存41店舗、batch00〜04（`collection_policy_batch0*_*.json`）
   - batch02：Type A 0 / B 6 / C 6 / unresolved 14（MONACO桜木町・PIA横須賀中央は撮り直しで返信を確認し Type B に訂正済み）
   - batch03：Type A 1 / B 2 / C 0 / unresolved 7
-- **LINE ID検索の使用：** 2026-09-30 は4回使用済み
+  - batch04：Type A 2 / B 3 / C 3 / unresolved 7（20件を試し15件追加）
+- **LINE ID検索の使用：** 2026-10-01 は約22回使用済み（その日はこれ以上の新規追加をしない）
 
 ### 次の人がやること
 
-2026-09-30 に §8 の4件はすべて完了しました（スクランブル田谷店・キコーナ戸塚店は押しても反応がなく unresolved、マルハン相模原店は Type B、マルハン川崎桜本店は Type A）。
-新規追加は owner の指示で一時停止中です。再開するときは Step 1 から行います。
+新規追加は Step 1 から続ける。翌日以降に batch05 として最大20件。
 
 ### ownerの確認待ち
+
+- batch04 で本人確認できず追加していない5店舗：パチンコＦＵＪＩ伊勢原店（LINE名「FUJI伊勢原店」）、ＭＱ（三益球殿） 上川井店（LINE名「MQ上川井店」）、Super Slot Club Z・ピカデリー・マルコ（短縮リンク先のプロフィール名が読めない）
 
 - ニラク平塚黒部丘店：短縮リンク先のプロフィールで店名が読み取れず、本人確認できていない。ownerがLINE上の名前を確認できたら `--owner-confirmed-name` で追加する
 - ダイナム相模原店の旧アカウント `@fxl9564y`：ownerの判断で、そのまま残す

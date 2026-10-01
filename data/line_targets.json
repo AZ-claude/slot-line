@@ -1700,6 +1700,231 @@
    ],
    "source": "line_onboarding_batch03_2026-09-29.json",
    "active": true
+  },
+  {
+   "hall_id": "hall-44ff247e6a80abd3",
+   "canonical_hall_id": "hall-44ff247e6a80abd3",
+   "collector_key": "hall-44ff247e6a80abd3",
+   "line_source_key": "@yumekyuden",
+   "store_name": "夢球殿",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "夢球殿",
+   "profile_expected_names": [
+    "夢球殿"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-6d3dcf249959a4cd",
+   "canonical_hall_id": "hall-6d3dcf249959a4cd",
+   "collector_key": "hall-6d3dcf249959a4cd",
+   "line_source_key": "@yps1547g",
+   "store_name": "グランド アクア",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "グランドアクア",
+   "profile_expected_names": [
+    "グランド アクア"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
+  },
+  {
+   "hall_id": "sunsun-kusu-hommoku-ten",
+   "canonical_hall_id": "sunsun-kusu-hommoku-ten",
+   "collector_key": "sunsun-kusu-hommoku-ten",
+   "line_source_key": "@255hlwby",
+   "store_name": "SUNSUNアークス本牧店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "SUNSUNアークス",
+   "profile_expected_names": [
+    "SUNSUNアークス本牧店"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-03bf109cd8acde55",
+   "canonical_hall_id": "hall-03bf109cd8acde55",
+   "collector_key": "hall-03bf109cd8acde55",
+   "line_source_key": "@082vrhpq",
+   "store_name": "くいーぷ",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "くいーぷ",
+   "profile_expected_names": [
+    "くいーぷ"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
+  },
+  {
+   "hall_id": "noa-kusu",
+   "canonical_hall_id": "noa-kusu",
+   "collector_key": "noa-kusu",
+   "line_source_key": "@379gwnyf",
+   "store_name": "ノアアークス",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "ノアアークス",
+   "profile_expected_names": [
+    "ノアアークス"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-70484ca736a3a65e",
+   "canonical_hall_id": "hall-70484ca736a3a65e",
+   "collector_key": "hall-70484ca736a3a65e",
+   "line_source_key": "@489thdnz",
+   "store_name": "ノア 溝口店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "ノア溝口店",
+   "profile_expected_names": [
+    "ノア 溝口店"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-a74d0d3c82098cbb",
+   "canonical_hall_id": "hall-a74d0d3c82098cbb",
+   "collector_key": "hall-a74d0d3c82098cbb",
+   "line_source_key": "@eyr1996q",
+   "store_name": "スーパーハリウッド",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "スーパーハリウッド伊勢佐木",
+   "profile_expected_names": [
+    "スーパーハリウッド"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-50b3144563516470",
+   "canonical_hall_id": "hall-50b3144563516470",
+   "collector_key": "hall-50b3144563516470",
+   "line_source_key": "@sunlucky-rinkan",
+   "store_name": "サンラッキー 中央林間店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "サンラッキー中央林間店",
+   "profile_expected_names": [
+    "サンラッキー 中央林間店"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
+  },
+  {
+   "hall_id": "gurando-h-ru-kaneme-ten",
+   "canonical_hall_id": "gurando-h-ru-kaneme-ten",
+   "collector_key": "gurando-h-ru-kaneme-ten",
+   "line_source_key": "@gh-kaname",
+   "store_name": "グランドホール金目店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "グランドホール金目店",
+   "profile_expected_names": [
+    "グランドホール金目店"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
+  },
+  {
+   "hall_id": "p-r-fi-re-tama-pur-za",
+   "canonical_hall_id": "p-r-fi-re-tama-pur-za",
+   "collector_key": "p-r-fi-re-tama-pur-za",
+   "line_source_key": "@yev3377o",
+   "store_name": "パーラーフィオーレたまプラーザ",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "フィオーレたまプラーザ",
+   "profile_expected_names": [
+    "パーラーフィオーレたまプラーザ"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
+  },
+  {
+   "hall_id": "kurie-sh-nandai-ten",
+   "canonical_hall_id": "kurie-sh-nandai-ten",
+   "collector_key": "kurie-sh-nandai-ten",
+   "line_source_key": "@yim9148v",
+   "store_name": "クリエ湘南台店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "クリエ湘南台店",
+   "profile_expected_names": [
+    "クリエ湘南台店"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-648452fa6516a3fd",
+   "canonical_hall_id": "hall-648452fa6516a3fd",
+   "collector_key": "hall-648452fa6516a3fd",
+   "line_source_key": "@706vdbqq",
+   "store_name": "ＳＫＩＰ小田原ダイヤ街店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "skip小田原ダイヤ街店",
+   "profile_expected_names": [
+    "ＳＫＩＰ小田原ダイヤ街店"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
+  },
+  {
+   "hall_id": "higashiyoko-fesuta-5",
+   "canonical_hall_id": "higashiyoko-fesuta-5",
+   "collector_key": "higashiyoko-fesuta-5",
+   "line_source_key": "@477cfcve",
+   "store_name": "東横フェスタ5",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "東横フェスタ5",
+   "profile_expected_names": [
+    "東横フェスタ5"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
+  },
+  {
+   "hall_id": "japanny-arufat-muzu",
+   "canonical_hall_id": "japanny-arufat-muzu",
+   "collector_key": "japanny-arufat-muzu",
+   "line_source_key": "@jsy8709u",
+   "store_name": "ジャパンニューアルファテームズ",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "ジャパンニューアルファテームズ",
+   "profile_expected_names": [
+    "ジャパンニューアルファテームズ"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
+  },
+  {
+   "hall_id": "p-ku-sagamihara",
+   "canonical_hall_id": "p-ku-sagamihara",
+   "collector_key": "p-ku-sagamihara",
+   "line_source_key": "@park.sagamihara",
+   "store_name": "ピーアーク相模原",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "ピーアーク相模原",
+   "profile_expected_names": [
+    "ピーアーク相模原"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
   }
  ]
 }

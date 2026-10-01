@@ -991,6 +991,141 @@
    "text_trigger": "off",
    "trigger_text": null,
    "policy_file": "collection_policy_batch03_2026-09-29.json"
+  },
+  {
+   "hall_id": "hall-44ff247e6a80abd3",
+   "line_source_key": "@yumekyuden",
+   "search_name": "夢球殿",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "hall-6d3dcf249959a4cd",
+   "line_source_key": "@yps1547g",
+   "search_name": "グランドアクア",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "sunsun-kusu-hommoku-ten",
+   "line_source_key": "@255hlwby",
+   "search_name": "SUNSUNアークス",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "hall-03bf109cd8acde55",
+   "line_source_key": "@082vrhpq",
+   "search_name": "くいーぷ",
+   "collection_type": "type_a_passive",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "noa-kusu",
+   "line_source_key": "@379gwnyf",
+   "search_name": "ノアアークス",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "hall-70484ca736a3a65e",
+   "line_source_key": "@489thdnz",
+   "search_name": "ノア溝口店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "hall-a74d0d3c82098cbb",
+   "line_source_key": "@eyr1996q",
+   "search_name": "スーパーハリウッド伊勢佐木",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "hall-50b3144563516470",
+   "line_source_key": "@sunlucky-rinkan",
+   "search_name": "サンラッキー中央林間店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "gurando-h-ru-kaneme-ten",
+   "line_source_key": "@gh-kaname",
+   "search_name": "グランドホール金目店",
+   "collection_type": "type_a_passive",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "p-r-fi-re-tama-pur-za",
+   "line_source_key": "@yev3377o",
+   "search_name": "フィオーレたまプラーザ",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "kurie-sh-nandai-ten",
+   "line_source_key": "@yim9148v",
+   "search_name": "クリエ湘南台店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "hall-648452fa6516a3fd",
+   "line_source_key": "@706vdbqq",
+   "search_name": "skip小田原ダイヤ街店",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "higashiyoko-fesuta-5",
+   "line_source_key": "@477cfcve",
+   "search_name": "東横フェスタ5",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "japanny-arufat-muzu",
+   "line_source_key": "@jsy8709u",
+   "search_name": "ジャパンニューアルファテームズ",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "p-ku-sagamihara",
+   "line_source_key": "@park.sagamihara",
+   "search_name": "ピーアーク相模原",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
   }
  ]
 }
