@@ -43,8 +43,12 @@ def normalize_ocr(text: str) -> str:
     return re.sub(r"\s+", "", text)
 
 
-def ocr_lines(png: Path, crop: tuple[int, int, int, int] | None = None) -> list[dict[str, Any]]:
-    """OCR a PNG (optionally a crop box in image pixels). Returns lines with boxes."""
+def ocr_lines(png: Path, crop: tuple[int, int, int, int] | None = None, scale: int = 1) -> list[dict[str, Any]]:
+    """OCR a PNG (optionally a crop box in image pixels). Returns lines with boxes.
+
+    scale > 1 enlarges the image first: Windows OCR misreads small UI text
+    (chat names in the search list) far less when it is bigger. Boxes stay in
+    the original pixels."""
     from PIL import Image
     from winrt.windows.globalization import Language
     from winrt.windows.graphics.imaging import BitmapDecoder
@@ -52,10 +56,18 @@ def ocr_lines(png: Path, crop: tuple[int, int, int, int] | None = None) -> list[
     from winrt.windows.storage import FileAccessMode, StorageFile
 
     source = png
-    if crop:
-        source = png.with_name(png.stem + "_crop.png")
+    if crop or scale > 1:
+        source = png.with_name(png.stem + "_ocr.png")
         with Image.open(png) as image:
-            image.crop(crop).save(source)
+            image = image.crop(crop) if crop else image
+            if scale > 1:
+                # the darkest channel turns coloured text (LINE highlights search matches in
+                # green) black, which Windows OCR reads far better
+                from PIL import ImageChops
+                r, g, b = image.convert("RGB").split()
+                image = ImageChops.darker(ImageChops.darker(r, g), b)
+                image = image.resize((image.width * scale, image.height * scale), Image.LANCZOS)
+            image.save(source)
 
     async def run() -> list[dict[str, Any]]:
         file = await StorageFile.get_file_from_path_async(str(source.resolve()))
@@ -75,13 +87,13 @@ def ocr_lines(png: Path, crop: tuple[int, int, int, int] | None = None) -> list[
             y1 = max(w.bounding_rect.y + w.bounding_rect.height for w in words)
             ox, oy = (crop[0], crop[1]) if crop else (0, 0)
             lines.append({"text": normalize_ocr(line.text), "raw": line.text,
-                          "box": [int(x0 + ox), int(y0 + oy), int(x1 + ox), int(y1 + oy)]})
+                          "box": [int(x0 / scale + ox), int(y0 / scale + oy), int(x1 / scale + ox), int(y1 / scale + oy)]})
         return lines
 
     try:
         return asyncio.run(run())
     finally:
-        if crop:
+        if source != png:
             source.unlink(missing_ok=True)
 
 

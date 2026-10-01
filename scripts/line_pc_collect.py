@@ -65,11 +65,22 @@ def ocr_fold(text: str) -> str:
     folded = norm(text)
     for src, dst in OCR_CONFUSABLE:
         folded = folded.replace(src, dst)
-    return folded
+    # voiced marks (ぷ/ぶ) and long-vowel dashes (ー/-) are the commonest misreads
+    folded = "".join(c for c in unicodedata.normalize("NFD", folded) if c not in "\u3099\u309a")
+    return "".join("ー" if c in "-−‐―ｰ一" else c for c in unicodedata.normalize("NFC", folded))
 
 
 def similarity(a: str, b: str) -> float:
     return difflib.SequenceMatcher(None, ocr_fold(a), ocr_fold(b)).ratio()
+
+
+def name_score(seen: str, name: str) -> float:
+    """Similarity of an OCR'd chat name to a store name. A longer name that merely
+    contains it (くいーぷ東戸塚店 for くいーぷ) is another store of the chain."""
+    a, b = ocr_fold(seen), ocr_fold(name)
+    if b and b in a and len(a) - len(b) >= 2:
+        return 0.0
+    return similarity(seen, name)
 
 
 NOISE_RE = __import__("re").compile(
@@ -202,22 +213,43 @@ class Collector:
         pc.key("ctrl+a")
         pc.paste(name)
         time.sleep(2.0)
-        best = 0.0
+        best, best_y = 0.0, None
+        result_lines: list[str] = []
         for _ in range(3):  # the result list can take a moment to appear
             results = pc.shot(self.tmp / "results.png", RESULTS_BOX)
-            best = max((similarity(line["text"], n) for line in ocr_lines(results) for n in names), default=0.0)
+            lines = ocr_lines(results, scale=2)
+            result_lines = [line["text"] for line in lines]
+            for line in lines:
+                score = max(name_score(line["text"], n) for n in names)
+                if score > best:
+                    best, best_y = score, (line["box"][1] + line["box"][3]) // 2
             if best >= HEADER_MIN_SIMILARITY:
                 break
             time.sleep(1.5)
         if best < HEADER_MIN_SIMILARITY:
-            return {"ok": False, "reason": "no_matching_search_result", "best_result_similarity": round(best, 2)}
-        pc.click(*FIRST_RESULT)
+            # OCR text only (no image) so a skipped store can be fixed with data/line_ocr_aliases.json
+            return {"ok": False, "reason": "no_matching_search_result", "best_result_similarity": round(best, 2),
+                    "result_ocr": result_lines[:8]}
+        # click the matching row itself: the list can hold section titles, other chats with a
+        # similar name and message hits above it
+        pc.click(FIRST_RESULT[0], RESULTS_BOX[1] + best_y)
         time.sleep(2.5)
-        header = pc.shot(self.tmp / "header.png", HEADER_BOX)
-        header_text = "".join(line["text"] for line in ocr_lines(header))
-        score = max(similarity(header_text, n) for n in names)
+        score, header_text = 0.0, ""
+        for attempt in range(3):  # a short name is sometimes not read at all on the first try
+            header = pc.shot(self.tmp / "header.png", HEADER_BOX)
+            for scale in (2, 1):
+                text = "".join(line["text"] for line in ocr_lines(header, scale=scale))
+                text_score = max(name_score(text, n) for n in names)
+                if text_score >= score:
+                    score, header_text = text_score, text
+                if score >= HEADER_MIN_SIMILARITY:
+                    break
+            if score >= HEADER_MIN_SIMILARITY:
+                break
+            time.sleep(1.5)
         if score < HEADER_MIN_SIMILARITY:
-            return {"ok": False, "reason": "chat_header_mismatch", "header_similarity": round(score, 2)}
+            return {"ok": False, "reason": "chat_header_mismatch", "header_similarity": round(score, 2),
+                    "header_ocr": header_text[:60], "result_ocr": result_lines[:8]}
         return {"ok": True, "header_ocr": header_text, "header_similarity": round(score, 2)}
 
     def to_bottom(self) -> None:
