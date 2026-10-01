@@ -1985,6 +1985,21 @@
    ],
    "source": "line_onboarding_batch04_2026-10-01.json",
    "active": true
+  },
+  {
+   "hall_id": "hall-e7472263f7fa35af",
+   "canonical_hall_id": "hall-e7472263f7fa35af",
+   "collector_key": "hall-e7472263f7fa35af",
+   "line_source_key": "ZHbdE3Evru",
+   "store_name": "Super Slot Club Z",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_owner_confirmed_name",
+   "chat_header_name": "スーパースロットクラブZ",
+   "profile_expected_names": [
+    "Super Slot Club Z"
+   ],
+   "source": "line_onboarding_batch04_2026-10-01.json",
+   "active": true
   }
  ]
 }

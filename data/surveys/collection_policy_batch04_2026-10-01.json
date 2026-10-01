@@ -15,9 +15,9 @@
   "type_a_passive": 4,
   "type_b_passive_plus_active": 4,
   "type_c_passive_external_web": 4,
-  "unresolved": 7
+  "unresolved": 8
  },
- "store_count": 19,
+ "store_count": 20,
  "stores": [
   {
    "hall_id": "hall-44ff247e6a80abd3",
@@ -571,6 +571,33 @@
     "external_url_role": "auxiliary_source"
    },
    "notes": "Opened the P-WORLD hall page (マルコ, 横浜市緑区)."
+  },
+  {
+   "hall_id": "hall-e7472263f7fa35af",
+   "canonical_hall_id": "hall-e7472263f7fa35af",
+   "line_source_key": "ZHbdE3Evru",
+   "store_name": "Super Slot Club Z",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-e7472263f7fa35af.jpg",
+    "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-e7472263f7fa35af.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "Owner confirmed LINE name スーパースロットクラブZ = Super Slot Club Z (2026-10-01)."
   }
  ]
 }

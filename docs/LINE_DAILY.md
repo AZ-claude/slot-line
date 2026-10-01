@@ -231,4 +231,4 @@ python3 scripts/line_pc_sync.py                 # Windows → data/line_pc_raw/<
 python3 -m http.server 8765 -d data/line_pc_site
 ```
 
-`index.html` に店舗一覧（最新投稿日・件数・日数・Type・送信の有無）、`stores/<hall_id>.html` に日ごと（新しい順）の投稿を並べる。画像は幅300pxのWebP（品質38）に圧縮し、遅延読み込みする（1件あたり約15KB）。
+`matrix.html` は店舗×投稿日の一覧表（各セルに60pxの小さな画像、クリックで拡大。横並びは枚数バッジつき）。`index.html` に店舗一覧（最新投稿日・件数・日数・Type・送信の有無）、`stores/<hall_id>.html` に日ごと（新しい順）の投稿を並べる。画像は幅300pxのWebP（品質38）に圧縮し、遅延読み込みする（1件あたり約15KB）。

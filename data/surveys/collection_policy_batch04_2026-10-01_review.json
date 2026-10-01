@@ -13,9 +13,7 @@
   "consents_granted": 0,
   "chat_open_route": "talk-list rows (no LINE ID search) for rich-menu taps"
  },
- "not_onboarded": {
-  "hall-e7472263f7fa35af": "identity_unverified: LINE profile name スーパースロットクラブZ vs hall Super Slot Club Z; owner to confirm"
- },
+ "not_onboarded": {},
  "stores": {
   "hall-44ff247e6a80abd3": {
    "rich_menu_status": "present",
@@ -329,6 +327,18 @@
     "data/surveys/line_onboarding_batch04_2026-10-01_evidence/absence_recheck/hall-c438b4e1226058fb_snap_2.xml"
    ],
    "notes": "No rich menu in the talk-list capture after the friend-add and in a second re-check capture; only the message composer is shown."
+  },
+  "hall-e7472263f7fa35af": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "P-WORLD",
+    "FLOOR MAP",
+    "ゼウスくんのLINEブログ",
+    "X"
+   ],
+   "latest_action_label": null,
+   "notes": "Owner confirmed LINE name スーパースロットクラブZ = Super Slot Club Z (2026-10-01)."
   }
  }
 }

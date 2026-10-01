@@ -442,12 +442,12 @@ git push origin HEAD
 
 ## 8. 引き継ぎ（2026-10-01 23:00 時点）
 
-- **collector登録店舗：129**（`data/line_targets.json`）
+- **collector登録店舗：130**（`data/line_targets.json`）
 - **まだ追加していない候補：127店舗**（Step 1のスクリプトで確認）
 - **分類済みのpolicy表：** 既存41店舗、batch00〜04（`collection_policy_batch0*_*.json`）
   - batch02：Type A 0 / B 6 / C 6 / unresolved 14（MONACO桜木町・PIA横須賀中央は撮り直しで返信を確認し Type B に訂正済み）
   - batch03：Type A 1 / B 2 / C 0 / unresolved 7
-  - batch04：Type A 4 / B 4 / C 4 / unresolved 7（20件を試し19件追加。スーパーハリウッドは owner 了承のうえ「オススメ」画像を押して Type B）
+  - batch04：Type A 4 / B 4 / C 4 / unresolved 8（20件すべて追加。スーパーハリウッドは owner 了承のうえ「オススメ」画像を押して Type B）
 - **LINE ID検索の使用：** 2026-10-01 は約27回使用済み（その日はこれ以上の新規追加をしない）
 
 ### 次の人がやること
@@ -456,7 +456,6 @@ git push origin HEAD
 
 ### ownerの確認待ち
 
-- Super Slot Club Z（hall-e7472263f7fa35af）：LINE名「スーパースロットクラブZ」。同じ店か owner の確認待ち
 - owner の方針（2026-10-01）：「最新情報」以外でも、おすすめ・取材・イベントなど気になるボタンは1回押してよい
 
 - ニラク平塚黒部丘店：短縮リンク先のプロフィールで店名が読み取れず、本人確認できていない。ownerがLINE上の名前を確認できたら `--owner-confirmed-name` で追加する

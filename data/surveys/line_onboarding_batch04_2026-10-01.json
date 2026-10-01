@@ -2,23 +2,6 @@
  "schema_version": 1,
  "records": [
   {
-   "hall_id": "hall-e7472263f7fa35af",
-   "store_name": "Super Slot Club Z",
-   "attempts": [
-    {
-     "line_source_key": "ZHbdE3Evru",
-     "url": "https://line.me/R/ti/p/ZHbdE3Evru",
-     "first_screen": "profile",
-     "profile_xml": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-e7472263f7fa35af_profile_0.xml",
-     "profile_name": null,
-     "profile_pworld_path": null,
-     "identity": null,
-     "result": "identity_unverified"
-    }
-   ],
-   "result": "not_onboarded"
-  },
-  {
    "hall_id": "hall-44ff247e6a80abd3",
    "store_name": "夢球殿",
    "attempts": [
@@ -565,6 +548,35 @@
    "identity_status": "verified_normalized_name",
    "friend_added": true,
    "onboarded_at": "2026-10-01T13:47:29.620937+00:00"
+  },
+  {
+   "hall_id": "hall-e7472263f7fa35af",
+   "store_name": "Super Slot Club Z",
+   "attempts": [
+    {
+     "line_source_key": "ZHbdE3Evru",
+     "url": "https://line.me/R/ti/p/ZHbdE3Evru",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-e7472263f7fa35af_profile_0.xml",
+     "profile_name": "スーパースロットクラブZ",
+     "profile_pworld_path": null,
+     "identity": "verified_owner_confirmed_name",
+     "friend_added": true,
+     "result": "onboarded",
+     "chat_header_seen": "マルコ",
+     "chat_header": "スーパースロットクラブZ",
+     "screenshot": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-e7472263f7fa35af.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch04_2026-10-01_evidence/hall-e7472263f7fa35af.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "evidence_note": "The compact add sheet closed back onto the previously open chat (マルコ), so the chat was re-captured from the talk list with scripts/line_chat_snapshot.py (no ID search)."
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "ZHbdE3Evru",
+   "identity_status": "verified_owner_confirmed_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-01T14:04:05.908082+00:00"
   }
  ]
 }

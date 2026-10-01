@@ -119,11 +119,13 @@ def build(since: str | None) -> dict:
             for post in sorted(by_day[day], key=lambda r: r.get("posted_time") or "99:99"):
                 cards = [c for c in post.get("cards", []) if (POSTS / c).exists()]
                 if cards:
-                    imgs = "".join(f"<img loading='lazy' src='../img/{webp(POSTS / c, SITE / 'img' / (Path(c).stem + '.webp'))}' alt=''>" for c in cards)
+                    srcs = [webp(POSTS / c, SITE / 'img' / (Path(c).stem + '.webp')) for c in cards]
+                    imgs = "".join(f"<img loading='lazy' src='../img/{src}' alt=''>" for src in srcs)
                     media, cls = f"<div class='cards'>{imgs}</div>", "post wide"
                 else:
-                    src = webp(POSTS / post["image"], SITE / "img" / (post["post_id"] + ".webp"))
-                    media, cls = f"<img loading='lazy' src='../img/{src}' alt=''>", "post"
+                    srcs = [webp(POSTS / post["image"], SITE / "img" / (post["post_id"] + ".webp"))]
+                    media, cls = f"<img loading='lazy' src='../img/{srcs[0]}' alt=''>", "post"
+                post["_srcs"] = srcs
                 ocr = html.escape(post.get("ocr_text") or "")
                 body.append(f"<div class='{cls}'>{media}<div class='cap'><b>{html.escape(post.get('posted_time') or '時刻不明')}</b>"
                             + (f" ・ 横並び{len(cards)}枚" if cards else "")
@@ -135,6 +137,7 @@ def build(since: str | None) -> dict:
         rows.append((max(dated) if dated else "", hall, name, meta, len(posts), len(by_day)))
 
     rows.sort(reverse=True)
+    write_matrix(rows, by_store)
     table = ["<input id='q' placeholder='店名で絞り込み'><table><thead><tr><th>店舗</th><th>最新の投稿</th>"
              "<th class='n'>件数</th><th class='n'>日数</th><th>Type</th><th>最新情報の送信</th></tr></thead><tbody>"]
     for last, hall, name, meta, count, days in rows:
@@ -144,9 +147,62 @@ def build(since: str | None) -> dict:
                      f"<td>{TRIGGER.get(meta.get('text_trigger', ''), '')}</td></tr>")
     table.append("</tbody></table><script>const q=document.getElementById('q');q.addEventListener('input',()=>{"
                  "document.querySelectorAll('tbody tr').forEach(r=>{r.style.display=r.dataset.name.includes(q.value.trim())?'':'none'})})</script>")
-    (SITE / "index.html").write_text(page("LINE投稿タイムライン", f"{len(rows)}店舗 ・ {len(records)}件", "".join(table), ""), encoding="utf-8")
+    nav = "<nav class='top'><a href='matrix.html'>日付×店舗の一覧表 →</a></nav>"
+    (SITE / "index.html").write_text(page("LINE投稿タイムライン", f"{len(rows)}店舗 ・ {len(records)}件", nav + "".join(table), ""), encoding="utf-8")
     size = sum(p.stat().st_size for p in SITE.rglob("*") if p.is_file())
     return {"stores": len(rows), "posts": len(records), "site_mb": round(size / 1e6, 2)}
+
+
+MATRIX_CSS = """
+.wrap{overflow:auto;max-height:calc(100vh - 110px);border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table.m{border-collapse:separate;border-spacing:0;width:max-content;border:0;border-radius:0}
+table.m th,table.m td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:4px;vertical-align:top}
+table.m thead th{position:sticky;top:0;z-index:2;background:var(--card);font-size:12px;white-space:nowrap;text-align:center}
+table.m th.s{position:sticky;left:0;z-index:1;background:var(--card);min-width:120px;max-width:140px;font-size:12px;white-space:normal}
+table.m thead th.s{z-index:3}
+td.c{min-width:64px}td.c .t{display:flex;flex-wrap:wrap;gap:3px;max-width:200px}
+.th{position:relative;display:block;width:60px;cursor:zoom-in}
+.th img{display:block;width:60px;height:60px;object-fit:cover;object-position:top;border-radius:4px;border:1px solid var(--line)}
+.th span{position:absolute;right:2px;bottom:2px;font-size:10px;line-height:1;padding:2px 3px;border-radius:3px;background:rgba(0,0,0,.65);color:#fff}
+.th i{position:absolute;left:2px;top:2px;font-size:9px;font-style:normal;line-height:1;padding:1px 2px;border-radius:3px;background:rgba(255,255,255,.85);color:#222}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;z-index:9;padding:16px}
+#lb.on{display:flex}#lb .in{display:flex;gap:8px;overflow-x:auto;max-width:100%;max-height:100%;align-items:flex-start}
+#lb img{max-height:calc(100vh - 60px);max-width:min(92vw,420px);border-radius:6px;background:#fff}
+#lb p{position:fixed;top:8px;left:16px;margin:0;color:#fff;font-size:13px}
+"""
+
+
+def write_matrix(rows: list, by_store: dict[str, list[dict]]) -> None:
+    """One table: a row per store, a column per posting day, small thumbnails in each cell."""
+    days = sorted({p.get("posted_date") or "" for posts in by_store.values() for p in posts}, reverse=True)
+    head = "".join(f"<th>{html.escape(day_label(d) if d else '日付不明')}</th>" for d in days)
+    body = []
+    for _last, hall, name, _meta, count, _days in rows:
+        cells = []
+        for d in days:
+            items = []
+            for post in sorted((p for p in by_store[hall] if (p.get("posted_date") or "") == d), key=lambda r: r.get("posted_time") or "99:99"):
+                srcs = post.get("_srcs") or []
+                if not srcs:
+                    continue
+                data = html.escape(json.dumps(["img/" + x for x in srcs]), quote=True)
+                cap = html.escape(f"{name} ・ {day_label(d) if d else '日付不明'} {post.get('posted_time') or ''}")
+                badge = f"<span>{len(srcs)}枚</span>" if len(srcs) > 1 else ""
+                when = f"<i>{html.escape(post['posted_time'])}</i>" if post.get("posted_time") else ""
+                items.append(f"<a class='th' data-imgs=\"{data}\" data-cap=\"{cap}\"><img loading='lazy' src='img/{srcs[0]}' alt=''>{when}{badge}</a>")
+            cells.append(f"<td class='c'><div class='t'>{''.join(items)}</div></td>")
+        body.append(f"<tr><th class='s'><a href='stores/{html.escape(hall)}.html'>{html.escape(name)}</a><br><span class='chip'>{count}件</span></th>{''.join(cells)}</tr>")
+    script = ("<div id='lb'><p></p><div class='in'></div></div><script>"
+              "const lb=document.getElementById('lb'),inn=lb.querySelector('.in'),cap=lb.querySelector('p');"
+              "document.querySelectorAll('.th').forEach(a=>a.addEventListener('click',()=>{inn.innerHTML='';"
+              "JSON.parse(a.dataset.imgs).forEach(s=>{const i=document.createElement('img');i.src=s;inn.appendChild(i)});"
+              "cap.textContent=a.dataset.cap;lb.classList.add('on')}));"
+              "lb.addEventListener('click',()=>lb.classList.remove('on'));"
+              "document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});</script>")
+    content = (f"<style>{MATRIX_CSS}</style><nav class='top'><a href='index.html'>← 店舗一覧</a></nav>"
+               f"<div class='wrap'><table class='m'><thead><tr><th class='s'>店舗</th>{head}</tr></thead>"
+               f"<tbody>{''.join(body)}</tbody></table></div>{script}")
+    (SITE / "matrix.html").write_text(page("日付×店舗の一覧表", f"{len(rows)}店舗 ・ {len(days)}日 ・ 画像をクリックで拡大", content, ""), encoding="utf-8")
 
 
 def main() -> int:

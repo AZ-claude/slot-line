@@ -1162,6 +1162,15 @@
    "text_trigger": "off",
    "trigger_text": null,
    "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "hall-e7472263f7fa35af",
+   "line_source_key": "ZHbdE3Evru",
+   "search_name": "スーパースロットクラブZ",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch04_2026-10-01.json"
   }
  ]
 }
