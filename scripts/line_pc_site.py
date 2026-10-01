@@ -166,7 +166,8 @@ table.m thead th{position:sticky;top:0;z-index:2;background:var(--card);font-siz
 table.m th.s{position:sticky;left:0;z-index:1;background:var(--card);width:92px;min-width:92px;max-width:92px;font-size:10px;font-weight:500;line-height:1.25;white-space:normal;overflow:hidden}
 table.m th.s a{color:var(--fg);text-decoration:none}table.m th.s small{color:var(--muted)}
 table.m thead th.s{z-index:3}
-td.c{min-width:calc(var(--s) + 4px)}td.c .t{display:flex;flex-wrap:wrap;gap:2px;width:calc(var(--s) * 3 + 4px)}
+td.c{min-width:calc(var(--s) + 4px)}td.c .t{display:flex;flex-wrap:wrap;gap:2px;width:calc(var(--s) * 4 + 12px)}
+.g{display:contents}.g .th img{outline:1px solid var(--accent);outline-offset:-1px}
 tr.q th.s{color:var(--muted)}td.e{background:repeating-linear-gradient(45deg,transparent 0 4px,var(--line) 4px 5px);opacity:.35}
 .th{position:relative;display:block;width:var(--s);cursor:zoom-in}
 .th img{display:block;width:var(--s);height:var(--s);object-fit:cover;object-position:top;border-radius:2px}
@@ -202,9 +203,11 @@ def write_matrix(rows: list, by_store: dict[str, list[dict]], info: dict[str, di
                     continue
                 data = html.escape(json.dumps(["img/" + x for x in srcs]), quote=True)
                 cap = html.escape(f"{name} ・ {day_label(d) if d else '日付不明'} {post.get('posted_time') or ''}")
-                badge = f"<span>{len(srcs)}枚</span>" if len(srcs) > 1 else ""
                 when = f"<i>{html.escape(post['posted_time'])}</i>" if post.get("posted_time") else ""
-                items.append(f"<a class='th' data-imgs=\"{data}\" data-cap=\"{cap}\"><img loading='lazy' src='img/{srcs[0]}' alt=''>{when}{badge}</a>")
+                # every card of a side-by-side post gets its own thumbnail; a frame keeps them together
+                thumbs = "".join(f"<a class='th' data-imgs=\"{data}\" data-cap=\"{cap}\"><img loading='lazy' src='img/{src}' alt=''>{when if i == 0 else ''}</a>"
+                                 for i, src in enumerate(srcs))
+                items.append(f"<span class='g'>{thumbs}</span>" if len(srcs) > 1 else thumbs)
             cells.append(f"<td class='c'><div class='t'>{''.join(items)}</div></td>" if items else "<td class='c'></td>")
         body.append(f"<tr><th class='s'><a href='stores/{html.escape(hall)}.html' title='{html.escape(name)}'>{html.escape(name)}</a> <small>{count}</small></th>{''.join(cells)}</tr>")
     # registered stores with nothing captured yet, so the table shows the whole roster
