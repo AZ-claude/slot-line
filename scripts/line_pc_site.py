@@ -137,7 +137,7 @@ def build(since: str | None) -> dict:
         rows.append((max(dated) if dated else "", hall, name, meta, len(posts), len(by_day)))
 
     rows.sort(reverse=True)
-    write_matrix(rows, by_store)
+    write_matrix(rows, by_store, info)
     table = ["<input id='q' placeholder='店名で絞り込み'><table><thead><tr><th>店舗</th><th>最新の投稿</th>"
              "<th class='n'>件数</th><th class='n'>日数</th><th>Type</th><th>最新情報の送信</th></tr></thead><tbody>"]
     for last, hall, name, meta, count, days in rows:
@@ -154,17 +154,25 @@ def build(since: str | None) -> dict:
 
 
 MATRIX_CSS = """
-.wrap{overflow:auto;max-height:calc(100vh - 110px);border:1px solid var(--line);border-radius:8px;background:var(--card)}
+:root{--s:30px}
+main{max-width:none;padding:8px 8px 20px}
+.bar{display:flex;gap:6px;align-items:center;margin:0 0 6px;font-size:12px;color:var(--muted)}
+.bar button{font:inherit;padding:2px 8px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--fg);cursor:pointer}
+.bar button.on{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.wrap{overflow:auto;max-height:calc(100vh - 96px);border:1px solid var(--line);border-radius:6px;background:var(--card)}
 table.m{border-collapse:separate;border-spacing:0;width:max-content;border:0;border-radius:0}
-table.m th,table.m td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:4px;vertical-align:top}
-table.m thead th{position:sticky;top:0;z-index:2;background:var(--card);font-size:12px;white-space:nowrap;text-align:center}
-table.m th.s{position:sticky;left:0;z-index:1;background:var(--card);min-width:120px;max-width:140px;font-size:12px;white-space:normal}
+table.m th,table.m td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:2px;vertical-align:top}
+table.m thead th{position:sticky;top:0;z-index:2;background:var(--card);font-size:10px;font-weight:600;white-space:nowrap;text-align:center;padding:2px 3px}
+table.m th.s{position:sticky;left:0;z-index:1;background:var(--card);width:92px;min-width:92px;max-width:92px;font-size:10px;font-weight:500;line-height:1.25;white-space:normal;overflow:hidden}
+table.m th.s a{color:var(--fg);text-decoration:none}table.m th.s small{color:var(--muted)}
 table.m thead th.s{z-index:3}
-td.c{min-width:64px}td.c .t{display:flex;flex-wrap:wrap;gap:3px;max-width:200px}
-.th{position:relative;display:block;width:60px;cursor:zoom-in}
-.th img{display:block;width:60px;height:60px;object-fit:cover;object-position:top;border-radius:4px;border:1px solid var(--line)}
-.th span{position:absolute;right:2px;bottom:2px;font-size:10px;line-height:1;padding:2px 3px;border-radius:3px;background:rgba(0,0,0,.65);color:#fff}
-.th i{position:absolute;left:2px;top:2px;font-size:9px;font-style:normal;line-height:1;padding:1px 2px;border-radius:3px;background:rgba(255,255,255,.85);color:#222}
+td.c{min-width:calc(var(--s) + 4px)}td.c .t{display:flex;flex-wrap:wrap;gap:2px;width:calc(var(--s) * 3 + 4px)}
+tr.q th.s{color:var(--muted)}td.e{background:repeating-linear-gradient(45deg,transparent 0 4px,var(--line) 4px 5px);opacity:.35}
+.th{position:relative;display:block;width:var(--s);cursor:zoom-in}
+.th img{display:block;width:var(--s);height:var(--s);object-fit:cover;object-position:top;border-radius:2px}
+.th span{position:absolute;right:0;bottom:0;font-size:8px;line-height:1;padding:1px 2px;border-radius:2px;background:rgba(0,0,0,.7);color:#fff}
+.th i{display:none}
+body.big .th i{display:block;position:absolute;left:1px;top:1px;font-size:8px;font-style:normal;line-height:1;padding:1px 2px;border-radius:2px;background:rgba(255,255,255,.85);color:#222}
 #lb{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;z-index:9;padding:16px}
 #lb.on{display:flex}#lb .in{display:flex;gap:8px;overflow-x:auto;max-width:100%;max-height:100%;align-items:flex-start}
 #lb img{max-height:calc(100vh - 60px);max-width:min(92vw,420px);border-radius:6px;background:#fff}
@@ -172,10 +180,17 @@ td.c{min-width:64px}td.c .t{display:flex;flex-wrap:wrap;gap:3px;max-width:200px}
 """
 
 
-def write_matrix(rows: list, by_store: dict[str, list[dict]]) -> None:
+def short_day(value: str) -> str:
+    if not value:
+        return "不明"
+    d = date.fromisoformat(value)
+    return f"{d.month}/{d.day}{WEEKDAY[d.weekday()]}"
+
+
+def write_matrix(rows: list, by_store: dict[str, list[dict]], info: dict[str, dict]) -> None:
     """One table: a row per store, a column per posting day, small thumbnails in each cell."""
     days = sorted({p.get("posted_date") or "" for posts in by_store.values() for p in posts}, reverse=True)
-    head = "".join(f"<th>{html.escape(day_label(d) if d else '日付不明')}</th>" for d in days)
+    head = "".join(f"<th>{html.escape(short_day(d))}</th>" for d in days)
     body = []
     for _last, hall, name, _meta, count, _days in rows:
         cells = []
@@ -190,19 +205,29 @@ def write_matrix(rows: list, by_store: dict[str, list[dict]]) -> None:
                 badge = f"<span>{len(srcs)}枚</span>" if len(srcs) > 1 else ""
                 when = f"<i>{html.escape(post['posted_time'])}</i>" if post.get("posted_time") else ""
                 items.append(f"<a class='th' data-imgs=\"{data}\" data-cap=\"{cap}\"><img loading='lazy' src='img/{srcs[0]}' alt=''>{when}{badge}</a>")
-            cells.append(f"<td class='c'><div class='t'>{''.join(items)}</div></td>")
-        body.append(f"<tr><th class='s'><a href='stores/{html.escape(hall)}.html'>{html.escape(name)}</a><br><span class='chip'>{count}件</span></th>{''.join(cells)}</tr>")
+            cells.append(f"<td class='c'><div class='t'>{''.join(items)}</div></td>" if items else "<td class='c'></td>")
+        body.append(f"<tr><th class='s'><a href='stores/{html.escape(hall)}.html' title='{html.escape(name)}'>{html.escape(name)}</a> <small>{count}</small></th>{''.join(cells)}</tr>")
+    # registered stores with nothing captured yet, so the table shows the whole roster
+    quiet = sorted((meta.get("store_name") or hall, hall) for hall, meta in info.items() if hall not in by_store and meta.get("store_name"))
+    for name, hall in quiet:
+        body.append(f"<tr class='q'><th class='s'>{html.escape(name)} <small>0</small></th>{'<td class=c></td>' * len(days)}</tr>")
     script = ("<div id='lb'><p></p><div class='in'></div></div><script>"
               "const lb=document.getElementById('lb'),inn=lb.querySelector('.in'),cap=lb.querySelector('p');"
               "document.querySelectorAll('.th').forEach(a=>a.addEventListener('click',()=>{inn.innerHTML='';"
               "JSON.parse(a.dataset.imgs).forEach(s=>{const i=document.createElement('img');i.src=s;inn.appendChild(i)});"
               "cap.textContent=a.dataset.cap;lb.classList.add('on')}));"
               "lb.addEventListener('click',()=>lb.classList.remove('on'));"
-              "document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});</script>")
-    content = (f"<style>{MATRIX_CSS}</style><nav class='top'><a href='index.html'>← 店舗一覧</a></nav>"
+              "document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});"
+              "const sizes={'極小':'20px','小':'30px','中':'44px','大':'64px'};"
+              "function setSize(k){document.documentElement.style.setProperty('--s',sizes[k]);document.body.classList.toggle('big',k==='大'||k==='中');"
+              "document.querySelectorAll('.bar button').forEach(b=>b.classList.toggle('on',b.textContent===k));try{localStorage.setItem('mSize',k)}catch(e){}}"
+              "document.querySelectorAll('.bar button').forEach(b=>b.addEventListener('click',()=>setSize(b.textContent)));"
+              "let k0='小';try{k0=localStorage.getItem('mSize')||'小'}catch(e){};setSize(sizes[k0]?k0:'小');</script>")
+    bar = "<div class='bar'><a href='index.html'>← 店舗一覧</a><span style='flex:1'></span>画像サイズ " + "".join(f"<button>{k}</button>" for k in ("極小", "小", "中", "大")) + "</div>"
+    content = (f"<style>{MATRIX_CSS}</style>{bar}"
                f"<div class='wrap'><table class='m'><thead><tr><th class='s'>店舗</th>{head}</tr></thead>"
                f"<tbody>{''.join(body)}</tbody></table></div>{script}")
-    (SITE / "matrix.html").write_text(page("日付×店舗の一覧表", f"{len(rows)}店舗 ・ {len(days)}日 ・ 画像をクリックで拡大", content, ""), encoding="utf-8")
+    (SITE / "matrix.html").write_text(page("日付×店舗の一覧表", f"投稿あり{len(rows)}店舗 ／ 登録{len(rows) + len(quiet)}店舗 ・ {len(days)}日 ・ 画像をクリックで拡大", content, ""), encoding="utf-8")
 
 
 def main() -> int:
