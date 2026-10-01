@@ -46,6 +46,24 @@
    "text_trigger": "off",
    "trigger_text": null,
    "policy_file": "collection_policy_41_2026-09-26.json"
+  },
+  {
+   "hall_id": "abiba-sh-nandai-ten",
+   "line_source_key": "@lxh1446l",
+   "search_name": "アビバ湘南台店",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "daily",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_41_2026-09-26.json"
+  },
+  {
+   "hall_id": "hall-3c4ffc5ecd159f24",
+   "line_source_key": "@bjs2804d",
+   "search_name": "ＺＡＰ京急久里浜店",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "daily",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch01_2026-09-26.json"
   }
  ],
  "note": "2026-09-30 evening test subset (owner request: 中山UNO, a PIA store and a few others)"

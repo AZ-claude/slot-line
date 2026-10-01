@@ -27,6 +27,7 @@ import argparse
 import hashlib
 import json
 import re
+import shutil
 from datetime import date, timedelta
 from pathlib import Path
 from typing import Any
@@ -168,48 +169,83 @@ def hamming(a: str, b: str) -> int:
     return bin(int(a, 16) ^ int(b, 16)).count("1")
 
 
-CAROUSEL_STEP = 632  # one ">" click moves a carousel by the view width minus an 8 px overlap
+INCOMPLETE_CAROUSEL = {"stuck_before_last_card", "max_clicks"}
+MIN_CAROUSEL_HEIGHT = 330  # carousel rows are ~338 px tall; shorter spans were cut by the page edge
+CAROUSEL_STEP = 632  # the longest move of one ">" click (view width minus an 8 px overlap)
+
+
+def carousel_step(previous: np.ndarray, current: np.ndarray) -> int | None:
+    """How far the row moved between two bands: 0 for a repeated band, None when
+    no overlap matches (the move was a full CAROUSEL_STEP, which shares no columns)."""
+    best, step = None, None
+    for dx in range(0, CONTENT_WIDTH - 20):
+        overlap = CONTENT_WIDTH - dx
+        diff = float(np.abs(previous[:, dx:dx + overlap] - current[:, :overlap]).mean())
+        if best is None or diff < best:
+            best, step = diff, dx
+    return step if best is not None and best <= 12 else None
 
 
 def carousel_panorama(bands: list[Image.Image]) -> Image.Image:
     """Join the band screenshots of one carousel side by side.
 
-    Each ">" normally moves the row by CAROUSEL_STEP; the last click can move
-    less (the row stops at its end), so the step is measured from the overlap
-    and falls back to CAROUSEL_STEP when the overlap is too thin to measure.
+    A ">" click moves the row by a varying amount (632 px at most, less near the
+    end), so every step is measured from the overlap. A band that did not move
+    (only the hover arrows changed) is dropped.
     """
     arrays = [np.asarray(b.convert("RGB")) for b in bands]
     height = min(a.shape[0] for a in arrays)
     width = arrays[0].shape[1]
-    offsets = [0]
-    for previous, current in zip(arrays, arrays[1:]):
-        step, best = CAROUSEL_STEP, None
-        prev_gray = previous[:height, :CONTENT_WIDTH].mean(axis=2)
-        cur_gray = current[:height, :CONTENT_WIDTH].mean(axis=2)
-        for dx in range(80, CONTENT_WIDTH - 60):  # overlaps of at least 60 px can be measured
-            overlap = CONTENT_WIDTH - dx
-            diff = float(np.abs(prev_gray[:, dx:dx + overlap] - cur_gray[:, :overlap]).mean())
-            if best is None or diff < best:
-                best, step = diff, dx
-        if best is None or best > 12:
-            step = CAROUSEL_STEP
-        offsets.append(offsets[-1] + step)
+    grays = [a[:height, :CONTENT_WIDTH].mean(axis=2) for a in arrays]
+    kept, offsets = [arrays[0]], [0]
+    previous = grays[0]
+    for array, gray in zip(arrays[1:], grays[1:]):
+        step = carousel_step(previous, gray)
+        if step == 0:
+            continue
+        offsets.append(offsets[-1] + (step if step is not None else CAROUSEL_STEP))
+        kept.append(array)
+        previous = gray
     panorama = np.full((height, offsets[-1] + width, 3), 255, dtype=np.uint8)
-    for array, left in zip(arrays, offsets):
+    for array, left in zip(kept, offsets):
         panorama[:, left:left + width] = array[:height]
     # later bands are painted over earlier ones; that is fine because shared columns match
     return Image.fromarray(panorama[:, :offsets[-1] + CONTENT_WIDTH])
 
 
-def split_cards(band: Image.Image) -> list[Image.Image]:
+def carousel_cards(bands: list[Image.Image]) -> list[Image.Image]:
+    """Every card of a carousel once, left to right.
+
+    Cards wholly visible on a single band are taken as they are; the panorama
+    adds the cards that straddle two bands. A panorama card whose width does not
+    match the single-band cards came from a bad join and is dropped.
+    """
+    direct = [card for band in bands for card in split_cards(band)]
+    widths = sorted(card.width for card in direct)
+    reference = widths[len(widths) // 2] if widths else None
+    joined = [card for card in split_cards(carousel_panorama(bands), width=None)
+              if reference is None or abs(card.width - reference) <= 12]
+    cards, prints = [], []
+    for card in joined + split_cards(bands[-1]):  # the last band holds the row's end as shown
+        fp = fingerprint(card)
+        if any(hamming(fp, old) <= DUPLICATE_BITS for old in prints):
+            continue  # the same card is fully visible on two bands
+        prints.append(fp)
+        cards.append(card)
+    return cards
+
+
+def split_cards(band: Image.Image, width: int | None = CONTENT_WIDTH) -> list[Image.Image]:
     """Cut a carousel band screenshot into the cards that are wholly visible.
 
     Cards are separated by white columns; a card touching the left or right
-    edge is cut off and is left for the band where it is fully shown.
+    edge is cut off and is left for the band where it is fully shown. Brightness
+    (not colour) decides white: JPEG smears saturated colours into the gaps, and a
+    card can be mostly white (notices), so a gap is a column with almost no ink.
     """
-    pixels = np.asarray(band.convert("RGB"))
+    pixels = np.asarray(band.convert("RGB"))[:, :width]  # a screenshot band ends at the scrollbar
     right_edge = pixels.shape[1]
-    content = ((pixels.min(axis=2) < 250).sum(axis=0) > pixels.shape[0] * 0.2)
+    content = ((np.asarray(band.convert("L"))[:, :width] < 245).sum(axis=0) > pixels.shape[0] * 0.03)
     cards, start = [], None
     for x, value in enumerate(list(content) + [False]):
         if value and start is None:
@@ -351,10 +387,16 @@ def cut_run(hall_id: str, run_id: str, capture_day: date, pages: list[Path], sto
         if index >= len(offsets):
             continue
         for carousel in page_info.get("carousels", []):
-            y_mid = offsets[index] + (carousel["span"][0] + carousel["span"][1]) // 2
+            if carousel.get("stop") in INCOMPLETE_CAROUSEL:
+                continue  # the row could not be moved to its end; its bands may be misplaced
+            y0, y1 = carousel["span"]
+            y_mid = offsets[index] + (y0 + y1) // 2
+            # the same row may be seen on overlapping pages: prefer a row captured whole
+            # (not cut by the page edge), then the one with more bands
+            score = (y1 - y0 >= MIN_CAROUSEL_HEIGHT, len(carousel["cards"]))
             for post in posts:
-                if post["y0"] <= y_mid <= post["y1"] and not post.get("cards"):
-                    post["cards"] = list(carousel["cards"])  # the same row may be seen on overlapping pages
+                if post["y0"] <= y_mid <= post["y1"] and score > post.get("cards_score", (False, 0)):
+                    post["cards"], post["cards_score"] = list(carousel["cards"]), score
     return [dict(p, strip=strip) for p in posts]
 
 
@@ -368,6 +410,7 @@ def process(dates: list[str]) -> dict[str, Any]:
     with (OUT / "posts.jsonl").open("a", encoding="utf-8") as sink:
         for day in sorted(dates, reverse=True):
             # newest run first: later captures use the better tooling and win de-duplication
+            used_today: set[str] = set()  # one capture per store and day: the newest one
             for manifest_path in sorted((RAW / day).glob("line_pc_run_*.json"), reverse=True):
                 manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
                 run_id = manifest["run_id"]
@@ -375,6 +418,11 @@ def process(dates: list[str]) -> dict[str, Any]:
                     key = f"{run_id}/{store['hall_id']}"
                     if store.get("status") != "captured" or key in done_runs:
                         continue
+                    if store["hall_id"] in used_today:
+                        done_runs.add(key)
+                        summary["superseded_runs"] += 1
+                        continue
+                    used_today.add(store["hall_id"])
                     hall = store["hall_id"]
                     if hall in full_history and (store.get("capture") or {}).get("stop") != "reached_previous_checkpoint":
                         # a newer run already read this store's whole history with the current tooling;
@@ -403,7 +451,11 @@ def process(dates: list[str]) -> dict[str, Any]:
                             summary["partial_skipped"] += 1
                             continue
                         crop = Image.fromarray(post["strip"][post["y0"]:post["y1"] + 1])
-                        fp = fingerprint(crop)
+                        bands = [Image.open(folder / b) for b in post.get("cards", []) if (folder / b).exists()]
+                        card_images = carousel_cards(bands) if bands else []
+                        # a carousel row looks different depending on where LINE left it scrolled,
+                        # so its first card identifies it
+                        fp = fingerprint(card_images[0] if card_images else crop)
                         when = f"{post['posted_date'] or '?'} {post['posted_time'] or '?'}"
                         if any(is_same_post(fp, when, old) for old in seen):
                             summary["duplicates"] += 1
@@ -411,17 +463,11 @@ def process(dates: list[str]) -> dict[str, Any]:
                         seen.append(f"{fp}|{when}")
                         post_id = hashlib.sha1(f"{hall}:{fp}:{run_id}:{post['y0']}".encode()).hexdigest()[:16]
                         crop.save(target / f"{post_id}.jpg", quality=85)
-                        cards, card_prints = [], []
-                        bands = [Image.open(folder / b) for b in post.get("cards", []) if (folder / b).exists()]
-                        if bands:
-                            for card in split_cards(carousel_panorama(bands)):
-                                card_fp = fingerprint(card)
-                                if any(hamming(card_fp, old) <= DUPLICATE_BITS for old in card_prints):
-                                    continue  # the same card is fully visible on two consecutive bands
-                                card_prints.append(card_fp)
-                                name = f"{post_id}_card_{len(cards) + 1:02d}.jpg"
-                                card.convert("RGB").save(target / name, quality=85)
-                                cards.append(name)
+                        cards = []
+                        for card in card_images:
+                            name = f"{post_id}_card_{len(cards) + 1:02d}.jpg"
+                            card.convert("RGB").save(target / name, quality=85)
+                            cards.append(name)
                         record = {"post_id": post_id, "hall_id": hall, "run_id": run_id, "capture_date": day,
                                   "posted_date": post["posted_date"], "posted_time": post["posted_time"],
                                   "image": f"{hall}/{post_id}.jpg", "cards": [f"{hall}/{c}" for c in cards],
@@ -443,7 +489,10 @@ def process(dates: list[str]) -> dict[str, Any]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--date", action="append", help="capture date folder(s); default: all synced dates")
+    parser.add_argument("--rebuild", action="store_true", help="drop data/line_pc_posts/ and cut every synced run again")
     args = parser.parse_args()
+    if args.rebuild and OUT.exists():
+        shutil.rmtree(OUT)
     dates = args.date or sorted(p.name for p in RAW.iterdir() if p.is_dir() and re.match(r"\d{4}-\d{2}-\d{2}$", p.name))
     summary = process(dates)
     print(json.dumps(summary, ensure_ascii=False))

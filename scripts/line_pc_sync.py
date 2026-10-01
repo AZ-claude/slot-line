@@ -22,7 +22,7 @@ WINDOWS_RAW = r"C:\Users\Public\slot-line\data\raw"
 def sync_date(day: str, dest: Path) -> int:
     dest.mkdir(parents=True, exist_ok=True)
     listing = subprocess.run(["ssh", "-o", "BatchMode=yes", HOST, f'if exist "{WINDOWS_RAW}\\{day}" dir /b /s "{WINDOWS_RAW}\\{day}\\line_pc_run_*.json" "{WINDOWS_RAW}\\{day}\\*line_pc"'],
-                             capture_output=True, text=True, timeout=120)
+                             capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=120)
     members = []
     for line in listing.stdout.splitlines():
         line = line.strip()

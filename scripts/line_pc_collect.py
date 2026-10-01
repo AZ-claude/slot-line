@@ -46,6 +46,7 @@ MESSAGES_ANCHOR = (770, 470)
 INPUT_BOX = (770, 872)
 SCROLL_NOTCHES = 3  # ~342 px: every ~340 px carousel row is wholly visible on some page
 CAROUSEL_MAX_CLICKS = 9
+CAROUSEL_CLICK_ATTEMPTS = 3  # a ">" click that did not move the row is retried before giving up
 CAROUSEL_CARD_HALF = 168  # carousel cards are ~337 px tall; the ">" sits at mid-height
 CAROUSEL_ARROW_X = 597  # message-area x of the ">" button on a horizontal card carousel
 CAROUSEL_BACK_X = 37  # message-area x of the "<" button
@@ -93,7 +94,9 @@ def find_carousels(image_path: Path) -> list[tuple[int, int]]:
     pixels = np.asarray(Image.open(image_path).convert("L")).astype(int)
     # A card cut off at the right edge (more cards to the right) or at the left
     # edge (LINE remembered a scrolled position) marks a carousel row.
-    edge = np.maximum((pixels[:, 626:632] < 235).mean(axis=1), (pixels[:, 0:6] < 235).mean(axis=1))
+    # Ordinary posts never reach these columns, so any non-white pixel there counts;
+    # a cut card can be mostly white at its edge (maps, notices).
+    edge = np.maximum((pixels[:, 626:632] < 245).any(axis=1), (pixels[:, 0:6] < 245).any(axis=1)).astype(float)
     window = 41  # smooth over bright details inside card images
     smooth = np.convolve(edge, np.ones(window) / window, mode="same")
     rows = smooth > 0.5
@@ -103,9 +106,41 @@ def find_carousels(image_path: Path) -> list[tuple[int, int]]:
             start = y
         elif not value and start is not None:
             if y - start >= 150:
-                spans.append((start, y - 1))
+                spans.append(card_extent(pixels, edge, start, y - 1))
             start = None
     return spans
+
+
+def card_extent(pixels, edge, y0: int, y1: int) -> tuple[int, int]:
+    """Grow an edge-detected span to the card row's real top and bottom.
+
+    The edge columns can be bright in parts of a card, so the smoothed span may
+    sit off the card. The row is bounded by white rows above (the store icon has
+    a gap before the cards) and below (only the time stamp, right of x=520).
+    """
+    import numpy as np
+
+    content = ((pixels[:, 0:520] < 245).mean(axis=1) > 0.01) | (edge > 0)
+    middle = (y0 + y1) // 2
+    top = bottom = middle
+    gap = 0
+    while top > 0 and gap <= 6:
+        top -= 1
+        gap = 0 if content[top] else gap + 1
+    top += gap
+    gap = 0
+    while bottom < len(content) - 1 and gap <= 6:
+        bottom += 1
+        gap = 0 if content[bottom] else gap + 1
+    bottom -= gap
+    height = 2 * CAROUSEL_CARD_HALF + 2
+    if bottom - top > height + 6:
+        # The store icon above or a stamp below joined in: keep the card-height
+        # window with the most edge rows (only cut cards reach the edges).
+        hits = np.concatenate(([0], np.cumsum(edge[top:bottom + 1] > 0)))
+        best = max(range(bottom - top - height + 2), key=lambda k: hits[k + height] - hits[k])
+        top, bottom = top + best, top + best + height - 1
+    return (top, bottom)
 
 
 OWN_BUBBLE_RGB = (195, 246, 157)  # LINE PC's green for messages we sent
@@ -252,49 +287,75 @@ class Collector:
         pc = self.pc
         results = []
         for number, (y0, y1) in enumerate(find_carousels(page)):
-            if y1 - 2 * CAROUSEL_CARD_HALF < 2 or y1 > MESSAGES_BOX[3] - MESSAGES_BOX[1] - 10:
+            if y0 < 4 or y1 > MESSAGES_BOX[3] - MESSAGES_BOX[1] - 10 or y1 - y0 < 2 * CAROUSEL_CARD_HALF - 6:
                 continue  # partly off-screen; it will be complete on the next page
-            y_center = MESSAGES_BOX[1] + y1 - CAROUSEL_CARD_HALF  # the bottom edge is detected reliably
-            y0 = max(0, y1 - 2 * CAROUSEL_CARD_HALF)
+            y_center = MESSAGES_BOX[1] + (y0 + y1) // 2  # the arrows sit at the card's mid-height
             band = (MESSAGES_BOX[0], MESSAGES_BOX[1] + max(0, y0 - 10), MESSAGES_BOX[2], MESSAGES_BOX[1] + min(y1 + 10, MESSAGES_BOX[3] - MESSAGES_BOX[1]))
             from PIL import Image
 
-            def left_cut(path: Path) -> bool:
+            def edge_cut(path: Path, x0: int, x1: int) -> bool:
                 with Image.open(path) as image:
-                    strip = image.convert("L").crop((0, 20, 6, image.height - 20))
+                    strip = image.convert("L").crop((x0, 20, x1, image.height - 20))
                     return sum(strip.tobytes()) / max(1, strip.width * strip.height) < 235
+
+            def left_cut(path: Path) -> bool:
+                return edge_cut(path, 0, 6)
+
+            def right_cut(path: Path) -> bool:  # a card still runs past the right edge
+                return edge_cut(path, 626, 632)
+
+            def press(x: int) -> None:
+                # The arrows only react after a real mouse move onto them (hover state),
+                # so come in from the side instead of clicking where the cursor already is.
+                pc.move(MESSAGES_BOX[0] + x - 60, y_center - 60)
+                pc.move(MESSAGES_BOX[0] + x, y_center)
+                pc.click(MESSAGES_BOX[0] + x, y_center)
 
             # Rewind to the first card: LINE keeps a carousel's last horizontal position.
             first = pc.shot(store_dir / f"{stem}_c{number}_00.jpg", band)
             rewinds = 0
             while left_cut(first) and rewinds < CAROUSEL_MAX_CLICKS:
-                pc.click(MESSAGES_BOX[0] + CAROUSEL_BACK_X, y_center)
+                press(CAROUSEL_BACK_X)
                 time.sleep(1.0)
                 if win32gui.GetForegroundWindow() != pc.hwnd:
                     pc.key("esc")
                     time.sleep(0.8)
                     pc.prepare()
                     break
+                before = file_hash(first)
                 first = pc.shot(store_dir / f"{stem}_c{number}_00.jpg", band)
                 rewinds += 1
+                if file_hash(first) == before:
+                    break  # "<" did nothing: already at the first card
             previous = file_hash(first)
             shots = [first.name]
             stop = "max_clicks"
+            retries = 0
             for click in range(1, CAROUSEL_MAX_CLICKS + 1):
-                pc.click(MESSAGES_BOX[0] + CAROUSEL_ARROW_X, y_center)
-                time.sleep(1.2)
-                if win32gui.GetForegroundWindow() != pc.hwnd:
-                    if not pc.close_dialogs():
-                        pc.key("esc")  # an image viewer or browser opened: close it and stop
-                        time.sleep(0.8)
-                    pc.prepare()
+                left_window = False
+                for attempt in range(CAROUSEL_CLICK_ATTEMPTS):
+                    press(CAROUSEL_ARROW_X)
+                    time.sleep(1.2 + attempt * 0.8)
+                    if win32gui.GetForegroundWindow() != pc.hwnd:
+                        if not pc.close_dialogs():
+                            pc.key("esc")  # an image viewer or browser opened: close it and stop
+                            time.sleep(0.8)
+                        pc.prepare()
+                        left_window = True
+                        break
+                    shot = pc.shot(store_dir / f"{stem}_c{number}_{click:02d}.jpg", band)
+                    digest = file_hash(shot)
+                    if digest != previous:
+                        break
+                    shot.unlink()
+                    if not right_cut(store_dir / shots[-1]):
+                        break  # the last card is wholly shown: this is the real end
+                    retries += 1
+                if left_window:
                     stop = "left_the_chat_window"
                     break
-                shot = pc.shot(store_dir / f"{stem}_c{number}_{click:02d}.jpg", band)
-                digest = file_hash(shot)
                 if digest == previous:
-                    shot.unlink()
-                    stop = "no_more_cards"
+                    stop = "stuck_before_last_card" if right_cut(store_dir / shots[-1]) else "no_more_cards"
                     break
                 previous = digest
                 texts = [line["text"] for line in ocr_lines(shot)]
@@ -302,7 +363,7 @@ class Collector:
                 if any("もっと見る" in text for text in texts):
                     stop = "more_link_reached"
                     break
-            results.append({"span": [y0, y1], "rewinds": rewinds, "cards": shots, "stop": stop})
+            results.append({"span": [y0, y1], "rewinds": rewinds, "cards": shots, "stop": stop, "click_retries": retries})
         return results
 
     def run_store(self, store: dict[str, Any], state: dict[str, Any]) -> dict[str, Any]:
@@ -413,7 +474,10 @@ def main() -> int:
     failed = [{"hall_id": r["hall_id"], "status": r["status"],
                "reason": r.get("error") or (r.get("open") or {}).get("reason")}
               for r in manifest["stores"] if r["status"] != "captured"]
-    manifest["summary"] = {"status": counts, "failed": failed}
+    incomplete = [{"hall_id": r["hall_id"], "page": page["page"], "carousel": c["cards"][0], "stop": c["stop"]}
+                  for r in manifest["stores"] for page in (r.get("capture") or {}).get("pages", [])
+                  for c in page.get("carousels", []) if c["stop"] in ("stuck_before_last_card", "max_clicks")]
+    manifest["summary"] = {"status": counts, "failed": failed, "incomplete_carousels": incomplete}
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")
     if collector.verify_results:
         results_path = repo / "data" / "line_text_trigger_results.json"
@@ -421,7 +485,8 @@ def main() -> int:
         results["stores"].update(collector.verify_results)
         results_path.write_text(json.dumps(results, ensure_ascii=False, indent=1), encoding="utf-8")
     write_alert(repo, manifest_path, len(stores), failed)
-    print(json.dumps({"manifest": str(manifest_path), "status": counts, "failed": len(failed)}, ensure_ascii=False))
+    print(json.dumps({"manifest": str(manifest_path), "status": counts, "failed": len(failed),
+                      "incomplete_carousels": len(incomplete)}, ensure_ascii=False))
     return 0
 
 

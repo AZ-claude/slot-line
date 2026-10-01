@@ -76,3 +76,23 @@ class OcrHelpersTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+@unittest.skipUnless(importlib.util.find_spec("PIL") and importlib.util.find_spec("numpy"), "needs Pillow and numpy")
+class CarouselDetectionTests(unittest.TestCase):
+    def test_span_covers_the_whole_card_row_even_with_bright_edges(self):
+        import tempfile
+        from pathlib import Path
+        from PIL import Image, ImageDraw
+        from scripts.line_pc_collect import find_carousels
+
+        image = Image.new("RGB", (640, 700), (255, 255, 255))
+        draw = ImageDraw.Draw(image)
+        draw.ellipse((15, 100, 60, 145), fill=(120, 60, 120))       # store icon above the cards
+        draw.rectangle((0, 160, 230, 497), fill=(60, 30, 30))       # first card, cut at the left
+        draw.rectangle((0, 400, 5, 497), fill=(250, 250, 250))      # bright lower-left corner
+        draw.rectangle((245, 160, 640, 497), fill=(200, 40, 40))    # next card, cut at the right
+        draw.rectangle((560, 505, 600, 515), fill=(150, 150, 150))  # time stamp under the row
+        path = Path(tempfile.mkdtemp()) / "page.png"
+        image.save(path)
+        self.assertEqual(find_carousels(path), [(160, 497)])
