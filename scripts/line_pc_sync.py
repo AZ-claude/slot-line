@@ -16,7 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 HOST = "pokeca-windows"
-WINDOWS_RAW = r"C:\Users\Public\slot-line\data\raw"
+WINDOWS_RAW = r"D:\slot-line\raw"  # moved off C: on 2026-10-02 (C: has ~45 GB free)
 
 
 def sync_date(day: str, dest: Path) -> int:

@@ -1171,6 +1171,168 @@
    "text_trigger": "off",
    "trigger_text": null,
    "policy_file": "collection_policy_batch04_2026-10-01.json"
+  },
+  {
+   "hall_id": "maruhan-ayase-kamitsuchidana-ten",
+   "line_source_key": "@aam8235z",
+   "search_name": "マルハン綾瀬上土棚店",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "abiba-tsurumi-ten",
+   "line_source_key": "@656nuqbb",
+   "search_name": "アビバ鶴見",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "parattso-fujisawa-minami-ten",
+   "line_source_key": "@306dgyhq",
+   "search_name": "パラッツォ藤沢南店",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "parattso-hadano-shibusawa-ten",
+   "line_source_key": "@970tlkvf",
+   "search_name": "パラッツォ秦野渋沢店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "sent-kita-sank",
+   "line_source_key": "IfJ1T7WQwk",
+   "search_name": "センター北サンコー",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "tow-zu-yamato-ten",
+   "line_source_key": "@oiq9986h",
+   "search_name": "トワーズ大和店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "ber-ver-ch-rinkan",
+   "line_source_key": "@berry777",
+   "search_name": "ベリーヴェリー中央林間",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "skip-surotto-kurabu-odawara-nishiki-d-ri-ten",
+   "line_source_key": "@903uqeqc",
+   "search_name": "skip小田原錦通り店",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "hall-13e1f3cce23d354e",
+   "line_source_key": "@sxn9582o",
+   "search_name": "スタジアム二俣川店",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "abiba-sekiuchi-ten",
+   "line_source_key": "YRBeiYiST8",
+   "search_name": "アビバ　関内店",
+   "collection_type": "type_a_passive",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "tow-zu-fujisawa-ten",
+   "line_source_key": "@nyi9783y",
+   "search_name": "トワーズ藤沢店",
+   "collection_type": "type_a_passive",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "hall-56272056c9dcf939",
+   "line_source_key": "@ceo1735d",
+   "search_name": "パチンコ＆スロットSHIROYAMA",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "hall-0943e9ce46a5150a",
+   "line_source_key": "@brajan",
+   "search_name": "ブラジャン戸塚店",
+   "collection_type": "type_a_passive",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "hall-67af17de3fd85a54",
+   "line_source_key": "TTlMSqs2QG",
+   "search_name": "ZoRoN",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "kitch-yokohama-nishiterao-ten",
+   "line_source_key": "@318gyyxi",
+   "search_name": "吉兆横浜西寺尾店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "gaianekusuto-hodogaya",
+   "line_source_key": "@hcq4677h",
+   "search_name": "ガイアネクスト保土ヶ谷店",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "gurando-h-ru-k-nan-ten",
+   "line_source_key": "@nnh1097m",
+   "search_name": "グランドホール港南店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "hall-08678a468fa62e97",
+   "line_source_key": "@209ibaao",
+   "search_name": "パサージュ3 横浜泉店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch05_2026-10-02.json"
   }
  ]
 }

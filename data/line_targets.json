@@ -2000,6 +2000,276 @@
    ],
    "source": "line_onboarding_batch04_2026-10-01.json",
    "active": true
+  },
+  {
+   "hall_id": "maruhan-ayase-kamitsuchidana-ten",
+   "canonical_hall_id": "maruhan-ayase-kamitsuchidana-ten",
+   "collector_key": "maruhan-ayase-kamitsuchidana-ten",
+   "line_source_key": "@aam8235z",
+   "store_name": "マルハン綾瀬上土棚店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "マルハン綾瀬上土棚店",
+   "profile_expected_names": [
+    "マルハン綾瀬上土棚店"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
+  },
+  {
+   "hall_id": "abiba-tsurumi-ten",
+   "canonical_hall_id": "abiba-tsurumi-ten",
+   "collector_key": "abiba-tsurumi-ten",
+   "line_source_key": "@656nuqbb",
+   "store_name": "アビバ鶴見店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "アビバ鶴見",
+   "profile_expected_names": [
+    "アビバ鶴見店"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
+  },
+  {
+   "hall_id": "parattso-fujisawa-minami-ten",
+   "canonical_hall_id": "parattso-fujisawa-minami-ten",
+   "collector_key": "parattso-fujisawa-minami-ten",
+   "line_source_key": "@306dgyhq",
+   "store_name": "パラッツォ藤沢南店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "パラッツォ藤沢南店",
+   "profile_expected_names": [
+    "パラッツォ藤沢南店"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
+  },
+  {
+   "hall_id": "parattso-hadano-shibusawa-ten",
+   "canonical_hall_id": "parattso-hadano-shibusawa-ten",
+   "collector_key": "parattso-hadano-shibusawa-ten",
+   "line_source_key": "@970tlkvf",
+   "store_name": "パラッツォ秦野渋沢店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "パラッツォ秦野渋沢店",
+   "profile_expected_names": [
+    "パラッツォ秦野渋沢店"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
+  },
+  {
+   "hall_id": "sent-kita-sank",
+   "canonical_hall_id": "sent-kita-sank",
+   "collector_key": "sent-kita-sank",
+   "line_source_key": "IfJ1T7WQwk",
+   "store_name": "センター北サンコー",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "センター北サンコー",
+   "profile_expected_names": [
+    "センター北サンコー"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
+  },
+  {
+   "hall_id": "tow-zu-yamato-ten",
+   "canonical_hall_id": "tow-zu-yamato-ten",
+   "collector_key": "tow-zu-yamato-ten",
+   "line_source_key": "@oiq9986h",
+   "store_name": "トワーズ大和店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "トワーズ大和店",
+   "profile_expected_names": [
+    "トワーズ大和店"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
+  },
+  {
+   "hall_id": "ber-ver-ch-rinkan",
+   "canonical_hall_id": "ber-ver-ch-rinkan",
+   "collector_key": "ber-ver-ch-rinkan",
+   "line_source_key": "@berry777",
+   "store_name": "ベリーヴェリー中央林間",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "ベリーヴェリー中央林間",
+   "profile_expected_names": [
+    "ベリーヴェリー中央林間"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
+  },
+  {
+   "hall_id": "skip-surotto-kurabu-odawara-nishiki-d-ri-ten",
+   "canonical_hall_id": "skip-surotto-kurabu-odawara-nishiki-d-ri-ten",
+   "collector_key": "skip-surotto-kurabu-odawara-nishiki-d-ri-ten",
+   "line_source_key": "@903uqeqc",
+   "store_name": "SKIPスロットクラブ小田原錦通り店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "skip小田原錦通り店",
+   "profile_expected_names": [
+    "SKIPスロットクラブ小田原錦通り店"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-13e1f3cce23d354e",
+   "canonical_hall_id": "hall-13e1f3cce23d354e",
+   "collector_key": "hall-13e1f3cce23d354e",
+   "line_source_key": "@sxn9582o",
+   "store_name": "スタジアム 二俣川店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "スタジアム二俣川店",
+   "profile_expected_names": [
+    "スタジアム 二俣川店"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
+  },
+  {
+   "hall_id": "abiba-sekiuchi-ten",
+   "canonical_hall_id": "abiba-sekiuchi-ten",
+   "collector_key": "abiba-sekiuchi-ten",
+   "line_source_key": "YRBeiYiST8",
+   "store_name": "アビバ関内店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "アビバ　関内店",
+   "profile_expected_names": [
+    "アビバ関内店"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
+  },
+  {
+   "hall_id": "tow-zu-fujisawa-ten",
+   "canonical_hall_id": "tow-zu-fujisawa-ten",
+   "collector_key": "tow-zu-fujisawa-ten",
+   "line_source_key": "@nyi9783y",
+   "store_name": "トワーズ藤沢店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "トワーズ藤沢店",
+   "profile_expected_names": [
+    "トワーズ藤沢店"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-56272056c9dcf939",
+   "canonical_hall_id": "hall-56272056c9dcf939",
+   "collector_key": "hall-56272056c9dcf939",
+   "line_source_key": "@ceo1735d",
+   "store_name": "パチンコ＆スロット SHIROYAMA",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "パチンコ＆スロットSHIROYAMA",
+   "profile_expected_names": [
+    "パチンコ＆スロット SHIROYAMA"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-0943e9ce46a5150a",
+   "canonical_hall_id": "hall-0943e9ce46a5150a",
+   "collector_key": "hall-0943e9ce46a5150a",
+   "line_source_key": "@brajan",
+   "store_name": "BRAJAN",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "ブラジャン戸塚店",
+   "profile_expected_names": [
+    "BRAJAN"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-67af17de3fd85a54",
+   "canonical_hall_id": "hall-67af17de3fd85a54",
+   "collector_key": "hall-67af17de3fd85a54",
+   "line_source_key": "TTlMSqs2QG",
+   "store_name": "ZoRoN",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "ZoRoN",
+   "profile_expected_names": [
+    "ZoRoN"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
+  },
+  {
+   "hall_id": "kitch-yokohama-nishiterao-ten",
+   "canonical_hall_id": "kitch-yokohama-nishiterao-ten",
+   "collector_key": "kitch-yokohama-nishiterao-ten",
+   "line_source_key": "@318gyyxi",
+   "store_name": "吉兆横浜西寺尾店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "吉兆横浜西寺尾店",
+   "profile_expected_names": [
+    "吉兆横浜西寺尾店"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
+  },
+  {
+   "hall_id": "gaianekusuto-hodogaya",
+   "canonical_hall_id": "gaianekusuto-hodogaya",
+   "collector_key": "gaianekusuto-hodogaya",
+   "line_source_key": "@hcq4677h",
+   "store_name": "ガイアネクスト保土ヶ谷",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_name_without_store_suffix",
+   "chat_header_name": "ガイアネクスト保土ヶ谷店",
+   "profile_expected_names": [
+    "ガイアネクスト保土ヶ谷"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
+  },
+  {
+   "hall_id": "gurando-h-ru-k-nan-ten",
+   "canonical_hall_id": "gurando-h-ru-k-nan-ten",
+   "collector_key": "gurando-h-ru-k-nan-ten",
+   "line_source_key": "@nnh1097m",
+   "store_name": "グランドホール港南店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "グランドホール港南店",
+   "profile_expected_names": [
+    "グランドホール港南店"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-08678a468fa62e97",
+   "canonical_hall_id": "hall-08678a468fa62e97",
+   "collector_key": "hall-08678a468fa62e97",
+   "line_source_key": "@209ibaao",
+   "store_name": "PASSAGE３横浜泉店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_owner_confirmed_name",
+   "chat_header_name": "パサージュ3 横浜泉店",
+   "profile_expected_names": [
+    "PASSAGE３横浜泉店"
+   ],
+   "source": "line_onboarding_batch05_2026-10-02.json",
+   "active": true
   }
  ]
 }

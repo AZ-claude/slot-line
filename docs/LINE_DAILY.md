@@ -173,6 +173,7 @@ Android より軽い Windows の PC版LINE で、登録店舗（`data/line_targe
 文字送信の確認結果は `data/line_text_trigger_results.json`（`{"stores": {"<hall_id>": {"result": "reply" | "no_reply"}}}`）に書き、`build_line_collection_plan.py` を再実行すると `daily` / `off` に切り替わる。
 
 - 実行中はPC版LINEのウィンドウを操作するので、PCを触らない・画面をロックしない。
+- RAW（画面の切り抜きとマニフェスト）は Windows の `D:\slot-line\raw\<日付>\` に保存する（`run_line_pc_collect.cmd` の `--raw-root`。C: の空きが少ないため 2026-10-02 に移した）。Mac 側の `line_pc_sync.py` もここから取る。
 - RAWには画面の切り抜きが入る。店舗のトーク以外は保存しない作りだが、RAWはWindows側だけに置き、公開リポジトリにcommitしない。
 - 横スクロールのカルーセル（左右どちらかの端で切れたカード行）は、「<」で先頭まで戻してから「>」を押して1枚ずつ `…_pNN_cK_MM.jpg` に保存し、「もっと見る」か変化なしで止める。押した結果別ウィンドウが開いたらEscで閉じて止める。
   - 行の上下は端の列だけでなく実際の余白から求める（カードの端が白っぽいと検出がずれ、帯とクリック位置が外れるため）。高さ約338pxに満たない行はページ端で切れているので、次のページで撮る。

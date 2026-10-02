@@ -122,3 +122,22 @@ class CompactAddSheetTests(unittest.TestCase):
                '</hierarchy>')
         screen = classify_screen(xml)
         self.assertEqual((screen["screen"], screen["name"], screen["add"], screen["talk"]), ("profile", "マルコ", (360, 550), (360, 621)))
+
+
+class SharedAccountTests(unittest.TestCase):
+    def test_shared_store_is_attached_to_the_primary_target(self):
+        import json
+        import tempfile
+        from pathlib import Path
+        from scripts.onboard_line_targets import build_registry
+
+        records = [
+            {"hall_id": "a", "store_name": "A店", "result": "onboarded", "line_source_key": "@x", "identity_status": "verified_normalized_name",
+             "attempts": [{"result": "onboarded", "chat_header": "A"}]},
+            {"hall_id": "b", "store_name": "Aスロット館", "result": "shared_account", "shares_line_account_with": "a", "attempts": []},
+        ]
+        path = Path(tempfile.mkdtemp()) / "line_onboarding_batch99.json"
+        path.write_text(json.dumps({"records": records}), encoding="utf-8")
+        targets = build_registry({"records": []}, [path])
+        self.assertEqual([t["hall_id"] for t in targets], ["a"])
+        self.assertEqual(targets[0]["shared_hall_ids"], ["b"])

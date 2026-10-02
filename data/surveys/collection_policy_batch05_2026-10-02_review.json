@@ -1,0 +1,344 @@
+{
+ "schema_version": 1,
+ "review_id": "collection_policy_batch05_2026-10-02_review",
+ "policy_id": "collection_policy_batch05_2026-10-02",
+ "source_onboarding": "data/surveys/line_onboarding_batch05_2026-10-02.json",
+ "reviewed_at": "2026-10-02",
+ "timezone": "Asia/Tokyo",
+ "status": "batch05_first_day_complete",
+ "method": {
+  "menu_label_source": "screenshot_visual_review",
+  "action_policy": "one tap per store on a clear latest-information tile or a useful-looking tile (owner, 2026-10-01)",
+  "messages_typed": 0,
+  "consents_granted": 0,
+  "chat_open_route": "talk-list rows (no LINE ID search) for rich-menu taps"
+ },
+ "not_onboarded": {
+  "afesuta-miharu-machi-ten": "LINE: the ID cannot be shown (not a LINE friend or a different account)",
+  "parattso-sh-nandai-ten": "the candidate link opens 'パラッツォ湘南台店（旧アカウント）' (old account); not added - the current account is to be found",
+  "parattso-tsuru-ke-h-ten": "the candidate ID @gpr4023i opens 'パラッツォ鶴ヶ峰店（旧アカウント）' (old account); not added - the current account is to be found",
+  "parattso-tsuru-ke-h-surotto-kan": "shares the LINE account of パラッツォ鶴ヶ峰店 (owner, 2026-10-02); will be attached to it once the current account is added"
+ },
+ "stores": {
+  "maruhan-ayase-kamitsuchidana-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報 New",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-02T03:18:00.785886+00:00",
+    "visible_action_label": "最新情報 New",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/maruhan-ayase-kamitsuchidana-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/maruhan-ayase-kamitsuchidana-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/maruhan-ayase-kamitsuchidana-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/action_results.jsonl#maruhan-ayase-kamitsuchidana-ten"
+   ],
+   "notes": "Opened the P-WORLD hall page."
+  },
+  "abiba-tsurumi-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "新台情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-02T03:21:27.676184+00:00",
+    "visible_action_label": "新台情報",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": true
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/abiba-tsurumi-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/abiba-tsurumi-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/abiba-tsurumi-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/action_results.jsonl#abiba-tsurumi-ten",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/reply_recheck/abiba-tsurumi-ten_snap.jpg"
+   ],
+   "notes": "Owner allows tapping useful-looking tiles (2026-10-01). The tile sent a text bubble and the store replied with a 新台入替 image carousel."
+  },
+  "parattso-fujisawa-minami-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "LP 最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-02T03:23:46.872035+00:00",
+    "visible_action_label": "LP 最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://nanpala.ps-lp.com/open/",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/parattso-fujisawa-minami-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/parattso-fujisawa-minami-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/parattso-fujisawa-minami-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/action_results.jsonl#parattso-fujisawa-minami-ten"
+   ],
+   "notes": "Opened the store's landing page (nanpala.ps-lp.com) in Chrome."
+  },
+  "sent-kita-sank": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-02T03:26:49.636126+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://p-town.dmm.com/shops/kanagawa/4603",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/sent-kita-sank_pre_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/sent-kita-sank_post_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/sent-kita-sank_post_action.xml",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/action_results.jsonl#sent-kita-sank"
+   ],
+   "notes": "Opened the DMMぱちタウン store page."
+  },
+  "ber-ver-ch-rinkan": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "機種情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-02T03:29:49.554574+00:00",
+    "visible_action_label": "機種情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://p-town.dmm.com/shops/kanagawa/4935",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/ber-ver-ch-rinkan_pre_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/ber-ver-ch-rinkan_post_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/ber-ver-ch-rinkan_post_action.xml",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/action_results.jsonl#ber-ver-ch-rinkan"
+   ],
+   "notes": "Opened the DMMぱちタウン store page (最新情報公開中). The scripted capture timed out on the ADB bridge; the screen was captured afterwards without another tap."
+  },
+  "skip-surotto-kurabu-odawara-nishiki-d-ri-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-02T03:35:24.987513+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/skip-surotto-kurabu-odawara-nishiki-d-ri-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/skip-surotto-kurabu-odawara-nishiki-d-ri-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/skip-surotto-kurabu-odawara-nishiki-d-ri-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/action_results.jsonl#skip-surotto-kurabu-odawara-nishiki-d-ri-ten"
+   ],
+   "notes": "Opened the P-WORLD hall page."
+  },
+  "hall-13e1f3cce23d354e": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-02T03:37:59.071404+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://p-town.dmm.com/shops/kanagawa/4555",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/hall-13e1f3cce23d354e_pre_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/hall-13e1f3cce23d354e_post_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/hall-13e1f3cce23d354e_post_action.xml",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/action_results.jsonl#hall-13e1f3cce23d354e"
+   ],
+   "notes": "Opened the DMMぱちタウン store page. The chat also shows a quick-reply question (あなたの得意機種は?) that was not answered."
+  },
+  "hall-56272056c9dcf939": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "今日の作戦",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-02T03:40:00.765227+00:00",
+    "visible_action_label": "今日の作戦",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": true
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/hall-56272056c9dcf939_pre_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/hall-56272056c9dcf939_post_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/hall-56272056c9dcf939_post_action.xml",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/action_results.jsonl#hall-56272056c9dcf939"
+   ],
+   "notes": "The tile sent 「今日の作戦を検討する」 and the store bot replied with a menu (最新のお知らせを見る / 設置している台を調べる / 今後のスケジュールを確認する …); no further option was tapped."
+  },
+  "hall-67af17de3fd85a54": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "お知らせ (9/7 banner)",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-02T03:41:50.924734+00:00",
+    "visible_action_label": "お知らせ (9/7 banner)",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": true
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/hall-67af17de3fd85a54_pre_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/hall-67af17de3fd85a54_post_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/hall-67af17de3fd85a54_post_action.xml",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/action_results.jsonl#hall-67af17de3fd85a54",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/reply_recheck/hall-67af17de3fd85a54_snap.jpg"
+   ],
+   "notes": "The tile sent the text 「最新情報」 and the store replied with an image carousel (9/7 新台 etc.); a text trigger 「最新情報」 is likely to work."
+  },
+  "gaianekusuto-hodogaya": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "新台情報 NEW MACHINE",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-02T03:43:57.753985+00:00",
+    "visible_action_label": "新台情報 NEW MACHINE",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/gaianekusuto-hodogaya_pre_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/gaianekusuto-hodogaya_post_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/gaianekusuto-hodogaya_post_action.xml",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/action_results.jsonl#gaianekusuto-hodogaya",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/reply_recheck/gaianekusuto-hodogaya_snap.jpg"
+   ],
+   "notes": "A 新台入替 9/28 image arrived after the tap (loaded in the re-check capture)."
+  },
+  "gurando-h-ru-k-nan-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-02T03:46:04.696149+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "unknown",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false,
+    "blocked_by": "liff_consent_required"
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/gurando-h-ru-k-nan-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/gurando-h-ru-k-nan-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/gurando-h-ru-k-nan-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/actions/action_results.jsonl#gurando-h-ru-k-nan-ten"
+   ],
+   "notes": "A LINE LIFF consent screen (認証, provider グランドホール港南店) opened; it was not approved and was closed."
+  },
+  "parattso-hadano-shibusawa-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "提携駐車場",
+    "フロアマップ",
+    "店舗公式X",
+    "データ公開",
+    "入場案内",
+    "18歳未満入店禁止"
+   ],
+   "latest_action_label": null
+  },
+  "tow-zu-yamato-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "DMM 台情報",
+    "大当り情報",
+    "X"
+   ],
+   "latest_action_label": null
+  },
+  "kitch-yokohama-nishiterao-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "X フォロー",
+    "1F 台データ",
+    "2F 台データ",
+    "フロアマップ"
+   ],
+   "latest_action_label": null
+  },
+  "hall-08678a468fa62e97": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "新台入替 10/5 (banner)",
+    "ホームページ P-WORLD",
+    "台データ",
+    "エックス X"
+   ],
+   "latest_action_label": null,
+   "notes": "Owner confirmed LINE name パサージュ3 横浜泉店 = PASSAGE３横浜泉店 (2026-10-02)."
+  },
+  "abiba-sekiuchi-ten": {
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/abiba-sekiuchi-ten.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/abiba-sekiuchi-ten.xml",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/absence_recheck/abiba-sekiuchi-ten_snap.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/absence_recheck/abiba-sekiuchi-ten_snap_1.xml",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/absence_recheck/abiba-sekiuchi-ten_snap_2.xml"
+   ],
+   "notes": "No rich menu or menu bar at onboarding and in two re-check captures; only the message composer is shown."
+  },
+  "tow-zu-fujisawa-ten": {
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/tow-zu-fujisawa-ten.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/tow-zu-fujisawa-ten.xml",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/absence_recheck/tow-zu-fujisawa-ten_snap.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/absence_recheck/tow-zu-fujisawa-ten_snap_1.xml",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/absence_recheck/tow-zu-fujisawa-ten_snap_2.xml"
+   ],
+   "notes": "No rich menu or menu bar at onboarding and in two re-check captures; only the message composer is shown."
+  },
+  "hall-0943e9ce46a5150a": {
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/hall-0943e9ce46a5150a.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/hall-0943e9ce46a5150a.xml",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/absence_recheck/hall-0943e9ce46a5150a_snap.jpg",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/absence_recheck/hall-0943e9ce46a5150a_snap_1.xml",
+    "data/surveys/line_onboarding_batch05_2026-10-02_evidence/absence_recheck/hall-0943e9ce46a5150a_snap_2.xml"
+   ],
+   "notes": "No rich menu or menu bar at onboarding and in two re-check captures; only the message composer is shown."
+  }
+ }
+}

@@ -114,7 +114,18 @@ class FriendAddBlocked(RuntimeError):
 
 class Device:
     def __init__(self, adb: str, serial: str):
+        self.adb, self.serial = adb, serial
         self.base = [adb, "-s", serial]
+
+    def open_chat_from_talk_list(self, name: str) -> bool:
+        """Open a chat by its exact name from the talk list (no ID search)."""
+        import tempfile
+
+        try:
+            from line_richmenu_tap import Device as TalkListDevice
+        except ImportError:
+            from scripts.line_richmenu_tap import Device as TalkListDevice
+        return TalkListDevice(self.adb, self.serial, Path(tempfile.mkdtemp())).open_chat_by_name(name)
 
     def run(self, *args: str, timeout: int = 60, binary: bool = False) -> Any:
         try:
@@ -191,7 +202,8 @@ def classify_screen(xml: str) -> dict[str, Any]:
     pworld = next((pworld_path(value) for value in texts + [item["desc"] for item in items] if pworld_path(value)), None)
     if add or talk:
         name = sheet_name or (text_items[count_index - 1]["text"] if count_index else None)
-        return {"screen": "profile", "name": name, "pworld_path": pworld, "add": add["center"] if add else None, "talk": talk["center"] if talk else None}
+        return {"screen": "profile", "name": name, "pworld_path": pworld, "add": add["center"] if add else None,
+                "talk": talk["center"] if talk else None, "sheet": bool(sheet_name)}
     return {"screen": "unknown", "texts": texts[:12]}
 
 
@@ -261,6 +273,7 @@ def onboard_one(device: Device, candidate: dict[str, Any], evidence: Path) -> di
                 attempt["result"] = "identity_unverified"
                 continue
             if screen.get("add"):
+                sheet_name = screen["name"] if screen.get("sheet") else None
                 device.tap(*screen["add"])
                 # The refusal dialog can close by itself, so poll right after the tap.
                 for _ in range(5):
@@ -269,7 +282,16 @@ def onboard_one(device: Device, candidate: dict[str, Any], evidence: Path) -> di
                     # the compact sheet shows "トーク" next to "追加" from the start, so wait for "追加" to go
                     if screen["screen"] in {"dialog", "chat"} or (screen["screen"] == "profile" and screen.get("talk") and not screen.get("add")):
                         break
-                if screen["screen"] == "profile" and screen.get("add"):
+                if sheet_name and screen["screen"] != "dialog" and normalize_name(screen.get("name") or "") != normalize_name(sheet_name):
+                    # the compact add sheet closed back onto the previous screen: confirm the add
+                    # by finding the new chat in the talk list
+                    if not device.open_chat_from_talk_list(sheet_name):
+                        attempt["friend_added"] = False
+                        attempt["result"] = "friend_add_not_confirmed"
+                        raise FriendAddBlocked("added chat not found in the talk list")
+                    attempt["opened_from_talk_list"] = True
+                    screen = classify_screen(device.dump())
+                elif screen["screen"] == "profile" and screen.get("add"):
                     attempt["friend_added"] = False
                     attempt["result"] = "friend_add_not_confirmed"
                     raise FriendAddBlocked("add button still shown after tapping it")
@@ -373,6 +395,15 @@ def build_registry(capability: dict[str, Any], onboarding_files: list[Path]) -> 
                 }
             )
             known.add(record["hall_id"])
+    # stores that share another store's LINE account (owner-confirmed): one chat, one target
+    by_id = {row["hall_id"]: row for row in targets}
+    for path in sorted(onboarding_files):
+        for record in json.loads(path.read_text(encoding="utf-8"))["records"]:
+            primary = by_id.get(record.get("shares_line_account_with", ""))
+            if record.get("result") == "shared_account" and primary:
+                shared = primary.setdefault("shared_hall_ids", [])
+                if record["hall_id"] not in shared:
+                    shared.append(record["hall_id"])
     return targets
 
 

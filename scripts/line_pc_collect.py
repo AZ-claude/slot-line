@@ -506,12 +506,12 @@ class Collector:
                                                  "reply_check": reply, "checked_by": "line_pc_collect"}
         elif want_send:
             record["trigger"] = {"status": "not_sent_without_--send"}
-        store_dir = self.repo / "data" / "raw" / self.today / hall / "line_pc"
+        store_dir = self.raw_root / self.today / hall / "line_pc"
         last = hall_state.get("last_capture_date") or (hall_state.get("last_capture_run") or "")[:8]
         since = date.fromisoformat(f"{last[:4]}-{last[4:6]}-{last[6:8]}" if len(last) == 8 else last) if last else None
         capture = self.capture_pages(store_dir, hall_state.get("checkpoint_lines", []), since)
         record["capture"] = capture
-        record["raw_dir"] = str(store_dir.relative_to(self.repo))
+        record["raw_dir"] = str(store_dir.relative_to(self.raw_root))
         first = store_dir / f"{self.run_id}_p00.json"
         if first.exists():
             lines = [line["text"] for line in json.loads(first.read_text(encoding="utf-8"))]
@@ -525,6 +525,8 @@ class Collector:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--repo", type=Path, required=True)
+    parser.add_argument("--raw-root", type=Path, default=None,
+                        help="where screenshots and manifests go (default <repo>/data/raw; the daily task uses D:\\slot-line\\raw)")
     parser.add_argument("--plan", type=Path, default=None)
     parser.add_argument("--state", type=Path, default=None)
     parser.add_argument("--only", default="", help="comma-separated hall_ids")
@@ -543,12 +545,13 @@ def main() -> int:
     run_id = datetime.now(JST).strftime("%Y%m%dT%H%M%S")
     log: list[dict] = []
     collector = Collector(repo, run_id, args.send, args.verify, args.max_pages, log)
+    collector.raw_root = args.raw_root or repo / "data" / "raw"
     LinePC.hide_own_console()
     time.sleep(1.5)  # a console opened by the task launcher may still be appearing
     prepared = collector.pc.prepare()
     manifest = {"run_id": run_id, "started_at": datetime.now(timezone.utc).isoformat(), "send": args.send,
                 "verify": args.verify, "window": prepared, "stores": []}
-    manifest_path = repo / "data" / "raw" / collector.today / f"line_pc_run_{run_id}.json"
+    manifest_path = collector.raw_root / collector.today / f"line_pc_run_{run_id}.json"
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
     for store in stores:
         try:

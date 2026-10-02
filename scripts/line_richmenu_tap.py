@@ -42,7 +42,14 @@ class Device:
         self.scratch = Path(tempfile.mkdtemp(prefix="slot-line-chatlist-"))
 
     def run(self, *args: str, timeout: int = 120, binary: bool = False):
-        proc = subprocess.run([*self.base, *args], capture_output=True, timeout=timeout)
+        for attempt in range(3):  # the SSH->ADB bridge stalls now and then; retrying is enough
+            try:
+                proc = subprocess.run([*self.base, *args], capture_output=True, timeout=timeout)
+                break
+            except subprocess.TimeoutExpired:
+                if attempt == 2:
+                    raise
+                time.sleep(5)
         return proc.stdout if binary else proc.stdout.decode("utf-8", "replace")
 
     def dump(self, path: Path) -> str:
