@@ -96,3 +96,19 @@ class CarouselDetectionTests(unittest.TestCase):
         path = Path(tempfile.mkdtemp()) / "page.png"
         image.save(path)
         self.assertEqual(find_carousels(path), [(160, 497)])
+
+
+class DividerDateTests(unittest.TestCase):
+    def test_dividers_from_ocr(self):
+        from datetime import date
+        from scripts.line_pc_collect import divider_date
+
+        today = date(2026, 10, 2)
+        line = lambda text, x=(300, 340): {"text": text, "box": [x[0], 100, x[1], 118]}
+        self.assertEqual(divider_date(line("昨日"), today), date(2026, 10, 1))
+        self.assertEqual(divider_date(line("925(全)"), today), date(2026, 9, 25))
+        self.assertEqual(divider_date(line("9.30(水)"), today), date(2026, 9, 30))
+        self.assertEqual(divider_date(line("1001(木)"), today), date(2026, 10, 1))
+        self.assertIsNone(divider_date(line("10.5(月)"), today))           # future: a banner, not a divider
+        self.assertIsNone(divider_date(line("9.30(水)", (40, 90)), today))  # not centred
+        self.assertEqual(divider_date(line("12.31(木)"), date(2027, 1, 2)), date(2026, 12, 31))

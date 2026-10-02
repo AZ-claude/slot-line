@@ -180,13 +180,13 @@ Android より軽い Windows の PC版LINE で、登録店舗（`data/line_targe
 
 - 店舗のトークは検索欄に名前を貼り付けて開く。検索結果では一致部分が緑色になり、Windows OCR は緑の小さな文字を読み違えるので、検索結果と見出しは「各画素で最も暗い色」に変換して2倍に拡大してから読む。濁点・半濁点（ぶ/ぷ）と長音（ー/-）の違いは無視し、一致した行そのものをクリックする。チェーンの別店（「くいーぷ東戸塚店」と「くいーぷ」）は一致とみなさない。
 - 開けなかった店舗はマニフェストの `open.result_ocr` / `header_ocr` に読めた文字（画像は残さない）を記録する。直すときは `data/line_ocr_aliases.json` に名前を足す。
-- グランドホール長後（gurando-h-ru-ch-go-ten）は Android のトーク一覧にはあるが、PC版LINEの検索に出てこない（2026-10-02）。
 
 ### スケジュール（Windows タスク `SlotLineLinePc`）
 
 - 毎日 21:30、ログイン中のセッションで `scripts\run_line_pc_collect.cmd --send --plan <plan>` を実行する。
-- 2026-10-01 時点は、取得と文字起こしの精度を固めるまで7店舗（`data/line_collection_plan_test.json`：中山UNO・スクランブル田谷店・ジアス上大岡・「最新情報」を毎日送る4店舗）に絞っている。全店舗（`data/line_collection_plan.json`）へ広げるときは `--verify --plan <全店舗plan>` に戻す。
-- 2026-10-01 に7店舗の `checkpoint_lines` を消し（バックアップ `data\line_pc_state_backup_20261001.json`）、友だち追加時点から撮り直すようにした。
+- 2026-10-02 から全店舗（`data/line_collection_plan.json`、`--send --verify`）で実行している。2026-10-01 は精度確認のため7店舗（`data/line_collection_plan_test.json`）に絞っていた。
+- 毎日の撮影は前回の続きだけを撮る。前回の最下部の文字（`checkpoint_lines`）が見つかるか、前回の撮影日より古い日付の区切り（「9.30(水)」など、白い背景の上の中央の小さな文字）が見えたところで止まる。画像しか送らない店舗も、日付の区切りで止まる。1店舗あたり約20〜30秒。
+- まだ1通もメッセージがない店舗はPC版LINEの検索に出ない（グランドホール長後、2026-10-02）。`no_messages_yet` と記録し、失敗には数えない。
 - 旧タスク `SlotLineDaily`（21:05、Android の M&M 単独取得）と `SlotLineRegression`（21:25、Android の回帰テスト）は owner の指示で 2026-09-30 に削除した。
 
 ## Mac側：投稿ごとの切り分けと重複除去（LLMなし）

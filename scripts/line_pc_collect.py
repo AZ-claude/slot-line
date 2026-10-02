@@ -24,7 +24,7 @@ import hashlib
 import json
 import time
 import unicodedata
-from datetime import datetime, timezone, timedelta
+from datetime import date, datetime, timezone, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -90,6 +90,44 @@ NOISE_RE = __import__("re").compile(
 def is_message_line(line: str) -> bool:
     """False for read receipts, times and date separators, which change without a reply."""
     return bool(line) and not NOISE_RE.match(norm(line))
+
+
+DIVIDER_RE = __import__("re").compile(r"^(?:(\d{4})[./年])?(\d{1,2})[./月](\d{1,2})日?(?:\(.\))?$|^(\d)(\d{2})\(.\)$|^(1[0-2])(\d{2})\(.\)$")
+
+
+def divider_date(line: dict[str, Any], today: date, page=None) -> date | None:
+    """The date of a centred date divider ("今日", "昨日", "9.30(水)", "2025.12.31(水)").
+
+    With the page image (grayscale), the divider must sit on the white chat
+    background, so a date printed inside a picture is not taken for one."""
+    x0, y0, x1, y1 = line["box"]
+    if abs((x0 + x1) / 2 - 320) > 70 or y1 - y0 > 30:
+        return None
+    if page is not None:
+        y = (y0 + y1) // 2
+        sides = [page.crop((max(0, x0 - 60), y - 3, max(1, x0 - 25), y + 3)),
+                 page.crop((min(page.width - 1, x1 + 25), y - 3, min(page.width, x1 + 60), y + 3))]
+        if any(side.getextrema()[0] < 235 for side in sides):
+            return None
+    text = norm(line["text"])
+    if text == "今日":
+        return today
+    if text == "昨日":
+        return today - timedelta(days=1)
+    m = DIVIDER_RE.match(text)
+    if not m:
+        return None
+    year, month, day = (m.group(1), m.group(2), m.group(3)) if m.group(2) else \
+        (None, m.group(4), m.group(5)) if m.group(4) else (None, m.group(6), m.group(7))
+    try:
+        found = date(int(year) if year else today.year, int(month), int(day))
+    except ValueError:
+        return None
+    if found > today:
+        if year or not (today.month == 1 and found.month == 12):
+            return None  # a future date is not a divider (only December seen in January is last year)
+        found = found.replace(year=today.year - 1)
+    return found
 
 
 def find_carousels(image_path: Path) -> list[tuple[int, int]]:
@@ -194,6 +232,7 @@ class Collector:
         self.max_pages = max_pages
         self.log = log
         self.today = datetime.now(JST).strftime("%Y-%m-%d")
+        self.today_date = date.fromisoformat(self.today)
         self.verify_results: dict[str, dict] = {}
         aliases_path = repo / "data" / "line_ocr_aliases.json"
         self.aliases: dict[str, list[str]] = (json.loads(aliases_path.read_text(encoding="utf-8"))["stores"]
@@ -217,7 +256,8 @@ class Collector:
         result_lines: list[str] = []
         for _ in range(3):  # the result list can take a moment to appear
             results = pc.shot(self.tmp / "results.png", RESULTS_BOX)
-            lines = ocr_lines(results, scale=2)
+            # read twice (enlarged on the darkest channel, and as shown): each misses some names
+            lines = ocr_lines(results, scale=2) + ocr_lines(results)
             result_lines = [line["text"] for line in lines]
             for line in lines:
                 score = max(name_score(line["text"], n) for n in names)
@@ -226,6 +266,13 @@ class Collector:
             if best >= HEADER_MIN_SIMILARITY:
                 break
             time.sleep(1.5)
+        empty = False
+        if best < HEADER_MIN_SIMILARITY:  # the "no results" note sits lower in the list pane
+            panel = pc.shot(self.tmp / "results_panel.png", (RESULTS_BOX[0], RESULTS_BOX[1], RESULTS_BOX[2], 760))
+            empty = any("検索結果がありません" in line["text"] for line in ocr_lines(panel))
+        if empty:
+            # LINE PC lists only chats that hold a message; a store that never sent one is not there
+            return {"ok": False, "reason": "no_chat_yet", "result_ocr": result_lines[:8]}
         if best < HEADER_MIN_SIMILARITY:
             # OCR text only (no image) so a skipped store can be fixed with data/line_ocr_aliases.json
             return {"ok": False, "reason": "no_matching_search_result", "best_result_similarity": round(best, 2),
@@ -237,7 +284,7 @@ class Collector:
         score, header_text = 0.0, ""
         for attempt in range(3):  # a short name is sometimes not read at all on the first try
             header = pc.shot(self.tmp / "header.png", HEADER_BOX)
-            for scale in (2, 1):
+            for scale in (2, 1, 4):  # a short name ("グリーン") is sometimes read only when much larger
                 text = "".join(line["text"] for line in ocr_lines(header, scale=scale))
                 text_score = max(name_score(text, n) for n in names)
                 if text_score >= score:
@@ -271,7 +318,13 @@ class Collector:
         pc.key("enter")
         return datetime.now(timezone.utc).isoformat()
 
-    def capture_pages(self, store_dir: Path, checkpoint: list[str]) -> dict[str, Any]:
+    def capture_pages(self, store_dir: Path, checkpoint: list[str], since: date | None = None) -> dict[str, Any]:
+        """Screenshot from the newest message upwards.
+
+        Stops at the top of the history, at the previous run's bottom lines
+        (checkpoint), or - for stores that post only images and so have no
+        text checkpoint - at a date divider older than the previous capture
+        day (`since`): everything after that divider was captured before."""
         pc = self.pc
         store_dir.mkdir(parents=True, exist_ok=True)
         self.to_bottom()
@@ -296,6 +349,15 @@ class Collector:
             if wanted and len(wanted & texts) >= min(2, len(wanted)):
                 stop = "reached_previous_checkpoint"
                 break
+            if since:
+                from PIL import Image
+                with Image.open(png) as page_image:
+                    gray = page_image.convert("L")
+                    dividers = [d for d in (divider_date(line, self.today_date, gray) for line in lines) if d]
+                if dividers and min(dividers) < since:
+                    pages[-1]["divider_dates"] = sorted(str(d) for d in dividers)
+                    stop = "reached_day_before_previous_capture"
+                    break
             pc.scroll(*MESSAGES_ANCHOR, SCROLL_NOTCHES)
             self.wait_until_still()
         return {"pages": pages, "stop": stop}
@@ -407,7 +469,7 @@ class Collector:
         opened = self.open_chat(store["search_name"], hall)
         record["open"] = opened
         if not opened["ok"]:
-            record["status"] = "skipped"
+            record["status"] = "no_messages_yet" if opened["reason"] == "no_chat_yet" else "skipped"
             return record
         hall_state = state.setdefault(hall, {})
         before = self.bottom_lines()
@@ -445,7 +507,9 @@ class Collector:
         elif want_send:
             record["trigger"] = {"status": "not_sent_without_--send"}
         store_dir = self.repo / "data" / "raw" / self.today / hall / "line_pc"
-        capture = self.capture_pages(store_dir, hall_state.get("checkpoint_lines", []))
+        last = hall_state.get("last_capture_date") or (hall_state.get("last_capture_run") or "")[:8]
+        since = date.fromisoformat(f"{last[:4]}-{last[4:6]}-{last[6:8]}" if len(last) == 8 else last) if last else None
+        capture = self.capture_pages(store_dir, hall_state.get("checkpoint_lines", []), since)
         record["capture"] = capture
         record["raw_dir"] = str(store_dir.relative_to(self.repo))
         first = store_dir / f"{self.run_id}_p00.json"
@@ -453,6 +517,7 @@ class Collector:
             lines = [line["text"] for line in json.loads(first.read_text(encoding="utf-8"))]
             hall_state["checkpoint_lines"] = lines[-6:]
             hall_state["last_capture_run"] = self.run_id
+            hall_state["last_capture_date"] = self.today_date.isoformat()
         record["status"] = "captured"
         return record
 
@@ -505,7 +570,7 @@ def main() -> int:
         counts[record["status"]] = counts.get(record["status"], 0) + 1
     failed = [{"hall_id": r["hall_id"], "status": r["status"],
                "reason": r.get("error") or (r.get("open") or {}).get("reason")}
-              for r in manifest["stores"] if r["status"] != "captured"]
+              for r in manifest["stores"] if r["status"] not in ("captured", "no_messages_yet")]
     incomplete = [{"hall_id": r["hall_id"], "page": page["page"], "carousel": c["cards"][0], "stop": c["stop"]}
                   for r in manifest["stores"] for page in (r.get("capture") or {}).get("pages", [])
                   for c in page.get("carousels", []) if c["stop"] in ("stuck_before_last_card", "max_clicks")]
