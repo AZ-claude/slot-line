@@ -428,6 +428,8 @@ git push origin HEAD
 
 1つのLINEアカウントを複数店舗が使っている場合（owner確認済み）は、2店舗目を onboarding ファイルに `"result": "shared_account", "shares_line_account_with": "<1店舗目>"` で記録する。登録リストでは1店舗目の `shared_hall_ids` に入り、トークは1回だけ撮る。
 
+トーク一覧での店舗探しは短い間隔でスクロールし、行が止まってから押す。それでも見つからない店舗は `--id-fallback` でLINE IDから開ける（ID検索を1回使う）。
+
 短縮リンク（`line.me/R/ti/p/<英数字>`）は小さな「友だちを追加」画面で開く。追加後にこの画面が閉じたら、スクリプトはトーク一覧から店舗のトークを開いて追加を確かめる。スクリプトはこの画面の店名も読む。追加後に元のトークへ戻ることがあるので、トーク画面の店名がプロフィール名と違えば `chat_header_mismatch` として保存しない。その場合は `line_chat_snapshot.py` でトーク一覧から開き直して撮る。
 
 | 症状 | 原因と対処 |
@@ -442,16 +444,17 @@ git push origin HEAD
 
 ---
 
-## 8. 引き継ぎ（2026-10-02 13:30 時点）
+## 8. 引き継ぎ（2026-10-04 08:00 時点）
 
-- **collector登録店舗：148**（`data/line_targets.json`）
+- **collector登録店舗：167**（`data/line_targets.json`）
 - **まだ追加していない候補：127店舗**（Step 1のスクリプトで確認）
 - **分類済みのpolicy表：** 既存41店舗、batch00〜04（`collection_policy_batch0*_*.json`）
   - batch02：Type A 0 / B 6 / C 6 / unresolved 14（MONACO桜木町・PIA横須賀中央は撮り直しで返信を確認し Type B に訂正済み）
   - batch03：Type A 1 / B 2 / C 0 / unresolved 7
+  - batch06：Type A 1 / B 4 / C 6 / unresolved 8（20件を試し19件追加。楽園 One Wien 川崎店は候補IDが楽園大宮店だったので追加していない。吉兆東名川崎の「最新情報」は未押下、アビバアネックススクエアは押した結果が未確認）
   - batch05：Type A 3 / B 4 / C 6 / unresolved 5（22件を試し18件追加。パラッツォ湘南台・鶴ヶ峰は候補のIDが「旧アカウント」なので追加していない）
   - batch04：Type A 4 / B 4 / C 4 / unresolved 8（20件すべて追加。スーパーハリウッドは owner 了承のうえ「オススメ」画像を押して Type B）
-- **LINE ID検索の使用：** 2026-10-02 は約25回使用済み（その日はこれ以上の新規追加をしない）
+- **LINE ID検索の使用：** 2026-10-03〜04 は約23回使用済み
 
 ### 次の人がやること
 

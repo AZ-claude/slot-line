@@ -1,0 +1,86 @@
+[
+ {
+  "sample": "s01",
+  "post_id": "1c28ef0ccbe5fd13",
+  "hall_id": "kik-na-chigasaki-ten",
+  "posted_date": "2026-10-02",
+  "image": "data/line_pc_posts/kik-na-chigasaki-ten/1c28ef0ccbe5fd13.jpg"
+ },
+ {
+  "sample": "s02",
+  "post_id": "811a3ed9bfa306c7",
+  "hall_id": "kurie-j-nichi-shij-ten",
+  "posted_date": "2026-10-02",
+  "image": "data/line_pc_posts/kurie-j-nichi-shij-ten/811a3ed9bfa306c7.jpg"
+ },
+ {
+  "sample": "s03",
+  "post_id": "8abab41074168c6c",
+  "hall_id": "biggu-pandora-ido-ke-tani-ten-shinkan",
+  "posted_date": "2026-10-02",
+  "image": "data/line_pc_posts/biggu-pandora-ido-ke-tani-ten-shinkan/8abab41074168c6c.jpg"
+ },
+ {
+  "sample": "s04",
+  "post_id": "aab570c6932ff176",
+  "hall_id": "hall-a74d0d3c82098cbb",
+  "posted_date": "2026-10-01",
+  "image": "data/line_pc_posts/hall-a74d0d3c82098cbb/aab570c6932ff176.jpg"
+ },
+ {
+  "sample": "s05",
+  "post_id": "5d9a7b58307dc566",
+  "hall_id": "123-yokohama-nishiguchi-ten",
+  "posted_date": "2026-10-02",
+  "image": "data/line_pc_posts/123-yokohama-nishiguchi-ten/5d9a7b58307dc566.jpg"
+ },
+ {
+  "sample": "s06",
+  "post_id": "c5a61913ea844b09",
+  "hall_id": "pia-tsunashima",
+  "posted_date": "2026-10-02",
+  "image": "data/line_pc_posts/pia-tsunashima/c5a61913ea844b09.jpg"
+ },
+ {
+  "sample": "s07",
+  "post_id": "700dd77d3f0b56bb",
+  "hall_id": "hall-722fe5252b78b260",
+  "posted_date": "2026-09-28",
+  "image": "data/line_pc_posts/hall-722fe5252b78b260/700dd77d3f0b56bb.jpg"
+ },
+ {
+  "sample": "s08",
+  "post_id": "9c354fa5ee6c6347",
+  "hall_id": "rakuen-sagamihara-ten",
+  "posted_date": "2026-10-02",
+  "image": "data/line_pc_posts/rakuen-sagamihara-ten/9c354fa5ee6c6347.jpg"
+ },
+ {
+  "sample": "s09",
+  "post_id": "aeb60b6ba8207345",
+  "hall_id": "japan-ny-arufa-kurami-ten",
+  "posted_date": null,
+  "image": "data/line_pc_posts/japan-ny-arufa-kurami-ten/aeb60b6ba8207345.jpg"
+ },
+ {
+  "sample": "s10",
+  "post_id": "99d152afa7bf0b13",
+  "hall_id": "mega-feisu-1180-zama",
+  "posted_date": "2026-09-27",
+  "image": "data/line_pc_posts/mega-feisu-1180-zama/99d152afa7bf0b13.jpg"
+ },
+ {
+  "sample": "s11",
+  "post_id": "e6b7c4d3697efddc",
+  "hall_id": "hall-a74d0d3c82098cbb",
+  "posted_date": "2026-10-01",
+  "image": "data/line_pc_posts/hall-a74d0d3c82098cbb/e6b7c4d3697efddc.jpg"
+ },
+ {
+  "sample": "s12",
+  "post_id": "e1a0df643bbe3318_card2",
+  "hall_id": "nakayama-uno",
+  "posted_date": "2026-10-01",
+  "image": "carousel card 2 of the post"
+ }
+]

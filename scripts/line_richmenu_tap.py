@@ -24,6 +24,7 @@ import re
 import subprocess
 import tempfile
 import time
+import urllib.parse
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -31,7 +32,9 @@ LINE_PACKAGE = "jp.naver.line.android"
 
 
 def norm(value: str) -> str:
-    return re.sub(r"\s+", "", value)
+    # full-width and half-width letters/digits (ＵＮＯ / UNO, １ / 1) count as the same
+    import unicodedata
+    return re.sub(r"\s+", "", unicodedata.normalize("NFKC", value))
 
 
 class Device:
@@ -108,23 +111,46 @@ class Device:
             if re.search(r'text="検索"[^>]*bounds="\[\d+,1[5-9]\d\]', xml):
                 return
 
-    def open_chat_by_name(self, name: str, pages: int = 60) -> bool:
+    def open_chat_by_id(self, line_id: str) -> bool:
+        """Fallback: open an already-friended store by its LINE ID (counts as one ID search).
+
+        The profile of a friend shows a "トーク" button; tapping it opens the chat."""
+        key = line_id if line_id.startswith("@") else line_id
+        url = f"https://line.me/R/ti/p/{urllib.parse.quote(key)}"
+        self.run("shell", "am", "start", "-a", "android.intent.action.VIEW", "-d", url, LINE_PACKAGE)
+        time.sleep(5)
+        xml = self.dump(self.scratch / "profile.xml")
+        m = re.search(r'text="トーク"[^>]*bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', xml)
+        if not m:
+            return False
+        self.tap((int(m[1]) + int(m[3])) // 2, (int(m[2]) + int(m[4])) // 2)
+        time.sleep(4)
+        return True
+
+    def open_chat_by_name(self, name: str, pages: int = 120) -> bool:
         self.open_talk_list()
         self.scroll_to_top()
-        previous = None
+        previous, still = None, 0
         for _ in range(pages):
             xml = self.dump(self.scratch / "chatlist.xml")
             for m in re.finditer(r'text="([^"]+)"[^>]*bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', xml):
-                if norm(m[1]) == norm(name) and 420 < int(m[3]) < 1300:
-                    self.tap((int(m[2]) + int(m[4])) // 2, (int(m[3]) + int(m[5])) // 2)
-                    time.sleep(4)
-                    return True
+                if norm(m[1]) == norm(name) and 300 < int(m[3]) < 1380:
+                    # the list may still be gliding after the swipe: tap only where the row stays put
+                    time.sleep(1.0)
+                    again = self.dump(self.scratch / "chatlist.xml")
+                    if f'text="{m[1]}"' in again and f'[{m[2]},{m[3]}][{m[4]},{m[5]}]' in again:
+                        self.tap((int(m[2]) + int(m[4])) // 2, (int(m[3]) + int(m[5])) // 2)
+                        time.sleep(4)
+                        return True
+                    break  # moved: look again on this screen
             names = re.findall(r'text="([^"]+)"', xml)
-            if names and names == previous:
-                return False  # reached the end of the talk list
+            still = still + 1 if names and names == previous else 0
+            if still >= 3:
+                return False  # the list did not move three times: its end
             previous = names
-            self.run("shell", "input", "swipe", "360", "1200", "360", "600", "500")
-            time.sleep(1.2)
+            # short swipes so every row passes through the tappable band
+            self.run("shell", "input", "swipe", "360", "1150", "360", "750", "400")
+            time.sleep(1.0)
         return False
 
 
@@ -138,6 +164,8 @@ def main() -> int:
     parser.add_argument("--adb", default="/tmp/codex-adb-bridge/adb")
     parser.add_argument("--serial", default="HQ615G150D")
     parser.add_argument("--dry-run", action="store_true", help="open and check only; never tap the menu")
+    parser.add_argument("--id-fallback", action="store_true",
+                        help="if the talk list does not show the store, open it by LINE ID (uses one ID search)")
     parser.add_argument("targets", nargs="+")
     args = parser.parse_args()
     out = args.out
@@ -168,7 +196,11 @@ def main() -> int:
         if len(parts) != 6:
             print(json.dumps({"hall_id": hall, "error": "target needs exactly 6 fields"}, ensure_ascii=False))
             return 2
-        if not device.open_chat_by_name(name):
+        opened = device.open_chat_by_name(name)
+        if not opened and args.id_fallback:
+            opened = device.open_chat_by_id(line_id)
+            record["opened_by_line_id"] = opened
+        if not opened:
             write(record | {"status": "guard_failed", "reason": "chat_not_found_in_talk_list"})
             continue
         pre = device.dump(device.scratch / "pre_action.xml")

@@ -1333,6 +1333,177 @@
    "text_trigger": "off",
    "trigger_text": null,
    "policy_file": "collection_policy_batch05_2026-10-02.json"
+  },
+  {
+   "hall_id": "ichibankan-yokohama-izumi-ten",
+   "line_source_key": "@1ban-yokohamaizumi",
+   "search_name": "一番舘　横浜泉店",
+   "collection_type": "type_a_passive",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "kik-na-t-kaidai-zen-mise",
+   "line_source_key": "@kicona-tokai",
+   "search_name": "キコーナ東海大前店",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "hall-d8be5720a9636cd2",
+   "line_source_key": "@aviva-miurakaigan",
+   "search_name": "アビバ三浦海岸店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "hall-d3dce3cd9b305dcf",
+   "line_source_key": "@kicona-hiratsuka",
+   "search_name": "キコーナ平塚店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "doki-waku-rando-aikawa-ten",
+   "line_source_key": "@dokiwaku.aikawa",
+   "search_name": "ドキわくランド愛川店",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "hall-c5e95b44e86be1d3",
+   "line_source_key": "@kct0807d",
+   "search_name": "キコーナ伊勢原店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "doragon-odaky-sagamihara-ten",
+   "line_source_key": "@drasaga",
+   "search_name": "プレイスポットドラゴン小田急相模原店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "hall-6879991203bb9d23",
+   "line_source_key": "@349rrnni",
+   "search_name": "P-rex",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "hall-398e3ccc3c3474a3",
+   "line_source_key": "@uxu3235e",
+   "search_name": "VIVAヤスダ相模原店",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "sagami-no-uno",
+   "line_source_key": "@hns2182h",
+   "search_name": "相模大野ＵＮＯ",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "sh-z-suparesu",
+   "line_source_key": "@680msqmy",
+   "search_name": "シーザースパレス",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "hall-ad2388ecfad0dc62",
+   "line_source_key": "iS6_6RowQW",
+   "search_name": "キコーナ相武台店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "hall-f16e58d7fcda98bd",
+   "line_source_key": "@bqu5889m",
+   "search_name": "JIN",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "higashiyoko-fesuta-1",
+   "line_source_key": "@671glvvx",
+   "search_name": "東横フェスタ1",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "odaky-sagamihara-uno",
+   "line_source_key": "@qkd3223e",
+   "search_name": "小田急相模原ＵＮＯ",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "hall-f39976506d3719e5",
+   "line_source_key": "@699vgvxm",
+   "search_name": "アビバアネックススクエア",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "red-stadium-uwamizo-ten",
+   "line_source_key": "@jub1351o",
+   "search_name": "RED STADIUM上溝店",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "kitch-kawasaki-ch-ten",
+   "line_source_key": "@188akqky",
+   "search_name": "吉兆川崎中央店",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "kitch-t-mei-kawasaki-ten",
+   "line_source_key": "@567pylga",
+   "search_name": "吉兆東名川崎店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch06_2026-10-03.json"
   }
  ]
 }

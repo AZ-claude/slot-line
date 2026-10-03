@@ -1,0 +1,349 @@
+{
+ "schema_version": 1,
+ "review_id": "collection_policy_batch06_2026-10-03_review",
+ "policy_id": "collection_policy_batch06_2026-10-03",
+ "source_onboarding": "data/surveys/line_onboarding_batch06_2026-10-03.json",
+ "reviewed_at": "2026-10-04",
+ "timezone": "Asia/Tokyo",
+ "status": "batch06_first_pass",
+ "method": {
+  "menu_label_source": "screenshot_visual_review",
+  "action_policy": "one tap per store on a clear latest-information tile or a useful-looking tile (owner, 2026-10-01)",
+  "messages_typed": 0,
+  "consents_granted": 0,
+  "chat_open_route": "talk-list rows; LINE ID only as a fallback"
+ },
+ "not_onboarded": {
+  "hall-0907ae6121491bb4": "the candidate ID @rakuen-shinoomiya opens 楽園大宮店, a different store; not added"
+ },
+ "stores": {
+  "kik-na-t-kaidai-zen-mise": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報 PUSH",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-03T16:05:33.179169+00:00",
+    "visible_action_label": "最新情報 PUSH",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/kik-na-t-kaidai-zen-mise_pre_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/kik-na-t-kaidai-zen-mise_post_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/kik-na-t-kaidai-zen-mise_post_action.xml",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/action_results.jsonl#kik-na-t-kaidai-zen-mise"
+   ],
+   "notes": "Opened the P-WORLD hall page."
+  },
+  "doki-waku-rando-aikawa-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "P-WORLD 最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-03T16:09:21.845779+00:00",
+    "visible_action_label": "P-WORLD 最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/doki-waku-rando-aikawa-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/doki-waku-rando-aikawa-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/doki-waku-rando-aikawa-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/action_results.jsonl#doki-waku-rando-aikawa-ten"
+   ],
+   "notes": "Opened the P-WORLD hall page."
+  },
+  "hall-398e3ccc3c3474a3": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報 当店オススメ機種",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-03T16:12:31.136829+00:00",
+    "visible_action_label": "最新情報 当店オススメ機種",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/hall-398e3ccc3c3474a3_pre_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/hall-398e3ccc3c3474a3_post_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/hall-398e3ccc3c3474a3_post_action.xml",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/action_results.jsonl#hall-398e3ccc3c3474a3"
+   ],
+   "notes": "Opened the P-WORLD hall page."
+  },
+  "kitch-kawasaki-ch-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "NEW 最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-03T16:26:46.147336+00:00",
+    "visible_action_label": "NEW 最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/kitch-kawasaki-ch-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/kitch-kawasaki-ch-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/kitch-kawasaki-ch-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/action_results.jsonl#kitch-kawasaki-ch-ten"
+   ],
+   "notes": "Opened the P-WORLD hall page."
+  },
+  "higashiyoko-fesuta-1": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-03T22:11:34.718760+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://p-town.dmm.com/shops/kanagawa/4529",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/higashiyoko-fesuta-1_pre_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/higashiyoko-fesuta-1_post_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/higashiyoko-fesuta-1_post_action.xml",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/action_results.jsonl#higashiyoko-fesuta-1"
+   ],
+   "notes": "Opened the DMMぱちタウン store page."
+  },
+  "odaky-sagamihara-uno": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "お知らせ (周年月間 banner)",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-03T22:19:17.987045+00:00",
+    "visible_action_label": "お知らせ (周年月間 banner)",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://p-town.dmm.com/shops/kanagawa/12092",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/odaky-sagamihara-uno_pre_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/odaky-sagamihara-uno_post_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/odaky-sagamihara-uno_post_action.xml",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/action_results.jsonl#odaky-sagamihara-uno"
+   ],
+   "notes": "Owner allows tapping useful-looking tiles. The お知らせ banner opened the DMMぱちタウン store page."
+  },
+  "sagami-no-uno": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "お知らせ (10/5 banner)",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-03T16:15:02.603929+00:00",
+    "visible_action_label": "お知らせ (10/5 banner)",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": true
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/sagami-no-uno_pre_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/sagami-no-uno_post_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/sagami-no-uno_post_action.xml",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/action_results.jsonl#sagami-no-uno"
+   ],
+   "notes": "The tile sent the text 「お知らせ」 and the store replied with a 10/5 新台 image."
+  },
+  "hall-f16e58d7fcda98bd": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "おしらせ",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-03T16:18:39.304529+00:00",
+    "visible_action_label": "おしらせ",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/hall-f16e58d7fcda98bd_pre_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/hall-f16e58d7fcda98bd_post_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/hall-f16e58d7fcda98bd_post_action.xml",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/action_results.jsonl#hall-f16e58d7fcda98bd"
+   ],
+   "notes": "A 新台 (9/24) image arrived in the chat after the tap."
+  },
+  "hall-6879991203bb9d23": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-03T20:17:39.320674+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/hall-6879991203bb9d23_pre_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/hall-6879991203bb9d23_post_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/hall-6879991203bb9d23_post_action.xml",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/action_results.jsonl#hall-6879991203bb9d23",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/reply_recheck/hall-6879991203bb9d23_snap.jpg"
+   ],
+   "notes": "A 新台入替 9.14 image arrived (loaded in the re-check capture)."
+  },
+  "red-stadium-uwamizo-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "レッドスタジアム最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-03T20:51:04.197974+00:00",
+    "visible_action_label": "レッドスタジアム最新情報",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/red-stadium-uwamizo-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/red-stadium-uwamizo-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/red-stadium-uwamizo-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/action_results.jsonl#red-stadium-uwamizo-ten",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/reply_recheck/red-stadium-uwamizo-ten_snap.jpg"
+   ],
+   "notes": "10/5 新台入替 images arrived in the chat (re-check capture)."
+  },
+  "hall-f39976506d3719e5": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "PUSH 最新情報 毎日21時更新",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-03T21:55:58.954443+00:00",
+    "visible_action_label": "PUSH 最新情報 毎日21時更新",
+    "action_result": "unknown",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/hall-f39976506d3719e5_pre_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/hall-f39976506d3719e5_post_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/hall-f39976506d3719e5_post_action.xml",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/action_results.jsonl#hall-f39976506d3719e5"
+   ],
+   "notes": "The chat showed a loading spinner after the tap and the re-check could not reopen the chat; result not yet observed. The welcome message announces a LINE account change (new account from 4/21) - owner to confirm this is the current account."
+  },
+  "kitch-t-mei-kawasaki-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "パチンコランキング",
+    "スロットランキング",
+    "X",
+    "台データ",
+    "フロアマップ",
+    "NEW 最新情報"
+   ],
+   "latest_action_label": "NEW 最新情報",
+   "notes": "Not tapped yet: the chat could not be reopened from the talk list or by LINE ID on 2026-10-04."
+  },
+  "hall-d8be5720a9636cd2": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "10.5 大型新台入替 (banner)",
+    "P-WORLD",
+    "X",
+    "DMMぱちタウン",
+    "台データ"
+   ],
+   "latest_action_label": null
+  },
+  "hall-d3dce3cd9b305dcf": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "P-WORLD",
+    "X",
+    "神奈川キコーナ特設サイト"
+   ],
+   "latest_action_label": null
+  },
+  "hall-c5e95b44e86be1d3": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "10月もキコーナ! (banner)",
+    "P-WORLD",
+    "DMMぱちタウン",
+    "X"
+   ],
+   "latest_action_label": null
+  },
+  "doragon-odaky-sagamihara-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "X",
+    "フロアマップ",
+    "DMMぱちタウン",
+    "台データ",
+    "入場方法",
+    "店舗情報"
+   ],
+   "latest_action_label": null
+  },
+  "sh-z-suparesu": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "P-WORLD",
+    "台データ公開中",
+    "DMM"
+   ],
+   "latest_action_label": null
+  },
+  "hall-ad2388ecfad0dc62": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "10月もキコーナ! (banner)",
+    "入場案内",
+    "神奈川特設サイト",
+    "提携駐車場",
+    "フロアマップ"
+   ],
+   "latest_action_label": null
+  },
+  "ichibankan-yokohama-izumi-ten": {
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/ichibankan-yokohama-izumi-ten.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/ichibankan-yokohama-izumi-ten.xml",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/absence_recheck/ichibankan-yokohama-izumi-ten_snap.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/absence_recheck/ichibankan-yokohama-izumi-ten_snap_1.xml",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/absence_recheck/ichibankan-yokohama-izumi-ten_snap_2.xml"
+   ],
+   "notes": "No rich menu or menu bar at onboarding and in two re-check captures; the welcome message links P-WORLD, パチ7 and DMM."
+  }
+ }
+}

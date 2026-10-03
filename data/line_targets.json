@@ -2270,6 +2270,291 @@
    ],
    "source": "line_onboarding_batch05_2026-10-02.json",
    "active": true
+  },
+  {
+   "hall_id": "ichibankan-yokohama-izumi-ten",
+   "canonical_hall_id": "ichibankan-yokohama-izumi-ten",
+   "collector_key": "ichibankan-yokohama-izumi-ten",
+   "line_source_key": "@1ban-yokohamaizumi",
+   "store_name": "一番舘横浜泉店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "一番舘　横浜泉店",
+   "profile_expected_names": [
+    "一番舘横浜泉店"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "kik-na-t-kaidai-zen-mise",
+   "canonical_hall_id": "kik-na-t-kaidai-zen-mise",
+   "collector_key": "kik-na-t-kaidai-zen-mise",
+   "line_source_key": "@kicona-tokai",
+   "store_name": "キコーナ東海大前店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "キコーナ東海大前店",
+   "profile_expected_names": [
+    "キコーナ東海大前店"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-d8be5720a9636cd2",
+   "canonical_hall_id": "hall-d8be5720a9636cd2",
+   "collector_key": "hall-d8be5720a9636cd2",
+   "line_source_key": "@aviva-miurakaigan",
+   "store_name": "アビバ 三浦海岸店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "アビバ三浦海岸店",
+   "profile_expected_names": [
+    "アビバ 三浦海岸店"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-d3dce3cd9b305dcf",
+   "canonical_hall_id": "hall-d3dce3cd9b305dcf",
+   "collector_key": "hall-d3dce3cd9b305dcf",
+   "line_source_key": "@kicona-hiratsuka",
+   "store_name": "キコーナ平塚店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "キコーナ平塚店",
+   "profile_expected_names": [
+    "キコーナ平塚店"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "doki-waku-rando-aikawa-ten",
+   "canonical_hall_id": "doki-waku-rando-aikawa-ten",
+   "collector_key": "doki-waku-rando-aikawa-ten",
+   "line_source_key": "@dokiwaku.aikawa",
+   "store_name": "ドキわくランド愛川店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "ドキわくランド愛川店",
+   "profile_expected_names": [
+    "ドキわくランド愛川店"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-c5e95b44e86be1d3",
+   "canonical_hall_id": "hall-c5e95b44e86be1d3",
+   "collector_key": "hall-c5e95b44e86be1d3",
+   "line_source_key": "@kct0807d",
+   "store_name": "キコーナ伊勢原店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "キコーナ伊勢原店",
+   "profile_expected_names": [
+    "キコーナ伊勢原店"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "doragon-odaky-sagamihara-ten",
+   "canonical_hall_id": "doragon-odaky-sagamihara-ten",
+   "collector_key": "doragon-odaky-sagamihara-ten",
+   "line_source_key": "@drasaga",
+   "store_name": "ドラゴン小田急相模原店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "プレイスポットドラゴン小田急相模原店",
+   "profile_expected_names": [
+    "ドラゴン小田急相模原店"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-6879991203bb9d23",
+   "canonical_hall_id": "hall-6879991203bb9d23",
+   "collector_key": "hall-6879991203bb9d23",
+   "line_source_key": "@349rrnni",
+   "store_name": "P-rex",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "P-rex",
+   "profile_expected_names": [
+    "P-rex"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-398e3ccc3c3474a3",
+   "canonical_hall_id": "hall-398e3ccc3c3474a3",
+   "collector_key": "hall-398e3ccc3c3474a3",
+   "line_source_key": "@uxu3235e",
+   "store_name": "VIVAヤスダ相模原店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "VIVAヤスダ相模原店",
+   "profile_expected_names": [
+    "VIVAヤスダ相模原店"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "sagami-no-uno",
+   "canonical_hall_id": "sagami-no-uno",
+   "collector_key": "sagami-no-uno",
+   "line_source_key": "@hns2182h",
+   "store_name": "相模大野UNO",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "相模大野ＵＮＯ",
+   "profile_expected_names": [
+    "相模大野UNO"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "sh-z-suparesu",
+   "canonical_hall_id": "sh-z-suparesu",
+   "collector_key": "sh-z-suparesu",
+   "line_source_key": "@680msqmy",
+   "store_name": "シーザースパレス",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "シーザースパレス",
+   "profile_expected_names": [
+    "シーザースパレス"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-ad2388ecfad0dc62",
+   "canonical_hall_id": "hall-ad2388ecfad0dc62",
+   "collector_key": "hall-ad2388ecfad0dc62",
+   "line_source_key": "iS6_6RowQW",
+   "store_name": "キコーナ相武台店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "キコーナ相武台店",
+   "profile_expected_names": [
+    "キコーナ相武台店"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-f16e58d7fcda98bd",
+   "canonical_hall_id": "hall-f16e58d7fcda98bd",
+   "collector_key": "hall-f16e58d7fcda98bd",
+   "line_source_key": "@bqu5889m",
+   "store_name": "J I N",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "JIN",
+   "profile_expected_names": [
+    "J I N"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "higashiyoko-fesuta-1",
+   "canonical_hall_id": "higashiyoko-fesuta-1",
+   "collector_key": "higashiyoko-fesuta-1",
+   "line_source_key": "@671glvvx",
+   "store_name": "東横フェスタ1",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "東横フェスタ1",
+   "profile_expected_names": [
+    "東横フェスタ1"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "odaky-sagamihara-uno",
+   "canonical_hall_id": "odaky-sagamihara-uno",
+   "collector_key": "odaky-sagamihara-uno",
+   "line_source_key": "@qkd3223e",
+   "store_name": "小田急相模原UNO",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "小田急相模原ＵＮＯ",
+   "profile_expected_names": [
+    "小田急相模原UNO"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-f39976506d3719e5",
+   "canonical_hall_id": "hall-f39976506d3719e5",
+   "collector_key": "hall-f39976506d3719e5",
+   "line_source_key": "@699vgvxm",
+   "store_name": "アビバANNEX ＆ SQUARE",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "アビバアネックススクエア",
+   "profile_expected_names": [
+    "アビバANNEX ＆ SQUARE"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "red-stadium-uwamizo-ten",
+   "canonical_hall_id": "red-stadium-uwamizo-ten",
+   "collector_key": "red-stadium-uwamizo-ten",
+   "line_source_key": "@jub1351o",
+   "store_name": "RED STADIUM上溝店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "RED STADIUM上溝店",
+   "profile_expected_names": [
+    "RED STADIUM上溝店"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "kitch-kawasaki-ch-ten",
+   "canonical_hall_id": "kitch-kawasaki-ch-ten",
+   "collector_key": "kitch-kawasaki-ch-ten",
+   "line_source_key": "@188akqky",
+   "store_name": "吉兆川崎中央店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "吉兆川崎中央店",
+   "profile_expected_names": [
+    "吉兆川崎中央店"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
+  },
+  {
+   "hall_id": "kitch-t-mei-kawasaki-ten",
+   "canonical_hall_id": "kitch-t-mei-kawasaki-ten",
+   "collector_key": "kitch-t-mei-kawasaki-ten",
+   "line_source_key": "@567pylga",
+   "store_name": "吉兆東名川崎店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "吉兆東名川崎店",
+   "profile_expected_names": [
+    "吉兆東名川崎店"
+   ],
+   "source": "line_onboarding_batch06_2026-10-03.json",
+   "active": true
   }
  ]
 }
