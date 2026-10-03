@@ -78,7 +78,7 @@ def name_score(seen: str, name: str) -> float:
     """Similarity of an OCR'd chat name to a store name. A longer name that merely
     contains it (くいーぷ東戸塚店 for くいーぷ) is another store of the chain."""
     a, b = ocr_fold(seen), ocr_fold(name)
-    if b and b in a and len(a) - len(b) >= 2:
+    if b and a.startswith(b) and len(a) - len(b) >= 2 and not a[len(b)] in "(（":
         return 0.0
     return similarity(seen, name)
 
@@ -241,20 +241,26 @@ class Collector:
         self.tmp.mkdir(parents=True, exist_ok=True)
 
     def names_for(self, hall: str, name: str) -> list[str]:
-        return [name, *self.aliases.get(hall, [])]
+        names = [name, *self.aliases.get(hall, [])]
+        # "ZAP大船店（おおフニャくん）": OCR often splits off or garbles the nickname in brackets
+        bare = __import__("re").sub(r"[（(].*?[）)]", "", name).strip()
+        return names + ([bare] if bare and bare != name else [])
 
     def open_chat(self, name: str, hall: str = "") -> dict[str, Any]:
         names = self.names_for(hall, name)
         pc = self.pc
-        pc.click(*CHATS_TAB)
-        time.sleep(0.8)
-        pc.click(*SEARCH_BOX)
-        pc.key("ctrl+a")
-        pc.paste(name)
-        time.sleep(2.0)
         best, best_y = 0.0, None
         result_lines: list[str] = []
-        for _ in range(3):  # the result list can take a moment to appear
+        for attempt in range(6):  # the result list can take a moment to appear; search afresh once
+            if attempt in (0, 3):
+                pc.click(*CHATS_TAB)
+                time.sleep(0.8)
+                pc.click(*SEARCH_BOX)
+                pc.key("ctrl+a")
+                pc.key("delete")
+                time.sleep(0.5)
+                pc.paste(name)
+                time.sleep(2.0)
             results = pc.shot(self.tmp / "results.png", RESULTS_BOX)
             # read twice (enlarged on the darkest channel, and as shown): each misses some names
             lines = ocr_lines(results, scale=2) + ocr_lines(results)
@@ -559,13 +565,19 @@ def main() -> int:
         except Exception as exc:  # one store must not stop the others
             record = {"hall_id": store["hall_id"], "status": "error", "error": f"{type(exc).__name__}: {exc}"}
             try:
-                collector.pc.key("esc")
+                import win32gui
+                # Esc on LINE's own window hides it to the tray; only dismiss something in front of it
+                if win32gui.GetForegroundWindow() != collector.pc.hwnd and not collector.pc.close_dialogs():
+                    collector.pc.key("esc")
             except Exception:
                 pass
         manifest["stores"].append(record)
         manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")
         state_path.write_text(json.dumps(state, ensure_ascii=False, indent=1), encoding="utf-8")
-    collector.pc.release()
+    try:
+        collector.pc.release()
+    except Exception:
+        pass  # the window may have gone; the manifest still has to be written
     manifest["finished_at"] = datetime.now(timezone.utc).isoformat()
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")
     counts: dict[str, int] = {}

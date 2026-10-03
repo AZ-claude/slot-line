@@ -125,8 +125,19 @@ class LinePC:
                 found.append(hwnd)
 
         win32gui.EnumWindows(visit, None)
+        if not found and not getattr(self, "_relaunched", False):
+            # LINE closes its main window to the tray (e.g. on Esc); starting it again brings it back
+            import os
+            import subprocess
+            launcher = Path(os.environ.get("LOCALAPPDATA", "")) / "LINE" / "bin" / "LineLauncher.exe"
+            if launcher.exists():
+                self._relaunched = True
+                subprocess.Popen([str(launcher)])
+                time.sleep(10)
+                return self.find_window()
         if not found:
             raise RuntimeError("LINE_window_not_found")
+        self._relaunched = False
 
         def area(hwnd: int) -> int:
             left, top, right, bottom = win32gui.GetWindowRect(hwnd)
@@ -265,7 +276,8 @@ class LinePC:
         names = {"ctrl": win32con.VK_CONTROL, "enter": win32con.VK_RETURN, "esc": win32con.VK_ESCAPE,
                  "a": ord("A"), "v": ord("V"), "f": ord("F"), "home": win32con.VK_HOME, "end": win32con.VK_END,
                  "pgup": win32con.VK_PRIOR, "pgdn": win32con.VK_NEXT, "down": win32con.VK_DOWN,
-                 "up": win32con.VK_UP, "back": win32con.VK_BACK, "tab": win32con.VK_TAB}
+                 "up": win32con.VK_UP, "back": win32con.VK_BACK, "tab": win32con.VK_TAB,
+                 "delete": win32con.VK_DELETE}
         codes = [names[part] for part in combo.lower().split("+")]
         for code in codes:
             win32api.keybd_event(code, 0, 0, 0)

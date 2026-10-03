@@ -222,6 +222,16 @@ python3 scripts/line_pc_sync.py                 # Windows → data/line_pc_raw/<
 
 一覧で見る：`.venv/bin/python scripts/line_pc_gallery.py [--since YYYY-MM-DD]` で `data/line_pc_posts/gallery.html`（店舗ごと・新しい順、画像埋め込みの1ファイル）を作る。店名・OCR文字で絞り込める。
 
+### 文字の読み取り（Mac の Vision、LLMなし）
+
+Windows OCR は「今日」のような短い文字や小さな時刻を取りこぼすので、Mac 側で各ページを macOS 標準の Vision（端末内で動く文字認識）で読み直す。結果はページの横に `<page>.vision.json` として保存し、2回目からは読み直さない（初回は約3,000ページで7分ほど）。
+
+```
+swiftc -O tools/vision_ocr.swift -o build/vision_ocr   # 最初に一度だけ（build/ は git 対象外）
+```
+
+毎日の撮影は前回の続きから撮るので、最初の投稿の上に日付の区切りが写らないことがある。そうした投稿には、同じ店舗の前回の撮影で最後に見えた日付を付ける。
+
 ### 複数枚の投稿
 
 - **1枚ずつ続けて届いた画像**：同じ分に届いた画像は17px間隔で並び、時刻は最後の1枚にしか付かない。12px以上の余白で区切るので1件ずつになる。

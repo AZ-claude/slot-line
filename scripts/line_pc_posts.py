@@ -104,8 +104,37 @@ def stitch(pages: list[Path]) -> tuple[np.ndarray, list[int]]:
     return strip, offsets
 
 
+VISION_OCR = ROOT / "build" / "vision_ocr"  # swiftc -O tools/vision_ocr.swift -o build/vision_ocr
+
+
+def vision_path(page: Path) -> Path:
+    return page.with_name(page.stem + ".vision.json")
+
+
+def ensure_vision(pages: list[Path], workers: int = 6) -> None:
+    """Read pages with macOS Vision once and cache the result next to them.
+
+    Vision reads the small grey date dividers ("今日", "9.30(水)") and time
+    stamps far better than the Windows OCR saved by the collector."""
+    todo = [p for p in pages if not vision_path(p).exists()]
+    if not todo or not VISION_OCR.exists():
+        return
+    import subprocess
+    from concurrent.futures import ThreadPoolExecutor
+
+    def run(chunk: list[Path]) -> None:
+        out = subprocess.run([str(VISION_OCR), *map(str, chunk)], capture_output=True, text=True, timeout=600).stdout
+        for line in out.splitlines():
+            result = json.loads(line)
+            vision_path(Path(result["path"])).write_text(json.dumps(result["lines"], ensure_ascii=False), encoding="utf-8")
+
+    chunks = [todo[i:i + 20] for i in range(0, len(todo), 20)]
+    with ThreadPoolExecutor(workers) as pool:
+        list(pool.map(run, chunks))
+
+
 def page_ocr(page: Path, top: int) -> list[dict[str, Any]]:
-    ocr_path = page.with_suffix(".json")
+    ocr_path = vision_path(page) if vision_path(page).exists() else page.with_suffix(".json")
     if not ocr_path.exists():
         return []
     lines = []
@@ -316,12 +345,54 @@ def parse_time(text: str) -> str | None:
 
 
 # ---------------------------------------------------------------- one run
-def cut_run(hall_id: str, run_id: str, capture_day: date, pages: list[Path], store_record: dict[str, Any]) -> list[dict[str, Any]]:
+def pill_dates(pages: list[Path], capture_day: date) -> list[str]:
+    """Dates of the centred date dividers OCR'd on a run's pages."""
+    found = []
+    for page in pages:
+        for line in page_ocr(page, 0):
+            x0, y0, x1, y1 = line["box"]
+            text = norm(line["text"])
+            if abs((x0 + x1) / 2 - 320) <= 70 and y1 - y0 <= 30 and DATE_RE.match(text):
+                parsed = parse_date(text, capture_day)
+                if parsed and parsed <= capture_day.isoformat():
+                    found.append(parsed)
+    return found
+
+
+def inherited_start_dates(dates: list[str]) -> dict[str, str]:
+    """For each incremental run ("run/hall"), the date its first undated posts belong to:
+    the latest date known when the previous run of the same store ended."""
+    last: dict[str, str] = {}
+    starts: dict[str, str] = {}
+    for day in sorted(dates):
+        for manifest_path in sorted((RAW / day).glob("line_pc_run_*.json")):
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            for store in manifest["stores"]:
+                if store.get("status") != "captured":
+                    continue
+                hall = store["hall_id"]
+                folder = RAW / day / hall / "line_pc"
+                pages = sorted(p for p in folder.glob(f"{manifest['run_id']}_p[0-9][0-9].*") if p.suffix in {".jpg", ".png"})
+                stop = (store.get("capture") or {}).get("stop")
+                if stop == "reached_previous_checkpoint" and hall in last:
+                    starts[f"{manifest['run_id']}/{hall}"] = last[hall]
+                ensure_vision(pages)
+                seen = pill_dates(pages, date.fromisoformat(day))
+                known = max(seen + ([last[hall]] if hall in last and stop == "reached_previous_checkpoint" else []), default=None)
+                if known:
+                    last[hall] = known
+    return starts
+
+
+def cut_run(hall_id: str, run_id: str, capture_day: date, pages: list[Path], store_record: dict[str, Any],
+            start_date: str | None = None) -> list[dict[str, Any]]:
     strip, offsets = stitch(pages)
     ocr = merge_ocr([page_ocr(page, top) for page, top in zip(pages, offsets)])
     stop = (store_record.get("capture") or {}).get("stop")
     posts: list[dict[str, Any]] = []
-    current_date: str | None = None
+    # An incremental run starts just below the previous capture, often without a date divider
+    # above its first posts; those posts belong to the day the previous capture ended on.
+    current_date: str | None = start_date
 
     def emit(a: int, b: int, time_text: str | None) -> None:
         rows = np.where(~blank_rows(strip[a:b + 1]))[0]
@@ -330,7 +401,7 @@ def cut_run(hall_id: str, run_id: str, capture_day: date, pages: list[Path], sto
         a, b = a + int(rows[0]), a + int(rows[-1])
         if b - a < MIN_POST_HEIGHT:
             return
-        inside = [l for l in ocr if l["box"][1] >= a - 2 and l["box"][3] <= b + 2]
+        inside = [l for l in ocr if a - 2 <= (l["box"][1] + l["box"][3]) / 2 <= b + 2]
         texts = [l["text"] for l in inside if not TIME_RE.match(norm(l["text"])) and not READ_RE.match(norm(l["text"]))
                  and HOVER_BAR not in norm(l["text"])]
         if not texts and b - a < 60 and any(HOVER_BAR in norm(l["text"]) for l in inside):
@@ -349,7 +420,7 @@ def cut_run(hall_id: str, run_id: str, capture_day: date, pages: list[Path], sto
             dark_cols = np.where((strip[a:b + 1, :CONTENT_WIDTH].min(axis=2) < 250).any(axis=0))[0]
         x_min, x_max = (int(dark_cols.min()), int(dark_cols.max())) if len(dark_cols) else (0, CONTENT_WIDTH)
         height = b - a + 1
-        inside = [l for l in ocr if l["box"][1] >= a - 3 and l["box"][3] <= b + 3]
+        inside = [l for l in ocr if a - 3 <= (l["box"][1] + l["box"][3]) / 2 <= b + 3]  # Vision boxes overhang a little
         text = "".join(norm(l["text"]) for l in inside)
         if height <= 34 and x_min >= 180 and x_max <= 460:  # centred pill: date or "ここから未読"
             if open_start is not None:
@@ -406,11 +477,12 @@ def process(dates: list[str]) -> dict[str, Any]:
     index: dict[str, list[str]] = json.loads(index_path.read_text(encoding="utf-8")) if index_path.exists() else {}
     done_runs = set(index.get("_runs", []))
     full_history: set[str] = set(index.get("_full_history", []))  # stores already read back to the first message
+    starts = inherited_start_dates(sorted(p.name for p in RAW.iterdir() if p.is_dir() and re.match(r"\d{4}-\d{2}-\d{2}$", p.name)))
     summary = {"runs": 0, "new_posts": 0, "duplicates": 0, "own_messages": 0, "partial_skipped": 0, "superseded_runs": 0, "errors": []}
     with (OUT / "posts.jsonl").open("a", encoding="utf-8") as sink:
         for day in sorted(dates, reverse=True):
             # newest run first: later captures use the better tooling and win de-duplication
-            used_today: set[str] = set()  # one capture per store and day: the newest one
+            used_today: set[str] = set()  # stores already read in full by a newer run that day
             for manifest_path in sorted((RAW / day).glob("line_pc_run_*.json"), reverse=True):
                 manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
                 run_id = manifest["run_id"]
@@ -422,7 +494,8 @@ def process(dates: list[str]) -> dict[str, Any]:
                         done_runs.add(key)
                         summary["superseded_runs"] += 1
                         continue
-                    used_today.add(store["hall_id"])
+                    if (store.get("capture") or {}).get("stop") == "top_of_history":
+                        used_today.add(store["hall_id"])  # read back to the first message: older runs that day add nothing
                     hall = store["hall_id"]
                     if hall in full_history and (store.get("capture") or {}).get("stop") != "reached_previous_checkpoint":
                         # a newer run already read this store's whole history with the current tooling;
@@ -436,7 +509,8 @@ def process(dates: list[str]) -> dict[str, Any]:
                     if not pages:
                         continue
                     try:
-                        posts = cut_run(hall, run_id, date.fromisoformat(day), pages, store)
+                        ensure_vision(pages)
+                        posts = cut_run(hall, run_id, date.fromisoformat(day), pages, store, starts.get(key))
                     except Exception as exc:  # one broken run must not stop the rest
                         summary["errors"].append({"run": key, "error": f"{type(exc).__name__}: {exc}"})
                         continue
