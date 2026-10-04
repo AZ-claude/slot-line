@@ -139,6 +139,7 @@ def build(since: str | None) -> dict:
     rows.sort(reverse=True)
     write_matrix(rows, by_store, info)
     compared = write_compare(info, records)
+    hinted = write_hints(info)
     table = ["<input id='q' placeholder='店名で絞り込み'><table><thead><tr><th>店舗</th><th>最新の投稿</th>"
              "<th class='n'>件数</th><th class='n'>日数</th><th>Type</th><th>最新情報の送信</th></tr></thead><tbody>"]
     for last, hall, name, meta, count, days in rows:
@@ -148,10 +149,10 @@ def build(since: str | None) -> dict:
                      f"<td>{TRIGGER.get(meta.get('text_trigger', ''), '')}</td></tr>")
     table.append("</tbody></table><script>const q=document.getElementById('q');q.addEventListener('input',()=>{"
                  "document.querySelectorAll('tbody tr').forEach(r=>{r.style.display=r.dataset.name.includes(q.value.trim())?'':'none'})})</script>")
-    nav = "<nav class='top'><a href='matrix.html'>日付×店舗の一覧表 →</a> ・ <a href='compare.html'>画像と文字の比較 →</a></nav>"
+    nav = "<nav class='top'><a href='matrix.html'>日付×店舗の一覧表 →</a> ・ <a href='compare.html'>画像と文字の比較 →</a> ・ <a href='hints.html'>機種カード（示唆） →</a></nav>"
     (SITE / "index.html").write_text(page("LINE投稿タイムライン", f"{len(rows)}店舗 ・ {len(records)}件", nav + "".join(table), ""), encoding="utf-8")
     size = sum(p.stat().st_size for p in SITE.rglob("*") if p.is_file())
-    return {"stores": len(rows), "posts": len(records), "compared": compared, "site_mb": round(size / 1e6, 2)}
+    return {"stores": len(rows), "posts": len(records), "compared": compared, "hint_cards": hinted, "site_mb": round(size / 1e6, 2)}
 
 
 MATRIX_CSS = """
@@ -274,6 +275,48 @@ def write_compare(info: dict[str, dict], records: list[dict]) -> int:
     (SITE / "compare.html").write_text(page("画像と文字の比較", f"{len(by_store)}店舗 ・ {count}件（Vision＋Qwen）",
                                             f"<style>{COMPARE_CSS}</style>" + "".join(body), ""), encoding="utf-8")
     return count
+
+
+def write_hints(info: dict[str, dict]) -> int:
+    """hints.html: evening machine-hint cards (scripts/line_hints.py) - store, day, frame colour, machine."""
+    path = ROOT / "data" / "line_pc_hints" / "hints.jsonl"
+    if not path.exists():
+        return 0
+    rows = [json.loads(l) for l in path.read_text(encoding="utf-8").splitlines() if l.strip()]
+    esc = html.escape
+    big = SITE / "img_big"
+    big.mkdir(exist_ok=True)
+    by_store: dict[str, list[dict]] = defaultdict(list)
+    for row in rows:
+        by_store[row["hall_id"]].append(row)
+    body = ["<style>.hint td{vertical-align:middle}.sw{display:inline-block;width:14px;height:14px;border-radius:3px;border:1px solid var(--line);vertical-align:-2px;margin-right:4px}"
+            ".hint img{width:90px;border-radius:4px;cursor:zoom-in}#lb{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:9}"
+            "#lb.on{display:flex}#lb img{max-width:min(96vw,600px);max-height:94vh;border-radius:6px}</style>",
+            "<nav class='top'><a href='index.html'>← 店舗一覧</a> ・ <a href='compare.html'>画像と文字の比較</a></nav>",
+            "<p style='font-size:12px;color:var(--muted)'>夕方〜夜に届く「設置機種ご案内」「機種情報」などの機種カード。枠の色は画素から測定（LLMなし）、機種名は Vision＋Qwen。</p>"]
+    for hall, items in sorted(by_store.items(), key=lambda kv: info.get(kv[0], {}).get("store_name") or kv[0]):
+        items.sort(key=lambda r: (r.get("posted_date") or "", r.get("posted_time") or ""), reverse=True)
+        body.append(f"<h2 class='store' style='font-size:16px;margin:18px 0 6px'>{esc(info.get(hall, {}).get('store_name') or hall)}</h2>"
+                    "<table class='hint'><thead><tr><th>届いた日時</th><th>枠の色</th><th>機種</th><th>種別</th><th>画像</th></tr></thead><tbody>")
+        for r in items:
+            name = Path(r["image"]).stem + ".webp"
+            if not (big / name).exists():
+                with Image.open(POSTS / r["image"]) as im:
+                    im = im.convert("RGB")
+                    if im.width > 600:
+                        im = im.resize((600, round(im.height * 600 / im.width)), Image.LANCZOS)
+                    im.save(big / name, "WEBP", quality=60, method=6)
+            rgb = r.get("rgb") or [200, 200, 200]
+            body.append(f"<tr><td>{day_label(r.get('posted_date'))} {esc(r.get('posted_time') or '')}</td>"
+                        f"<td><span class='sw' style='background:rgb({rgb[0]},{rgb[1]},{rgb[2]})'></span>{esc(r.get('colour') or '')}</td>"
+                        f"<td>{esc(r.get('machine') or '（読めず）')}</td><td>{esc(r.get('kind') or '')}</td>"
+                        f"<td><img loading='lazy' src='img_big/{name}' alt=''></td></tr>")
+        body.append("</tbody></table>")
+    body.append("<div id='lb'><img alt=''></div><script>const lb=document.getElementById('lb'),li=lb.querySelector('img');"
+                "document.querySelectorAll('.hint img').forEach(i=>i.addEventListener('click',()=>{li.src=i.src;lb.classList.add('on')}));"
+                "lb.addEventListener('click',()=>lb.classList.remove('on'));</script>")
+    (SITE / "hints.html").write_text(page("機種カード（示唆）", f"{len(by_store)}店舗 ・ {len(rows)}枚", "".join(body), ""), encoding="utf-8")
+    return len(rows)
 
 
 def short_day(value: str) -> str:
