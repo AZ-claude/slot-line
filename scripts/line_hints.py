@@ -151,6 +151,12 @@ def main() -> int:
                 cache.write_text(json.dumps(row, ensure_ascii=False, indent=1), encoding="utf-8")
             if row.get("hint") and mode == "ask" and not LABEL.search(row.get("vision_text") or ""):
                 continue  # Qwen called it a machine card, but the card has no 設置機種ご案内/機種情報 label
+            if row.get("hint") and mode == "ask" and row.get("rgb"):
+                # UNO-group frames are red or gold: take the nearer of the two
+                r_, g_, b_ = (v / 255 for v in row["rgb"])
+                hue = colorsys.rgb_to_hsv(r_, g_, b_)[0] * 360
+                row = dict(row, colour_detail=row.get("colour"),
+                           colour="赤" if min(abs(hue - 355), 360 - abs(hue - 355)) < abs(hue - 50) else "金")
             if row.get("hint"):
                 rows.append({"hall_id": post["hall_id"], "posted_date": post.get("posted_date"), "posted_time": post.get("posted_time"),
                              "image": rel, **{k: v for k, v in row.items() if k != "vision_text"}})
