@@ -239,6 +239,14 @@ swiftc -O tools/vision_ocr.swift -o build/vision_ocr   # 最初に一度だけ�
 - **同じ日に何度も撮った場合**：店舗ごとに、その日の最新の撮影だけを使う。`--rebuild` で `data/line_pc_posts/` を作り直せる。
 - **縦に並んだ複数枚（リッチメッセージ）**：1投稿の1枚画像として扱う。PC版LINEでは「スマートフォンでのみ確認可能」で開けないため、画面の切り抜きがそのまま最良の画像になる。
 
+### 画像の文字起こし（Vision ＋ Qwen、Mac）
+
+```
+.venv/bin/python scripts/line_post_text.py --halls nakayama-uno,pia-keiky-kawasaki --since 2026-09-28 --limit 10
+```
+
+投稿の画像（横並びはカード1枚ずつ）を、まず Vision で読み、その文字を「誤りを含む参考」として2倍に拡大した画像と一緒にローカルの Qwen（`qwen3.8:latest`）へ渡し、要約・おすすめ機種・取材（名前と日付）・日ごとのイベント・新台・書き起こしを JSON で受け取る（1枚40〜60秒）。Vision の文字に似た形で出てこない機種名・取材名は `unverified`（要確認）にする。結果は `data/line_pc_text/<画像名>.json`（git対象外）。サイトの `compare.html` に画像と内容を並べて表示する。調査の経緯は `docs/QWEN_OCR_STUDY.md`。
+
 ### 店舗ごとの時系列サイト
 
 ```

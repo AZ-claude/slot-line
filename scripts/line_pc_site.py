@@ -138,6 +138,7 @@ def build(since: str | None) -> dict:
 
     rows.sort(reverse=True)
     write_matrix(rows, by_store, info)
+    compared = write_compare(info, records)
     table = ["<input id='q' placeholder='店名で絞り込み'><table><thead><tr><th>店舗</th><th>最新の投稿</th>"
              "<th class='n'>件数</th><th class='n'>日数</th><th>Type</th><th>最新情報の送信</th></tr></thead><tbody>"]
     for last, hall, name, meta, count, days in rows:
@@ -147,10 +148,10 @@ def build(since: str | None) -> dict:
                      f"<td>{TRIGGER.get(meta.get('text_trigger', ''), '')}</td></tr>")
     table.append("</tbody></table><script>const q=document.getElementById('q');q.addEventListener('input',()=>{"
                  "document.querySelectorAll('tbody tr').forEach(r=>{r.style.display=r.dataset.name.includes(q.value.trim())?'':'none'})})</script>")
-    nav = "<nav class='top'><a href='matrix.html'>日付×店舗の一覧表 →</a></nav>"
+    nav = "<nav class='top'><a href='matrix.html'>日付×店舗の一覧表 →</a> ・ <a href='compare.html'>画像と文字の比較 →</a></nav>"
     (SITE / "index.html").write_text(page("LINE投稿タイムライン", f"{len(rows)}店舗 ・ {len(records)}件", nav + "".join(table), ""), encoding="utf-8")
     size = sum(p.stat().st_size for p in SITE.rglob("*") if p.is_file())
-    return {"stores": len(rows), "posts": len(records), "site_mb": round(size / 1e6, 2)}
+    return {"stores": len(rows), "posts": len(records), "compared": compared, "site_mb": round(size / 1e6, 2)}
 
 
 MATRIX_CSS = """
@@ -179,6 +180,100 @@ body.big .th i{display:block;position:absolute;left:1px;top:1px;font-size:8px;fo
 #lb img{max-height:calc(100vh - 60px);max-width:min(92vw,420px);border-radius:6px;background:#fff}
 #lb p{position:fixed;top:8px;left:16px;margin:0;color:#fff;font-size:13px}
 """
+
+
+TEXT = ROOT / "data" / "line_pc_text"
+
+COMPARE_CSS = """
+main{max-width:1200px}
+.store{margin:22px 0 8px;font-size:17px}
+.cmp{border-top:1px solid var(--line);padding:10px 0 4px}
+.row{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:14px;padding:4px 0 10px}
+@media (max-width:760px){.row{grid-template-columns:1fr}}
+.imgs{display:flex;gap:6px;overflow-x:auto}
+.imgs img{width:min(100%,260px);flex:none;border-radius:6px;border:1px solid var(--line);cursor:zoom-in;background:#fff}
+.imgs.one img{width:min(100%,360px)}
+.when{font-size:12px;color:var(--muted);margin-bottom:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:6px}
+.card h4{margin:0 0 4px;font-size:12px;color:var(--muted);font-weight:600}
+.sum{font-size:14px;margin:0 0 6px}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0}
+.tag{font-size:12px;padding:1px 8px;border-radius:999px;background:var(--chip)}
+.tag.rec{background:#fde8c8;color:#7a4a00}.tag.cov{background:#d9ecff;color:#0b4a8a}.tag.new{background:#ddf3e4;color:#1e6b3a}
+.tag.warn{background:#ffe0e0;color:#9b1c1c}
+@media (prefers-color-scheme:dark){.tag.rec{background:#4a3410;color:#ffd59a}.tag.cov{background:#12324f;color:#a9d3ff}.tag.new{background:#173d26;color:#a8e6bd}.tag.warn{background:#4d1d1d;color:#ffb4b4}}
+ul.ev{margin:2px 0 0;padding-left:18px;font-size:13px}
+details{font-size:12px;color:var(--muted)}details pre{white-space:pre-wrap;font:12px/1.5 inherit;color:var(--fg)}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:9;padding:16px}
+#lb.on{display:flex}#lb img{max-width:min(96vw,700px);max-height:94vh;border-radius:6px;background:#fff}
+"""
+
+
+def write_compare(info: dict[str, dict], records: list[dict]) -> int:
+    """compare.html: each post's images next to the Vision + Qwen text (scripts/line_post_text.py)."""
+    if not TEXT.exists():
+        return 0
+    def text_for(path: str) -> dict | None:
+        cache = TEXT / f"{Path(path).stem}.json"
+        return json.loads(cache.read_text(encoding="utf-8")) if cache.exists() else None
+    big = SITE / "img_big"
+    big.mkdir(exist_ok=True)
+    by_store: dict[str, list[tuple[dict, list[str], list[dict]]]] = defaultdict(list)
+    for post in records:
+        images = [c for c in post.get("cards", []) if (POSTS / c).exists()] or [post["image"]]
+        texts = [text_for(i) for i in images]
+        if all(texts):
+            by_store[post["hall_id"]].append((post, images, texts))
+    esc = html.escape
+    body = ["<nav class='top'><a href='index.html'>← 店舗一覧</a> ・ <a href='matrix.html'>一覧表</a></nav>"
+            "<p style='font-size:12px;color:var(--muted)'>左が届いた画像、右が Vision（Mac標準の文字認識）＋ Qwen で起こした内容。"
+            "<span class='tag warn'>要確認</span> は Vision の文字に見当たらない名前（Qwen の読み違い・作り話の可能性）。</p>"]
+    count = 0
+    for hall, items in sorted(by_store.items(), key=lambda kv: (info.get(kv[0], {}).get("store_name") or kv[0])):
+        body.append(f"<h2 class='store'>{esc(info.get(hall, {}).get('store_name') or hall)}</h2>")
+        items.sort(key=lambda t: (t[0].get("posted_date") or "", t[0].get("posted_time") or ""), reverse=True)
+        for post, images, texts in items:
+            count += 1
+            imgs = []
+            for path in images:
+                name = Path(path).stem + ".webp"
+                if not (big / name).exists():
+                    with Image.open(POSTS / path) as im:
+                        im = im.convert("RGB")
+                        if im.width > 600:
+                            im = im.resize((600, round(im.height * 600 / im.width)), Image.LANCZOS)
+                        im.save(big / name, "WEBP", quality=60, method=6)
+                imgs.append(f"<img loading='lazy' src='img_big/{name}' alt=''>")
+            cards = []
+            for i, t in enumerate(texts):
+                unverified = set(t.get("unverified") or [])
+                def tag(name: str, cls: str) -> str:
+                    warn = " warn" if name in unverified else ""
+                    return f"<span class='tag {cls}{warn}'>{esc(name)}{' ⚠要確認' if warn else ''}</span>"
+                rec = [m for m in t.get("recommended_machines") or [] if isinstance(m, str) and m]
+                cov = [c for c in t.get("coverage") or [] if isinstance(c, dict) and c.get("name")]
+                new = [m for m in t.get("new_machines") or [] if isinstance(m, dict) and m.get("name")]
+                ev = [e for e in t.get("events") or [] if isinstance(e, dict) and (e.get("content") or e.get("date"))]
+                parts = [f"<h4>{'カード' + str(i + 1) if len(texts) > 1 else '内容'}</h4><p class='sum'>{esc(t.get('summary') or '（要約なし）')}</p>"]
+                if rec:
+                    parts.append("<div class='tags'>おすすめ " + "".join(tag(m, "rec") for m in rec) + "</div>")
+                if cov:
+                    parts.append("<div class='tags'>取材 " + "".join(tag(c["name"], "cov").replace("</span>", f"{(' ' + esc(str(c.get('date')))) if c.get('date') else ''}</span>", 1) for c in cov) + "</div>")
+                if new:
+                    parts.append("<div class='tags'>新台 " + "".join(tag(m["name"], "new").replace("</span>", f"{(' ' + esc(str(m.get('units')))) if m.get('units') else ''}</span>", 1) for m in new) + "</div>")
+                if ev:
+                    parts.append("<ul class='ev'>" + "".join(f"<li>{esc(str(e.get('date') or ''))} {esc(str(e.get('content') or ''))}</li>" for e in ev) + "</ul>")
+                parts.append(f"<details><summary>書き起こし／Vision の文字</summary><pre>{esc(t.get('transcript') or '')}</pre><hr><pre>{esc(t.get('vision_text') or '')}</pre></details>")
+                cards.append("<div class='card'>" + "".join(parts) + "</div>")
+            when = f"{day_label(post.get('posted_date'))} {esc(post.get('posted_time') or '')}" + (f" ・ 横並び{len(imgs)}枚" if len(imgs) > 1 else "")
+            body.append(f"<div class='cmp'><div class='when'>{when}</div>" + "".join(
+                f"<div class='row'><div class='imgs one'>{img}</div><div>{card}</div></div>" for img, card in zip(imgs, cards)) + "</div>")
+    body.append("<div id='lb'><img alt=''></div><script>const lb=document.getElementById('lb'),li=lb.querySelector('img');"
+                "document.querySelectorAll('.imgs img').forEach(i=>i.addEventListener('click',()=>{li.src=i.src;lb.classList.add('on')}));"
+                "lb.addEventListener('click',()=>lb.classList.remove('on'));</script>")
+    (SITE / "compare.html").write_text(page("画像と文字の比較", f"{len(by_store)}店舗 ・ {count}件（Vision＋Qwen）",
+                                            f"<style>{COMPARE_CSS}</style>" + "".join(body), ""), encoding="utf-8")
+    return count
 
 
 def short_day(value: str) -> str:
