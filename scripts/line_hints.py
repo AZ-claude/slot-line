@@ -162,6 +162,10 @@ def main() -> int:
                              "image": rel, **{k: v for k, v in row.items() if k != "vision_text"}})
                 print(json.dumps(rows[-1], ensure_ascii=False), flush=True)
     rows.sort(key=lambda r: (r["hall_id"], r.get("posted_date") or "", r.get("posted_time") or ""))
+    if args.since and (OUT / "hints.jsonl").exists():
+        # keep the rows of earlier days that this run did not look at
+        older = [json.loads(l) for l in (OUT / "hints.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
+        rows = [r for r in older if (r.get("posted_date") or "") < args.since] + rows
     with (OUT / "hints.jsonl").open("w", encoding="utf-8") as f:
         for row in rows:
             f.write(json.dumps(row, ensure_ascii=False) + "\n")

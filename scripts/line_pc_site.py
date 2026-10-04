@@ -140,6 +140,7 @@ def build(since: str | None) -> dict:
     write_matrix(rows, by_store, info)
     compared = write_compare(info, records)
     hinted = write_hints(info)
+    picked, aside = write_triage(info)
     table = ["<input id='q' placeholder='店名で絞り込み'><table><thead><tr><th>店舗</th><th>最新の投稿</th>"
              "<th class='n'>件数</th><th class='n'>日数</th><th>Type</th><th>最新情報の送信</th></tr></thead><tbody>"]
     for last, hall, name, meta, count, days in rows:
@@ -149,10 +150,10 @@ def build(since: str | None) -> dict:
                      f"<td>{TRIGGER.get(meta.get('text_trigger', ''), '')}</td></tr>")
     table.append("</tbody></table><script>const q=document.getElementById('q');q.addEventListener('input',()=>{"
                  "document.querySelectorAll('tbody tr').forEach(r=>{r.style.display=r.dataset.name.includes(q.value.trim())?'':'none'})})</script>")
-    nav = "<nav class='top'><a href='matrix.html'>日付×店舗の一覧表 →</a> ・ <a href='compare.html'>画像と文字の比較 →</a> ・ <a href='hints.html'>機種カード（示唆） →</a></nav>"
+    nav = "<nav class='top'><a href='matrix.html'>日付×店舗の一覧表 →</a> ・ <a href='compare.html'>画像と文字の比較 →</a> ・ <a href='hints.html'>機種カード（示唆） →</a> ・ <a href='picks.html'>拾った投稿（全店仕分け） →</a></nav>"
     (SITE / "index.html").write_text(page("LINE投稿タイムライン", f"{len(rows)}店舗 ・ {len(records)}件", nav + "".join(table), ""), encoding="utf-8")
     size = sum(p.stat().st_size for p in SITE.rglob("*") if p.is_file())
-    return {"stores": len(rows), "posts": len(records), "compared": compared, "hint_cards": hinted, "site_mb": round(size / 1e6, 2)}
+    return {"stores": len(rows), "posts": len(records), "compared": compared, "hint_cards": hinted, "picked": picked, "set_aside": aside, "site_mb": round(size / 1e6, 2)}
 
 
 MATRIX_CSS = """
@@ -317,6 +318,78 @@ def write_hints(info: dict[str, dict]) -> int:
                 "lb.addEventListener('click',()=>lb.classList.remove('on'));</script>")
     (SITE / "hints.html").write_text(page("機種カード（示唆）", f"{len(by_store)}店舗 ・ {len(rows)}枚", "".join(body), ""), encoding="utf-8")
     return len(rows)
+
+
+CATEGORY_LABEL = {"machine_hint": "機種の示唆", "recommend_period": "期間つきオススメ", "event_day": "特定日のイベント", "other": "その他"}
+
+
+def big_webp(rel: str) -> str:
+    big = SITE / "img_big"
+    big.mkdir(exist_ok=True)
+    name = Path(rel).stem + ".webp"
+    if not (big / name).exists():
+        with Image.open(POSTS / rel) as im:
+            im = im.convert("RGB")
+            if im.width > 600:
+                im = im.resize((600, round(im.height * 600 / im.width)), Image.LANCZOS)
+            im.save(big / name, "WEBP", quality=60, method=6)
+    return "img_big/" + name
+
+
+LIGHTBOX = ("<div id='lb'><img alt=''></div><style>#lb{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:9}"
+            "#lb.on{display:flex}#lb img{max-width:min(96vw,600px);max-height:94vh;border-radius:6px}.zoom{cursor:zoom-in}</style>"
+            "<script>const lb=document.getElementById('lb'),li=lb.querySelector('img');"
+            "document.querySelectorAll('img.zoom').forEach(i=>i.addEventListener('click',()=>{li.src=i.src;lb.classList.add('on')}));"
+            "lb.addEventListener('click',()=>lb.classList.remove('on'));</script>")
+
+
+def write_triage(info: dict[str, dict]) -> tuple[int, int]:
+    """picks.html (machine hints and dated recommendations) and audit.html (what was set aside, for a weekly look)."""
+    path = ROOT / "data" / "line_pc_triage" / "triage.jsonl"
+    if not path.exists():
+        return 0, 0
+    rows = [json.loads(l) for l in path.read_text(encoding="utf-8").splitlines() if l.strip()]
+    esc = html.escape
+    store = lambda h: info.get(h, {}).get("store_name") or h
+    picks = [r for r in rows if r.get("category") in ("machine_hint", "recommend_period")]
+    by_store: dict[str, list[dict]] = defaultdict(list)
+    for r in picks:
+        by_store[r["hall_id"]].append(r)
+    body = ["<nav class='top'><a href='index.html'>← 店舗一覧</a> ・ <a href='audit.html'>仕分けで外したもの（週1の確認用）</a></nav>",
+            "<p style='font-size:12px;color:var(--muted)'>全投稿を3段階で仕分け（LLMなしのふるい → Qwen 速い方で分類 → 正確な方で機種を読む）した結果のうち、"
+            "「機種の示唆」「期間つきオススメ」だけ。同じ画像の再送は前回の判定を使い回す。</p>"]
+    for hall, items in sorted(by_store.items(), key=lambda kv: store(kv[0])):
+        items.sort(key=lambda r: (r.get("posted_date") or "", r.get("posted_time") or ""), reverse=True)
+        body.append(f"<h2 style='font-size:16px;margin:18px 0 6px'>{esc(store(hall))} <span class='chip'>{len(items)}</span></h2>"
+                    "<table><thead><tr><th>届いた日時</th><th>分類</th><th>機種</th><th>期間・色</th><th>画像</th></tr></thead><tbody>")
+        for r in items:
+            rgb = r.get("rgb")
+            colour = (f"<span style='display:inline-block;width:12px;height:12px;border-radius:3px;background:rgb({rgb[0]},{rgb[1]},{rgb[2]});margin-right:4px'></span>{esc(r.get('colour') or '')}"
+                      if rgb and r.get("category") == "machine_hint" else "")
+            body.append(f"<tr><td>{day_label(r.get('posted_date'))} {esc(r.get('posted_time') or '')}{' <span class=chip>再送</span>' if r.get('repeat_of') else ''}</td>"
+                        f"<td>{CATEGORY_LABEL.get(r['category'], '')}</td><td>{esc('、'.join(r.get('machines') or []) or '（読めず）')}</td>"
+                        f"<td>{esc(r.get('period') or '')} {colour}</td><td><img class='zoom' loading='lazy' style='width:90px;border-radius:4px' src='{big_webp(r['image'])}' alt=''></td></tr>")
+        body.append("</tbody></table>")
+    body.append(LIGHTBOX)
+    (SITE / "picks.html").write_text(page("拾った投稿（示唆・オススメ）", f"{len(by_store)}店舗 ・ {len(picks)}枚", "".join(body), ""), encoding="utf-8")
+
+    # audit: per store, the newest images that were set aside, so a person can spot misses
+    aside: dict[str, list[dict]] = defaultdict(list)
+    for r in rows:
+        if r.get("category") in ("other", "event_day") and not r.get("repeat_of"):
+            aside[r["hall_id"]].append(r)
+    body = ["<nav class='top'><a href='picks.html'>← 拾った投稿</a></nav>",
+            "<p style='font-size:12px;color:var(--muted)'>仕分けで「その他」「特定日のイベント」にした画像（再送は除く）を店舗ごとに新しい順で最大8枚。"
+            "示唆やオススメが紛れていたら、その店舗の扱いを上げる。</p>"]
+    for hall, items in sorted(aside.items(), key=lambda kv: store(kv[0])):
+        items.sort(key=lambda r: (r.get("posted_date") or "", r.get("posted_time") or ""), reverse=True)
+        cells = "".join(f"<div style='width:110px;font-size:10px;color:var(--muted)'><img class='zoom' loading='lazy' style='width:110px;height:110px;object-fit:cover;object-position:top;border-radius:4px' src='{big_webp(r['image'])}' alt=''>"
+                        f"<div>{esc((r.get('posted_date') or '')[5:])} {'ふるい' if r.get('stage1') == 'routine' else CATEGORY_LABEL.get(r['category'], '')}</div>"
+                        f"<div title='{esc(r.get('reason') or '')}'>{esc((r.get('reason') or '')[:30])}</div></div>" for r in items[:8])
+        body.append(f"<h3 style='font-size:14px;margin:14px 0 4px'>{esc(store(hall))} <span class='chip'>{len(items)}</span></h3><div style='display:flex;gap:6px;flex-wrap:wrap'>{cells}</div>")
+    body.append(LIGHTBOX)
+    (SITE / "audit.html").write_text(page("仕分けで外したもの", f"{len(aside)}店舗", "".join(body), ""), encoding="utf-8")
+    return len(picks), sum(len(v) for v in aside.values())
 
 
 def short_day(value: str) -> str:

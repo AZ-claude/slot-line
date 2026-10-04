@@ -41,3 +41,6 @@ data/qwen_ocr_study/_vision_tmp.png
 data/qwen_ocr_study/run_*.jsonl
 data/line_pc_text/
 data/line_pc_hints/
+data/line_pc_triage/
+data/line_pc_nightly.log
+data/line_pc_nightly.launchd.log
