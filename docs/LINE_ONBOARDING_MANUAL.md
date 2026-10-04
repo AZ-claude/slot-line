@@ -444,25 +444,29 @@ git push origin HEAD
 
 ---
 
-## 8. 引き継ぎ（2026-10-04 08:00 時点）
+## 8. 引き継ぎ（2026-10-05 時点）
 
 - **collector登録店舗：167**（`data/line_targets.json`）
-- **まだ追加していない候補：127店舗**（Step 1のスクリプトで確認）
-- **分類済みのpolicy表：** 既存41店舗、batch00〜04（`collection_policy_batch0*_*.json`）
-  - batch02：Type A 0 / B 6 / C 6 / unresolved 14（MONACO桜木町・PIA横須賀中央は撮り直しで返信を確認し Type B に訂正済み）
-  - batch03：Type A 1 / B 2 / C 0 / unresolved 7
-  - batch06：Type A 1 / B 4 / C 6 / unresolved 8（20件を試し19件追加。楽園 One Wien 川崎店は候補IDが楽園大宮店だったので追加していない。吉兆東名川崎の「最新情報」は未押下、アビバアネックススクエアは押した結果が未確認）
+- **まだ試していない候補：85店舗**（Step 1のスクリプトで確認）
+- **分類済みのpolicy表：** 既存41店舗、batch00〜06（`collection_policy_batch0*_*.json`）
+  - batch06：Type A 1 / B 4 / C 6 / unresolved 8（20件を試し19件追加。楽園 One Wien 川崎店は候補IDが楽園大宮店だったので追加していない）
   - batch05：Type A 3 / B 4 / C 6 / unresolved 5（22件を試し18件追加。パラッツォ湘南台・鶴ヶ峰は候補のIDが「旧アカウント」なので追加していない）
   - batch04：Type A 4 / B 4 / C 4 / unresolved 8（20件すべて追加。スーパーハリウッドは owner 了承のうえ「オススメ」画像を押して Type B）
-- **LINE ID検索の使用：** 2026-10-03〜04 は約23回使用済み
+  - batch02：Type A 0 / B 6 / C 6 / unresolved 14、batch03：Type A 1 / B 2 / C 0 / unresolved 7
+- **LINE ID検索の使用：** 最後に使ったのは 2026-10-04。10-05 はまだ0回
+- **時間帯：** 毎日 21:30〜23:30ごろは Windows の LINE PC が全店舗を自動で撮影している（同じLINEアカウント）。この時間帯は端末作業をしない
 
 ### 次の人がやること
 
-新規追加は Step 1 から続ける。翌日以降に batch05 として最大20件。
+1. batch06 の残り2件（ボタン押下。Step 4 の 4-1 → 4-4）
+   - 吉兆東名川崎店（`kitch-t-mei-kawasaki-ten`）：「NEW 最新情報」をまだ押していない。1回押して結果を review に書く
+   - アビバANNEX ＆ SQUARE：押した直後は読み込み中で結果が見えていない。**もう押さない。** `line_chat_snapshot.py` でトークを撮り直し、返信が来ていれば Type B として review に書く。来ていなければ unresolved のまま
+2. 新規追加は batch07 として Step 1 から最大20件
 
 ### ownerの確認待ち
 
 - パラッツォ湘南台店・パラッツォ鶴ヶ峰店：候補のLINE IDが「（旧アカウント）」。現在のアカウントのIDが分かれば追加する。鶴ヶ峰スロット館は本館と同じアカウント（owner確認済み）なので、本館を追加すれば `shares_line_account_with` で一緒に登録される
+- アビバANNEX ＆ SQUARE：アカウント移行の案内あり。owner の判断で「備考に残し、今のアカウントのまま継続」
 - グランドホール港南店：「最新情報」を押すとLIFFの同意画面（認証）。許可していない
 
 - owner の方針（2026-10-01）：「最新情報」以外でも、おすすめ・取材・イベントなど気になるボタンは1回押してよい
