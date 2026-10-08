@@ -2750,6 +2750,39 @@
    ],
    "source": "line_onboarding_batch07_2026-10-09.json",
    "active": true
+  },
+  {
+   "hall_id": "hall-5bcb34ef9ca0733a",
+   "canonical_hall_id": "hall-5bcb34ef9ca0733a",
+   "collector_key": "hall-5bcb34ef9ca0733a",
+   "line_source_key": "@976wwsvi",
+   "store_name": "ヒノマル新城店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_owner_confirmed_name",
+   "chat_header_name": "ヒノマルパチンコ新城店",
+   "profile_expected_names": [
+    "ヒノマル新城店"
+   ],
+   "source": "line_onboarding_batch07_2026-10-09.json",
+   "active": true,
+   "shared_hall_ids": [
+    "hall-c87277226308d8d0"
+   ]
+  },
+  {
+   "hall_id": "hall-71b2fffc46d836fc",
+   "canonical_hall_id": "hall-71b2fffc46d836fc",
+   "collector_key": "hall-71b2fffc46d836fc",
+   "line_source_key": "@903ndacx",
+   "store_name": "ビッグパンドラ 井土ヶ谷店 本館",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_owner_confirmed_name",
+   "chat_header_name": "BIGパンドラ井土ヶ谷店本館",
+   "profile_expected_names": [
+    "ビッグパンドラ 井土ヶ谷店 本館"
+   ],
+   "source": "line_onboarding_batch07_2026-10-09.json",
+   "active": true
   }
  ]
 }

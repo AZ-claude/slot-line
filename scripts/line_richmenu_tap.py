@@ -104,7 +104,8 @@ class Device:
             self.tap(80, 102)
             time.sleep(1.5)
         # Fast flings until the search box at the very top of the list is visible.
-        for _ in range(12):
+        # The list keeps growing with every onboarded store, so allow plenty of flings.
+        for _ in range(40):
             self.run("shell", "input", "swipe", "360", "450", "360", "1300", "80")
             time.sleep(0.7)
             xml = self.dump(self.scratch / "chatlist.xml")

@@ -16,10 +16,8 @@
  "not_onboarded": {
   "hall-81d23d2360ac8551": "PREST平間店 is already a friend (@kqy6116j, identity verified by the P-WORLD page) but the chat was not reached from the profile; retry from the talk list",
   "hall-9b103243f15e04cc": "PREST平間店II shares @kqy6116j with PREST平間店; already a friend, identity unverified from the chat screen",
-  "hall-5bcb34ef9ca0733a": "@976wwsvi is named ヒノマルパチンコ新城店, no P-WORLD link; identity not verified, owner to confirm",
-  "hall-c87277226308d8d0": "@976wwsvi is named ヒノマルパチンコ新城店, no P-WORLD link; identity not verified, owner to confirm (same ID as ヒノマル新城店)",
-  "hall-71b2fffc46d836fc": "BIGパンドラ井土ヶ谷店本館 (@903ndacx) has no P-WORLD link and @949hkhtd was already a friend with an unverified chat; owner to confirm",
-  "rakuen-mizo-no-kuchi-ten": "the short link did not open a profile (unknown screen)",
+  "hall-c87277226308d8d0": "shares the LINE account of ヒノマル新城店 (@976wwsvi, shown as ヒノマルパチンコ新城店; owner, 2026-10-09); attached to it as one chat",
+  "rakuen-mizo-no-kuchi-ten": "the current P-WORLD page links https://lin.ee/GEBW0Zu, which opens @295hbtgn 「楽園-findchat-㈱find運営」 (a company account, not the store; identity unverified, not added); the old short link and the 2016 ID @rakuen-mizono (pachiseven) were not tried",
   "abiba-kami-oka-ten": "already a friend (@072akruj, identity verified by the P-WORLD page) but the chat was not reached from the profile; retry from the talk list"
  },
  "stores": {
@@ -110,7 +108,7 @@
   },
   "abiba-miharu-machi-ten": {
    "rich_menu_status": "present",
-   "menu_review_status": "latest_like_label_not_executed",
+   "menu_review_status": "latest_label_observed",
    "visible_menu_labels": [
     "最新情報はこちら | メインメニュー (top tabs)",
     "YouTubeへGO",
@@ -119,12 +117,24 @@
     "抽選方法",
     "台データ"
    ],
-   "latest_action_label": null,
+   "latest_action_label": "最新情報はこちら",
    "evidence_refs": [
     "data/surveys/line_onboarding_batch07_2026-10-09_evidence/abiba-miharu-machi-ten.jpg",
-    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/abiba-miharu-machi-ten.xml"
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/abiba-miharu-machi-ten.xml",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/abiba-miharu-machi-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/abiba-miharu-machi-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/action_results.jsonl#abiba-miharu-machi-ten"
    ],
-   "notes": "The only latest-like label is the top tab '最新情報はこちら' of the menu image; it looks like a tab switch, not a content tile, so it was not tapped. Owner to confirm whether to tap it."
+   "notes": "Owner approved tapping it (2026-10-09). The tile only switched the menu image to 戻る plus a list of store-manager X accounts (横須賀アビバグループ 店長X); no latest-information content appeared.",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-08T16:52:19.666724+00:00",
+    "visible_action_label": "最新情報はこちら",
+    "action_result": "unknown",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   }
   },
   "kik-na-ebina-ten": {
    "rich_menu_status": "present",
@@ -233,7 +243,7 @@
     "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/action_results.jsonl#p-ku-shinj-makkusu-pachinko",
     "data/surveys/line_onboarding_batch07_2026-10-09_evidence/reply_recheck/p-ku-shinj-makkusu-pachinko_snap.jpg"
    ],
-   "notes": "The tile sent the text 「最新情報」 and the store answered with a card carousel (rendered as blank white cards even in the re-check capture, so the content is not readable). Owner to send 「最新情報」 once to verify the text trigger. The welcome text lists a 最新情報 item."
+   "notes": "The tile sent the text 「最新情報」 and the store answered with a card carousel (rendered as blank white cards even in the re-check capture, so the content is not readable). Owner to send 「最新情報」 once to verify the text trigger. The welcome text lists a 最新情報 item. Owner (2026-10-09) sent 「最新情報」 once by hand: the chat started blank and, once loaded, showed two images. The re-check capture of that reply could not be taken (talk-list lookup failed), so text_trigger_verified stays false until the two replies are compared."
   },
   "doki-waku-rando-yamato-ekimae-ten": {
    "rich_menu_status": "present",
@@ -307,6 +317,47 @@
     "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/action_results.jsonl#hall-607cb0916e371b96"
    ],
    "notes": "Opened the P-WORLD hall page."
+  },
+  "hall-5bcb34ef9ca0733a": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "最新情報",
+    "グループ特別取材",
+    "X",
+    "創業月間 (banner)",
+    "フロアマップ",
+    "台データ パチンコ・10＆5スロ館",
+    "台データ 46枚貸スロ（駅前店）"
+   ],
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-08T16:50:40.620071+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://hinomaru-web.net/shinjo/",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-5bcb34ef9ca0733a.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-5bcb34ef9ca0733a.xml",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/hall-5bcb34ef9ca0733a_post_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/hall-5bcb34ef9ca0733a_post_action.xml",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/action_results.jsonl#hall-5bcb34ef9ca0733a"
+   ],
+   "notes": "Opened the store site hinomaru-web.net/shinjo (shared by ヒノマル新城店 and ヒノマル新城駅前店). The menu also has a 「グループ特別取材」 tile that was not tapped."
+  },
+  "hall-71b2fffc46d836fc": {
+   "rich_menu_status": "not_observed",
+   "menu_review_status": "not_observed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-71b2fffc46d836fc.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-71b2fffc46d836fc.xml"
+   ],
+   "notes": "Owner-confirmed as BIGパンドラ井土ヶ谷店本館 (2026-10-09). The onboarding capture shows only the welcome message and the composer, no rich menu; the extra re-check capture could not open the chat (talk-list lookup failed), so absence is not confirmed."
   }
  }
 }

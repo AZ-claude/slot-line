@@ -77,93 +77,6 @@
    "result": "not_onboarded"
   },
   {
-   "hall_id": "hall-5bcb34ef9ca0733a",
-   "store_name": "ヒノマル新城店",
-   "attempts": [
-    {
-     "line_source_key": "@976wwsvi",
-     "url": "https://line.me/R/ti/p/%40976wwsvi",
-     "first_screen": "profile",
-     "profile_xml": "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-5bcb34ef9ca0733a_profile_0.xml",
-     "profile_name": "ヒノマルパチンコ新城店",
-     "profile_pworld_path": null,
-     "identity": null,
-     "result": "identity_unverified"
-    }
-   ],
-   "result": "not_onboarded"
-  },
-  {
-   "hall_id": "hall-c87277226308d8d0",
-   "store_name": "ヒノマルパチンコ新城駅前店",
-   "attempts": [
-    {
-     "line_source_key": "@976wwsvi",
-     "url": "https://line.me/R/ti/p/%40976wwsvi",
-     "first_screen": "profile",
-     "profile_xml": "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-c87277226308d8d0_profile_0.xml",
-     "profile_name": "ヒノマルパチンコ新城店",
-     "profile_pworld_path": null,
-     "identity": null,
-     "result": "identity_unverified"
-    }
-   ],
-   "result": "not_onboarded"
-  },
-  {
-   "hall_id": "hall-71b2fffc46d836fc",
-   "store_name": "ビッグパンドラ 井土ヶ谷店 本館",
-   "attempts": [
-    {
-     "line_source_key": "@949hkhtd",
-     "url": "https://line.me/R/ti/p/@949hkhtd?ts=06241837&oat_content=url",
-     "first_screen": "chat",
-     "identity": null,
-     "friend_added": false,
-     "already_friend": true,
-     "result": "identity_unverified"
-    },
-    {
-     "line_source_key": "@903ndacx",
-     "url": "https://line.me/R/ti/p/%40903ndacx",
-     "first_screen": "profile",
-     "profile_xml": "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-71b2fffc46d836fc_profile_1.xml",
-     "profile_name": "BIGパンドラ井土ヶ谷店本館",
-     "profile_pworld_path": null,
-     "identity": null,
-     "result": "identity_unverified"
-    }
-   ],
-   "result": "not_onboarded"
-  },
-  {
-   "hall_id": "rakuen-mizo-no-kuchi-ten",
-   "store_name": "楽園溝の口店",
-   "attempts": [
-    {
-     "line_source_key": "j5yhiGC6kM",
-     "url": "http://line.naver.jp/ti/p/j5yhiGC6kM",
-     "first_screen": "unknown",
-     "result": "unknown_screen",
-     "texts": [
-      "00:34",
-      "10月9日金曜日",
-      "d払い",
-      "設定",
-      "YouTube",
-      "X",
-      "Google",
-      "Play ストア",
-      "povo2.0",
-      "LINE",
-      "電話",
-      "ドコモメール"
-     ]
-    }
-   ],
-   "result": "not_onboarded"
-  },
-  {
    "hall_id": "pia-kawasaki-daisu",
    "store_name": "PIA川崎ダイス",
    "attempts": [
@@ -558,6 +471,129 @@
    "identity_status": "verified_name_without_store_suffix",
    "friend_added": true,
    "onboarded_at": "2026-10-08T15:45:48.925071+00:00"
+  },
+  {
+   "hall_id": "hall-5bcb34ef9ca0733a",
+   "store_name": "ヒノマル新城店",
+   "attempts": [
+    {
+     "line_source_key": "@976wwsvi",
+     "url": "https://line.me/R/ti/p/%40976wwsvi",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-5bcb34ef9ca0733a_profile_0.xml",
+     "profile_name": "ヒノマルパチンコ新城店",
+     "profile_pworld_path": null,
+     "identity": "verified_owner_confirmed_name",
+     "friend_added": true,
+     "chat_header": "ヒノマルパチンコ新城店",
+     "screenshot": "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-5bcb34ef9ca0733a.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-5bcb34ef9ca0733a.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@976wwsvi",
+   "identity_status": "verified_owner_confirmed_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-08T16:44:52.831824+00:00"
+  },
+  {
+   "hall_id": "hall-c87277226308d8d0",
+   "store_name": "ヒノマルパチンコ新城駅前店",
+   "attempts": [
+    {
+     "line_source_key": "@976wwsvi",
+     "url": "https://line.me/R/ti/p/%40976wwsvi",
+     "first_screen": "chat",
+     "identity": "verified_owner_confirmed_name",
+     "friend_added": false,
+     "already_friend": true,
+     "chat_header": "ヒノマルパチンコ新城店",
+     "screenshot": "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-c87277226308d8d0.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-c87277226308d8d0.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "shared_account",
+   "shares_line_account_with": "hall-5bcb34ef9ca0733a",
+   "note": "Owner confirmed on 2026-10-09 that ヒノマル新城店 and ヒノマルパチンコ新城駅前店 share one LINE account (@976wwsvi, shown as ヒノマルパチンコ新城店)."
+  },
+  {
+   "hall_id": "hall-71b2fffc46d836fc",
+   "store_name": "ビッグパンドラ 井土ヶ谷店 本館",
+   "attempts": [
+    {
+     "line_source_key": "@949hkhtd",
+     "url": "https://line.me/R/ti/p/@949hkhtd?ts=06241837&oat_content=url",
+     "first_screen": "chat",
+     "identity": null,
+     "friend_added": false,
+     "already_friend": true,
+     "result": "identity_unverified"
+    },
+    {
+     "line_source_key": "@903ndacx",
+     "url": "https://line.me/R/ti/p/%40903ndacx",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-71b2fffc46d836fc_profile_1.xml",
+     "profile_name": "BIGパンドラ井土ヶ谷店本館",
+     "profile_pworld_path": null,
+     "identity": "verified_owner_confirmed_name",
+     "friend_added": true,
+     "chat_header": "BIGパンドラ井土ヶ谷店本館",
+     "screenshot": "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-71b2fffc46d836fc.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-71b2fffc46d836fc.xml",
+     "rich_menu_node": false,
+     "bottom_bar": false,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@903ndacx",
+   "identity_status": "verified_owner_confirmed_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-08T16:46:22.771399+00:00"
+  },
+  {
+   "hall_id": "rakuen-mizo-no-kuchi-ten",
+   "store_name": "楽園溝の口店",
+   "attempts": [
+    {
+     "line_source_key": "@295hbtgn",
+     "url": "https://line.me/R/ti/p/@295hbtgn?ts=05201449&oat_content=url",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch07_2026-10-09_evidence/rakuen-mizo-no-kuchi-ten_profile_0.xml",
+     "profile_name": "楽園-findchat-㈱find運営",
+     "profile_pworld_path": null,
+     "identity": null,
+     "result": "identity_unverified"
+    },
+    {
+     "line_source_key": "j5yhiGC6kM",
+     "url": "http://line.naver.jp/ti/p/j5yhiGC6kM",
+     "first_screen": "unknown",
+     "result": "unknown_screen",
+     "texts": [
+      "01:47",
+      "10月9日金曜日",
+      "d払い",
+      "設定",
+      "YouTube",
+      "X",
+      "Google",
+      "Play ストア",
+      "povo2.0",
+      "LINE",
+      "電話",
+      "ドコモメール"
+     ]
+    }
+   ],
+   "result": "not_onboarded"
   }
  ]
 }
