@@ -246,9 +246,10 @@
     "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/hall-f39976506d3719e5_pre_action.jpg",
     "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/hall-f39976506d3719e5_post_action.jpg",
     "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/hall-f39976506d3719e5_post_action.xml",
-    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/action_results.jsonl#hall-f39976506d3719e5"
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/action_results.jsonl#hall-f39976506d3719e5",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/reply_recheck/hall-f39976506d3719e5_snap.jpg"
    ],
-   "notes": "The chat showed a loading spinner after the tap and the re-check could not reopen the chat; result not yet observed. The welcome message announces a LINE account change (new account from 4/21, old one stopped 4/30). Owner (2026-10-04): keep this account as registered and continue; noted for reference."
+   "notes": "The chat showed a loading spinner after the tap and the re-check could not reopen the chat; result not yet observed. The welcome message announces a LINE account change (new account from 4/21, old one stopped 4/30). Owner (2026-10-04): keep this account as registered and continue; noted for reference. Re-check 2026-10-09 (chat reopened, no tap): the newest visible post is a 20:11 store broadcast, not a reply near the tap time (2026-10-04 06:55 JST); older history was not scrolled, so no reply could be confirmed. Left as unknown/unresolved."
   },
   "kitch-t-mei-kawasaki-ten": {
    "rich_menu_status": "present",
@@ -262,7 +263,23 @@
     "NEW 最新情報"
    ],
    "latest_action_label": "NEW 最新情報",
-   "notes": "Not tapped yet: the chat could not be reopened from the talk list or by LINE ID on 2026-10-04."
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-08T15:29:06.369281+00:00",
+    "visible_action_label": "NEW 最新情報",
+    "action_result": "unknown",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false,
+    "blocked_by": "liff_consent_required"
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/kitch-t-mei-kawasaki-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/kitch-t-mei-kawasaki-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/kitch-t-mei-kawasaki-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch06_2026-10-03_evidence/actions/action_results.jsonl#kitch-t-mei-kawasaki-ten"
+   ],
+   "notes": "Tapped once on 2026-10-09 00:29 JST (chat opened by the owner after the talk-list lookup failed on 10-04 and 10-09). A LINE LIFF consent screen (認証, provider 株式会社キャスメディア / 吉兆東名川崎店) opened; it was not approved and was closed."
   },
   "hall-d8be5720a9636cd2": {
    "rich_menu_status": "present",
