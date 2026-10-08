@@ -2555,6 +2555,201 @@
    ],
    "source": "line_onboarding_batch06_2026-10-03.json",
    "active": true
+  },
+  {
+   "hall_id": "pia-kawasaki-daisu",
+   "canonical_hall_id": "pia-kawasaki-daisu",
+   "collector_key": "pia-kawasaki-daisu",
+   "line_source_key": "@678nekpj",
+   "store_name": "PIA川崎ダイス",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "PIA川崎ダイス",
+   "profile_expected_names": [
+    "PIA川崎ダイス"
+   ],
+   "source": "line_onboarding_batch07_2026-10-09.json",
+   "active": true
+  },
+  {
+   "hall_id": "p-ru-shoppu-tomo-e-yamato-ten",
+   "canonical_hall_id": "p-ru-shoppu-tomo-e-yamato-ten",
+   "collector_key": "p-ru-shoppu-tomo-e-yamato-ten",
+   "line_source_key": "@571nrntj",
+   "store_name": "パールショップともえ大和店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "パールショップともえ大和店",
+   "profile_expected_names": [
+    "パールショップともえ大和店"
+   ],
+   "source": "line_onboarding_batch07_2026-10-09.json",
+   "active": true
+  },
+  {
+   "hall_id": "tomoe-sen-minami-eki-sugu-yo-ko-ten",
+   "canonical_hall_id": "tomoe-sen-minami-eki-sugu-yo-ko-ten",
+   "collector_key": "tomoe-sen-minami-eki-sugu-yo-ko-ten",
+   "line_source_key": "@923wgquw",
+   "store_name": "ともえセン南駅すぐよこ店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "パールショップともえセン南駅すぐよこ店",
+   "profile_expected_names": [
+    "ともえセン南駅すぐよこ店"
+   ],
+   "source": "line_onboarding_batch07_2026-10-09.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-fa95740895177d9e",
+   "canonical_hall_id": "hall-fa95740895177d9e",
+   "collector_key": "hall-fa95740895177d9e",
+   "line_source_key": "@jn-a-terao",
+   "store_name": "ジャパンニューアルファ綾瀬寺尾店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "ジャパンニューアルファ綾瀬寺尾店",
+   "profile_expected_names": [
+    "ジャパンニューアルファ綾瀬寺尾店"
+   ],
+   "source": "line_onboarding_batch07_2026-10-09.json",
+   "active": true
+  },
+  {
+   "hall_id": "abiba-miharu-machi-ten",
+   "canonical_hall_id": "abiba-miharu-machi-ten",
+   "collector_key": "abiba-miharu-machi-ten",
+   "line_source_key": "@aviva0422miharu",
+   "store_name": "アビバ三春町店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "アビバ三春町",
+   "profile_expected_names": [
+    "アビバ三春町店"
+   ],
+   "source": "line_onboarding_batch07_2026-10-09.json",
+   "active": true
+  },
+  {
+   "hall_id": "kik-na-ebina-ten",
+   "canonical_hall_id": "kik-na-ebina-ten",
+   "collector_key": "kik-na-ebina-ten",
+   "line_source_key": "@wfk4016v",
+   "store_name": "キコーナ海老名店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "キコーナ海老名店",
+   "profile_expected_names": [
+    "キコーナ海老名店"
+   ],
+   "source": "line_onboarding_batch07_2026-10-09.json",
+   "active": true
+  },
+  {
+   "hall_id": "maruhan-hiratsuka-ten",
+   "canonical_hall_id": "maruhan-hiratsuka-ten",
+   "collector_key": "maruhan-hiratsuka-ten",
+   "line_source_key": "@vyy9794k",
+   "store_name": "マルハン平塚店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "マルハン平塚店",
+   "profile_expected_names": [
+    "マルハン平塚店"
+   ],
+   "source": "line_onboarding_batch07_2026-10-09.json",
+   "active": true
+  },
+  {
+   "hall_id": "gurando-ta-atsugi-ten",
+   "canonical_hall_id": "gurando-ta-atsugi-ten",
+   "collector_key": "gurando-ta-atsugi-ten",
+   "line_source_key": "@vpx8961w",
+   "store_name": "グランドオータ厚木店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "グランドオータ 厚木店",
+   "profile_expected_names": [
+    "グランドオータ厚木店"
+   ],
+   "source": "line_onboarding_batch07_2026-10-09.json",
+   "active": true
+  },
+  {
+   "hall_id": "gurando-ta-seya-ten",
+   "canonical_hall_id": "gurando-ta-seya-ten",
+   "collector_key": "gurando-ta-seya-ten",
+   "line_source_key": "@wtq0158l",
+   "store_name": "グランドオータ瀬谷店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "グランドオータ 瀬谷店",
+   "profile_expected_names": [
+    "グランドオータ瀬谷店"
+   ],
+   "source": "line_onboarding_batch07_2026-10-09.json",
+   "active": true
+  },
+  {
+   "hall_id": "p-ku-shinj-makkusu-pachinko",
+   "canonical_hall_id": "p-ku-shinj-makkusu-pachinko",
+   "collector_key": "p-ku-shinj-makkusu-pachinko",
+   "line_source_key": "@owf8878n",
+   "store_name": "ピーアーク新城マックスパチンコ",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "ピーアーク 新城マックスパチンコ",
+   "profile_expected_names": [
+    "ピーアーク新城マックスパチンコ"
+   ],
+   "source": "line_onboarding_batch07_2026-10-09.json",
+   "active": true
+  },
+  {
+   "hall_id": "doki-waku-rando-yamato-ekimae-ten",
+   "canonical_hall_id": "doki-waku-rando-yamato-ekimae-ten",
+   "collector_key": "doki-waku-rando-yamato-ekimae-ten",
+   "line_source_key": "@dokiwaku-yamato",
+   "store_name": "ドキわくランド大和駅前店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "ドキわくランド大和駅前店",
+   "profile_expected_names": [
+    "ドキわくランド大和駅前店"
+   ],
+   "source": "line_onboarding_batch07_2026-10-09.json",
+   "active": true
+  },
+  {
+   "hall_id": "gurankik-na-sagamihara-ten",
+   "canonical_hall_id": "gurankik-na-sagamihara-ten",
+   "collector_key": "gurankik-na-sagamihara-ten",
+   "line_source_key": "@088webeb",
+   "store_name": "グランキコーナ相模原店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "グランキコーナ相模原店",
+   "profile_expected_names": [
+    "グランキコーナ相模原店"
+   ],
+   "source": "line_onboarding_batch07_2026-10-09.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-607cb0916e371b96",
+   "canonical_hall_id": "hall-607cb0916e371b96",
+   "collector_key": "hall-607cb0916e371b96",
+   "line_source_key": "@kicona-atsugikita",
+   "store_name": "キコーナ厚木北店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_name_without_store_suffix",
+   "chat_header_name": "キコーナ厚木北",
+   "profile_expected_names": [
+    "キコーナ厚木北店"
+   ],
+   "source": "line_onboarding_batch07_2026-10-09.json",
+   "active": true
   }
  ]
 }

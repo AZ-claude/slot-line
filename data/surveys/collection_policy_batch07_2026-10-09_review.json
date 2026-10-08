@@ -1,0 +1,312 @@
+{
+ "schema_version": 1,
+ "review_id": "collection_policy_batch07_2026-10-09_review",
+ "policy_id": "collection_policy_batch07_2026-10-09",
+ "source_onboarding": "data/surveys/line_onboarding_batch07_2026-10-09.json",
+ "reviewed_at": "2026-10-09",
+ "timezone": "Asia/Tokyo",
+ "status": "batch07_first_pass",
+ "method": {
+  "menu_label_source": "screenshot_visual_review",
+  "action_policy": "one tap per store on a clear latest-information tile or a useful-looking tile (owner, 2026-10-01)",
+  "messages_typed": 0,
+  "consents_granted": 0,
+  "chat_open_route": "talk-list rows; LINE ID only as a fallback"
+ },
+ "not_onboarded": {
+  "hall-81d23d2360ac8551": "PREST平間店 is already a friend (@kqy6116j, identity verified by the P-WORLD page) but the chat was not reached from the profile; retry from the talk list",
+  "hall-9b103243f15e04cc": "PREST平間店II shares @kqy6116j with PREST平間店; already a friend, identity unverified from the chat screen",
+  "hall-5bcb34ef9ca0733a": "@976wwsvi is named ヒノマルパチンコ新城店, no P-WORLD link; identity not verified, owner to confirm",
+  "hall-c87277226308d8d0": "@976wwsvi is named ヒノマルパチンコ新城店, no P-WORLD link; identity not verified, owner to confirm (same ID as ヒノマル新城店)",
+  "hall-71b2fffc46d836fc": "BIGパンドラ井土ヶ谷店本館 (@903ndacx) has no P-WORLD link and @949hkhtd was already a friend with an unverified chat; owner to confirm",
+  "rakuen-mizo-no-kuchi-ten": "the short link did not open a profile (unknown screen)",
+  "abiba-kami-oka-ten": "already a friend (@072akruj, identity verified by the P-WORLD page) but the chat was not reached from the profile; retry from the talk list"
+ },
+ "stores": {
+  "pia-kawasaki-daisu": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "首都圏制圧 全32台 (banner)",
+    "会員登録はコチラ",
+    "提携駐車場",
+    "フロアマップ",
+    "毎日21時更新 最新情報"
+   ],
+   "latest_action_label": "毎日21時更新 最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-08T15:53:50.277751+00:00",
+    "visible_action_label": "毎日21時更新 最新情報",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/pia-kawasaki-daisu_pre_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/pia-kawasaki-daisu_post_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/pia-kawasaki-daisu_post_action.xml",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/action_results.jsonl#pia-kawasaki-daisu",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/reply_recheck/pia-kawasaki-daisu_snap.jpg"
+   ],
+   "notes": "Spinner right after the tap; the re-check capture shows a store image (エヴァ×喰種×牙狼) that arrived in the chat."
+  },
+  "p-ru-shoppu-tomo-e-yamato-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "10/5 新装開店 (banner)",
+    "事前会員登録",
+    "入場方法 フロアマップ",
+    "最新情報 information"
+   ],
+   "latest_action_label": "最新情報 information",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-08T15:55:11.854023+00:00",
+    "visible_action_label": "最新情報 information",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/p-ru-shoppu-tomo-e-yamato-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/p-ru-shoppu-tomo-e-yamato-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/p-ru-shoppu-tomo-e-yamato-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/action_results.jsonl#p-ru-shoppu-tomo-e-yamato-ten"
+   ],
+   "notes": "Opened the P-WORLD hall page."
+  },
+  "tomoe-sen-minami-eki-sugu-yo-ko-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "10/5 新台入替 (banner)",
+    "P-WORLD 最新情報",
+    "フロアマップ",
+    "会員登録はこちら"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/tomoe-sen-minami-eki-sugu-yo-ko-ten.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/tomoe-sen-minami-eki-sugu-yo-ko-ten.xml"
+   ],
+   "notes": "The only latest-like tile is labelled 'P-WORLD 最新情報' (P-WORLD link); not tapped."
+  },
+  "hall-fa95740895177d9e": {
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-fa95740895177d9e.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-fa95740895177d9e.xml",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/absence_recheck/hall-fa95740895177d9e_snap.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/absence_recheck/hall-fa95740895177d9e_snap_1.xml",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/absence_recheck/hall-fa95740895177d9e_snap_2.xml"
+   ],
+   "notes": "No rich menu or menu bar at onboarding and in two re-check captures; the welcome message says LINE delivery is 'coming soon' and irregular."
+  },
+  "abiba-miharu-machi-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_like_label_not_executed",
+   "visible_menu_labels": [
+    "最新情報はこちら | メインメニュー (top tabs)",
+    "YouTubeへGO",
+    "10/11 9時OPEN (banner)",
+    "X",
+    "抽選方法",
+    "台データ"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/abiba-miharu-machi-ten.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/abiba-miharu-machi-ten.xml"
+   ],
+   "notes": "The only latest-like label is the top tab '最新情報はこちら' of the menu image; it looks like a tab switch, not a content tile, so it was not tapped. Owner to confirm whether to tap it."
+  },
+  "kik-na-ebina-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "P-WORLD",
+    "DMM",
+    "キコーナ神奈川県特設サイト",
+    "WEB会員登録",
+    "台データ",
+    "毎日更新 要チェック!! 店舗公式X"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/kik-na-ebina-ten.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/kik-na-ebina-ten.xml"
+   ],
+   "notes": "No latest-information tile; the 'every day updated' tile is the store X account."
+  },
+  "maruhan-hiratsuka-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "最新情報 INFORMATION",
+    "フロアマップ",
+    "マルハンアプリ",
+    "アクセス"
+   ],
+   "latest_action_label": "最新情報 INFORMATION",
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/maruhan-hiratsuka-ten.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/maruhan-hiratsuka-ten.xml"
+   ],
+   "notes": "Not tapped: the dry-run passed once, but opening the chat by name later failed twice with chat_header_mismatch (the talk-list row opens a different chat)."
+  },
+  "gurando-ta-atsugi-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "GRAND OHTA 10月「挑戦」 (banner)",
+    "P-WORLD",
+    "台データ",
+    "X"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/gurando-ta-atsugi-ten.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/gurando-ta-atsugi-ten.xml"
+   ],
+   "notes": "No latest-information tile."
+  },
+  "gurando-ta-seya-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "台データ",
+    "NEW 最新情報",
+    "フロアマップ",
+    "ランキング",
+    "朝の抽選案内"
+   ],
+   "latest_action_label": "NEW 最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-08T16:11:05.294062+00:00",
+    "visible_action_label": "NEW 最新情報",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": true
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/gurando-ta-seya-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/gurando-ta-seya-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/gurando-ta-seya-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/action_results.jsonl#gurando-ta-seya-ten"
+   ],
+   "notes": "A 10/5 新台入替 image arrived, followed by the store text 「機種が見つかりませんでした」, which suggests the tile sent a text to the store; the sent text was not visible in the capture."
+  },
+  "p-ku-shinj-makkusu-pachinko": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "大当り情報",
+    "配置図",
+    "創業月間 (banner)",
+    "WEB入会",
+    "入場方法",
+    "サチX",
+    "週間スケ"
+   ],
+   "latest_action_label": "週間スケ",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-08T16:14:33.705322+00:00",
+    "visible_action_label": "週間スケ",
+    "action_result": "line_reply",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": true
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/p-ku-shinj-makkusu-pachinko_pre_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/p-ku-shinj-makkusu-pachinko_post_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/p-ku-shinj-makkusu-pachinko_post_action.xml",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/action_results.jsonl#p-ku-shinj-makkusu-pachinko",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/reply_recheck/p-ku-shinj-makkusu-pachinko_snap.jpg"
+   ],
+   "notes": "The tile sent the text 「最新情報」 and the store answered with a card carousel (rendered as blank white cards even in the re-check capture, so the content is not readable). Owner to send 「最新情報」 once to verify the text trigger. The welcome text lists a 最新情報 item."
+  },
+  "doki-waku-rando-yamato-ekimae-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "スペシャルアンバサダー (banner)",
+    "ドキわく公式 X",
+    "DMM",
+    "フロアマップ",
+    "台データ"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/doki-waku-rando-yamato-ekimae-ten.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/doki-waku-rando-yamato-ekimae-ten.xml"
+   ],
+   "notes": "No latest-information tile; the banner is an ambassador promotion and was not tapped."
+  },
+  "gurankik-na-sagamihara-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "特設HP",
+    "店舗情報",
+    "フロアマップ",
+    "要チェック",
+    "新台情報",
+    "台データ"
+   ],
+   "latest_action_label": "新台情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-08T16:13:27.640134+00:00",
+    "visible_action_label": "新台情報",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/gurankik-na-sagamihara-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/gurankik-na-sagamihara-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/gurankik-na-sagamihara-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/action_results.jsonl#gurankik-na-sagamihara-ten"
+   ],
+   "notes": "A 10/5 マイジャグラーVI image arrived in the chat."
+  },
+  "hall-607cb0916e371b96": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "最新情報 PUSH",
+    "設置機種",
+    "フロアマップ",
+    "X"
+   ],
+   "latest_action_label": "最新情報 PUSH",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-08T16:12:14.739167+00:00",
+    "visible_action_label": "最新情報 PUSH",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/hall-607cb0916e371b96_pre_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/hall-607cb0916e371b96_post_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/hall-607cb0916e371b96_post_action.xml",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/action_results.jsonl#hall-607cb0916e371b96"
+   ],
+   "notes": "Opened the P-WORLD hall page."
+  }
+ }
+}
