@@ -1,0 +1,165 @@
+{
+ "schema_version": 1,
+ "review_id": "collection_policy_batch09_2026-10-10_review",
+ "policy_id": "collection_policy_batch09_2026-10-10",
+ "source_onboarding": "data/surveys/line_onboarding_batch09_2026-10-10.json",
+ "reviewed_at": "2026-10-10",
+ "timezone": "Asia/Tokyo",
+ "status": "batch09_first_pass",
+ "method": {
+  "menu_label_source": "screenshot_visual_review",
+  "action_policy": "one tap per store on a clear latest-information tile or a useful-looking tile (owner, 2026-10-01)",
+  "messages_typed": 0,
+  "consents_granted": 0,
+  "chat_open_route": "talk-list rows; LINE ID only as a fallback"
+ },
+ "not_onboarded": {
+  "hall-15128bafeea01e61": "@sugita0316 could not be verified as ザシティベルシティ新杉田店 (identity_unverified); owner to confirm"
+ },
+ "stores": {
+  "hall-e3ad828521fb24fc": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "神奈川特設HP LATEST INFORMATION",
+    "設置機種",
+    "フロアマップ",
+    "駐車場案内"
+   ],
+   "latest_action_label": "神奈川特設HP LATEST INFORMATION",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-09T20:36:27.591747+00:00",
+    "visible_action_label": "神奈川特設HP LATEST INFORMATION",
+    "action_result": "unknown",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false,
+    "blocked_by": "liff_consent_required"
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-e3ad828521fb24fc.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-e3ad828521fb24fc.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/hall-e3ad828521fb24fc_post_action.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/hall-e3ad828521fb24fc_post_action.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/action_results.jsonl#hall-e3ad828521fb24fc"
+   ],
+   "notes": "A LINE LIFF consent screen (認証, provider アンダーツリー株式会社2) opened; it was not approved and was closed."
+  },
+  "hall-86d2c28146564510": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "神奈川特設HP LATEST INFORMATION",
+    "設置機種",
+    "フロアマップ",
+    "入場案内"
+   ],
+   "latest_action_label": "神奈川特設HP LATEST INFORMATION",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-09T20:37:37.484603+00:00",
+    "visible_action_label": "神奈川特設HP LATEST INFORMATION",
+    "action_result": "unknown",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false,
+    "blocked_by": "liff_consent_required"
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-86d2c28146564510.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-86d2c28146564510.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/hall-86d2c28146564510_post_action.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/hall-86d2c28146564510_post_action.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/action_results.jsonl#hall-86d2c28146564510"
+   ],
+   "notes": "A LINE LIFF consent screen (認証, provider アンダーツリー株式会社) opened; it was not approved and was closed."
+  },
+  "happy-g-fujisawa": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "ホームページ",
+    "提携駐車場・駐輪場",
+    "フロアマップ",
+    "大当りデータ",
+    "抽選参加",
+    "新台情報"
+   ],
+   "latest_action_label": "新台情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-09T20:38:47.551778+00:00",
+    "visible_action_label": "新台情報",
+    "action_result": "line_reply",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/happy-g-fujisawa.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/happy-g-fujisawa.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/happy-g-fujisawa_post_action.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/happy-g-fujisawa_post_action.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/action_results.jsonl#happy-g-fujisawa",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/reply_recheck/happy-g-fujisawa_snap.jpg"
+   ],
+   "notes": "The store replied with a card carousel (「➡へスライド！」); the cards stayed blank white in the capture and in a re-check, so the content is not readable from the phone."
+  },
+  "gaianekusuto-mitsuzakai": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "台データ",
+    "フロアマップ",
+    "重大発表 三ツ境新体制 (banner)",
+    "Xご案内",
+    "駐車場案内"
+   ],
+   "latest_action_label": "重大発表 三ツ境新体制 (banner)",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-09T20:39:52.561642+00:00",
+    "visible_action_label": "重大発表 三ツ境新体制 (banner)",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.pscube.jp/dedamajyoho-P-townDMMpachi",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/gaianekusuto-mitsuzakai.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/gaianekusuto-mitsuzakai.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/gaianekusuto-mitsuzakai_post_action.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/gaianekusuto-mitsuzakai_post_action.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/action_results.jsonl#gaianekusuto-mitsuzakai"
+   ],
+   "notes": "The banner opened the P's CUBE 大当り情報 site (a machine-data page, not an announcement)."
+  },
+  "hall-cb4a4ae9e73feb4c": {
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-cb4a4ae9e73feb4c.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-cb4a4ae9e73feb4c.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/absence_recheck/hall-cb4a4ae9e73feb4c_snap.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/absence_recheck/hall-cb4a4ae9e73feb4c_snap_1.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/absence_recheck/hall-cb4a4ae9e73feb4c_snap_2.xml"
+   ],
+   "notes": "No rich menu or menu bar at onboarding and in two re-check captures."
+  },
+  "hall-4821a264d99fa917": {
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-4821a264d99fa917.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-4821a264d99fa917.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/absence_recheck/hall-4821a264d99fa917_snap.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/absence_recheck/hall-4821a264d99fa917_snap_1.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/absence_recheck/hall-4821a264d99fa917_snap_2.xml"
+   ],
+   "notes": "No rich menu or menu bar at onboarding and in two re-check captures; the welcome message says it delivers 最新情報 and 新台入替 information."
+  }
+ }
+}

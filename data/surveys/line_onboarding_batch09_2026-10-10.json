@@ -1,0 +1,184 @@
+{
+ "schema_version": 1,
+ "records": [
+  {
+   "hall_id": "hall-e3ad828521fb24fc",
+   "store_name": "キコーナ仲町台店",
+   "attempts": [
+    {
+     "line_source_key": "@k-nakamachidai",
+     "url": "https://line.me/R/ti/p/%40k-nakamachidai",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-e3ad828521fb24fc_profile_0.xml",
+     "profile_name": "キコーナ仲町台店",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "キコーナ仲町台店",
+     "screenshot": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-e3ad828521fb24fc.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-e3ad828521fb24fc.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@k-nakamachidai",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T20:27:43.559885+00:00"
+  },
+  {
+   "hall_id": "hall-cb4a4ae9e73feb4c",
+   "store_name": "バンバンブラッサム",
+   "attempts": [
+    {
+     "line_source_key": "@banban-b",
+     "url": "https://line.me/R/ti/p/%40banban-b",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-cb4a4ae9e73feb4c_profile_0.xml",
+     "profile_name": "バンバンブラッサム",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "バンバンブラッサム",
+     "screenshot": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-cb4a4ae9e73feb4c.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-cb4a4ae9e73feb4c.xml",
+     "rich_menu_node": false,
+     "bottom_bar": false,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@banban-b",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T20:28:28.289966+00:00"
+  },
+  {
+   "hall_id": "gaianekusuto-mitsuzakai",
+   "store_name": "ガイアネクスト三ツ境",
+   "attempts": [
+    {
+     "line_source_key": "@tml0844h",
+     "url": "https://line.me/R/ti/p/%40tml0844h",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/gaianekusuto-mitsuzakai_profile_0.xml",
+     "profile_name": "ガイアネクスト三ツ境",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "ガイアネクスト三ツ境",
+     "screenshot": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/gaianekusuto-mitsuzakai.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/gaianekusuto-mitsuzakai.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@tml0844h",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T20:29:14.856013+00:00"
+  },
+  {
+   "hall_id": "hall-86d2c28146564510",
+   "store_name": "キコーナ溝の口店",
+   "attempts": [
+    {
+     "line_source_key": "@ieo8975u",
+     "url": "https://line.me/R/ti/p/%40ieo8975u",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-86d2c28146564510_profile_0.xml",
+     "profile_name": "キコーナ溝の口",
+     "profile_pworld_path": null,
+     "identity": "verified_name_without_store_suffix",
+     "friend_added": true,
+     "chat_header": "キコーナ溝の口",
+     "screenshot": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-86d2c28146564510.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-86d2c28146564510.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@ieo8975u",
+   "identity_status": "verified_name_without_store_suffix",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T20:30:00.871159+00:00"
+  },
+  {
+   "hall_id": "hall-15128bafeea01e61",
+   "store_name": "ザシティベルシティ新杉田店",
+   "attempts": [
+    {
+     "line_source_key": "@sugita0316",
+     "url": "https://line.me/R/ti/p/%40sugita0316",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-15128bafeea01e61_profile_0.xml",
+     "profile_name": "ベルシティザシティ新杉田店",
+     "profile_pworld_path": null,
+     "identity": null,
+     "result": "identity_unverified"
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "happy-g-fujisawa",
+   "store_name": "HAPPY G・FUJISAWA",
+   "attempts": [
+    {
+     "line_source_key": "@537qxtzc",
+     "url": "https://line.me/R/ti/p/%40537qxtzc",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/happy-g-fujisawa_profile_0.xml",
+     "profile_name": "HAPPY G・FUJISAWA",
+     "profile_pworld_path": "kanagawa/happy-g-fujisawa.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "HAPPY G・FUJISAWA",
+     "screenshot": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/happy-g-fujisawa.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/happy-g-fujisawa.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@537qxtzc",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T20:31:17.916578+00:00"
+  },
+  {
+   "hall_id": "hall-4821a264d99fa917",
+   "store_name": "スリーエイト",
+   "attempts": [
+    {
+     "line_source_key": "@239bwzhe",
+     "url": "https://line.me/R/ti/p/%40239bwzhe",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-4821a264d99fa917_profile_0.xml",
+     "profile_name": "スリーエイト",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "スリーエイト",
+     "screenshot": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-4821a264d99fa917.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-4821a264d99fa917.xml",
+     "rich_menu_node": false,
+     "bottom_bar": false,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@239bwzhe",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T20:32:02.079677+00:00"
+  }
+ ]
+}

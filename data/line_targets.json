@@ -2978,6 +2978,96 @@
    ],
    "source": "line_onboarding_batch08_2026-10-10.json",
    "active": true
+  },
+  {
+   "hall_id": "hall-e3ad828521fb24fc",
+   "canonical_hall_id": "hall-e3ad828521fb24fc",
+   "collector_key": "hall-e3ad828521fb24fc",
+   "line_source_key": "@k-nakamachidai",
+   "store_name": "キコーナ仲町台店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "キコーナ仲町台店",
+   "profile_expected_names": [
+    "キコーナ仲町台店"
+   ],
+   "source": "line_onboarding_batch09_2026-10-10.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-cb4a4ae9e73feb4c",
+   "canonical_hall_id": "hall-cb4a4ae9e73feb4c",
+   "collector_key": "hall-cb4a4ae9e73feb4c",
+   "line_source_key": "@banban-b",
+   "store_name": "バンバンブラッサム",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "バンバンブラッサム",
+   "profile_expected_names": [
+    "バンバンブラッサム"
+   ],
+   "source": "line_onboarding_batch09_2026-10-10.json",
+   "active": true
+  },
+  {
+   "hall_id": "gaianekusuto-mitsuzakai",
+   "canonical_hall_id": "gaianekusuto-mitsuzakai",
+   "collector_key": "gaianekusuto-mitsuzakai",
+   "line_source_key": "@tml0844h",
+   "store_name": "ガイアネクスト三ツ境",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "ガイアネクスト三ツ境",
+   "profile_expected_names": [
+    "ガイアネクスト三ツ境"
+   ],
+   "source": "line_onboarding_batch09_2026-10-10.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-86d2c28146564510",
+   "canonical_hall_id": "hall-86d2c28146564510",
+   "collector_key": "hall-86d2c28146564510",
+   "line_source_key": "@ieo8975u",
+   "store_name": "キコーナ溝の口店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_name_without_store_suffix",
+   "chat_header_name": "キコーナ溝の口",
+   "profile_expected_names": [
+    "キコーナ溝の口店"
+   ],
+   "source": "line_onboarding_batch09_2026-10-10.json",
+   "active": true
+  },
+  {
+   "hall_id": "happy-g-fujisawa",
+   "canonical_hall_id": "happy-g-fujisawa",
+   "collector_key": "happy-g-fujisawa",
+   "line_source_key": "@537qxtzc",
+   "store_name": "HAPPY G・FUJISAWA",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "HAPPY G・FUJISAWA",
+   "profile_expected_names": [
+    "HAPPY G・FUJISAWA"
+   ],
+   "source": "line_onboarding_batch09_2026-10-10.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-4821a264d99fa917",
+   "canonical_hall_id": "hall-4821a264d99fa917",
+   "collector_key": "hall-4821a264d99fa917",
+   "line_source_key": "@239bwzhe",
+   "store_name": "スリーエイト",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "スリーエイト",
+   "profile_expected_names": [
+    "スリーエイト"
+   ],
+   "source": "line_onboarding_batch09_2026-10-10.json",
+   "active": true
   }
  ]
 }

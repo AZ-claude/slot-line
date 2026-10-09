@@ -1,0 +1,204 @@
+{
+ "schema_version": 1,
+ "policy_id": "collection_policy_batch09_2026-10-10",
+ "source_inventory": null,
+ "source_review": "collection_policy_batch09_2026-10-10_review",
+ "scheduler_modified": false,
+ "passive_collector_modified": false,
+ "daily_policy": {
+  "type_a_passive": "passive scan only",
+  "type_b_passive_plus_active": "passive scan + scheduled active trigger (text trigger when text_trigger_verified, otherwise the verified rich-menu action)",
+  "type_c_passive_external_web": "passive scan only; external_url is an auxiliary source",
+  "unresolved": "passive scan only until evidence is sufficient"
+ },
+ "counts": {
+  "type_a_passive": 2,
+  "type_b_passive_plus_active": 0,
+  "type_c_passive_external_web": 1,
+  "unresolved": 3
+ },
+ "store_count": 6,
+ "stores": [
+  {
+   "hall_id": "hall-e3ad828521fb24fc",
+   "canonical_hall_id": "hall-e3ad828521fb24fc",
+   "line_source_key": "@k-nakamachidai",
+   "store_name": "キコーナ仲町台店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "神奈川特設HP LATEST INFORMATION",
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-e3ad828521fb24fc.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-e3ad828521fb24fc.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/hall-e3ad828521fb24fc_post_action.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/hall-e3ad828521fb24fc_post_action.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/action_results.jsonl#hall-e3ad828521fb24fc"
+   ],
+   "confidence": "low",
+   "verification_status": "liff_consent_required",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "A LINE LIFF consent screen (認証, provider アンダーツリー株式会社2) opened; it was not approved and was closed."
+  },
+  {
+   "hall_id": "hall-cb4a4ae9e73feb4c",
+   "canonical_hall_id": "hall-cb4a4ae9e73feb4c",
+   "line_source_key": "@banban-b",
+   "store_name": "バンバンブラッサム",
+   "rich_menu_status": "absent_confirmed",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "not_applicable",
+   "collection_type": "type_a_passive",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-cb4a4ae9e73feb4c.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-cb4a4ae9e73feb4c.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/absence_recheck/hall-cb4a4ae9e73feb4c_snap.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/absence_recheck/hall-cb4a4ae9e73feb4c_snap_1.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/absence_recheck/hall-cb4a4ae9e73feb4c_snap_2.xml"
+   ],
+   "confidence": "medium",
+   "verification_status": "rich_menu_absent_confirmed",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "No rich menu or menu bar at onboarding and in two re-check captures."
+  },
+  {
+   "hall_id": "gaianekusuto-mitsuzakai",
+   "canonical_hall_id": "gaianekusuto-mitsuzakai",
+   "line_source_key": "@tml0844h",
+   "store_name": "ガイアネクスト三ツ境",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "重大発表 三ツ境新体制 (banner)",
+   "action_result": "external_web",
+   "collection_type": "type_c_passive_external_web",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": "https://www.pscube.jp/dedamajyoho-P-townDMMpachi",
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/gaianekusuto-mitsuzakai.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/gaianekusuto-mitsuzakai.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/gaianekusuto-mitsuzakai_post_action.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/gaianekusuto-mitsuzakai_post_action.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/action_results.jsonl#gaianekusuto-mitsuzakai"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": "auxiliary_source"
+   },
+   "notes": "The banner opened the P's CUBE 大当り情報 site (a machine-data page, not an announcement)."
+  },
+  {
+   "hall_id": "hall-86d2c28146564510",
+   "canonical_hall_id": "hall-86d2c28146564510",
+   "line_source_key": "@ieo8975u",
+   "store_name": "キコーナ溝の口店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "神奈川特設HP LATEST INFORMATION",
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-86d2c28146564510.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-86d2c28146564510.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/hall-86d2c28146564510_post_action.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/hall-86d2c28146564510_post_action.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/action_results.jsonl#hall-86d2c28146564510"
+   ],
+   "confidence": "low",
+   "verification_status": "liff_consent_required",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "A LINE LIFF consent screen (認証, provider アンダーツリー株式会社) opened; it was not approved and was closed."
+  },
+  {
+   "hall_id": "happy-g-fujisawa",
+   "canonical_hall_id": "happy-g-fujisawa",
+   "line_source_key": "@537qxtzc",
+   "store_name": "HAPPY G・FUJISAWA",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "新台情報",
+   "action_result": "line_reply",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/happy-g-fujisawa.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/happy-g-fujisawa.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/happy-g-fujisawa_post_action.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/happy-g-fujisawa_post_action.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/actions/action_results.jsonl#happy-g-fujisawa",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/reply_recheck/happy-g-fujisawa_snap.jpg"
+   ],
+   "confidence": "low",
+   "verification_status": "action_executed_result_unconfirmed",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "The store replied with a card carousel (「➡へスライド！」); the cards stayed blank white in the capture and in a re-check, so the content is not readable from the phone."
+  },
+  {
+   "hall_id": "hall-4821a264d99fa917",
+   "canonical_hall_id": "hall-4821a264d99fa917",
+   "line_source_key": "@239bwzhe",
+   "store_name": "スリーエイト",
+   "rich_menu_status": "absent_confirmed",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "not_applicable",
+   "collection_type": "type_a_passive",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-4821a264d99fa917.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/hall-4821a264d99fa917.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/absence_recheck/hall-4821a264d99fa917_snap.jpg",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/absence_recheck/hall-4821a264d99fa917_snap_1.xml",
+    "data/surveys/line_onboarding_batch09_2026-10-10_evidence/absence_recheck/hall-4821a264d99fa917_snap_2.xml"
+   ],
+   "confidence": "medium",
+   "verification_status": "rich_menu_absent_confirmed",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "No rich menu or menu bar at onboarding and in two re-check captures; the welcome message says it delivers 最新情報 and 新台入替 information."
+  }
+ ]
+}
