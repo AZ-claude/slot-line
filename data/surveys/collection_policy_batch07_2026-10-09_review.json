@@ -166,9 +166,22 @@
    "latest_action_label": "最新情報 INFORMATION",
    "evidence_refs": [
     "data/surveys/line_onboarding_batch07_2026-10-09_evidence/maruhan-hiratsuka-ten.jpg",
-    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/maruhan-hiratsuka-ten.xml"
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/maruhan-hiratsuka-ten.xml",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/maruhan-hiratsuka-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/maruhan-hiratsuka-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/maruhan-hiratsuka-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/action_results.jsonl#maruhan-hiratsuka-ten"
    ],
-   "notes": "Not tapped: the dry-run passed once, but opening the chat by name later failed twice with chat_header_mismatch (the talk-list row opens a different chat)."
+   "notes": "Tapped once on 2026-10-10 03:35 JST after the talk-list lookup recovered (the phone's LINE had been restarted). Opened the store's own 最新情報 page on maruhan.co.jp.",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-09T18:35:00.867830+00:00",
+    "visible_action_label": "最新情報 INFORMATION",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.maruhan.co.jp/hall/258/index.html",
+    "rich_menu_emitted_text_observed": false
+   }
   },
   "gurando-ta-atsugi-ten": {
    "rich_menu_status": "present",
@@ -243,7 +256,7 @@
     "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/action_results.jsonl#p-ku-shinj-makkusu-pachinko",
     "data/surveys/line_onboarding_batch07_2026-10-09_evidence/reply_recheck/p-ku-shinj-makkusu-pachinko_snap.jpg"
    ],
-   "notes": "The tile sent the text 「最新情報」 and the store answered with a card carousel (rendered as blank white cards even in the re-check capture, so the content is not readable). Owner to send 「最新情報」 once to verify the text trigger. The welcome text lists a 最新情報 item. Owner (2026-10-09) sent 「最新情報」 once by hand: the chat started blank and, once loaded, showed two images. The re-check capture of that reply could not be taken (talk-list lookup failed), so text_trigger_verified stays false until the two replies are compared."
+   "notes": "The tile sent the text 「最新情報」 and the store answered with a card carousel (rendered as blank white cards even in the re-check capture, so the content is not readable). Owner to send 「最新情報」 once to verify the text trigger. The welcome text lists a 最新情報 item. Owner (2026-10-09) sent 「最新情報」 once by hand: the chat started blank and, once loaded, showed two images. The re-check capture of that reply could not be taken (talk-list lookup failed), so text_trigger_verified stays false until the two replies are compared. A 2026-10-10 re-check could not capture the reply (the chat only opened via ID search and showed the 21:05 evening broadcast); left unverified."
   },
   "doki-waku-rando-yamato-ekimae-ten": {
    "rich_menu_status": "present",

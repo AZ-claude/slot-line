@@ -146,9 +146,11 @@ class Device:
                     break  # moved: look again on this screen
             names = re.findall(r'text="([^"]+)"', xml)
             still = still + 1 if names and names == previous else 0
-            if still >= 3:
-                return False  # the list did not move three times: its end
+            if still >= 6:
+                return False  # the list did not move six times: its end
             previous = names
+            if still:
+                time.sleep(3.0)  # the list loads lazily and stalls now and then: give it time
             # short swipes so every row passes through the tappable band
             self.run("shell", "input", "swipe", "360", "1150", "360", "750", "400")
             time.sleep(1.0)

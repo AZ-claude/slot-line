@@ -14,8 +14,8 @@
  "counts": {
   "type_a_passive": 1,
   "type_b_passive_plus_active": 3,
-  "type_c_passive_external_web": 3,
-  "unresolved": 8
+  "type_c_passive_external_web": 4,
+  "unresolved": 7
  },
  "store_count": 15,
  "stores": [
@@ -204,24 +204,28 @@
    "rich_menu_status": "present",
    "menu_visual_review_required": false,
    "latest_action_label": "最新情報 INFORMATION",
-   "action_result": "unknown",
-   "collection_type": "unresolved",
-   "active_method": "unknown",
+   "action_result": "external_web",
+   "collection_type": "type_c_passive_external_web",
+   "active_method": "none",
    "trigger_text": null,
    "text_trigger_verified": false,
-   "external_url": null,
+   "external_url": "https://www.maruhan.co.jp/hall/258/index.html",
    "evidence_refs": [
     "data/surveys/line_onboarding_batch07_2026-10-09_evidence/maruhan-hiratsuka-ten.jpg",
-    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/maruhan-hiratsuka-ten.xml"
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/maruhan-hiratsuka-ten.xml",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/maruhan-hiratsuka-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/maruhan-hiratsuka-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/maruhan-hiratsuka-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/actions/action_results.jsonl#maruhan-hiratsuka-ten"
    ],
-   "confidence": "low",
-   "verification_status": "insufficient_evidence",
+   "confidence": "high",
+   "verification_status": "active_action_verified",
    "daily_policy": {
     "passive_scan": true,
     "active_trigger": false,
-    "external_url_role": null
+    "external_url_role": "auxiliary_source"
    },
-   "notes": "Not tapped: the dry-run passed once, but opening the chat by name later failed twice with chat_header_mismatch (the talk-list row opens a different chat)."
+   "notes": "Tapped once on 2026-10-10 03:35 JST after the talk-list lookup recovered (the phone's LINE had been restarted). Opened the store's own 最新情報 page on maruhan.co.jp."
   },
   {
    "hall_id": "gurando-ta-atsugi-ten",
@@ -311,7 +315,7 @@
     "active_trigger": false,
     "external_url_role": null
    },
-   "notes": "The tile sent the text 「最新情報」 and the store answered with a card carousel (rendered as blank white cards even in the re-check capture, so the content is not readable). Owner to send 「最新情報」 once to verify the text trigger. The welcome text lists a 最新情報 item. Owner (2026-10-09) sent 「最新情報」 once by hand: the chat started blank and, once loaded, showed two images. The re-check capture of that reply could not be taken (talk-list lookup failed), so text_trigger_verified stays false until the two replies are compared."
+   "notes": "The tile sent the text 「最新情報」 and the store answered with a card carousel (rendered as blank white cards even in the re-check capture, so the content is not readable). Owner to send 「最新情報」 once to verify the text trigger. The welcome text lists a 最新情報 item. Owner (2026-10-09) sent 「最新情報」 once by hand: the chat started blank and, once loaded, showed two images. The re-check capture of that reply could not be taken (talk-list lookup failed), so text_trigger_verified stays false until the two replies are compared. A 2026-10-10 re-check could not capture the reply (the chat only opened via ID search and showed the 21:05 evening broadcast); left unverified."
   },
   {
    "hall_id": "doki-waku-rando-yamato-ekimae-ten",
