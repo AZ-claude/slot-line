@@ -89,7 +89,8 @@ class Device:
         # LINE resumes the last open screen (a chat, browser or dialog); back out to the talk list.
         for _ in range(4):
             xml = self.dump(self.scratch / "chatlist.xml")
-            if "header_title" not in xml and 'text="トーク"' in xml:
+            # a store's profile page also has a "トーク" button: require the bottom tab bar of the main screen
+            if "header_title" not in xml and 'text="トーク"' in xml and "id/main_tab_container" in xml:
                 return
             self.run("shell", "input", "keyevent", "KEYCODE_BACK")
             time.sleep(1.2)

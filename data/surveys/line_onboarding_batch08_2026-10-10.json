@@ -1,0 +1,492 @@
+{
+ "schema_version": 1,
+ "records": [
+  {
+   "hall_id": "skip-surotto-kurabu-shin-yokohama-ten",
+   "store_name": "SKIPスロットクラブ新横浜店",
+   "attempts": [
+    {
+     "line_source_key": "@568gxsyg",
+     "url": "https://line.me/R/ti/p/@568gxsyg?oat_content=url",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/skip-surotto-kurabu-shin-yokohama-ten_profile_0.xml",
+     "profile_name": "skip新横浜店",
+     "profile_pworld_path": "kanagawa/skip-shinyoko.htm",
+     "identity": null,
+     "result": "identity_unverified"
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "hall-1003b8d33c81c863",
+   "store_name": "甲子園２",
+   "attempts": [
+    {
+     "line_source_key": "@koshien2",
+     "url": "https://line.me/R/ti/p/%40koshien2",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-1003b8d33c81c863_profile_0.xml",
+     "profile_name": "甲子園2",
+     "profile_pworld_path": "kanagawa/koshien2.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "甲子園2",
+     "screenshot": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-1003b8d33c81c863.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-1003b8d33c81c863.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@koshien2",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T18:52:14.660427+00:00"
+  },
+  {
+   "hall_id": "hall-bf56f04e72466730",
+   "store_name": "ＰＲＥＳＴ三ツ境店",
+   "attempts": [
+    {
+     "line_source_key": "@nfh1926t",
+     "url": "https://line.me/R/ti/p/%40nfh1926t",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-bf56f04e72466730_profile_0.xml",
+     "profile_name": "PREST三ツ境店",
+     "profile_pworld_path": "kanagawa/hanz-mitsukyo.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "PREST三ツ境店",
+     "screenshot": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-bf56f04e72466730.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-bf56f04e72466730.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@nfh1926t",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T18:52:59.711408+00:00"
+  },
+  {
+   "hall_id": "asahi-2-shika-shimada-ten",
+   "store_name": "アサヒ2鹿島田店",
+   "attempts": [
+    {
+     "line_source_key": "@742nrfox",
+     "url": "https://line.me/R/ti/p/@742nrfox",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/asahi-2-shika-shimada-ten_profile_0.xml",
+     "profile_name": "アサヒ2鹿島田店",
+     "profile_pworld_path": "kanagawa/asahi2-kashimada.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "アサヒ2鹿島田店",
+     "screenshot": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/asahi-2-shika-shimada-ten.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/asahi-2-shika-shimada-ten.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@742nrfox",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T18:53:45.167976+00:00"
+  },
+  {
+   "hall_id": "abiba-tsunashima-taru-machi-ten",
+   "store_name": "アビバ綱島樽町店",
+   "attempts": [
+    {
+     "line_source_key": "@vbv7336k",
+     "url": "https://line.me/R/ti/p/%40vbv7336k",
+     "first_screen": "dialog",
+     "result": "dialog:LINEの友だちではないユーザー、またはLINEアカウントが違うため表示できません。"
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "hall-f931697dc1527592",
+   "store_name": "ベルシティザシティ川崎店",
+   "attempts": [
+    {
+     "line_source_key": "@city-kawasaki0714",
+     "url": "https://line.me/R/ti/p/%40city-kawasaki0714",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-f931697dc1527592_profile_0.xml",
+     "profile_name": "ベルシティザシティ川崎店",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "ベルシティザシティ川崎店",
+     "screenshot": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-f931697dc1527592.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-f931697dc1527592.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@city-kawasaki0714",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T18:54:45.602285+00:00"
+  },
+  {
+   "hall_id": "esupasu-bi-tsubuse-mizonokuchi-ekimae-shinkan",
+   "store_name": "エスパス日拓溝の口駅前新館",
+   "attempts": [
+    {
+     "line_source_key": "@knk3389q",
+     "url": "https://line.me/R/ti/p/%40knk3389q",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/esupasu-bi-tsubuse-mizonokuchi-ekimae-shinkan_profile_0.xml",
+     "profile_name": "エスパス日拓溝の口駅前新館",
+     "profile_pworld_path": "kanagawa/espace-mizo2.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": false,
+     "already_friend": true,
+     "result": "chat_not_reached"
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "sampachinko",
+   "store_name": "サンパチンコ",
+   "attempts": [
+    {
+     "line_source_key": "@seg8641p",
+     "url": "https://line.me/R/ti/p/%40seg8641p",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/sampachinko_profile_0.xml",
+     "profile_name": "サンパチンコ",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "サンパチンコ",
+     "screenshot": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/sampachinko.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/sampachinko.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@seg8641p",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T18:56:13.447963+00:00"
+  },
+  {
+   "hall_id": "hall-af3450c4fdeb6190",
+   "store_name": "セントラル",
+   "attempts": [
+    {
+     "line_source_key": "@509ollzt",
+     "url": "https://line.me/R/ti/p/%40509ollzt",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-af3450c4fdeb6190_profile_0.xml",
+     "profile_name": "セントラル",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "セントラル",
+     "screenshot": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-af3450c4fdeb6190.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-af3450c4fdeb6190.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@509ollzt",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T18:57:00.008604+00:00"
+  },
+  {
+   "hall_id": "hall-556adea332c58e19",
+   "store_name": "SKIP六角橋店",
+   "attempts": [
+    {
+     "line_source_key": "@448duscj",
+     "url": "https://line.me/R/ti/p/@448duscj?oat_content=url",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-556adea332c58e19_profile_0.xml",
+     "profile_name": "skip六角橋店",
+     "profile_pworld_path": "kanagawa/skip-rokkaku.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "skip六角橋店",
+     "screenshot": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-556adea332c58e19.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-556adea332c58e19.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@448duscj",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T18:57:44.939970+00:00"
+  },
+  {
+   "hall_id": "maruhan-chigasaki-ten",
+   "store_name": "マルハン茅ヶ崎店",
+   "attempts": [
+    {
+     "line_source_key": "@zhx5199z",
+     "url": "https://line.me/R/ti/p/%40zhx5199z",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/maruhan-chigasaki-ten_profile_0.xml",
+     "profile_name": "マルハン茅ヶ崎店",
+     "profile_pworld_path": "kanagawa/maruhan-chigasaki.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "マルハン茅ヶ崎店",
+     "screenshot": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/maruhan-chigasaki-ten.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/maruhan-chigasaki-ten.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@zhx5199z",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T18:58:30.031923+00:00"
+  },
+  {
+   "hall_id": "hall-ae591645708b6a97",
+   "store_name": "ザ シティ／ベルシティ相模大野店",
+   "attempts": [
+    {
+     "line_source_key": "@dxp3123e",
+     "url": "https://line.me/R/ti/p/%40dxp3123e",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-ae591645708b6a97_profile_0.xml",
+     "profile_name": "ザシティ相模大野店",
+     "profile_pworld_path": null,
+     "identity": null,
+     "result": "identity_unverified"
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "hall-1dbcb73a25b2cb4a",
+   "store_name": "オークラプラスアサヒ武蔵中原店",
+   "attempts": [
+    {
+     "line_source_key": "@ok634",
+     "url": "https://line.me/R/ti/p/%40ok634",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-1dbcb73a25b2cb4a_profile_0.xml",
+     "profile_name": "オークラプラスアサヒ武蔵中原店",
+     "profile_pworld_path": "kanagawa/o-kuramusasinakahara.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "オークラプラスアサヒ武蔵中原店",
+     "screenshot": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-1dbcb73a25b2cb4a.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-1dbcb73a25b2cb4a.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@ok634",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T18:59:35.919961+00:00"
+  },
+  {
+   "hall_id": "hall-dbcd75ccf6a45d28",
+   "store_name": "チャレンジャーＡ館",
+   "attempts": [
+    {
+     "line_source_key": "_XJTaZZeKH",
+     "url": "https://line.me/R/ti/p/_XJTaZZeKH",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-dbcd75ccf6a45d28_profile_0.xml",
+     "profile_name": "チャレンジャーＡ館・Ｂ館",
+     "profile_pworld_path": null,
+     "identity": null,
+     "result": "identity_unverified"
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "ky-ei-kaikan",
+   "store_name": "共栄会館",
+   "attempts": [
+    {
+     "line_source_key": "@fgv0630r",
+     "url": "https://line.me/R/ti/p/%40fgv0630r",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/ky-ei-kaikan_profile_0.xml",
+     "profile_name": "共栄会館",
+     "profile_pworld_path": "kanagawa/kyoei.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "共栄会館",
+     "screenshot": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/ky-ei-kaikan.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/ky-ei-kaikan.xml",
+     "rich_menu_node": false,
+     "bottom_bar": false,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@fgv0630r",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T19:00:39.435956+00:00"
+  },
+  {
+   "hall_id": "higashiyoko-fesuta-2",
+   "store_name": "東横フェスタ2",
+   "attempts": [
+    {
+     "line_source_key": "@228wgojz",
+     "url": "https://line.me/R/ti/p/@228wgojz?oat_content=url&ts=08191934",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/higashiyoko-fesuta-2_profile_0.xml",
+     "profile_name": "東横フェスタ2",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "東横フェスタ2",
+     "screenshot": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/higashiyoko-fesuta-2.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/higashiyoko-fesuta-2.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@228wgojz",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T19:01:24.226761+00:00"
+  },
+  {
+   "hall_id": "charenj-b-kan",
+   "store_name": "チャレンジャーB館",
+   "attempts": [
+    {
+     "line_source_key": "https://t.co/ZYrfH5tczt",
+     "url": "https://t.co/ZYrfH5tczt",
+     "first_screen": "unknown",
+     "result": "unknown_screen",
+     "texts": [
+      "04:01",
+      "10月10日土曜日",
+      "d払い",
+      "設定",
+      "YouTube",
+      "X",
+      "Google",
+      "Play ストア",
+      "povo2.0",
+      "LINE",
+      "電話",
+      "ドコモメール"
+     ]
+    },
+    {
+     "line_source_key": "@cim6080b",
+     "url": "https://line.me/R/ti/p/%40cim6080b",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/charenj-b-kan_profile_1.xml",
+     "profile_name": "チャレンジャーＡ館・Ｂ館",
+     "profile_pworld_path": "kanagawa/challenger-h.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "チャレンジャーＡ館・Ｂ館",
+     "screenshot": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/charenj-b-kan.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/charenj-b-kan.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@cim6080b",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T19:02:47.586446+00:00"
+  },
+  {
+   "hall_id": "hall-c4a5d97eabdc6501",
+   "store_name": "パチンコＦＵＪＩ相模原店",
+   "attempts": [
+    {
+     "line_source_key": "@iyb7939k",
+     "url": "https://line.me/R/ti/p/%40iyb7939k",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-c4a5d97eabdc6501_profile_0.xml",
+     "profile_name": "FUJI相模原店",
+     "profile_pworld_path": null,
+     "identity": null,
+     "result": "identity_unverified"
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "hall-04cdbadc9a018193",
+   "store_name": "パサージュ寒川店",
+   "attempts": [
+    {
+     "line_source_key": "@samu-pass",
+     "url": "https://line.me/R/ti/p/%40samu-pass",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-04cdbadc9a018193_profile_0.xml",
+     "profile_name": "パサージュ寒川店",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "パサージュ寒川店",
+     "screenshot": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-04cdbadc9a018193.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-04cdbadc9a018193.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@samu-pass",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-09T19:03:57.455314+00:00"
+  },
+  {
+   "hall_id": "hall-144819bfcd74ebff",
+   "store_name": "ヒノマル新丸子東口 パチンコ館",
+   "attempts": [
+    {
+     "line_source_key": "@zkx8098z",
+     "url": "https://line.me/R/ti/p/%40zkx8098z",
+     "first_screen": "chat",
+     "identity": null,
+     "friend_added": false,
+     "already_friend": true,
+     "result": "identity_unverified"
+    }
+   ],
+   "result": "not_onboarded"
+  }
+ ]
+}

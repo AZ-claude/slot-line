@@ -1,0 +1,393 @@
+{
+ "schema_version": 1,
+ "policy_id": "collection_policy_batch08_2026-10-10",
+ "source_inventory": null,
+ "source_review": "collection_policy_batch08_2026-10-10_review",
+ "scheduler_modified": false,
+ "passive_collector_modified": false,
+ "daily_policy": {
+  "type_a_passive": "passive scan only",
+  "type_b_passive_plus_active": "passive scan + scheduled active trigger (text trigger when text_trigger_verified, otherwise the verified rich-menu action)",
+  "type_c_passive_external_web": "passive scan only; external_url is an auxiliary source",
+  "unresolved": "passive scan only until evidence is sufficient"
+ },
+ "counts": {
+  "type_a_passive": 1,
+  "type_b_passive_plus_active": 0,
+  "type_c_passive_external_web": 3,
+  "unresolved": 9
+ },
+ "store_count": 13,
+ "stores": [
+  {
+   "hall_id": "hall-1003b8d33c81c863",
+   "canonical_hall_id": "hall-1003b8d33c81c863",
+   "line_source_key": "@koshien2",
+   "store_name": "甲子園２",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-1003b8d33c81c863.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-1003b8d33c81c863.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "No latest-information tile."
+  },
+  {
+   "hall_id": "hall-bf56f04e72466730",
+   "canonical_hall_id": "hall-bf56f04e72466730",
+   "line_source_key": "@nfh1926t",
+   "store_name": "ＰＲＥＳＴ三ツ境店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-bf56f04e72466730.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-bf56f04e72466730.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "No latest-information tile. The welcome message asks 「あなたの得意機種は？」 with quick-reply buttons (パチンコ/パチスロ/両方); they send a message, so they were not tapped."
+  },
+  {
+   "hall_id": "asahi-2-shika-shimada-ten",
+   "canonical_hall_id": "asahi-2-shika-shimada-ten",
+   "line_source_key": "@742nrfox",
+   "store_name": "アサヒ2鹿島田店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/asahi-2-shika-shimada-ten.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/asahi-2-shika-shimada-ten.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "No latest-information tile; the only 最新情報 label is on the X tile."
+  },
+  {
+   "hall_id": "hall-f931697dc1527592",
+   "canonical_hall_id": "hall-f931697dc1527592",
+   "line_source_key": "@city-kawasaki0714",
+   "store_name": "ベルシティザシティ川崎店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-f931697dc1527592.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-f931697dc1527592.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "No latest-information tile."
+  },
+  {
+   "hall_id": "sampachinko",
+   "canonical_hall_id": "sampachinko",
+   "line_source_key": "@seg8641p",
+   "store_name": "サンパチンコ",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/sampachinko.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/sampachinko.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "No latest-information tile."
+  },
+  {
+   "hall_id": "hall-af3450c4fdeb6190",
+   "canonical_hall_id": "hall-af3450c4fdeb6190",
+   "line_source_key": "@509ollzt",
+   "store_name": "セントラル",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-af3450c4fdeb6190.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-af3450c4fdeb6190.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "No latest-information tile. The スケジュール tile (TimeTree) looked useful but was not tapped: opening the chat by name failed twice (chat_header_mismatch), so it is left for a later pass."
+  },
+  {
+   "hall_id": "hall-556adea332c58e19",
+   "canonical_hall_id": "hall-556adea332c58e19",
+   "line_source_key": "@448duscj",
+   "store_name": "SKIP六角橋店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "最新情報",
+   "action_result": "external_web",
+   "collection_type": "type_c_passive_external_web",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-556adea332c58e19.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-556adea332c58e19.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/hall-556adea332c58e19_post_action.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/hall-556adea332c58e19_post_action.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/action_results.jsonl#hall-556adea332c58e19"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": "auxiliary_source"
+   },
+   "notes": "Opened the P-WORLD hall page."
+  },
+  {
+   "hall_id": "maruhan-chigasaki-ten",
+   "canonical_hall_id": "maruhan-chigasaki-ten",
+   "line_source_key": "@zhx5199z",
+   "store_name": "マルハン茅ヶ崎店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "10月オープンスケジュール (オススメ継続 banner)",
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/maruhan-chigasaki-ten.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/maruhan-chigasaki-ten.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/maruhan-chigasaki-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/maruhan-chigasaki-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/action_results.jsonl#maruhan-chigasaki-ten"
+   ],
+   "confidence": "low",
+   "verification_status": "action_executed_result_unconfirmed",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "Tapped the schedule banner once (useful-looking tile); nothing opened and no message arrived."
+  },
+  {
+   "hall_id": "hall-1dbcb73a25b2cb4a",
+   "canonical_hall_id": "hall-1dbcb73a25b2cb4a",
+   "line_source_key": "@ok634",
+   "store_name": "オークラプラスアサヒ武蔵中原店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "最新情報",
+   "action_result": "external_web",
+   "collection_type": "type_c_passive_external_web",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-1dbcb73a25b2cb4a.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-1dbcb73a25b2cb4a.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/hall-1dbcb73a25b2cb4a_post_action.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/hall-1dbcb73a25b2cb4a_post_action.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/action_results.jsonl#hall-1dbcb73a25b2cb4a"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": "auxiliary_source"
+   },
+   "notes": "Opened the P-WORLD hall page (it lists 取材・来店 events)."
+  },
+  {
+   "hall_id": "ky-ei-kaikan",
+   "canonical_hall_id": "ky-ei-kaikan",
+   "line_source_key": "@fgv0630r",
+   "store_name": "共栄会館",
+   "rich_menu_status": "absent_confirmed",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "not_applicable",
+   "collection_type": "type_a_passive",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/ky-ei-kaikan.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/ky-ei-kaikan.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/absence_recheck/ky-ei-kaikan_snap.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/absence_recheck/ky-ei-kaikan_snap_1.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/absence_recheck/ky-ei-kaikan_snap_2.xml"
+   ],
+   "confidence": "medium",
+   "verification_status": "rich_menu_absent_confirmed",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "No rich menu or menu bar at onboarding and in two re-check captures; the welcome message says the account mainly announces 新台入替."
+  },
+  {
+   "hall_id": "higashiyoko-fesuta-2",
+   "canonical_hall_id": "higashiyoko-fesuta-2",
+   "line_source_key": "@228wgojz",
+   "store_name": "東横フェスタ2",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "最新情報",
+   "action_result": "external_web",
+   "collection_type": "type_c_passive_external_web",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": "https://p-town.dmm.com/shops/kanagawa/4521",
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/higashiyoko-fesuta-2.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/higashiyoko-fesuta-2.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/higashiyoko-fesuta-2_post_action.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/higashiyoko-fesuta-2_post_action.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/action_results.jsonl#higashiyoko-fesuta-2"
+   ],
+   "confidence": "high",
+   "verification_status": "active_action_verified",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": "auxiliary_source"
+   },
+   "notes": "Opened the store's 最新情報 page on DMMぱちタウン."
+  },
+  {
+   "hall_id": "charenj-b-kan",
+   "canonical_hall_id": "charenj-b-kan",
+   "line_source_key": "@cim6080b",
+   "store_name": "チャレンジャーB館",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/charenj-b-kan.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/charenj-b-kan.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "No latest-information tile. The chat is named チャレンジャーA館・B館 and may also serve チャレンジャーA館 (owner to confirm)."
+  },
+  {
+   "hall_id": "hall-04cdbadc9a018193",
+   "canonical_hall_id": "hall-04cdbadc9a018193",
+   "line_source_key": "@samu-pass",
+   "store_name": "パサージュ寒川店",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": "ホール取材企画 (サンスポ全店合同取材 banner)",
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-04cdbadc9a018193.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-04cdbadc9a018193.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/hall-04cdbadc9a018193_post_action.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/hall-04cdbadc9a018193_post_action.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/action_results.jsonl#hall-04cdbadc9a018193",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/reply_recheck/hall-04cdbadc9a018193_snap.jpg"
+   ],
+   "confidence": "low",
+   "verification_status": "action_executed_result_unconfirmed",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "Tapped the 取材 banner once. The tile sent the text 「サンスポ取材10.10全店合同取材」 but no store reply appeared within two minutes (re-check capture). A later re-check may show a reply."
+  }
+ ]
+}

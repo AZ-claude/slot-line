@@ -2783,6 +2783,201 @@
    ],
    "source": "line_onboarding_batch07_2026-10-09.json",
    "active": true
+  },
+  {
+   "hall_id": "hall-1003b8d33c81c863",
+   "canonical_hall_id": "hall-1003b8d33c81c863",
+   "collector_key": "hall-1003b8d33c81c863",
+   "line_source_key": "@koshien2",
+   "store_name": "甲子園２",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "甲子園2",
+   "profile_expected_names": [
+    "甲子園２"
+   ],
+   "source": "line_onboarding_batch08_2026-10-10.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-bf56f04e72466730",
+   "canonical_hall_id": "hall-bf56f04e72466730",
+   "collector_key": "hall-bf56f04e72466730",
+   "line_source_key": "@nfh1926t",
+   "store_name": "ＰＲＥＳＴ三ツ境店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "PREST三ツ境店",
+   "profile_expected_names": [
+    "ＰＲＥＳＴ三ツ境店"
+   ],
+   "source": "line_onboarding_batch08_2026-10-10.json",
+   "active": true
+  },
+  {
+   "hall_id": "asahi-2-shika-shimada-ten",
+   "canonical_hall_id": "asahi-2-shika-shimada-ten",
+   "collector_key": "asahi-2-shika-shimada-ten",
+   "line_source_key": "@742nrfox",
+   "store_name": "アサヒ2鹿島田店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "アサヒ2鹿島田店",
+   "profile_expected_names": [
+    "アサヒ2鹿島田店"
+   ],
+   "source": "line_onboarding_batch08_2026-10-10.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-f931697dc1527592",
+   "canonical_hall_id": "hall-f931697dc1527592",
+   "collector_key": "hall-f931697dc1527592",
+   "line_source_key": "@city-kawasaki0714",
+   "store_name": "ベルシティザシティ川崎店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "ベルシティザシティ川崎店",
+   "profile_expected_names": [
+    "ベルシティザシティ川崎店"
+   ],
+   "source": "line_onboarding_batch08_2026-10-10.json",
+   "active": true
+  },
+  {
+   "hall_id": "sampachinko",
+   "canonical_hall_id": "sampachinko",
+   "collector_key": "sampachinko",
+   "line_source_key": "@seg8641p",
+   "store_name": "サンパチンコ",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "サンパチンコ",
+   "profile_expected_names": [
+    "サンパチンコ"
+   ],
+   "source": "line_onboarding_batch08_2026-10-10.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-af3450c4fdeb6190",
+   "canonical_hall_id": "hall-af3450c4fdeb6190",
+   "collector_key": "hall-af3450c4fdeb6190",
+   "line_source_key": "@509ollzt",
+   "store_name": "セントラル",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "セントラル",
+   "profile_expected_names": [
+    "セントラル"
+   ],
+   "source": "line_onboarding_batch08_2026-10-10.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-556adea332c58e19",
+   "canonical_hall_id": "hall-556adea332c58e19",
+   "collector_key": "hall-556adea332c58e19",
+   "line_source_key": "@448duscj",
+   "store_name": "SKIP六角橋店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "skip六角橋店",
+   "profile_expected_names": [
+    "SKIP六角橋店"
+   ],
+   "source": "line_onboarding_batch08_2026-10-10.json",
+   "active": true
+  },
+  {
+   "hall_id": "maruhan-chigasaki-ten",
+   "canonical_hall_id": "maruhan-chigasaki-ten",
+   "collector_key": "maruhan-chigasaki-ten",
+   "line_source_key": "@zhx5199z",
+   "store_name": "マルハン茅ヶ崎店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "マルハン茅ヶ崎店",
+   "profile_expected_names": [
+    "マルハン茅ヶ崎店"
+   ],
+   "source": "line_onboarding_batch08_2026-10-10.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-1dbcb73a25b2cb4a",
+   "canonical_hall_id": "hall-1dbcb73a25b2cb4a",
+   "collector_key": "hall-1dbcb73a25b2cb4a",
+   "line_source_key": "@ok634",
+   "store_name": "オークラプラスアサヒ武蔵中原店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "オークラプラスアサヒ武蔵中原店",
+   "profile_expected_names": [
+    "オークラプラスアサヒ武蔵中原店"
+   ],
+   "source": "line_onboarding_batch08_2026-10-10.json",
+   "active": true
+  },
+  {
+   "hall_id": "ky-ei-kaikan",
+   "canonical_hall_id": "ky-ei-kaikan",
+   "collector_key": "ky-ei-kaikan",
+   "line_source_key": "@fgv0630r",
+   "store_name": "共栄会館",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "共栄会館",
+   "profile_expected_names": [
+    "共栄会館"
+   ],
+   "source": "line_onboarding_batch08_2026-10-10.json",
+   "active": true
+  },
+  {
+   "hall_id": "higashiyoko-fesuta-2",
+   "canonical_hall_id": "higashiyoko-fesuta-2",
+   "collector_key": "higashiyoko-fesuta-2",
+   "line_source_key": "@228wgojz",
+   "store_name": "東横フェスタ2",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "東横フェスタ2",
+   "profile_expected_names": [
+    "東横フェスタ2"
+   ],
+   "source": "line_onboarding_batch08_2026-10-10.json",
+   "active": true
+  },
+  {
+   "hall_id": "charenj-b-kan",
+   "canonical_hall_id": "charenj-b-kan",
+   "collector_key": "charenj-b-kan",
+   "line_source_key": "@cim6080b",
+   "store_name": "チャレンジャーB館",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "チャレンジャーＡ館・Ｂ館",
+   "profile_expected_names": [
+    "チャレンジャーB館"
+   ],
+   "source": "line_onboarding_batch08_2026-10-10.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-04cdbadc9a018193",
+   "canonical_hall_id": "hall-04cdbadc9a018193",
+   "collector_key": "hall-04cdbadc9a018193",
+   "line_source_key": "@samu-pass",
+   "store_name": "パサージュ寒川店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "パサージュ寒川店",
+   "profile_expected_names": [
+    "パサージュ寒川店"
+   ],
+   "source": "line_onboarding_batch08_2026-10-10.json",
+   "active": true
   }
  ]
 }

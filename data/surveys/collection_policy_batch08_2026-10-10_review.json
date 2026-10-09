@@ -1,0 +1,293 @@
+{
+ "schema_version": 1,
+ "review_id": "collection_policy_batch08_2026-10-10_review",
+ "policy_id": "collection_policy_batch08_2026-10-10",
+ "source_onboarding": "data/surveys/line_onboarding_batch08_2026-10-10.json",
+ "reviewed_at": "2026-10-10",
+ "timezone": "Asia/Tokyo",
+ "status": "batch08_first_pass",
+ "method": {
+  "menu_label_source": "screenshot_visual_review",
+  "action_policy": "one tap per store on a clear latest-information tile or a useful-looking tile (owner, 2026-10-01)",
+  "messages_typed": 0,
+  "consents_granted": 0,
+  "chat_open_route": "talk-list rows; LINE ID only as a fallback"
+ },
+ "not_onboarded": {
+  "skip-surotto-kurabu-shin-yokohama-ten": "@568gxsyg opens 「skip新横浜店」 (P-WORLD path kanagawa/skip-shinyoko.htm); the hall master name differs, owner to confirm",
+  "abiba-tsunashima-taru-machi-ten": "@vbv7336k cannot be displayed; the second candidate https://lin.ee/RDfHLIZ was not tried",
+  "esupasu-bi-tsubuse-mizonokuchi-ekimae-shinkan": "@knk3389q opens the profile of エスパス日拓溝の口駅前新館 but the chat was not reached; retry",
+  "hall-ae591645708b6a97": "@dxp3123e opens 「ザシティ相模大野店」, no P-WORLD link; owner to confirm",
+  "hall-dbcd75ccf6a45d28": "the link opens 「チャレンジャーＡ館・Ｂ館」, probably the same account as チャレンジャーB館 (@cim6080b); owner to confirm that A館 and B館 share it",
+  "hall-c4a5d97eabdc6501": "@iyb7939k opens 「FUJI相模原店」, no P-WORLD link; owner to confirm",
+  "hall-144819bfcd74ebff": "@zkx8098z opened an existing chat and identity could not be verified; owner to confirm (the talk list has ヒノマル新丸子)"
+ },
+ "stores": {
+  "hall-1003b8d33c81c863": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "店舗情報",
+    "店内配置",
+    "台データ"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-1003b8d33c81c863.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-1003b8d33c81c863.xml"
+   ],
+   "notes": "No latest-information tile."
+  },
+  "hall-bf56f04e72466730": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "新台入替 10/5 (banner)",
+    "台データ",
+    "スロット推測"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-bf56f04e72466730.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-bf56f04e72466730.xml"
+   ],
+   "notes": "No latest-information tile. The welcome message asks 「あなたの得意機種は？」 with quick-reply buttons (パチンコ/パチスロ/両方); they send a message, so they were not tapped."
+  },
+  "asahi-2-shika-shimada-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "DMM 出玉情報",
+    "X 最速最新情報",
+    "事前新規会員登録",
+    "パチPICKS 機種情報",
+    "P-WORLD フロアマップ",
+    "朝の入場方法"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/asahi-2-shika-shimada-ten.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/asahi-2-shika-shimada-ten.xml"
+   ],
+   "notes": "No latest-information tile; the only 最新情報 label is on the X tile."
+  },
+  "hall-f931697dc1527592": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "10/10 ベルシティグループ全館フルオープン (banner)",
+    "台データ",
+    "フロアMAP",
+    "店舗HP"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-f931697dc1527592.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-f931697dc1527592.xml"
+   ],
+   "notes": "No latest-information tile."
+  },
+  "sampachinko": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "10/5 新台入替 (banner)",
+    "データ公開中",
+    "フロアマップ",
+    "出玉ランキング"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/sampachinko.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/sampachinko.xml"
+   ],
+   "notes": "No latest-information tile."
+  },
+  "hall-af3450c4fdeb6190": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "出玉情報",
+    "DMMぱちタウン フロアマップ",
+    "スケジュール (TimeTree)"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-af3450c4fdeb6190.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-af3450c4fdeb6190.xml"
+   ],
+   "notes": "No latest-information tile. The スケジュール tile (TimeTree) looked useful but was not tapped: opening the chat by name failed twice (chat_header_mismatch), so it is left for a later pass."
+  },
+  "hall-556adea332c58e19": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "最新情報",
+    "機種配置",
+    "遊技台データ"
+   ],
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-09T20:18:39.287022+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-556adea332c58e19.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-556adea332c58e19.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/hall-556adea332c58e19_post_action.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/hall-556adea332c58e19_post_action.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/action_results.jsonl#hall-556adea332c58e19"
+   ],
+   "notes": "Opened the P-WORLD hall page."
+  },
+  "maruhan-chigasaki-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "10月オープンスケジュール (banner)",
+    "店長X",
+    "フロアマップ",
+    "マルハンアプリ",
+    "アクセス"
+   ],
+   "latest_action_label": "10月オープンスケジュール (オススメ継続 banner)",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-09T20:19:50.463598+00:00",
+    "visible_action_label": "10月オープンスケジュール (オススメ継続 banner)",
+    "action_result": "unknown",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/maruhan-chigasaki-ten.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/maruhan-chigasaki-ten.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/maruhan-chigasaki-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/maruhan-chigasaki-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/action_results.jsonl#maruhan-chigasaki-ten"
+   ],
+   "notes": "Tapped the schedule banner once (useful-looking tile); nothing opened and no message arrived."
+  },
+  "hall-1dbcb73a25b2cb4a": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "台データ",
+    "最新情報",
+    "フロアマップ",
+    "アクセス情報",
+    "入場方法",
+    "旧Twitter"
+   ],
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-09T20:20:55.545558+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-1dbcb73a25b2cb4a.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-1dbcb73a25b2cb4a.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/hall-1dbcb73a25b2cb4a_post_action.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/hall-1dbcb73a25b2cb4a_post_action.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/action_results.jsonl#hall-1dbcb73a25b2cb4a"
+   ],
+   "notes": "Opened the P-WORLD hall page (it lists 取材・来店 events)."
+  },
+  "ky-ei-kaikan": {
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/ky-ei-kaikan.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/ky-ei-kaikan.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/absence_recheck/ky-ei-kaikan_snap.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/absence_recheck/ky-ei-kaikan_snap_1.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/absence_recheck/ky-ei-kaikan_snap_2.xml"
+   ],
+   "notes": "No rich menu or menu bar at onboarding and in two re-check captures; the welcome message says the account mainly announces 新台入替."
+  },
+  "higashiyoko-fesuta-2": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "最新情報",
+    "台データ公開中"
+   ],
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-09T20:22:07.509208+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://p-town.dmm.com/shops/kanagawa/4521",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/higashiyoko-fesuta-2.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/higashiyoko-fesuta-2.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/higashiyoko-fesuta-2_post_action.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/higashiyoko-fesuta-2_post_action.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/action_results.jsonl#higashiyoko-fesuta-2"
+   ],
+   "notes": "Opened the store's 最新情報 page on DMMぱちタウン."
+  },
+  "charenj-b-kan": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "10.5 大型新台入替 (banner)",
+    "台データ",
+    "P-WORLD",
+    "フロアマップ"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/charenj-b-kan.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/charenj-b-kan.xml"
+   ],
+   "notes": "No latest-information tile. The chat is named チャレンジャーA館・B館 and may also serve チャレンジャーA館 (owner to confirm)."
+  },
+  "hall-04cdbadc9a018193": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "ぱさーじゅのツイッター (banner)",
+    "ホール取材企画",
+    "ホームページ P-WORLD",
+    "新台情報",
+    "エックス X"
+   ],
+   "latest_action_label": "ホール取材企画 (サンスポ全店合同取材 banner)",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-09T20:23:19.318557+00:00",
+    "visible_action_label": "ホール取材企画 (サンスポ全店合同取材 banner)",
+    "action_result": "unknown",
+    "content_observed": false,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": true
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-04cdbadc9a018193.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/hall-04cdbadc9a018193.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/hall-04cdbadc9a018193_post_action.jpg",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/hall-04cdbadc9a018193_post_action.xml",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/action_results.jsonl#hall-04cdbadc9a018193",
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/reply_recheck/hall-04cdbadc9a018193_snap.jpg"
+   ],
+   "notes": "Tapped the 取材 banner once. The tile sent the text 「サンスポ取材10.10全店合同取材」 but no store reply appeared within two minutes (re-check capture). A later re-check may show a reply."
+  }
+ }
+}
