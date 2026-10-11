@@ -325,7 +325,9 @@
      "result": "identity_unverified"
     }
    ],
-   "result": "not_onboarded"
+   "result": "shared_account",
+   "shares_line_account_with": "charenj-b-kan",
+   "note": "Owner confirmed on 2026-10-11 that チャレンジャーA館 and チャレンジャーB館 share one LINE account (the chat is named チャレンジャーA館・B館; B館 is @cim6080b)."
   },
   {
    "hall_id": "ky-ei-kaikan",

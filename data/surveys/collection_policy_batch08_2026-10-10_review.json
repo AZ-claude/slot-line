@@ -18,7 +18,7 @@
   "abiba-tsunashima-taru-machi-ten": "@vbv7336k cannot be displayed; the second candidate https://lin.ee/RDfHLIZ was not tried",
   "esupasu-bi-tsubuse-mizonokuchi-ekimae-shinkan": "@knk3389q opens the profile of エスパス日拓溝の口駅前新館 but the chat was not reached; retry",
   "hall-ae591645708b6a97": "@dxp3123e opens 「ザシティ相模大野店」, no P-WORLD link; owner to confirm",
-  "hall-dbcd75ccf6a45d28": "the link opens 「チャレンジャーＡ館・Ｂ館」, probably the same account as チャレンジャーB館 (@cim6080b); owner to confirm that A館 and B館 share it",
+  "hall-dbcd75ccf6a45d28": "shares the LINE account of チャレンジャーB館 (@cim6080b; the chat is named チャレンジャーA館・B館; owner, 2026-10-11); attached to it as one chat",
   "hall-c4a5d97eabdc6501": "@iyb7939k opens 「FUJI相模原店」, no P-WORLD link; owner to confirm",
   "hall-144819bfcd74ebff": "@zkx8098z opened an existing chat and identity could not be verified; owner to confirm (the talk list has ヒノマル新丸子)"
  },
@@ -257,7 +257,7 @@
     "data/surveys/line_onboarding_batch08_2026-10-10_evidence/charenj-b-kan.jpg",
     "data/surveys/line_onboarding_batch08_2026-10-10_evidence/charenj-b-kan.xml"
    ],
-   "notes": "No latest-information tile. The chat is named チャレンジャーA館・B館 and may also serve チャレンジャーA館 (owner to confirm)."
+   "notes": "No latest-information tile. The chat is named チャレンジャーA館・B館 and serves both チャレンジャーA館 and チャレンジャーB館 (owner confirmed 2026-10-11)."
   },
   "hall-04cdbadc9a018193": {
    "rich_menu_status": "present",

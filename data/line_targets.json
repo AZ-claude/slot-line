@@ -2962,7 +2962,10 @@
     "チャレンジャーB館"
    ],
    "source": "line_onboarding_batch08_2026-10-10.json",
-   "active": true
+   "active": true,
+   "shared_hall_ids": [
+    "hall-dbcd75ccf6a45d28"
+   ]
   },
   {
    "hall_id": "hall-04cdbadc9a018193",
