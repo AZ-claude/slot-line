@@ -106,7 +106,7 @@ class Device:
             time.sleep(1.5)
         # Fast flings until the search box at the very top of the list is visible.
         # The list keeps growing with every onboarded store, so allow plenty of flings.
-        for _ in range(40):
+        for _ in range(150):
             self.run("shell", "input", "swipe", "360", "450", "360", "1300", "80")
             time.sleep(0.7)
             xml = self.dump(self.scratch / "chatlist.xml")
@@ -122,6 +122,8 @@ class Device:
         self.run("shell", "am", "start", "-a", "android.intent.action.VIEW", "-d", url, LINE_PACKAGE)
         time.sleep(5)
         xml = self.dump(self.scratch / "profile.xml")
+        if "header_title" in xml:
+            return True  # an existing friend's link opens the chat itself
         m = re.search(r'text="トーク"[^>]*bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', xml)
         if not m:
             return False
@@ -153,8 +155,9 @@ class Device:
             if still:
                 time.sleep(3.0)  # the list loads lazily and stalls now and then: give it time
             # short swipes so every row passes through the tappable band
-            self.run("shell", "input", "swipe", "360", "1150", "360", "750", "400")
-            time.sleep(1.0)
+            # a slow swipe has no fling, so exactly 400 px pass per page and no row is skipped
+            self.run("shell", "input", "swipe", "360", "1150", "360", "750", "2000")
+            time.sleep(1.5)
         return False
 
 
@@ -170,22 +173,17 @@ def main() -> int:
     parser.add_argument("--dry-run", action="store_true", help="open and check only; never tap the menu")
     parser.add_argument("--id-fallback", action="store_true",
                         help="if the talk list does not show the store, open it by LINE ID (uses one ID search)")
-    parser.add_argument("--grant-consent", action="store_true",
-                        help="owner-approved (2026-10-11): for a store whose earlier tap ended on a LINE LIFF consent screen (認証), "
-                             "tap the menu again and press 許可する; only for the stores named on the command line")
+    parser.add_argument("--by-id", action="store_true",
+                        help="open every chat by its LINE ID instead of scanning the talk list (uses one ID search per store)")
     parser.add_argument("targets", nargs="+")
     args = parser.parse_args()
     out = args.out
     out.mkdir(parents=True, exist_ok=True)
     log = out / "action_results.jsonl"
     done = set()
-    consent_blocked = set()
     if log.exists():
-        rows = [json.loads(line) for line in log.read_text(encoding="utf-8").splitlines()]
-        done = {r["hall_id"] for r in rows if r.get("status") in {"executed", "tapped_capture_pending"}}
-        # an earlier tap that only reached a LIFF consent screen that was never approved
-        consent_blocked = {r["hall_id"] for r in rows if r.get("status") == "executed" and "認証" in (r.get("new_texts") or [])
-                           and not r.get("consent_granted")}
+        done = {json.loads(line)["hall_id"] for line in log.read_text(encoding="utf-8").splitlines()
+                if json.loads(line).get("status") in {"executed", "tapped_capture_pending"}}
     device = Device(args.adb, args.serial, out)
 
     def write(record: dict) -> None:
@@ -198,7 +196,7 @@ def main() -> int:
         hall, line_id, name, xs, ys, label = parts[:6]
         x, y = int(xs), int(ys)
         record = {"hall_id": hall, "line_source_key": line_id, "visible_action_label": label, "tap": [x, y]}
-        if hall in done and not (args.grant_consent and hall in consent_blocked):
+        if hall in done:
             print(json.dumps({"hall_id": hall, "skip": "already_executed"}, ensure_ascii=False))
             continue
         if not device.portrait():
@@ -207,8 +205,10 @@ def main() -> int:
         if len(parts) != 6:
             print(json.dumps({"hall_id": hall, "error": "target needs exactly 6 fields"}, ensure_ascii=False))
             return 2
-        opened = device.open_chat_by_name(name)
-        if not opened and args.id_fallback:
+        opened = device.open_chat_by_id(line_id) if args.by_id else device.open_chat_by_name(name)
+        if args.by_id:
+            record["opened_by_line_id"] = opened
+        if not opened and args.id_fallback and not args.by_id:
             opened = device.open_chat_by_id(line_id)
             record["opened_by_line_id"] = opened
         if not opened:
@@ -222,6 +222,10 @@ def main() -> int:
             device.run("shell", "input", "keyevent", "KEYCODE_BACK")
             continue
         (out / f"{hall}_pre_action.xml").write_text(pre, encoding="utf-8")
+        if "oa_richmenu_imageview" not in pre:
+            # the menu image may still be loading (a busy phone): look again before treating it as collapsed
+            time.sleep(4)
+            pre = device.dump(device.scratch / "pre_action.xml")
         if "oa_richmenu_imageview" not in pre:
             bar = re.search(r'chat_ui_oa_bottombar_menu_text"[^>]*bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', pre)
             if bar:
@@ -260,22 +264,6 @@ def main() -> int:
             captured_at=datetime.now(timezone.utc).isoformat(),
         )
         write(record)
-        if args.grant_consent and hall in consent_blocked and "認証" in texts(post):
-            button = re.search(r'text="許可する"[^>]*bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', post)
-            provider = [t for t in texts(post) if t.startswith("提供")]
-            if button and any(norm(t) == norm(name) for t in texts(post)):
-                device.tap((int(button[1]) + int(button[3])) // 2, (int(button[2]) + int(button[4])) // 2)
-                time.sleep(12)
-                after = device.dump(out / f"{hall}_post_consent.xml")
-                device.screenshot(out / f"{hall}_post_consent")
-                write({"hall_id": hall, "line_source_key": line_id, "status": "executed", "consent_granted": True,
-                       "consent_provider": provider[:1], "owner_approval": "2026-10-11",
-                       "new_texts": [t for t in texts(after) if t not in set(texts(post))][:40],
-                       "urls_in_post": re.findall(r'text="(https?://[^"]+)"', after)[:5],
-                       "other_app": sorted({p for p in re.findall(r'package="([^"]+)"', after) if p != LINE_PACKAGE}),
-                       "captured_at": datetime.now(timezone.utc).isoformat()})
-            else:
-                write({"hall_id": hall, "status": "consent_not_granted", "reason": "button_or_store_name_not_found", "consent_provider": provider[:1]})
         device.run("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(2)
     return 0
