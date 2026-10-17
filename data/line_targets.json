@@ -3071,6 +3071,291 @@
    ],
    "source": "line_onboarding_batch09_2026-10-10.json",
    "active": true
+  },
+  {
+   "hall_id": "hall-adf89234124829c8",
+   "canonical_hall_id": "hall-adf89234124829c8",
+   "collector_key": "hall-adf89234124829c8",
+   "line_source_key": "@319ivssr",
+   "store_name": "エスタディオ本牧",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "エスタディオ本牧店",
+   "profile_expected_names": [
+    "エスタディオ本牧"
+   ],
+   "source": "line_onboarding_batch10_2026-10-12.json",
+   "active": true
+  },
+  {
+   "hall_id": "sap-atsugi",
+   "canonical_hall_id": "sap-atsugi",
+   "collector_key": "sap-atsugi",
+   "line_source_key": "@996ljlrb",
+   "store_name": "SAP厚木",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "SAP厚木店",
+   "profile_expected_names": [
+    "SAP厚木"
+   ],
+   "source": "line_onboarding_batch10_2026-10-12.json",
+   "active": true
+  },
+  {
+   "hall_id": "tsurumi-uno",
+   "canonical_hall_id": "tsurumi-uno",
+   "collector_key": "tsurumi-uno",
+   "line_source_key": "@uno-tsurumi",
+   "store_name": "鶴見UNO",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "鶴見ＵＮＯ",
+   "profile_expected_names": [
+    "鶴見UNO"
+   ],
+   "source": "line_onboarding_batch10_2026-10-12.json",
+   "active": true
+  },
+  {
+   "hall_id": "glow-amusementhall",
+   "canonical_hall_id": "glow-amusementhall",
+   "collector_key": "glow-amusementhall",
+   "line_source_key": "jmoxQAgZFb",
+   "store_name": "glow AMUSEMENTHALL",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "glow AMUSEMENT HALL",
+   "profile_expected_names": [
+    "glow AMUSEMENTHALL"
+   ],
+   "source": "line_onboarding_batch11_2026-10-17.json",
+   "active": true
+  },
+  {
+   "hall_id": "champion-tana-ten",
+   "canonical_hall_id": "champion-tana-ten",
+   "collector_key": "champion-tana-ten",
+   "line_source_key": "@champion8",
+   "store_name": "チャンピオン田名店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_name_without_store_suffix",
+   "chat_header_name": "チャンピオン田名",
+   "profile_expected_names": [
+    "チャンピオン田名店"
+   ],
+   "source": "line_onboarding_batch11_2026-10-17.json",
+   "active": true
+  },
+  {
+   "hall_id": "puraza-kami-oka-ando-mir-ju",
+   "canonical_hall_id": "puraza-kami-oka-ando-mir-ju",
+   "collector_key": "puraza-kami-oka-ando-mir-ju",
+   "line_source_key": "@eos1245x",
+   "store_name": "プラザ上大岡アンドミラージュ",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "プラザ上大岡アンドミラージュ",
+   "profile_expected_names": [
+    "プラザ上大岡アンドミラージュ"
+   ],
+   "source": "line_onboarding_batch11_2026-10-17.json",
+   "active": true
+  },
+  {
+   "hall_id": "japan-ny-arufa-sagamihara-minami-ten",
+   "canonical_hall_id": "japan-ny-arufa-sagamihara-minami-ten",
+   "collector_key": "japan-ny-arufa-sagamihara-minami-ten",
+   "line_source_key": "@zib7516e",
+   "store_name": "ジャパンニューアルファ相模原南店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "ジャパンニューアルファ相模原南店",
+   "profile_expected_names": [
+    "ジャパンニューアルファ相模原南店"
+   ],
+   "source": "line_onboarding_batch11_2026-10-17.json",
+   "active": true
+  },
+  {
+   "hall_id": "sebun-s-kawasaki-ten",
+   "canonical_hall_id": "sebun-s-kawasaki-ten",
+   "collector_key": "sebun-s-kawasaki-ten",
+   "line_source_key": "@613lylgc",
+   "store_name": "セブンS川崎店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "セブンS川崎店",
+   "profile_expected_names": [
+    "セブンS川崎店"
+   ],
+   "source": "line_onboarding_batch11_2026-10-17.json",
+   "active": true
+  },
+  {
+   "hall_id": "kintoki-tsurumi-ten",
+   "canonical_hall_id": "kintoki-tsurumi-ten",
+   "collector_key": "kintoki-tsurumi-ten",
+   "line_source_key": "bcWIMT5vIR",
+   "store_name": "金時鶴見店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "金時鶴見店",
+   "profile_expected_names": [
+    "金時鶴見店"
+   ],
+   "source": "line_onboarding_batch11_2026-10-17.json",
+   "active": true
+  },
+  {
+   "hall_id": "maruhan-hirasawa-ten",
+   "canonical_hall_id": "maruhan-hirasawa-ten",
+   "collector_key": "maruhan-hirasawa-ten",
+   "line_source_key": "@m0463836905",
+   "store_name": "マルハン平沢店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "マルハン平沢店",
+   "profile_expected_names": [
+    "マルハン平沢店"
+   ],
+   "source": "line_onboarding_batch11_2026-10-17.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-1ff439bb2e6000c4",
+   "canonical_hall_id": "hall-1ff439bb2e6000c4",
+   "collector_key": "hall-1ff439bb2e6000c4",
+   "line_source_key": "@monossamukawasouth",
+   "store_name": "MONOS 寒川南館",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "MONOS寒川南館",
+   "profile_expected_names": [
+    "MONOS 寒川南館"
+   ],
+   "source": "line_onboarding_batch11_2026-10-17.json",
+   "active": true
+  },
+  {
+   "hall_id": "maruhammegashiti-yokohama-machida",
+   "canonical_hall_id": "maruhammegashiti-yokohama-machida",
+   "collector_key": "maruhammegashiti-yokohama-machida",
+   "line_source_key": "@ita3769h",
+   "store_name": "マルハンメガシティ横浜町田",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "マルハンメガシティ横浜町田",
+   "profile_expected_names": [
+    "マルハンメガシティ横浜町田"
+   ],
+   "source": "line_onboarding_batch11_2026-10-17.json",
+   "active": true
+  },
+  {
+   "hall_id": "sh-saido-puraza",
+   "canonical_hall_id": "sh-saido-puraza",
+   "collector_key": "sh-saido-puraza",
+   "line_source_key": "@632ygztc",
+   "store_name": "シーサイドプラザ",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "シーサイドプラザ",
+   "profile_expected_names": [
+    "シーサイドプラザ"
+   ],
+   "source": "line_onboarding_batch11_2026-10-17.json",
+   "active": true
+  },
+  {
+   "hall_id": "maruhan-tsurumi-ten",
+   "canonical_hall_id": "maruhan-tsurumi-ten",
+   "collector_key": "maruhan-tsurumi-ten",
+   "line_source_key": "@mni9715f",
+   "store_name": "マルハン鶴見店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "マルハン鶴見店",
+   "profile_expected_names": [
+    "マルハン鶴見店"
+   ],
+   "source": "line_onboarding_batch11_2026-10-17.json",
+   "active": true
+  },
+  {
+   "hall_id": "monos-chigasaki",
+   "canonical_hall_id": "monos-chigasaki",
+   "collector_key": "monos-chigasaki",
+   "line_source_key": "30hUYwM2qo",
+   "store_name": "MONOS茅ヶ崎",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "MONOS茅ヶ崎",
+   "profile_expected_names": [
+    "MONOS茅ヶ崎"
+   ],
+   "source": "line_onboarding_batch11_2026-10-17.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-fa602d8bd96d0ae2",
+   "canonical_hall_id": "hall-fa602d8bd96d0ae2",
+   "collector_key": "hall-fa602d8bd96d0ae2",
+   "line_source_key": "TckpP9yoA8",
+   "store_name": "ニラク海老名本郷店",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "ニラク海老名本郷店",
+   "profile_expected_names": [
+    "ニラク海老名本郷店"
+   ],
+   "source": "line_onboarding_batch11_2026-10-17.json",
+   "active": true
+  },
+  {
+   "hall_id": "slot-act",
+   "canonical_hall_id": "slot-act",
+   "collector_key": "slot-act",
+   "line_source_key": "@uan3527z",
+   "store_name": "SLOT ACT",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "SLOT ACT",
+   "profile_expected_names": [
+    "SLOT ACT"
+   ],
+   "source": "line_onboarding_batch11_2026-10-17.json",
+   "active": true
+  },
+  {
+   "hall_id": "sebun-sut",
+   "canonical_hall_id": "sebun-sut",
+   "collector_key": "sebun-sut",
+   "line_source_key": "@580nxsxs",
+   "store_name": "セブンスター",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_normalized_name",
+   "chat_header_name": "セブンスター",
+   "profile_expected_names": [
+    "セブンスター"
+   ],
+   "source": "line_onboarding_batch11_2026-10-17.json",
+   "active": true
+  },
+  {
+   "hall_id": "hall-8a1f97c6ecce3448",
+   "canonical_hall_id": "hall-8a1f97c6ecce3448",
+   "collector_key": "hall-8a1f97c6ecce3448",
+   "line_source_key": "@qyk6946v",
+   "store_name": "ＨＹＤＲＡ",
+   "prefecture": "神奈川県",
+   "identity_status": "verified_pworld_url",
+   "chat_header_name": "HYDRA",
+   "profile_expected_names": [
+    "ＨＹＤＲＡ"
+   ],
+   "source": "line_onboarding_batch11_2026-10-17.json",
+   "active": true
   }
  ]
 }

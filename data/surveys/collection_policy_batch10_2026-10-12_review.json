@@ -1,0 +1,52 @@
+{
+ "schema_version": 1,
+ "review_id": "collection_policy_batch10_2026-10-12_review",
+ "policy_id": "collection_policy_batch10_2026-10-12",
+ "source_onboarding": "data/surveys/line_onboarding_batch10_2026-10-12.json",
+ "reviewed_at": "2026-10-17",
+ "timezone": "Asia/Tokyo",
+ "not_onboarded": {},
+ "stores": {
+  "hall-adf89234124829c8": {
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/hall-adf89234124829c8.jpg",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/hall-adf89234124829c8.xml",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/absence_recheck/hall-adf89234124829c8_snap.jpg",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/absence_recheck/hall-adf89234124829c8_snap_1.xml",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/absence_recheck/hall-adf89234124829c8_snap_2.xml"
+   ],
+   "notes": "Onboarding capture and two later UI captures show no rich menu or menu bar; composer visible."
+  },
+  "sap-atsugi": {
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/sap-atsugi.jpg",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/sap-atsugi.xml",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/absence_recheck/sap-atsugi_snap.jpg",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/absence_recheck/sap-atsugi_snap_1.xml",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/absence_recheck/sap-atsugi_snap_2.xml"
+   ],
+   "notes": "Onboarding capture and two later UI captures show no rich menu or menu bar; composer visible."
+  },
+  "tsurumi-uno": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "店舗情報",
+    "台データ",
+    "抽選入場"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/tsurumi-uno.jpg",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/tsurumi-uno.xml"
+   ],
+   "notes": "No clearly labeled latest-information tile in the captured menu."
+  }
+ }
+}

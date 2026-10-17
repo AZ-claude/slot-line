@@ -1,0 +1,341 @@
+{
+ "schema_version": 1,
+ "review_id": "collection_policy_batch11_2026-10-17_review",
+ "policy_id": "collection_policy_batch11_2026-10-17",
+ "source_onboarding": "data/surveys/line_onboarding_batch11_2026-10-17.json",
+ "reviewed_at": "2026-10-17",
+ "timezone": "Asia/Tokyo",
+ "not_onboarded": {
+  "hall-827d9a5fc9367864": "fhPtpPCMNI: unknown_screen",
+  "hall-fb9dc3bc95c9ecb6": "@hsg2482n: identity_unverified; @090ggecp: identity_unverified",
+  "hall-eb81423673719a16": "@444qnpgh: identity_unverified",
+  "hall-6c35e33ed1f49673": "@vfo2345v: identity_unverified"
+ },
+ "stores": {
+  "glow-amusementhall": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "ホームページ",
+    "データ情報",
+    "X",
+    "DMM",
+    "マンガ・雑誌",
+    "フロアMAP"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/glow-amusementhall.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/glow-amusementhall.xml"
+   ],
+   "notes": "No clearly labeled latest-information tile in the captured menu."
+  },
+  "champion-tana-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "入場方法",
+    "台データ",
+    "フロアマップ"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/champion-tana-ten.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/champion-tana-ten.xml"
+   ],
+   "notes": "No clearly labeled latest-information tile in the captured menu."
+  },
+  "puraza-kami-oka-ando-mir-ju": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "店舗情報",
+    "P-WORLD",
+    "DMM"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/puraza-kami-oka-ando-mir-ju.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/puraza-kami-oka-ando-mir-ju.xml"
+   ],
+   "notes": "No clearly labeled latest-information tile in the captured menu."
+  },
+  "japan-ny-arufa-sagamihara-minami-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "最新情報はこちら",
+    "JAPAN NEW ALPHA",
+    "JNA公式YouTube"
+   ],
+   "latest_action_label": "最新情報はこちら",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-17T07:20:53.081931+00:00",
+    "visible_action_label": "最新情報はこちら",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/japan-ny-arufa-sagamihara-minami-ten.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/japan-ny-arufa-sagamihara-minami-ten.xml",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/japan-ny-arufa-sagamihara-minami-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/japan-ny-arufa-sagamihara-minami-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/japan-ny-arufa-sagamihara-minami-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/action_results.jsonl#japan-ny-arufa-sagamihara-minami-ten"
+   ],
+   "notes": "The tap opened the linked external website."
+  },
+  "sebun-s-kawasaki-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "大当り情報",
+    "入場抽選",
+    "最新情報",
+    "機種配置",
+    "設置機種"
+   ],
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-17T07:29:47.345135+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/sebun-s-kawasaki-ten.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/sebun-s-kawasaki-ten.xml",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/sebun-s-kawasaki-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/sebun-s-kawasaki-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/sebun-s-kawasaki-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/action_results.jsonl#sebun-s-kawasaki-ten"
+   ],
+   "notes": "Store image reply visible after the tap."
+  },
+  "kintoki-tsurumi-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "フロアマップ",
+    "台データ",
+    "オリジナルホームページ"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/kintoki-tsurumi-ten.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/kintoki-tsurumi-ten.xml"
+   ],
+   "notes": "No clearly labeled latest-information tile in the captured menu."
+  },
+  "maruhan-hirasawa-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "最新情報",
+    "フロアマップ",
+    "全台データ"
+   ],
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-17T07:30:43.248748+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.maruhan.co.jp/hall/0042/index.html",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/maruhan-hirasawa-ten.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/maruhan-hirasawa-ten.xml",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/maruhan-hirasawa-ten_pre_action.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/maruhan-hirasawa-ten_post_action.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/maruhan-hirasawa-ten_post_action.xml",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/action_results.jsonl#maruhan-hirasawa-ten"
+   ],
+   "notes": "The tap opened the linked external website."
+  },
+  "hall-1ff439bb2e6000c4": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "MONOS寒川南館",
+    "データ公開",
+    "X"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-1ff439bb2e6000c4.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-1ff439bb2e6000c4.xml"
+   ],
+   "notes": "No clearly labeled latest-information tile in the captured menu."
+  },
+  "maruhammegashiti-yokohama-machida": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "おすすめ",
+    "フロアマップ",
+    "新台入替",
+    "入場抽選"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/maruhammegashiti-yokohama-machida.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/maruhammegashiti-yokohama-machida.xml"
+   ],
+   "notes": "No clearly labeled latest-information tile in the captured menu."
+  },
+  "sh-saido-puraza": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_like_label_not_executed",
+   "visible_menu_labels": [
+    "X",
+    "TikTok",
+    "YouTube",
+    "出玉ランキング",
+    "毎日更新ブログ"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/sh-saido-puraza.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/sh-saido-puraza.xml"
+   ],
+   "notes": "Daily-updated blog tile is ambiguous; no tap performed."
+  },
+  "maruhan-tsurumi-ten": {
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/maruhan-tsurumi-ten.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/maruhan-tsurumi-ten.xml",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/absence_recheck/maruhan-tsurumi-ten_snap.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/absence_recheck/maruhan-tsurumi-ten_snap_1.xml",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/absence_recheck/maruhan-tsurumi-ten_snap_2.xml"
+   ],
+   "notes": "Onboarding capture and two later UI captures show no rich menu or menu bar; composer visible."
+  },
+  "monos-chigasaki": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "データ公開",
+    "駐車場のご案内",
+    "最新情報"
+   ],
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-17T07:24:11.483190+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://monosgroup.pt.teramoba2.com/chigasaki/",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/monos-chigasaki.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/monos-chigasaki.xml",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/monos-chigasaki_pre_action.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/monos-chigasaki_post_action.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/monos-chigasaki_post_action.xml",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/action_results.jsonl#monos-chigasaki"
+   ],
+   "notes": "The tap opened the linked external website."
+  },
+  "hall-fa602d8bd96d0ae2": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "INFORMATION",
+    "P’s CUBE",
+    "AIRPAKE"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-fa602d8bd96d0ae2.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-fa602d8bd96d0ae2.xml"
+   ],
+   "notes": "No clearly labeled latest-information tile in the captured menu."
+  },
+  "slot-act": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "visible_menu_labels": [
+    "DMMぱちタウン",
+    "ランキング台データ",
+    "フロアマップ",
+    "入場案内"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/slot-act.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/slot-act.xml"
+   ],
+   "notes": "No clearly labeled latest-information tile in the captured menu."
+  },
+  "sebun-sut": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "台データ",
+    "フロアMAP",
+    "最新情報"
+   ],
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-17T07:25:44.016774+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/sebun-sut.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/sebun-sut.xml",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/sebun-sut_pre_action.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/sebun-sut_post_action.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/sebun-sut_post_action.xml",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/action_results.jsonl#sebun-sut",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/reply_recheck/sebun-sut_snap.jpg"
+   ],
+   "notes": "Store image reply visible in the later recheck."
+  },
+  "hall-8a1f97c6ecce3448": {
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "visible_menu_labels": [
+    "最新情報",
+    "HYDRAのブログ"
+   ],
+   "latest_action_label": "最新情報",
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-17T07:26:49.514369+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "external_web",
+    "content_observed": true,
+    "external_url": "https://www.p-world.co.jp/sp/hall.cgi",
+    "rich_menu_emitted_text_observed": false
+   },
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-8a1f97c6ecce3448.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-8a1f97c6ecce3448.xml",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/hall-8a1f97c6ecce3448_pre_action.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/hall-8a1f97c6ecce3448_post_action.jpg",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/hall-8a1f97c6ecce3448_post_action.xml",
+    "data/surveys/line_onboarding_batch11_2026-10-17_evidence/actions/action_results.jsonl#hall-8a1f97c6ecce3448"
+   ],
+   "notes": "The tap opened the linked external website."
+  }
+ }
+}

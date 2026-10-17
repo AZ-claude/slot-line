@@ -25,16 +25,22 @@ def main() -> int:
     parser.add_argument("--adb", default="/tmp/codex-adb-bridge/adb")
     parser.add_argument("--serial", default="HQ615G150D")
     parser.add_argument("--id-fallback", action="store_true", help="open by LINE ID (third field) if the talk list does not show it")
+    parser.add_argument("--by-id", action="store_true", help="open each chat by LINE ID (third field), then verify its header")
     parser.add_argument("targets", nargs="+", help='"hall_id|chat name" or "hall_id|chat name|LINE ID"')
     args = parser.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
     device = Device(args.adb, args.serial, args.out)
     for spec in args.targets:
         hall, name, *rest = spec.split("|")
+        if args.by_id and not rest:
+            parser.error(f"LINE ID required with --by-id: {hall}")
         if not device.portrait():
             print("STOP: device is not portrait")
             return 2
-        if not device.open_chat_by_name(name) and not (args.id_fallback and rest and device.open_chat_by_id(rest[0])):
+        opened = device.open_chat_by_id(rest[0]) if args.by_id else device.open_chat_by_name(name)
+        if not opened and args.id_fallback and rest and not args.by_id:
+            opened = device.open_chat_by_id(rest[0])
+        if not opened:
             print(json.dumps({"hall_id": hall, "status": "chat_not_found_in_talk_list"}, ensure_ascii=False))
             continue
         probe = device.dump(device.scratch / "probe.xml")

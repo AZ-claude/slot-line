@@ -1504,6 +1504,483 @@
    "text_trigger": "off",
    "trigger_text": null,
    "policy_file": "collection_policy_batch06_2026-10-03.json"
+  },
+  {
+   "hall_id": "pia-kawasaki-daisu",
+   "line_source_key": "@678nekpj",
+   "search_name": "PIA川崎ダイス",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch07_2026-10-09.json"
+  },
+  {
+   "hall_id": "p-ru-shoppu-tomo-e-yamato-ten",
+   "line_source_key": "@571nrntj",
+   "search_name": "パールショップともえ大和店",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch07_2026-10-09.json"
+  },
+  {
+   "hall_id": "tomoe-sen-minami-eki-sugu-yo-ko-ten",
+   "line_source_key": "@923wgquw",
+   "search_name": "パールショップともえセン南駅すぐよこ店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch07_2026-10-09.json"
+  },
+  {
+   "hall_id": "hall-fa95740895177d9e",
+   "line_source_key": "@jn-a-terao",
+   "search_name": "ジャパンニューアルファ綾瀬寺尾店",
+   "collection_type": "type_a_passive",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch07_2026-10-09.json"
+  },
+  {
+   "hall_id": "abiba-miharu-machi-ten",
+   "line_source_key": "@aviva0422miharu",
+   "search_name": "アビバ三春町",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch07_2026-10-09.json"
+  },
+  {
+   "hall_id": "kik-na-ebina-ten",
+   "line_source_key": "@wfk4016v",
+   "search_name": "キコーナ海老名店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch07_2026-10-09.json"
+  },
+  {
+   "hall_id": "maruhan-hiratsuka-ten",
+   "line_source_key": "@vyy9794k",
+   "search_name": "マルハン平塚店",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch07_2026-10-09.json"
+  },
+  {
+   "hall_id": "gurando-ta-atsugi-ten",
+   "line_source_key": "@vpx8961w",
+   "search_name": "グランドオータ 厚木店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch07_2026-10-09.json"
+  },
+  {
+   "hall_id": "gurando-ta-seya-ten",
+   "line_source_key": "@wtq0158l",
+   "search_name": "グランドオータ 瀬谷店",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch07_2026-10-09.json"
+  },
+  {
+   "hall_id": "p-ku-shinj-makkusu-pachinko",
+   "line_source_key": "@owf8878n",
+   "search_name": "ピーアーク 新城マックスパチンコ",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch07_2026-10-09.json"
+  },
+  {
+   "hall_id": "doki-waku-rando-yamato-ekimae-ten",
+   "line_source_key": "@dokiwaku-yamato",
+   "search_name": "ドキわくランド大和駅前店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch07_2026-10-09.json"
+  },
+  {
+   "hall_id": "gurankik-na-sagamihara-ten",
+   "line_source_key": "@088webeb",
+   "search_name": "グランキコーナ相模原店",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch07_2026-10-09.json"
+  },
+  {
+   "hall_id": "hall-607cb0916e371b96",
+   "line_source_key": "@kicona-atsugikita",
+   "search_name": "キコーナ厚木北",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch07_2026-10-09.json"
+  },
+  {
+   "hall_id": "hall-5bcb34ef9ca0733a",
+   "line_source_key": "@976wwsvi",
+   "search_name": "ヒノマルパチンコ新城店",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch07_2026-10-09.json"
+  },
+  {
+   "hall_id": "hall-71b2fffc46d836fc",
+   "line_source_key": "@903ndacx",
+   "search_name": "BIGパンドラ井土ヶ谷店本館",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch07_2026-10-09.json"
+  },
+  {
+   "hall_id": "hall-1003b8d33c81c863",
+   "line_source_key": "@koshien2",
+   "search_name": "甲子園2",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch08_2026-10-10.json"
+  },
+  {
+   "hall_id": "hall-bf56f04e72466730",
+   "line_source_key": "@nfh1926t",
+   "search_name": "PREST三ツ境店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch08_2026-10-10.json"
+  },
+  {
+   "hall_id": "asahi-2-shika-shimada-ten",
+   "line_source_key": "@742nrfox",
+   "search_name": "アサヒ2鹿島田店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch08_2026-10-10.json"
+  },
+  {
+   "hall_id": "hall-f931697dc1527592",
+   "line_source_key": "@city-kawasaki0714",
+   "search_name": "ベルシティザシティ川崎店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch08_2026-10-10.json"
+  },
+  {
+   "hall_id": "sampachinko",
+   "line_source_key": "@seg8641p",
+   "search_name": "サンパチンコ",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch08_2026-10-10.json"
+  },
+  {
+   "hall_id": "hall-af3450c4fdeb6190",
+   "line_source_key": "@509ollzt",
+   "search_name": "セントラル",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch08_2026-10-10.json"
+  },
+  {
+   "hall_id": "hall-556adea332c58e19",
+   "line_source_key": "@448duscj",
+   "search_name": "skip六角橋店",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch08_2026-10-10.json"
+  },
+  {
+   "hall_id": "maruhan-chigasaki-ten",
+   "line_source_key": "@zhx5199z",
+   "search_name": "マルハン茅ヶ崎店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch08_2026-10-10.json"
+  },
+  {
+   "hall_id": "hall-1dbcb73a25b2cb4a",
+   "line_source_key": "@ok634",
+   "search_name": "オークラプラスアサヒ武蔵中原店",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch08_2026-10-10.json"
+  },
+  {
+   "hall_id": "ky-ei-kaikan",
+   "line_source_key": "@fgv0630r",
+   "search_name": "共栄会館",
+   "collection_type": "type_a_passive",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch08_2026-10-10.json"
+  },
+  {
+   "hall_id": "higashiyoko-fesuta-2",
+   "line_source_key": "@228wgojz",
+   "search_name": "東横フェスタ2",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch08_2026-10-10.json"
+  },
+  {
+   "hall_id": "charenj-b-kan",
+   "line_source_key": "@cim6080b",
+   "search_name": "チャレンジャーＡ館・Ｂ館",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch08_2026-10-10.json"
+  },
+  {
+   "hall_id": "hall-04cdbadc9a018193",
+   "line_source_key": "@samu-pass",
+   "search_name": "パサージュ寒川店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch08_2026-10-10.json"
+  },
+  {
+   "hall_id": "hall-e3ad828521fb24fc",
+   "line_source_key": "@k-nakamachidai",
+   "search_name": "キコーナ仲町台店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch09_2026-10-10.json"
+  },
+  {
+   "hall_id": "hall-cb4a4ae9e73feb4c",
+   "line_source_key": "@banban-b",
+   "search_name": "バンバンブラッサム",
+   "collection_type": "type_a_passive",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch09_2026-10-10.json"
+  },
+  {
+   "hall_id": "gaianekusuto-mitsuzakai",
+   "line_source_key": "@tml0844h",
+   "search_name": "ガイアネクスト三ツ境",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch09_2026-10-10.json"
+  },
+  {
+   "hall_id": "hall-86d2c28146564510",
+   "line_source_key": "@ieo8975u",
+   "search_name": "キコーナ溝の口",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch09_2026-10-10.json"
+  },
+  {
+   "hall_id": "happy-g-fujisawa",
+   "line_source_key": "@537qxtzc",
+   "search_name": "HAPPY G・FUJISAWA",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch09_2026-10-10.json"
+  },
+  {
+   "hall_id": "hall-4821a264d99fa917",
+   "line_source_key": "@239bwzhe",
+   "search_name": "スリーエイト",
+   "collection_type": "type_a_passive",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch09_2026-10-10.json"
+  },
+  {
+   "hall_id": "hall-adf89234124829c8",
+   "line_source_key": "@319ivssr",
+   "search_name": "エスタディオ本牧店",
+   "collection_type": "type_a_passive",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch10_2026-10-12.json"
+  },
+  {
+   "hall_id": "sap-atsugi",
+   "line_source_key": "@996ljlrb",
+   "search_name": "SAP厚木店",
+   "collection_type": "type_a_passive",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch10_2026-10-12.json"
+  },
+  {
+   "hall_id": "tsurumi-uno",
+   "line_source_key": "@uno-tsurumi",
+   "search_name": "鶴見ＵＮＯ",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch10_2026-10-12.json"
+  },
+  {
+   "hall_id": "glow-amusementhall",
+   "line_source_key": "jmoxQAgZFb",
+   "search_name": "glow AMUSEMENT HALL",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch11_2026-10-17.json"
+  },
+  {
+   "hall_id": "champion-tana-ten",
+   "line_source_key": "@champion8",
+   "search_name": "チャンピオン田名",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch11_2026-10-17.json"
+  },
+  {
+   "hall_id": "puraza-kami-oka-ando-mir-ju",
+   "line_source_key": "@eos1245x",
+   "search_name": "プラザ上大岡アンドミラージュ",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch11_2026-10-17.json"
+  },
+  {
+   "hall_id": "japan-ny-arufa-sagamihara-minami-ten",
+   "line_source_key": "@zib7516e",
+   "search_name": "ジャパンニューアルファ相模原南店",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch11_2026-10-17.json"
+  },
+  {
+   "hall_id": "sebun-s-kawasaki-ten",
+   "line_source_key": "@613lylgc",
+   "search_name": "セブンS川崎店",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch11_2026-10-17.json"
+  },
+  {
+   "hall_id": "kintoki-tsurumi-ten",
+   "line_source_key": "bcWIMT5vIR",
+   "search_name": "金時鶴見店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch11_2026-10-17.json"
+  },
+  {
+   "hall_id": "maruhan-hirasawa-ten",
+   "line_source_key": "@m0463836905",
+   "search_name": "マルハン平沢店",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch11_2026-10-17.json"
+  },
+  {
+   "hall_id": "hall-1ff439bb2e6000c4",
+   "line_source_key": "@monossamukawasouth",
+   "search_name": "MONOS寒川南館",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch11_2026-10-17.json"
+  },
+  {
+   "hall_id": "maruhammegashiti-yokohama-machida",
+   "line_source_key": "@ita3769h",
+   "search_name": "マルハンメガシティ横浜町田",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch11_2026-10-17.json"
+  },
+  {
+   "hall_id": "sh-saido-puraza",
+   "line_source_key": "@632ygztc",
+   "search_name": "シーサイドプラザ",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch11_2026-10-17.json"
+  },
+  {
+   "hall_id": "maruhan-tsurumi-ten",
+   "line_source_key": "@mni9715f",
+   "search_name": "マルハン鶴見店",
+   "collection_type": "type_a_passive",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch11_2026-10-17.json"
+  },
+  {
+   "hall_id": "monos-chigasaki",
+   "line_source_key": "30hUYwM2qo",
+   "search_name": "MONOS茅ヶ崎",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch11_2026-10-17.json"
+  },
+  {
+   "hall_id": "hall-fa602d8bd96d0ae2",
+   "line_source_key": "TckpP9yoA8",
+   "search_name": "ニラク海老名本郷店",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch11_2026-10-17.json"
+  },
+  {
+   "hall_id": "slot-act",
+   "line_source_key": "@uan3527z",
+   "search_name": "SLOT ACT",
+   "collection_type": "unresolved",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch11_2026-10-17.json"
+  },
+  {
+   "hall_id": "sebun-sut",
+   "line_source_key": "@580nxsxs",
+   "search_name": "セブンスター",
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
+   "policy_file": "collection_policy_batch11_2026-10-17.json"
+  },
+  {
+   "hall_id": "hall-8a1f97c6ecce3448",
+   "line_source_key": "@qyk6946v",
+   "search_name": "HYDRA",
+   "collection_type": "type_c_passive_external_web",
+   "text_trigger": "off",
+   "trigger_text": null,
+   "policy_file": "collection_policy_batch11_2026-10-17.json"
   }
  ]
 }

@@ -1,0 +1,106 @@
+{
+ "schema_version": 1,
+ "records": [
+  {
+   "hall_id": "hall-adf89234124829c8",
+   "store_name": "エスタディオ本牧",
+   "attempts": [
+    {
+     "line_source_key": "@319ivssr",
+     "url": "https://line.me/R/ti/p/%40319ivssr",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch10_2026-10-12_evidence/hall-adf89234124829c8_profile_0.xml",
+     "profile_name": "エスタディオ本牧店",
+     "profile_pworld_path": "kanagawa/estadio.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "エスタディオ本牧店",
+     "screenshot": "data/surveys/line_onboarding_batch10_2026-10-12_evidence/hall-adf89234124829c8.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch10_2026-10-12_evidence/hall-adf89234124829c8.xml",
+     "rich_menu_node": false,
+     "bottom_bar": false,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@319ivssr",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-12T02:15:59.496587+00:00"
+  },
+  {
+   "hall_id": "sap-atsugi",
+   "store_name": "SAP厚木",
+   "attempts": [
+    {
+     "line_source_key": "@996ljlrb",
+     "url": "https://line.me/R/ti/p/%40996ljlrb",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch10_2026-10-12_evidence/sap-atsugi_profile_0.xml",
+     "profile_name": "SAP厚木店",
+     "profile_pworld_path": "kanagawa/sapatsugi.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "SAP厚木店",
+     "screenshot": "data/surveys/line_onboarding_batch10_2026-10-12_evidence/sap-atsugi.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch10_2026-10-12_evidence/sap-atsugi.xml",
+     "rich_menu_node": false,
+     "bottom_bar": false,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@996ljlrb",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-12T02:16:55.845165+00:00"
+  },
+  {
+   "hall_id": "tsurumi-uno",
+   "store_name": "鶴見UNO",
+   "attempts": [
+    {
+     "line_source_key": "zbZELD_gBB",
+     "url": "http://line.naver.jp/ti/p/zbZELD_gBB",
+     "first_screen": "unknown",
+     "result": "unknown_screen",
+     "texts": [
+      "11:17",
+      "10月12日月曜日",
+      "d払い",
+      "設定",
+      "YouTube",
+      "X",
+      "Google",
+      "Play ストア",
+      "povo2.0",
+      "LINE",
+      "電話",
+      "ドコモメール"
+     ]
+    },
+    {
+     "line_source_key": "@uno-tsurumi",
+     "url": "https://line.me/R/ti/p/%40uno-tsurumi",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch10_2026-10-12_evidence/tsurumi-uno_profile_1.xml",
+     "profile_name": "鶴見ＵＮＯ",
+     "profile_pworld_path": "kanagawa/2080uno.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "鶴見ＵＮＯ",
+     "screenshot": "data/surveys/line_onboarding_batch10_2026-10-12_evidence/tsurumi-uno.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch10_2026-10-12_evidence/tsurumi-uno.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@uno-tsurumi",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-12T02:18:23.832550+00:00"
+  }
+ ]
+}

@@ -1,0 +1,110 @@
+{
+ "schema_version": 1,
+ "policy_id": "collection_policy_batch10_2026-10-12",
+ "source_inventory": null,
+ "source_review": "collection_policy_batch10_2026-10-12_review",
+ "scheduler_modified": false,
+ "passive_collector_modified": false,
+ "daily_policy": {
+  "type_a_passive": "passive scan only",
+  "type_b_passive_plus_active": "passive scan + scheduled active trigger (text trigger when text_trigger_verified, otherwise the verified rich-menu action)",
+  "type_c_passive_external_web": "passive scan only; external_url is an auxiliary source",
+  "unresolved": "passive scan only until evidence is sufficient"
+ },
+ "counts": {
+  "type_a_passive": 2,
+  "type_b_passive_plus_active": 0,
+  "type_c_passive_external_web": 0,
+  "unresolved": 1
+ },
+ "store_count": 3,
+ "stores": [
+  {
+   "hall_id": "hall-adf89234124829c8",
+   "canonical_hall_id": "hall-adf89234124829c8",
+   "line_source_key": "@319ivssr",
+   "store_name": "エスタディオ本牧",
+   "rich_menu_status": "absent_confirmed",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "not_applicable",
+   "collection_type": "type_a_passive",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/hall-adf89234124829c8.jpg",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/hall-adf89234124829c8.xml",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/absence_recheck/hall-adf89234124829c8_snap.jpg",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/absence_recheck/hall-adf89234124829c8_snap_1.xml",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/absence_recheck/hall-adf89234124829c8_snap_2.xml"
+   ],
+   "confidence": "medium",
+   "verification_status": "rich_menu_absent_confirmed",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "Onboarding capture and two later UI captures show no rich menu or menu bar; composer visible."
+  },
+  {
+   "hall_id": "sap-atsugi",
+   "canonical_hall_id": "sap-atsugi",
+   "line_source_key": "@996ljlrb",
+   "store_name": "SAP厚木",
+   "rich_menu_status": "absent_confirmed",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "not_applicable",
+   "collection_type": "type_a_passive",
+   "active_method": "none",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/sap-atsugi.jpg",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/sap-atsugi.xml",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/absence_recheck/sap-atsugi_snap.jpg",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/absence_recheck/sap-atsugi_snap_1.xml",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/absence_recheck/sap-atsugi_snap_2.xml"
+   ],
+   "confidence": "medium",
+   "verification_status": "rich_menu_absent_confirmed",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "Onboarding capture and two later UI captures show no rich menu or menu bar; composer visible."
+  },
+  {
+   "hall_id": "tsurumi-uno",
+   "canonical_hall_id": "tsurumi-uno",
+   "line_source_key": "@uno-tsurumi",
+   "store_name": "鶴見UNO",
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
+   "latest_action_label": null,
+   "action_result": "unknown",
+   "collection_type": "unresolved",
+   "active_method": "unknown",
+   "trigger_text": null,
+   "text_trigger_verified": false,
+   "external_url": null,
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/tsurumi-uno.jpg",
+    "data/surveys/line_onboarding_batch10_2026-10-12_evidence/tsurumi-uno.xml"
+   ],
+   "confidence": "low",
+   "verification_status": "menu_reviewed_no_latest_label",
+   "daily_policy": {
+    "passive_scan": true,
+    "active_trigger": false,
+    "external_url_role": null
+   },
+   "notes": "No clearly labeled latest-information tile in the captured menu."
+  }
+ ]
+}

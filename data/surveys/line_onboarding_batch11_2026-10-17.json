@@ -1,0 +1,531 @@
+{
+ "schema_version": 1,
+ "records": [
+  {
+   "hall_id": "glow-amusementhall",
+   "store_name": "glow AMUSEMENTHALL",
+   "attempts": [
+    {
+     "line_source_key": "jmoxQAgZFb",
+     "url": "https://line.me/R/ti/p/jmoxQAgZFb",
+     "first_screen": "chat",
+     "identity": "verified_normalized_name",
+     "friend_added": false,
+     "already_friend": true,
+     "chat_header": "glow AMUSEMENT HALL",
+     "screenshot": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/glow-amusementhall.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/glow-amusementhall.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "jmoxQAgZFb",
+   "identity_status": "verified_normalized_name",
+   "friend_added": false,
+   "onboarded_at": "2026-10-17T06:54:31.122841+00:00"
+  },
+  {
+   "hall_id": "champion-tana-ten",
+   "store_name": "チャンピオン田名店",
+   "attempts": [
+    {
+     "line_source_key": "@champion8",
+     "url": "https://line.me/R/ti/p/%40champion8",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/champion-tana-ten_profile_0.xml",
+     "profile_name": "チャンピオン田名",
+     "profile_pworld_path": null,
+     "identity": "verified_name_without_store_suffix",
+     "friend_added": true,
+     "chat_header": "チャンピオン田名",
+     "screenshot": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/champion-tana-ten.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/champion-tana-ten.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@champion8",
+   "identity_status": "verified_name_without_store_suffix",
+   "friend_added": true,
+   "onboarded_at": "2026-10-17T06:55:24.290105+00:00"
+  },
+  {
+   "hall_id": "puraza-kami-oka-ando-mir-ju",
+   "store_name": "プラザ上大岡アンドミラージュ",
+   "attempts": [
+    {
+     "line_source_key": "@eos1245x",
+     "url": "https://line.me/R/ti/p/%40eos1245x",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/puraza-kami-oka-ando-mir-ju_profile_0.xml",
+     "profile_name": "プラザ上大岡アンドミラージュ",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "プラザ上大岡アンドミラージュ",
+     "menu_expanded": true,
+     "screenshot": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/puraza-kami-oka-ando-mir-ju.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/puraza-kami-oka-ando-mir-ju.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@eos1245x",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-17T06:56:21.862800+00:00"
+  },
+  {
+   "hall_id": "japan-ny-arufa-sagamihara-minami-ten",
+   "store_name": "ジャパンニューアルファ相模原南店",
+   "attempts": [
+    {
+     "line_source_key": "@zib7516e",
+     "url": "https://line.me/R/ti/p/%40zib7516e",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/japan-ny-arufa-sagamihara-minami-ten_profile_0.xml",
+     "profile_name": "ジャパンニューアルファ相模原南店",
+     "profile_pworld_path": "kanagawa/jnalpha-sagamihara.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "ジャパンニューアルファ相模原南店",
+     "menu_expanded": true,
+     "screenshot": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/japan-ny-arufa-sagamihara-minami-ten.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/japan-ny-arufa-sagamihara-minami-ten.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@zib7516e",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-17T06:57:19.604470+00:00"
+  },
+  {
+   "hall_id": "sebun-s-kawasaki-ten",
+   "store_name": "セブンS川崎店",
+   "attempts": [
+    {
+     "line_source_key": "@613lylgc",
+     "url": "https://line.me/R/ti/p/%40613lylgc",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/sebun-s-kawasaki-ten_profile_0.xml",
+     "profile_name": "セブンS川崎店",
+     "profile_pworld_path": "kanagawa/seven-s.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "セブンS川崎店",
+     "screenshot": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/sebun-s-kawasaki-ten.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/sebun-s-kawasaki-ten.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@613lylgc",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-17T06:58:10.570383+00:00"
+  },
+  {
+   "hall_id": "hall-827d9a5fc9367864",
+   "store_name": "エスパス日拓溝の口駅前本館",
+   "attempts": [
+    {
+     "line_source_key": "fhPtpPCMNI",
+     "url": "http://line.naver.jp/ti/p/fhPtpPCMNI",
+     "first_screen": "unknown",
+     "result": "unknown_screen",
+     "texts": [
+      "15:58",
+      "10月17日土曜日",
+      "d払い",
+      "設定",
+      "YouTube",
+      "X",
+      "Google",
+      "Play ストア",
+      "povo2.0",
+      "LINE",
+      "電話",
+      "ドコモメール"
+     ]
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "kintoki-tsurumi-ten",
+   "store_name": "金時鶴見店",
+   "attempts": [
+    {
+     "line_source_key": "bcWIMT5vIR",
+     "url": "https://line.me/R/ti/p/bcWIMT5vIR",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/kintoki-tsurumi-ten_profile_0.xml",
+     "profile_name": "金時鶴見店",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "opened_from_talk_list": true,
+     "friend_added": true,
+     "chat_header": "金時鶴見店",
+     "screenshot": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/kintoki-tsurumi-ten.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/kintoki-tsurumi-ten.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "bcWIMT5vIR",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-17T06:59:58.778045+00:00"
+  },
+  {
+   "hall_id": "maruhan-hirasawa-ten",
+   "store_name": "マルハン平沢店",
+   "attempts": [
+    {
+     "line_source_key": "@m0463836905",
+     "url": "https://line.me/R/ti/p/%40m0463836905",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/maruhan-hirasawa-ten_profile_0.xml",
+     "profile_name": "マルハン平沢店",
+     "profile_pworld_path": "kanagawa/maruhan-hirasawa.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "マルハン平沢店",
+     "menu_expanded": true,
+     "screenshot": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/maruhan-hirasawa-ten.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/maruhan-hirasawa-ten.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@m0463836905",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-17T07:00:58.513259+00:00"
+  },
+  {
+   "hall_id": "hall-fb9dc3bc95c9ecb6",
+   "store_name": "アクセス",
+   "attempts": [
+    {
+     "line_source_key": "@hsg2482n",
+     "url": "https://line.me/R/ti/p/%40hsg2482n",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-fb9dc3bc95c9ecb6_profile_0.xml",
+     "profile_name": "アクセスⅢ店",
+     "profile_pworld_path": null,
+     "identity": null,
+     "result": "identity_unverified"
+    },
+    {
+     "line_source_key": "@090ggecp",
+     "url": "https://line.me/R/ti/p/%40090ggecp",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-fb9dc3bc95c9ecb6_profile_1.xml",
+     "profile_name": "アクセスⅠ",
+     "profile_pworld_path": null,
+     "identity": null,
+     "result": "identity_unverified"
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "hall-1ff439bb2e6000c4",
+   "store_name": "MONOS 寒川南館",
+   "attempts": [
+    {
+     "line_source_key": "@monossamukawasouth",
+     "url": "https://line.me/R/ti/p/%40monossamukawasouth",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-1ff439bb2e6000c4_profile_0.xml",
+     "profile_name": "MONOS寒川南館",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "MONOS寒川南館",
+     "menu_expanded": true,
+     "screenshot": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-1ff439bb2e6000c4.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-1ff439bb2e6000c4.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@monossamukawasouth",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-17T07:02:53.857983+00:00"
+  },
+  {
+   "hall_id": "maruhammegashiti-yokohama-machida",
+   "store_name": "マルハンメガシティ横浜町田",
+   "attempts": [
+    {
+     "line_source_key": "@ita3769h",
+     "url": "https://line.me/R/ti/p/%40ita3769h",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/maruhammegashiti-yokohama-machida_profile_0.xml",
+     "profile_name": "マルハンメガシティ横浜町田",
+     "profile_pworld_path": "kanagawa/maruhan-y-machida.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "マルハンメガシティ横浜町田",
+     "screenshot": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/maruhammegashiti-yokohama-machida.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/maruhammegashiti-yokohama-machida.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@ita3769h",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-17T07:03:45.439500+00:00"
+  },
+  {
+   "hall_id": "sh-saido-puraza",
+   "store_name": "シーサイドプラザ",
+   "attempts": [
+    {
+     "line_source_key": "@632ygztc",
+     "url": "https://line.me/R/ti/p/%40632ygztc",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/sh-saido-puraza_profile_0.xml",
+     "profile_name": "シーサイドプラザ",
+     "profile_pworld_path": "kanagawa/seasideplaza.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "シーサイドプラザ",
+     "screenshot": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/sh-saido-puraza.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/sh-saido-puraza.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@632ygztc",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-17T07:04:36.228489+00:00"
+  },
+  {
+   "hall_id": "maruhan-tsurumi-ten",
+   "store_name": "マルハン鶴見店",
+   "attempts": [
+    {
+     "line_source_key": "@mni9715f",
+     "url": "https://line.me/R/ti/p/%40mni9715f",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/maruhan-tsurumi-ten_profile_0.xml",
+     "profile_name": "マルハン鶴見店",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "マルハン鶴見店",
+     "screenshot": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/maruhan-tsurumi-ten.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/maruhan-tsurumi-ten.xml",
+     "rich_menu_node": false,
+     "bottom_bar": false,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@mni9715f",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-17T07:05:30.738390+00:00"
+  },
+  {
+   "hall_id": "monos-chigasaki",
+   "store_name": "MONOS茅ヶ崎",
+   "attempts": [
+    {
+     "line_source_key": "30hUYwM2qo",
+     "url": "https://line.me/ti/p/30hUYwM2qo",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/monos-chigasaki_profile_0.xml",
+     "profile_name": "MONOS茅ヶ崎",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "opened_from_talk_list": true,
+     "friend_added": true,
+     "chat_header": "MONOS茅ヶ崎",
+     "menu_expanded": true,
+     "screenshot": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/monos-chigasaki.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/monos-chigasaki.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "30hUYwM2qo",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-17T07:06:55.023671+00:00"
+  },
+  {
+   "hall_id": "hall-eb81423673719a16",
+   "store_name": "ＤＩＶＡＳ（ディーバス柿生）",
+   "attempts": [
+    {
+     "line_source_key": "@444qnpgh",
+     "url": "https://line.me/R/ti/p/@444qnpgh?ts=07121321&oat_content=url",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-eb81423673719a16_profile_0.xml",
+     "profile_name": "Divas柿生店",
+     "profile_pworld_path": null,
+     "identity": null,
+     "result": "identity_unverified"
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "hall-fa602d8bd96d0ae2",
+   "store_name": "ニラク海老名本郷店",
+   "attempts": [
+    {
+     "line_source_key": "TckpP9yoA8",
+     "url": "https://line.me/R/ti/p/TckpP9yoA8",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-fa602d8bd96d0ae2_profile_0.xml",
+     "profile_name": "ニラク海老名本郷店",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "opened_from_talk_list": true,
+     "friend_added": true,
+     "chat_header": "ニラク海老名本郷店",
+     "screenshot": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-fa602d8bd96d0ae2.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-fa602d8bd96d0ae2.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "TckpP9yoA8",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-17T07:09:12.062197+00:00"
+  },
+  {
+   "hall_id": "slot-act",
+   "store_name": "SLOT ACT",
+   "attempts": [
+    {
+     "line_source_key": "@uan3527z",
+     "url": "https://line.me/R/ti/p/@uan3527z",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/slot-act_profile_0.xml",
+     "profile_name": "SLOT ACT",
+     "profile_pworld_path": "kanagawa/s-act.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "SLOT ACT",
+     "screenshot": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/slot-act.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/slot-act.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@uan3527z",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-17T07:10:04.475774+00:00"
+  },
+  {
+   "hall_id": "sebun-sut",
+   "store_name": "セブンスター",
+   "attempts": [
+    {
+     "line_source_key": "@580nxsxs",
+     "url": "https://line.me/R/ti/p/@580nxsxs?ts=09041249&oat_content=url",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/sebun-sut_profile_0.xml",
+     "profile_name": "セブンスター",
+     "profile_pworld_path": null,
+     "identity": "verified_normalized_name",
+     "friend_added": true,
+     "chat_header": "セブンスター",
+     "screenshot": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/sebun-sut.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/sebun-sut.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@580nxsxs",
+   "identity_status": "verified_normalized_name",
+   "friend_added": true,
+   "onboarded_at": "2026-10-17T07:10:57.549315+00:00"
+  },
+  {
+   "hall_id": "hall-6c35e33ed1f49673",
+   "store_name": "ＭＱ（三益球殿） 大井松田店",
+   "attempts": [
+    {
+     "line_source_key": "@vfo2345v",
+     "url": "https://line.me/R/ti/p/%40vfo2345v",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-6c35e33ed1f49673_profile_0.xml",
+     "profile_name": "三益球殿 大井松田店",
+     "profile_pworld_path": null,
+     "identity": null,
+     "result": "identity_unverified"
+    }
+   ],
+   "result": "not_onboarded"
+  },
+  {
+   "hall_id": "hall-8a1f97c6ecce3448",
+   "store_name": "ＨＹＤＲＡ",
+   "attempts": [
+    {
+     "line_source_key": "@qyk6946v",
+     "url": "https://line.me/R/ti/p/%40qyk6946v",
+     "first_screen": "profile",
+     "profile_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-8a1f97c6ecce3448_profile_0.xml",
+     "profile_name": "HYDRA",
+     "profile_pworld_path": "kanagawa/hydra.htm",
+     "identity": "verified_pworld_url",
+     "friend_added": true,
+     "chat_header": "HYDRA",
+     "screenshot": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-8a1f97c6ecce3448.jpg",
+     "ui_xml": "data/surveys/line_onboarding_batch11_2026-10-17_evidence/hall-8a1f97c6ecce3448.xml",
+     "rich_menu_node": true,
+     "bottom_bar": true,
+     "result": "onboarded"
+    }
+   ],
+   "result": "onboarded",
+   "line_source_key": "@qyk6946v",
+   "identity_status": "verified_pworld_url",
+   "friend_added": true,
+   "onboarded_at": "2026-10-17T07:12:17.526117+00:00"
+  }
+ ]
+}
