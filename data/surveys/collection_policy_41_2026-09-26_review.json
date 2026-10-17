@@ -334,14 +334,23 @@
    ]
   },
   "p-ru-shoppu-tomo-e-fuchinobe-ten": {
-   "menu_review_status": "menu_not_displayed",
-   "menu_visual_review_required": true,
+   "menu_review_status": "reviewed_no_latest_label",
+   "menu_visual_review_required": false,
    "latest_action_label": null,
    "evidence_refs": [
     "data/surveys/collection_policy_41_2026-09-26_evidence/p-ru-shoppu-tomo-e-fuchinobe-ten_snap.jpg",
-    "data/surveys/collection_policy_41_2026-09-26_evidence/p-ru-shoppu-tomo-e-fuchinobe-ten_snap_2.xml"
+    "data/surveys/collection_policy_41_2026-09-26_evidence/p-ru-shoppu-tomo-e-fuchinobe-ten_snap_2.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/p-ru-shoppu-tomo-e-fuchinobe-ten_snap.jpg",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/p-ru-shoppu-tomo-e-fuchinobe-ten_snap_1.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/p-ru-shoppu-tomo-e-fuchinobe-ten_snap_2.xml"
    ],
-   "notes": "2026-09-26 chat showed the composer without a rich-menu toggle while the 2026-09-25 survey recorded present; conflicting, not treated as absent."
+   "notes": "2026-10-18再撮影でメニューありを確認。「最新情報はこちら PUSH P-WORLD」は外部P-WORLDへの案内で、LINE返信を取るボタンではない。押下せず、受動取得を継続。",
+   "rich_menu_status": "present",
+   "visible_menu_labels": [
+    "入場方法",
+    "最新情報はこちら PUSH P-WORLD",
+    "フロアマップ"
+   ]
   },
   "kurie-j-nichi-shij-ten": {
    "menu_review_status": "absent_confirmed",
@@ -497,9 +506,12 @@
     "data/surveys/collection_policy_41_2026-09-26_evidence/actions/kik-na-isezaki-ten_pre_action.jpg",
     "data/surveys/collection_policy_41_2026-09-26_evidence/actions/kik-na-isezaki-ten_post_action.jpg",
     "data/surveys/collection_policy_41_2026-09-26_evidence/actions/kik-na-isezaki-ten_post_action.xml",
-    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/action_results.jsonl#kik-na-isezaki-ten"
+    "data/surveys/collection_policy_41_2026-09-26_evidence/actions/action_results.jsonl#kik-na-isezaki-ten",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/kik-na-isezaki-ten_snap.jpg",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/kik-na-isezaki-ten_snap_1.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/kik-na-isezaki-ten_snap_2.xml"
    ],
-   "notes": "No visible reply or navigation within 12 seconds of the single tap."
+   "notes": "No visible reply or navigation within 12 seconds of the single tap. 2026-10-18 00:40 JSTに押下なしで再撮影。以前の最新情報ボタン押下への返信や遷移は確認できず、方式未確定を維持。"
   },
   "nakayama-uno": {
    "menu_review_status": "latest_label_observed",

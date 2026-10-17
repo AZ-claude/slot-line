@@ -285,9 +285,12 @@
     "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/hall-04cdbadc9a018193_post_action.jpg",
     "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/hall-04cdbadc9a018193_post_action.xml",
     "data/surveys/line_onboarding_batch08_2026-10-10_evidence/actions/action_results.jsonl#hall-04cdbadc9a018193",
-    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/reply_recheck/hall-04cdbadc9a018193_snap.jpg"
+    "data/surveys/line_onboarding_batch08_2026-10-10_evidence/reply_recheck/hall-04cdbadc9a018193_snap.jpg",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-04cdbadc9a018193_snap.jpg",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-04cdbadc9a018193_snap_1.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-04cdbadc9a018193_snap_2.xml"
    ],
-   "notes": "Tapped the 取材 banner once. The tile sent the text 「サンスポ取材10.10全店合同取材」 but no store reply appeared within two minutes (re-check capture). A later re-check may show a reply."
+   "notes": "Tapped the 取材 banner once. The tile sent the text 「サンスポ取材10.10全店合同取材」 but no store reply appeared within two minutes (re-check capture). A later re-check may show a reply. 2026-10-18 00:40 JSTに押下なしで再撮影。取材ボタン押下に対する遅延返信は確認できず、方式未確定を維持。"
   }
  }
 }

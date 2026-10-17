@@ -834,7 +834,7 @@
    "hall_id": "hall-cf54355e47af72ab",
    "line_source_key": "@wfc4665b",
    "search_name": "バンバンポラリス",
-   "collection_type": "unresolved",
+   "collection_type": "type_a_passive",
    "text_trigger": "off",
    "trigger_text": null,
    "policy_file": "collection_policy_batch02_2026-09-27.json"
@@ -1635,9 +1635,9 @@
    "hall_id": "hall-71b2fffc46d836fc",
    "line_source_key": "@903ndacx",
    "search_name": "BIGパンドラ井土ヶ谷店本館",
-   "collection_type": "unresolved",
-   "text_trigger": "off",
-   "trigger_text": null,
+   "collection_type": "type_b_passive_plus_active",
+   "text_trigger": "verify_once",
+   "trigger_text": "最新情報",
    "policy_file": "collection_policy_batch07_2026-10-09.json"
   },
   {

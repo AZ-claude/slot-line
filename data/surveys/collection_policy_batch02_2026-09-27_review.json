@@ -308,18 +308,39 @@
    "latest_action_label": null
   },
   "maruhan-odawara-ten": {
-   "rich_menu_status": "not_observed",
-   "menu_review_status": "menu_not_displayed",
-   "menu_visual_review_required": true,
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "menu_visual_review_required": false,
    "latest_action_label": null,
-   "notes": "No rich menu in the onboarding capture; single capture only, not enough for absent_confirmed."
+   "notes": "2026-10-18再撮影で折りたたまれたメニューを確認し、開閉バーだけを開いて内容を目視。最新情報取得ボタンは見当たらず、受動取得を継続。",
+   "visible_menu_labels": [
+    "店長公式X",
+    "アクセス",
+    "フロアマップ",
+    "マルハンアプリ",
+    "DMMぱちタウン"
+   ],
+   "evidence_refs": [
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/maruhan-odawara-ten_snap.jpg",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/maruhan-odawara-ten_snap_1.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/maruhan-odawara-ten_snap_2.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/maruhan-odawara-ten_menu_expanded.jpg",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/maruhan-odawara-ten_menu_expanded.xml"
+   ]
   },
   "hall-cf54355e47af72ab": {
-   "rich_menu_status": "not_observed",
-   "menu_review_status": "menu_not_displayed",
-   "menu_visual_review_required": true,
+   "rich_menu_status": "absent_confirmed",
+   "menu_review_status": "absent_confirmed",
+   "menu_visual_review_required": false,
    "latest_action_label": null,
-   "notes": "No rich menu in the onboarding capture; single capture only, not enough for absent_confirmed."
+   "notes": "2026-09-28登録時と2026-10-18の2回のUIダンプでメニューなし、入力欄ありを確認。受信メッセージのみを取得する。",
+   "evidence_refs": [
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-cf54355e47af72ab.jpg",
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-cf54355e47af72ab.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-cf54355e47af72ab_snap.jpg",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-cf54355e47af72ab_snap_1.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-cf54355e47af72ab_snap_2.xml"
+   ]
   },
   "hall-53654a43dbfae2a3": {
    "rich_menu_status": "present",

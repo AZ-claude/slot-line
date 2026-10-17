@@ -124,7 +124,10 @@
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/sukuramburu-taya-ten_pre_action.xml",
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/actions/action_results.jsonl#sukuramburu-taya-ten",
     "data/surveys/line_onboarding_batch03_2026-09-29_evidence/reply_recheck/sukuramburu-taya-ten_snap.jpg",
-    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/reply_recheck/sukuramburu-taya-ten_snap_2.xml"
+    "data/surveys/line_onboarding_batch03_2026-09-29_evidence/reply_recheck/sukuramburu-taya-ten_snap_2.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/sukuramburu-taya-ten_snap.jpg",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/sukuramburu-taya-ten_snap_1.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/sukuramburu-taya-ten_snap_2.xml"
    ],
    "confidence": "low",
    "verification_status": "action_executed_result_unconfirmed",
@@ -133,7 +136,7 @@
     "active_trigger": false,
     "external_url_role": null
    },
-   "notes": "Single tap at ~15:56 JST (guards passed; the post-tap capture timed out). A re-snapshot at 16:07 without tapping shows no new store message (latest 20:00 the previous day); an external page may have opened and been closed. Not re-tapped."
+   "notes": "Single tap at ~15:56 JST (guards passed; the post-tap capture timed out). A re-snapshot at 16:07 without tapping shows no new store message (latest 20:00 the previous day); an external page may have opened and been closed. Not re-tapped. 2026-10-18 00:41 JSTに押下なしで再撮影。通常配信は見えるが、以前の最新情報ボタンの結果は特定できず、方式未確定を維持。"
   },
   {
    "hall_id": "maruhan-kawasaki-sakura-honten",

@@ -13,9 +13,9 @@
  },
  "counts": {
   "type_a_passive": 1,
-  "type_b_passive_plus_active": 3,
+  "type_b_passive_plus_active": 4,
   "type_c_passive_external_web": 4,
-  "unresolved": 7
+  "unresolved": 6
  },
  "store_count": 15,
  "stores": [
@@ -441,27 +441,33 @@
    "canonical_hall_id": "hall-71b2fffc46d836fc",
    "line_source_key": "@903ndacx",
    "store_name": "ビッグパンドラ 井土ヶ谷店 本館",
-   "rich_menu_status": "not_observed",
+   "rich_menu_status": "present",
    "menu_visual_review_required": false,
-   "latest_action_label": null,
-   "action_result": "unknown",
-   "collection_type": "unresolved",
-   "active_method": "unknown",
+   "latest_action_label": "最新情報",
+   "action_result": "line_reply",
+   "collection_type": "type_b_passive_plus_active",
+   "active_method": "rich_menu",
    "trigger_text": null,
    "text_trigger_verified": false,
    "external_url": null,
    "evidence_refs": [
     "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-71b2fffc46d836fc.jpg",
-    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-71b2fffc46d836fc.xml"
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-71b2fffc46d836fc.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-71b2fffc46d836fc_snap.jpg",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-71b2fffc46d836fc_snap_1.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-71b2fffc46d836fc_snap_2.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/actions/hall-71b2fffc46d836fc_post_action.jpg",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/actions/hall-71b2fffc46d836fc_post_action.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/actions/action_results.jsonl#hall-71b2fffc46d836fc"
    ],
-   "confidence": "low",
-   "verification_status": "insufficient_evidence",
+   "confidence": "high",
+   "verification_status": "active_action_verified",
    "daily_policy": {
     "passive_scan": true,
-    "active_trigger": false,
+    "active_trigger": true,
     "external_url_role": null
    },
-   "notes": "Owner-confirmed as BIGパンドラ井土ヶ谷店本館 (2026-10-09). The onboarding capture shows only the welcome message and the composer, no rich menu; the extra re-check capture could not open the chat (talk-list lookup failed), so absence is not confirmed."
+   "notes": "2026-10-18 00:34 JSTに最新情報ボタンを1回押したところ「最新情報」が送出され、店舗から「次回更新をお待ちください🔥」と返信。LINE返信経路は確認したが、この時刻に最新情報そのものは届かなかった。"
   }
  ]
 }

@@ -363,14 +363,35 @@
    "notes": "Opened the store site hinomaru-web.net/shinjo (shared by ヒノマル新城店 and ヒノマル新城駅前店). The menu also has a 「グループ特別取材」 tile that was not tapped."
   },
   "hall-71b2fffc46d836fc": {
-   "rich_menu_status": "not_observed",
-   "menu_review_status": "not_observed",
-   "latest_action_label": null,
+   "rich_menu_status": "present",
+   "menu_review_status": "latest_label_observed",
+   "latest_action_label": "最新情報",
    "evidence_refs": [
     "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-71b2fffc46d836fc.jpg",
-    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-71b2fffc46d836fc.xml"
+    "data/surveys/line_onboarding_batch07_2026-10-09_evidence/hall-71b2fffc46d836fc.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-71b2fffc46d836fc_snap.jpg",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-71b2fffc46d836fc_snap_1.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-71b2fffc46d836fc_snap_2.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/actions/hall-71b2fffc46d836fc_post_action.jpg",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/actions/hall-71b2fffc46d836fc_post_action.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/actions/action_results.jsonl#hall-71b2fffc46d836fc"
    ],
-   "notes": "Owner-confirmed as BIGパンドラ井土ヶ谷店本館 (2026-10-09). The onboarding capture shows only the welcome message and the composer, no rich menu; the extra re-check capture could not open the chat (talk-list lookup failed), so absence is not confirmed."
+   "notes": "2026-10-18 00:34 JSTに最新情報ボタンを1回押したところ「最新情報」が送出され、店舗から「次回更新をお待ちください🔥」と返信。LINE返信経路は確認したが、この時刻に最新情報そのものは届かなかった。",
+   "menu_visual_review_required": false,
+   "visible_menu_labels": [
+    "店舗情報",
+    "公式X",
+    "最新情報"
+   ],
+   "action_mapping": {
+    "executed": true,
+    "executed_at": "2026-10-17T15:34:43.453554+00:00",
+    "visible_action_label": "最新情報",
+    "action_result": "line_reply",
+    "content_observed": true,
+    "external_url": null,
+    "rich_menu_emitted_text_observed": true
+   }
   }
  }
 }

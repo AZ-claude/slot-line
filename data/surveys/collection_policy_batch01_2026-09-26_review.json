@@ -280,9 +280,12 @@
     "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-8c575c49425feb75_pre_action.jpg",
     "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-8c575c49425feb75_post_action.jpg",
     "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/hall-8c575c49425feb75_post_action.xml",
-    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/action_results.jsonl#hall-8c575c49425feb75"
+    "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/action_results.jsonl#hall-8c575c49425feb75",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-8c575c49425feb75_snap.jpg",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-8c575c49425feb75_snap_1.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-8c575c49425feb75_snap_2.xml"
    ],
-   "notes": "No visible reply or navigation within 12 seconds of the single tap."
+   "notes": "No visible reply or navigation within 12 seconds of the single tap. 2026-10-18 00:41 JSTに押下なしで再撮影。特設HPボタン押下への返信や遷移は確認できず、方式未確定を維持。"
   },
   "skip-ayase-ten": {
    "rich_menu_status": "present",
@@ -381,6 +384,24 @@
     "data/surveys/line_onboarding_batch01_2026-09-26_evidence/actions/action_results.jsonl#hall-01bc494aca56f763"
    ],
    "notes": "Onboarded after owner confirmation of profile name ピーズタウン桜ヶ丘. 'NEW お知らせ' opened the P-WORLD hall page."
+  },
+  "doki-waku-rando-kitayamata-ten": {
+   "rich_menu_status": "present",
+   "menu_review_status": "reviewed_no_latest_label",
+   "menu_visual_review_required": false,
+   "visible_menu_labels": [
+    "新台入替 10月19日",
+    "フロアマップ",
+    "台データ公開",
+    "店舗X"
+   ],
+   "latest_action_label": null,
+   "evidence_refs": [
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/doki-waku-rando-kitayamata-ten_snap.jpg",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/doki-waku-rando-kitayamata-ten_snap_1.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/doki-waku-rando-kitayamata-ten_snap_2.xml"
+   ],
+   "notes": "2026-10-18再撮影でリッチメニュー表示を確認。新台入替告知、フロアマップ、台データ、店舗Xのみ。明確な最新情報取得ボタンはないため受動取得を継続。"
   }
  },
  "owner_decisions": {

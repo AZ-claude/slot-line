@@ -12,10 +12,10 @@
   "unresolved": "passive scan only until evidence is sufficient"
  },
  "counts": {
-  "type_a_passive": 0,
+  "type_a_passive": 1,
   "type_b_passive_plus_active": 6,
   "type_c_passive_external_web": 6,
-  "unresolved": 14
+  "unresolved": 13
  },
  "store_count": 26,
  "stores": [
@@ -206,8 +206,8 @@
    "canonical_hall_id": "maruhan-odawara-ten",
    "line_source_key": "@m0465439344",
    "store_name": "マルハン小田原店",
-   "rich_menu_status": "not_observed",
-   "menu_visual_review_required": true,
+   "rich_menu_status": "present",
+   "menu_visual_review_required": false,
    "latest_action_label": null,
    "action_result": "unknown",
    "collection_type": "unresolved",
@@ -217,16 +217,21 @@
    "external_url": null,
    "evidence_refs": [
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/maruhan-odawara-ten.jpg",
-    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/maruhan-odawara-ten.xml"
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/maruhan-odawara-ten.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/maruhan-odawara-ten_snap.jpg",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/maruhan-odawara-ten_snap_1.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/maruhan-odawara-ten_snap_2.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/maruhan-odawara-ten_menu_expanded.jpg",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/maruhan-odawara-ten_menu_expanded.xml"
    ],
    "confidence": "low",
-   "verification_status": "menu_visual_review_required",
+   "verification_status": "menu_reviewed_no_latest_label",
    "daily_policy": {
     "passive_scan": true,
     "active_trigger": false,
     "external_url_role": null
    },
-   "notes": "No rich menu in the onboarding capture; single capture only, not enough for absent_confirmed."
+   "notes": "2026-10-18再撮影で折りたたまれたメニューを確認し、開閉バーだけを開いて内容を目視。最新情報取得ボタンは見当たらず、受動取得を継続。"
   },
   {
    "hall_id": "tow-zu-asamizodai-ten",
@@ -540,27 +545,30 @@
    "canonical_hall_id": "hall-cf54355e47af72ab",
    "line_source_key": "@wfc4665b",
    "store_name": "バンバンポラリス",
-   "rich_menu_status": "not_observed",
-   "menu_visual_review_required": true,
+   "rich_menu_status": "absent_confirmed",
+   "menu_visual_review_required": false,
    "latest_action_label": null,
-   "action_result": "unknown",
-   "collection_type": "unresolved",
-   "active_method": "unknown",
+   "action_result": "not_applicable",
+   "collection_type": "type_a_passive",
+   "active_method": "none",
    "trigger_text": null,
    "text_trigger_verified": false,
    "external_url": null,
    "evidence_refs": [
     "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-cf54355e47af72ab.jpg",
-    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-cf54355e47af72ab.xml"
+    "data/surveys/line_onboarding_batch02_2026-09-27_evidence/hall-cf54355e47af72ab.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-cf54355e47af72ab_snap.jpg",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-cf54355e47af72ab_snap_1.xml",
+    "data/surveys/line_unresolved_recheck_2026-10-18_evidence/hall-cf54355e47af72ab_snap_2.xml"
    ],
-   "confidence": "low",
-   "verification_status": "menu_visual_review_required",
+   "confidence": "medium",
+   "verification_status": "rich_menu_absent_confirmed",
    "daily_policy": {
     "passive_scan": true,
     "active_trigger": false,
     "external_url_role": null
    },
-   "notes": "No rich menu in the onboarding capture; single capture only, not enough for absent_confirmed."
+   "notes": "2026-09-28登録時と2026-10-18の2回のUIダンプでメニューなし、入力欄ありを確認。受信メッセージのみを取得する。"
   },
   {
    "hall_id": "hall-53654a43dbfae2a3",
